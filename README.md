@@ -1,2 +1,2 @@
-# ai-with-php-book-examples
- Examples for PHP AI Learning Book
+# Examples for AI with PHP Learning Book:
+ https://apphp.gitbook.io/artificial-intelligence-with-php/

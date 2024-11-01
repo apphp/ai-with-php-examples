@@ -1,0 +1,33 @@
+networks:
+  ai-php-network:
+    driver: bridge
+
+services:
+  # -------------------------------------------------------
+  # APPLICATION
+  # -------------------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    volumes:
+      - .:/var/www
+    ports:
+      - "9000:9000"
+    networks:
+      - ai-php-network
+
+  # -------------------------------------------------------
+  # NGINX
+  # -------------------------------------------------------
+  web:
+    image: nginx:latest
+    ports:
+      - "8088:80"
+    volumes:
+      - .:/var/www
+      - ./docker/web/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - ai-php-network

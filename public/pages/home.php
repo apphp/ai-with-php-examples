@@ -3,8 +3,11 @@
 </div>
 
 <div>
-    Thsis is an examples for AI with PHP book.<br>
-    Official site: <a href="https://apphp.gitbook.io/artificial-intelligence-with-php/" target="_blank" rel="nofollow noopener">Artificial Intelligence with PHP</a>
+    Thsis is an examples for AI with PHP book.
     <br><br>
-    <p>All examples of code written in PHP8.3</p>
+    Official site: <a href="https://apphp.gitbook.io/artificial-intelligence-with-php/" target="_blank" rel="nofollow noopener">Artificial Intelligence with PHP</a>
+    <br>
+    Official repository: <a href="https://github.com/apphp/ai-with-php-examples" target="_blank" rel="nofollow noopener">GitHub Repository</a>
+    <br><br>
+    <p>All code examples are written in PHP8.3</p>
 </div>

@@ -102,6 +102,12 @@ body {
 code pre {
   background-color: #f8f9fa;
   padding: 10px;
+  border-radius:.2rem;
+}
+.code-result pre {
+  background-color: rgb(40, 42, 54);
+  color: rgb(248, 248, 242);
+  border-radius:.2rem;
 }
 
 .bd-clipboard {
@@ -111,7 +117,7 @@ code pre {
 .btn-clipboard {
   position: absolute;
   top: .65rem;
-  right: 0.9rem;
+  right: 0.95rem;
   z-index: 10;
   display: block;
   padding: .25rem .5rem;
@@ -125,6 +131,4 @@ code pre {
   color: #fff;
   background-color: #0d6efd;
 }
-#code-result pre {
-  color: #000000;
-}
+

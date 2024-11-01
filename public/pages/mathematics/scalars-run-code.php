@@ -30,7 +30,7 @@
         </button>
         &nbsp;
     </div>
-    <code id="code-result">
+    <code id="code" class="code-result">
         <pre>
 <?php
 
@@ -77,8 +77,6 @@
         // Bitwise Operations
         echo "Bitwise Operations:\n---------\n";
         print_r(Scalar::bitwiseOperations($a, $b));
-        echo "\n";
-
         ?>
         </pre>
     </code>

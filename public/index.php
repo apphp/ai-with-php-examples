@@ -1,5 +1,6 @@
 <?php
     $section = !empty($_GET['section']) ? $_GET['section'] : '';
+    $subSection = !empty($_GET['subsection']) ? $_GET['subsection'] : '';
     $page = $_GET['page'] ?? 'home';
 ?>
 <!doctype html>
@@ -72,9 +73,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?section=mathematics&page=scalars">
+                        <a class="nav-link" href="index.php?section=mathematics&subsection=scalars&page=index">
                             <span data-feather="file-text"></span>
                             <small>Scalars</small>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?section=mathematics&subsection=vectors&page=index">
+                            <span data-feather="file-text"></span>
+                            <small>Vectors</small>
                         </a>
                     </li>
                 </ul>
@@ -84,7 +91,7 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-3">
             <?php include('breadcrumbs.php'); ?>
 
-            <?php include('pages/'.($section ? $section . '/' : '').$page.'.php'); ?>
+            <?php include('pages/'.($section ? $section . '/' : '').($subSection ? $subSection . '/' : '').$page.'.php'); ?>
         </main>
     </div>
 </div>

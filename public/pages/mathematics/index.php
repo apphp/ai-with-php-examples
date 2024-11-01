@@ -5,7 +5,7 @@
 <div>
 <!--    <h2 class="h4">Mathematics for ML</h2>-->
     <p>
-        In this section you may find examples of code, related to Mathematics for ML
+        In this section you may find examples of code, related to Mathematics for ML.
     </p>
 </div>
 

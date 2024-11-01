@@ -1,4 +1,6 @@
 <?php
+    include('include/functions.php');
+
     $section = !empty($_GET['section']) ? $_GET['section'] : '';
     $subSection = !empty($_GET['subsection']) ? $_GET['subsection'] : '';
     $page = $_GET['page'] ?? 'home';
@@ -45,51 +47,10 @@
 
 <div class="container-fluid">
     <div class="row">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div class="position-sticky pt-3">
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Introduction</span>
-                </h6>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?page=home">
-                            <span data-feather="file-text"></span>
-                            <small>Getting Started</small>
-                        </a>
-                    </li>
-                </ul>
-
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Mathematics for ML</span>
-                    <a class="link-secondary" href="#" aria-label="Add a new report">
-<!--                        <span data-feather="plus-circle"></span>-->
-                    </a>
-                </h6>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?section=mathematics&page=index">
-                            <span data-feather="file-text"></span>
-                            <small>Index</small>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?section=mathematics&subsection=scalars&page=index">
-                            <span data-feather="file-text"></span>
-                            <small>Scalars</small>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?section=mathematics&subsection=vectors&page=index">
-                            <span data-feather="file-text"></span>
-                            <small>Vectors</small>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <?php include('include/navbar.php'); ?>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-3">
-            <?php include('breadcrumbs.php'); ?>
+            <?php include('include/breadcrumbs.php'); ?>
 
             <?php include('pages/'.($section ? $section . '/' : '').($subSection ? $subSection . '/' : '').$page.'.php'); ?>
         </main>

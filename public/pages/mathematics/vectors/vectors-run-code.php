@@ -1,5 +1,45 @@
 <?php
     include_once('vectors-code.php');
+
+$microtimeStart = microtime(true);
+ob_start();
+//////////////////////////////
+
+
+// Example usage
+$v1 = new Vector([2, 3]);
+$v2 = new Vector([1, -1]);
+
+// Addition and Subtraction (from previous example)
+$sum = $v1->add($v2);
+echo "Addition: $v1 + $v2 = $sum\n";
+
+$difference = $v1->subtract($v2);
+echo "Subtraction: $v1 - $v2 = $difference\n";
+
+// Scalar Multiplication
+$scalar = 3;
+$v3 = new Vector([2, -1]);
+$scalarProduct = $v3->scalarMultiply($scalar);
+echo "Scalar Multiplication: $scalar * $v3 = $scalarProduct\n";
+
+// Dot Product
+$v4 = new Vector([1, 2]);
+$v5 = new Vector([3, 4]);
+$dotProduct = $v4->dotProduct($v5);
+echo "Dot Product: $v4 · $v5 = $dotProduct\n";
+
+// Cross Product
+$v6 = new Vector([1, 0, 0]);
+$v7 = new Vector([0, 1, 0]);
+$crossProduct = $v6->crossProduct($v7);
+echo "Cross Product: $v6 × $v7 = $crossProduct";
+
+
+//////////////////////////////
+$result = ob_get_clean();
+$microtimeEnd = microtime(true);
+
 ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -23,7 +63,7 @@
 
 <div>
     Result:
-
+    <span class="float-end">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
     <div class="bd-clipboard">
         <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
             Copy
@@ -31,37 +71,6 @@
         &nbsp;
     </div>
     <code id="code" class="code-result">
-        <pre>
-<?php
-    // Example usage
-    $v1 = new Vector([2, 3]);
-    $v2 = new Vector([1, -1]);
-
-    // Addition and Subtraction (from previous example)
-    $sum = $v1->add($v2);
-    echo "Addition: $v1 + $v2 = $sum\n";
-
-    $difference = $v1->subtract($v2);
-    echo "Subtraction: $v1 - $v2 = $difference\n";
-
-    // Scalar Multiplication
-    $scalar = 3;
-    $v3 = new Vector([2, -1]);
-    $scalarProduct = $v3->scalarMultiply($scalar);
-    echo "Scalar Multiplication: $scalar * $v3 = $scalarProduct\n";
-
-    // Dot Product
-    $v4 = new Vector([1, 2]);
-    $v5 = new Vector([3, 4]);
-    $dotProduct = $v4->dotProduct($v5);
-    echo "Dot Product: $v4 · $v5 = $dotProduct\n";
-
-    // Cross Product
-    $v6 = new Vector([1, 0, 0]);
-    $v7 = new Vector([0, 1, 0]);
-    $crossProduct = $v6->crossProduct($v7);
-    echo "Cross Product: $v6 × $v7 = $crossProduct";
-?>
-        </pre>
+        <pre><?= $result; ?></pre>
     </code>
 </div>

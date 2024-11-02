@@ -59,7 +59,7 @@ $microtimeEnd = microtime(true);
     <h1 class="h2">Scalars</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a href="index.php?section=mathematics&subsection=scalars&page=index" class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?=create_href('mathematics', 'scalars', 'index')?>"  class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>

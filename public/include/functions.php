@@ -19,6 +19,10 @@ function create_link(string $section, string $subsection, string $page, string $
     return $output;
 }
 
+function create_href(string $section, string $subsection, string $page): string {
+    return 'index.php?section=' . $section . '&subsection=' . $subsection . '&page=' . $page;
+}
+
 // Function to validate the GET parameters against the $menu array
 function is_valid_page(array $menu, $section, $subSection, $page): bool {
     if(!is_string($section) || !is_string($subSection) || !is_string($page)){

@@ -9,6 +9,7 @@
         This technique involves processing data in smaller, manageable pieces.
     </p>
     <p><a href="<?=create_href('data-fundamentals', 'big-data-considerations', 'chunked-processing')?>">Chunked Processing</a></p>
+    <p><a href="<?=create_href('data-fundamentals', 'big-data-considerations', 'dataset-generator')?>">Dataset Generator</a></p>
 </div>
 
 <div>

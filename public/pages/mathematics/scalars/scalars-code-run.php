@@ -5,50 +5,7 @@ $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 
-// Examples
-$a = 5;
-$b = 2;
-$vector = [1, 2, 3];
-$angle = M_PI / 4;
-
-// Arithmetic Operations
-echo "Arithmetic Operations:\n---------\n";
-print_r(Scalar::arithmeticOperations($a, $b));
-echo "\n";
-
-// Scalar-Vector Operations
-echo "Scalar-Vector Multiplication:\n---------\n";
-print_r(Scalar::scalarVectorMultiplication(2, $vector));
-echo "\n";
-
-echo "Scalar-Vector Addition:\n---------\n";
-print_r(Scalar::scalarVectorAddition(2, $vector));
-echo "\n";
-
-// Scalar Functions
-echo "Scalar Functions:\n---------\n";
-print_r(Scalar::scalarFunctions(-3.7));
-echo "\n";
-
-// Trigonometric Operations
-echo "Trigonometric Operations:\n---------\n";
-print_r(Scalar::trigonometricOperations($angle));
-echo "\n";
-
-// Random Number Generation
-echo "Random Number Generation:\n---------\n";
-print_r(Scalar::randomNumbers());
-echo "\n";
-
-// Comparison Operations
-echo "Comparison Operations:\n---------\n";
-print_r(Scalar::comparisonOperations($a, $b));
-echo "\n";
-
-// Bitwise Operations
-echo "Bitwise Operations:\n---------\n";
-print_r(Scalar::bitwiseOperations($a, $b));
-
+include('scalars-code-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -75,14 +32,20 @@ $microtimeEnd = microtime(true);
 </div>
 
 <div>
-    Result:
-    <span class="float-end">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
+    Example of use:
     <div class="bd-clipboard">
         <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
             Copy
         </button>
         &nbsp;
     </div>
+    <code id="code">
+        <?= highlight_file(dirname(__FILE__) . '/scalars-code-usage.php', true); ?>
+    </code>
+</div>
+<div>
+    Result:
+    <span class="float-end">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
     <code id="code" class="code-result">
         <pre><?= $result; ?></pre>
     </code>

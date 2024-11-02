@@ -2,7 +2,7 @@
     <h1 class="h2">Vectors</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a href="<?=create_href('mathematics', 'vectors', 'vectors-run-code')?>" class="btn btn-sm btn-outline-primary">Run Code</a>
+            <a href="<?=create_href('mathematics', 'vectors', 'vectors-code-run')?>" class="btn btn-sm btn-outline-primary">Run Code</a>
         </div>
     </div>
 </div>

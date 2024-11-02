@@ -105,7 +105,7 @@ class ChunkedProcessor {
     }
 }
 
-// Example of usage
+// Example of use
 class LogHandler {
     public function info($message) {
         echo "\nINFO: $message";

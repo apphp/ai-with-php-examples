@@ -32,19 +32,19 @@ $microtimeEnd = microtime(true);
 
 <div>
     Example of use:
-    <code id="code-example">
-        <?= highlight_file(dirname(__FILE__) . '/chunked-processing-code-usage.php', true); ?>
-    </code>
-</div>
-<div>
-    Result:
-    <span class="float-end">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
     <div class="bd-clipboard">
         <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
             Copy
         </button>
         &nbsp;
     </div>
+    <code id="code">
+        <?= highlight_file(dirname(__FILE__) . '/chunked-processing-code-usage.php', true); ?>
+    </code>
+</div>
+<div>
+    Result:
+    <span class="float-end">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
     <code id="code" class="code-result">
         <pre><?= $result; ?></pre>
     </code>

@@ -4,3 +4,7 @@
 {"id": 4, "name": "Bob Brown", "email": "bob.brown@example.com", "status": "pending"}
 {"id": 5, "name": "Charlie White", "email": "charlie.white@example.com", "status": "active"}
 {"id": 6, "name": "Diana Green", "email": "diana.green@example.com", "status": "suspended"}
+{"id": 7, "name": "Emily Black", "email": "emily.black@example.com", "status": "active"}
+{"id": 8, "name": "Frank Harris", "email": "frank.harris@example.com", "status": "inactive"}
+{"id": 9, "name": "Grace Lee", "email": "grace.lee@example.com", "status": "pending"}
+{"id": 10, "name": "Henry Walker", "email": "henry.walker@example.com", "status": "suspended"}

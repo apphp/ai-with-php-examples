@@ -2,7 +2,7 @@
     <h1 class="h2">Scalars</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a href="<?=create_href('mathematics', 'scalars', 'scalars-code-run')?>" class="btn btn-sm btn-outline-primary">Run Code</a>
+            <a href="<?=create_href('mathematics', 'scalars', 'scalars-code-run')?>" class="btn btn-sm btn-outline-primary">&#9654; Run Code</a>
         </div>
     </div>
 </div>
@@ -15,6 +15,7 @@
         algorithms. It provides a robust set of methods for performing vectors calculations, making it a valuable tool for developers working on AI
         projects in PHP.
     </p>
+    <p>Example of Class Scalar:</p>
 </div>
 
 <div>

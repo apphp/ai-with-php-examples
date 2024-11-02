@@ -2,7 +2,7 @@
     <h1 class="h2">Big Data Techniques in PHP</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a href="<?=create_href('data-fundamentals', 'big-data-considerations', 'dataset-generator-code-run')?>" class="btn btn-sm btn-outline-primary">Run Code</a>
+            <a href="<?=create_href('data-fundamentals', 'big-data-considerations', 'dataset-generator-code-run')?>" class="btn btn-sm btn-outline-primary">&#9654; Run Code</a>
         </div>
     </div>
 </div>
@@ -12,6 +12,10 @@
     <p>
         Generators provide a memory-efficient way to iterate over large datasets by yielding values one at a time.
     </p>
+    <p>Example of Class DatasetGenerator:</p>
+</div>
+
+<div>
     <div class="bd-clipboard">
         <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
             Copy

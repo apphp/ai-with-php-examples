@@ -31,7 +31,7 @@ $microtimeEnd = microtime(true);
 </div>
 
 <div>
-    Example of usage:
+    Example of use:
     <code id="code-example">
         <?= highlight_file(dirname(__FILE__) . '/chunked-processing-code-usage.php', true); ?>
     </code>

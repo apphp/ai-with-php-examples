@@ -7,14 +7,37 @@ function running_time(float $microtimeEnd, float $microtimeStart): string {
 
 function create_link(string $section, string $subsection, string $page, string $link, array $pages, string $urlSection, string $urlSubSection, string $urlPage): string {
     $active = '';
-    if($urlSection === $section && $urlSubSection === $subsection && in_array($urlPage, $pages)) {
+    if ($urlSection === $section && $urlSubSection === $subsection && in_array($urlPage, $pages)) {
         $active = ' active';
     }
 
-    $output = '<a class="nav-link'.$active.'" href="index.php?section='.$section.'&subsection='.$subsection.'&page='.$page.'">';
-    $output .= '<span data-feather="file-text"></span>';
-    $output .= '<small>'.$link.'</small>';
+    $output = '<a class="nav-link' . $active . '" href="index.php?section=' . $section . '&subsection=' . $subsection . '&page=' . $page . '">';
+    $output .= '<span data-feather="file-text">&bull; </span>';
+    $output .= '<small>' . $link . '</small>';
     $output .= '</a>';
 
     return $output;
+}
+
+// Function to validate the GET parameters against the $menu array
+function is_valid_page(array $menu, $section, $subSection, $page): bool {
+    if(!is_string($section) || !is_string($subSection) || !is_string($page)){
+        return false;
+    }
+
+    foreach ($menu as $category => $items) {
+        foreach ($items as $item) {
+            if (isset($item['subMenu'])) {
+                foreach ($item['subMenu'] as $subItem) {
+                    if ($subItem['section'] === $section && $subItem['subSection'] === $subSection && in_array($page, $subItem['permissions'])) {
+                        return true;
+                    }
+                }
+            } elseif ($item['section'] === $section && $item['subSection'] === $subSection && in_array($page, $item['permissions'])) {
+                return true;
+            }
+        }
+    }
+
+    return false;
 }

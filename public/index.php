@@ -1,9 +1,20 @@
 <?php
     include('include/functions.php');
+    $menu = include_once('include/menu.php');
 
     $section = !empty($_GET['section']) ? $_GET['section'] : '';
     $subSection = !empty($_GET['subsection']) ? $_GET['subsection'] : '';
     $page = $_GET['page'] ?? 'home';
+
+    // Check if the current page is valid; if not, set default values
+    if (!is_valid_page($menu, $section, $subSection, $page)) {
+        $section = '';
+        $subSection = '';
+        $page = 'home';
+
+        header('location: index.php');
+        exit;
+    }
 ?>
 <!doctype html>
 <html lang="en">

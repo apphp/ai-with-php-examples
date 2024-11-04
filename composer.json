@@ -1,0 +1,9 @@
+{
+    "name": "apphp/ai-with-php-examples",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "rubix/tensor": "^3.0.5"
+    }
+}

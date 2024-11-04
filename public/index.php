@@ -1,4 +1,5 @@
 <?php
+    include('include/global.php');
     include('include/functions.php');
     $menu = include_once('include/menu.php');
 

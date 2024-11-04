@@ -13,6 +13,7 @@ $menu = [
                 ['section' => 'mathematics', 'subSection' => 'scalars', 'page' => 'index', 'title' => 'Scalars', 'permissions' => ['index', 'scalars-code-run']],
                 ['section' => 'mathematics', 'subSection' => 'vectors', 'page' => 'index', 'title' => 'Vectors', 'permissions' => ['index', 'vectors-code-run']],
                 ['section' => 'mathematics', 'subSection' => 'matrices', 'page' => 'index', 'title' => 'Matrices', 'permissions' => ['index', 'matrices-code-run']],
+                ['section' => 'mathematics', 'subSection' => 'tensors', 'page' => 'index', 'title' => 'Tensors', 'permissions' => ['index', 'creating-tensors', 'creating-tensors-code-run']],
             ],
         ],
         [

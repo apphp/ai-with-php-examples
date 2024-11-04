@@ -4,6 +4,13 @@
     "license": "MIT",
     "minimum-stability": "dev",
     "require": {
-        "rubix/tensor": "^3.0.5"
+        "php": "~8.3.0",
+        "php-ai/php-ml": "^0.10.0",
+        "rubix/ml": "^2.5.1",
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": ""
+        }
     }
 }

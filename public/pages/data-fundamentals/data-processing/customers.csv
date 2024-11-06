@@ -1,0 +1,6 @@
+age,income,spending_score,tag
+25,55000,45,yes
+32,?,75,yes
+40,72000,?,yes
+?,82000,60,yes
+28,63000,30,yes

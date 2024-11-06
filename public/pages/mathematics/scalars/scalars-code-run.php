@@ -32,7 +32,7 @@ $microtimeEnd = microtime(true);
 </div>
 
 <div>
-    Example of use:
+    <p>Example of use:</p>
     <div class="bd-clipboard">
         <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
             Copy

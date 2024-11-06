@@ -1,11 +1,11 @@
 <?php
-    include_once('vectors-code.php');
+//include_once('rubix-data-cleaning-handling-missing-code.php');
 
 $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 
-include('vectors-code-usage.php');
+include('rubix-data-cleaning-handling-missing-code.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -14,22 +14,30 @@ $microtimeEnd = microtime(true);
 ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Vectors</h1>
+    <h1 class="h2">Data Cleaning with PHP</h1>
+</div>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h2 class="h4">Handling Missing Values Rubix</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a href="<?=create_href('mathematics', 'vectors', 'index')?>"  class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?=create_href('data-fundamentals', 'data-processing', 'rubix-data-cleaning')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>
 
 <div>
-    <h2 class="h4">Vector Operations with PHP</h2>
     <p>
-        In PHP it can be written as a class Vector with implementation of a set of vector operations.
-        This class is a PHP implementation of vector operations commonly used in linear algebra and, by extension, in various AI and machine learning
-        algorithms. It provides a robust set of methods for performing vectors calculations, making it a valuable tool for developers working on AI
-        projects in PHP.
+        RubixML provides the MissingDataImputer for handling missing values. This imputer allows you to fill in missing values using strategies like
+        Mean, Median, or Constant.
     </p>
+</div>
+
+<div>
+    <p>Dataset</p>
+    <code id="code">
+        <?php highlight_file('customers.csv'); ?>
+    </code>
 </div>
 
 <div>
@@ -41,9 +49,10 @@ $microtimeEnd = microtime(true);
         &nbsp;
     </div>
     <code id="code">
-        <?= highlight_file(dirname(__FILE__) . '/vectors-code-usage.php', true); ?>
+        <?= highlight_file(dirname(__FILE__) . '/rubix-data-cleaning-handling-missing-code.php', true); ?>
     </code>
 </div>
+
 <div>
     Result:
     <span class="float-end">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>

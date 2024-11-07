@@ -6,7 +6,7 @@
     <h2 class="h4">Handling Missing Values with Rubix</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a href="<?=create_href('data-fundamentals', 'data-processing', 'rubix-data-normalization-code-run')?>" class="btn btn-sm btn-outline-primary">&#9654; Run Code</a>
+            <a href="<?=create_href('data-fundamentals', 'data-processing', 'rubix-data-cleaning-handling-missing-code-run')?>" class="btn btn-sm btn-outline-primary">&#9654; Run Code</a>
         </div>
     </div>
 </div>

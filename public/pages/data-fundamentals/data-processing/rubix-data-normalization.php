@@ -14,8 +14,8 @@
 
 <div>
     <p>
-        RubixML has a MinMaxNormalizer that scales values to a range (usually between 0 and 1). This is especially useful for features like income and
-        spending_score that vary widely.
+        RubixML has a MinMaxNormalizer that scales values to a range (usually between 0 and 1). This is especially useful for features like
+        <code>income</code> and <code>spending_score</code> that vary widely.
     </p>
 </div>
 

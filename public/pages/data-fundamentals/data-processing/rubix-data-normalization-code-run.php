@@ -20,29 +20,36 @@ $microtimeEnd = microtime(true);
     <h2 class="h4">Data Normalization with Rubix</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a href="<?=create_href('data-fundamentals', 'data-processing', 'rubix-data-cleaning')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?=create_href('data-fundamentals', 'data-processing', 'rubix-data-normalization')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>
 
 <div>
     <p>
-        RubixML has a MinMaxNormalizer that scales values to a range (usually between 0 and 1). This is especially useful for features like income and
-        spending_score that vary widely.
+        RubixML has a MinMaxNormalizer that scales values to a range (usually between 0 and 1). This is especially useful for features like
+        <code>income</code> and <code>spending_score</code> that vary widely.
     </p>
 </div>
 
 <div>
-    <p>Example of use:</p>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>
-        &nbsp;
+    <p class="btn btn-link px-0 py-0" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Example of use
+    </p>
+    <div class="collapse pb-4" id="collapseExample">
+        <div class="card card-body pb-0">
+            <div class="bd-clipboard">
+                <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
+                    Copy
+                </button>
+                &nbsp;
+            </div>
+            <code id="code">
+                <?= highlight_file(dirname(__FILE__) . '/rubix-data-normalization-code.php', true); ?>
+            </code>
+        </div>
     </div>
-    <code id="code">
-        <?= highlight_file(dirname(__FILE__) . '/rubix-data-normalization-code.php', true); ?>
-    </code>
+
 </div>
 
 <div>

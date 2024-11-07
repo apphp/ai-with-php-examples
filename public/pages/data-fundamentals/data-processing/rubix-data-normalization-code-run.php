@@ -4,7 +4,7 @@ $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 
-include('rubix-data-cleaning-handling-missing-code.php');
+include('rubix-data-normalization-code.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -17,7 +17,7 @@ $microtimeEnd = microtime(true);
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">Handling Missing Values with Rubix</h2>
+    <h2 class="h4">Data Normalization with Rubix</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
             <a href="<?=create_href('data-fundamentals', 'data-processing', 'rubix-data-cleaning')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
@@ -27,16 +27,9 @@ $microtimeEnd = microtime(true);
 
 <div>
     <p>
-        RubixML provides the MissingDataImputer for handling missing values. This imputer allows you to fill in missing values using strategies like
-        Mean, Median, or Constant.
+        RubixML has a MinMaxNormalizer that scales values to a range (usually between 0 and 1). This is especially useful for features like income and
+        spending_score that vary widely.
     </p>
-</div>
-
-<div>
-    <p>Dataset</p>
-    <code id="code">
-        <?php highlight_file('customers.csv'); ?>
-    </code>
 </div>
 
 <div>
@@ -48,7 +41,7 @@ $microtimeEnd = microtime(true);
         &nbsp;
     </div>
     <code id="code">
-        <?= highlight_file(dirname(__FILE__) . '/rubix-data-cleaning-handling-missing-code.php', true); ?>
+        <?= highlight_file(dirname(__FILE__) . '/rubix-data-normalization-code.php', true); ?>
     </code>
 </div>
 

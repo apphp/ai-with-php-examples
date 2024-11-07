@@ -11,6 +11,7 @@
     </p>
     <h3 class="h5">Data Processing with Rubix</h3>
     <p><a href="<?= create_href('data-fundamentals', 'data-processing', 'rubix-data-cleaning') ?>">Data Cleaning</a></p>
+    <p><a href="<?= create_href('data-fundamentals', 'data-processing', 'rubix-data-normalization') ?>">Data Normalization</a></p>
 </div>
 
 <div>

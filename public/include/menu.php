@@ -24,6 +24,13 @@ $menu = [
                 ['section' => 'data-fundamentals', 'subSection' => 'data-processing', 'page' => 'index', 'title' => 'Data Processing', 'permissions' => ['index', 'rubix-data-cleaning', 'rubix-data-cleaning-handling-missing-code-run', 'rubix-data-normalization', 'rubix-data-normalization-code-run']],
             ],
         ],
+        [
+            'title' => 'ML Algorithms',
+            'subMenu' => [
+                ['section' => 'ml-algorithms', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
+                ['section' => 'ml-algorithms', 'subSection' => 'linear-regression', 'page' => 'index', 'title' => 'Linear Regression', 'permissions' => ['index', 'rubix-simple-linear-regression', 'rubix-simple-linear-regression-code-run']],
+            ],
+        ],
     ],
 ];
 

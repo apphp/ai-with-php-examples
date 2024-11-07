@@ -104,6 +104,9 @@ code pre {
   padding: 10px;
   border-radius:.2rem;
 }
+code.gray {
+  color: #000000 !important;
+}
 .code-result pre {
   background-color: rgb(40, 42, 54);
   color: rgb(248, 248, 242);

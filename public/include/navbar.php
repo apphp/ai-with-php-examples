@@ -7,7 +7,7 @@ $page = $page ?? 'index';
 $menu = include('menu.php');
 
 ?>
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar overflow-auto">
     <div class="position-sticky pt-3">
         <?php foreach ($menu as $category => $items): ?>
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

@@ -33,6 +33,17 @@ $microtimeEnd = microtime(true);
 </div>
 
 <div>
+    <p>Dataset</p>
+    <code class="gray">
+        <pre>
+[100, 500, 25],
+[150, 300, 15],
+[200, 400, 20],
+[50, 200, 10]</pre>
+    </code>
+</div>
+
+<div>
     <p class="btn btn-link px-0 py-0" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
         Example of use
     </p>

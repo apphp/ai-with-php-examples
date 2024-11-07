@@ -20,6 +20,17 @@
 </div>
 
 <div>
+    <p>Dataset</p>
+    <code class="gray">
+        <pre>
+[100, 500, 25],
+[150, 300, 15],
+[200, 400, 20],
+[50, 200, 10]</pre>
+    </code>
+</div>
+
+<div>
     <p>Example of use:</p>
     <div class="bd-clipboard">
         <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">

@@ -33,35 +33,43 @@ function copyToClipboard() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  const toggleText = document.getElementById('toggleExampleOfUse');
-  const toggleIcon = document.getElementById('toggleIconExampleOfUse');
-  const collapseElement = document.getElementById('collapseExampleOfUse');
+  const toggleText = document.getElementById('toggleExampleOfUse') || null;
+  const toggleIcon = document.getElementById('toggleIconExampleOfUse') || null;
+  const collapseElement = document.getElementById('collapseExampleOfUse') || null;
 
-  collapseElement.addEventListener('shown.bs.collapse', function () {
-    toggleIcon.classList.remove('fa-square-plus');
-    toggleIcon.classList.add('fa-square-minus');
-    toggleText.title = 'Click to collapse';
-  });
+  if (collapseElement !== null) {
+    collapseElement.addEventListener('shown.bs.collapse', function () {
+      toggleIcon.classList.remove('fa-square-plus');
+      toggleIcon.classList.add('fa-square-minus');
+      toggleText.title = 'Click to collapse';
+    });
+  }
 
-  collapseElement.addEventListener('hidden.bs.collapse', function () {
-    toggleIcon.classList.remove('fa-square-minus');
-    toggleIcon.classList.add('fa-square-plus');
-    toggleText.title = 'Click to expand';
-  });
+  if (collapseElement !== null) {
+    collapseElement.addEventListener('hidden.bs.collapse', function () {
+      toggleIcon.classList.remove('fa-square-minus');
+      toggleIcon.classList.add('fa-square-plus');
+      toggleText.title = 'Click to expand';
+    });
+  }
 
-  const toggleTextDataset = document.getElementById('toggleDataset');
-  const toggleIconDataset = document.getElementById('toggleIconDataset');
-  const collapseElementDataset = document.getElementById('collapseDataset');
+  const toggleTextDataset = document.getElementById('toggleDataset') || null;
+  const toggleIconDataset = document.getElementById('toggleIconDataset') || null;
+  const collapseElementDataset = document.getElementById('collapseDataset') || null;
 
-  collapseElementDataset.addEventListener('shown.bs.collapse', function () {
-    toggleIconDataset.classList.remove('fa-square-plus');
-    toggleIconDataset.classList.add('fa-square-minus');
-    toggleTextDataset.title = 'Click to collapse';
-  });
+  if (collapseElementDataset !== null) {
+    collapseElementDataset.addEventListener('shown.bs.collapse', function () {
+      toggleIconDataset.classList.remove('fa-square-plus');
+      toggleIconDataset.classList.add('fa-square-minus');
+      toggleTextDataset.title = 'Click to collapse';
+    });
+  }
 
-  collapseElementDataset.addEventListener('hidden.bs.collapse', function () {
-    toggleIconDataset.classList.remove('fa-square-minus');
-    toggleIconDataset.classList.add('fa-square-plus');
-    toggleText.title = 'Click to expand';
-  });
+  if (collapseElementDataset !== null) {
+    collapseElementDataset.addEventListener('hidden.bs.collapse', function () {
+      toggleIconDataset.classList.remove('fa-square-minus');
+      toggleIconDataset.classList.add('fa-square-plus');
+      toggleText.title = 'Click to expand';
+    });
+  }
 });

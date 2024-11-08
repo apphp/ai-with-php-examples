@@ -65,7 +65,7 @@ $memoryEnd = memory_get_usage();
 
 <div class="container px-2">
     <div class="row justify-content-start p-0">
-        <div class="col-7 px-1 pe-4">
+        <div class="col-md-12 col-lg-7 px-1 pe-4">
             <p>Chart:</p>
             <?php
                 echo Chart::drawLinearRegression(
@@ -80,7 +80,7 @@ $memoryEnd = memory_get_usage();
                 );
             ?>
         </div>
-        <div class="col-5 p-0 m-0">
+        <div class="col-md-12 col-lg-5 p-0 m-0">
             <p>Result:
                 <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>
                 <span class="float-end me-2">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>

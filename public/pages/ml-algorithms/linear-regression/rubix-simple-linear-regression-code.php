@@ -29,11 +29,21 @@ $newDataset = new Unlabeled([$newSample]);
 $prediction = $estimator->predict($newDataset);
 
 // Show results
-echo 'Sample size: 2200 sq.ft';
+echo 'Sample size: 2250 sq.ft';
 echo "\nPredicted Price for: $" . number_format($prediction[0], decimals: 2);
 
-// Check how accurate our model is using Mean Squared Error
+// Calculate MSE - check how accurate our model is using Mean Squared Error
 // Lower number = better predictions
-$predictions = $estimator->predict($dataset);
 $mse = new MeanSquaredError();
-echo "\n\nMean Squared Error: " . number_format($mse->score($predictions, $dataset->labels()), 10);
+
+// Get predictions and labels, ensure they're floats
+$predictions = array_map('floatval', $estimator->predict($dataset));
+$actuals = array_map('floatval', $dataset->labels());
+
+// Scale down by 1000
+$scaledPredictions = array_map(function($val) { return $val / 1000; }, $predictions);
+$scaledActuals = array_map(function($val) { return $val / 1000; }, $actuals);
+
+$score = $mse->score($scaledPredictions, $scaledActuals);
+
+echo "\n\nMean Squared Error (scaled): " . number_format(abs($score), 3);

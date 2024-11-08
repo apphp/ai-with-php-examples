@@ -59,9 +59,7 @@
     </div>
 </div>
 
-
 <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
-
 <script src="assets/dist/js/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
 <script src="assets/dashboard.js"></script>
 

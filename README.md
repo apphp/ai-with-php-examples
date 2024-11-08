@@ -1,7 +1,7 @@
 ## Examples for AI with PHP Learning Book:
  https://apphp.gitbook.io/artificial-intelligence-with-php/
 
-## The following examples are available:
+## The Following Examples are Available:
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

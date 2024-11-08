@@ -1,6 +1,7 @@
 <?php
     include('include/global.php');
     include('include/functions.php');
+    include('include/Chart.php');
     $menu = include_once('include/menu.php');
 
     $section = !empty($_GET['section']) ? $_GET['section'] : '';

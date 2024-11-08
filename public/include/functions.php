@@ -9,6 +9,16 @@ function memory_usage(float $endMemory, float $startMemory): string {
     return round($memoryUsed / 1024 / 1024, 3);
 }
 
+function dd($data = [], bool $exit = false) :void {
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
+
+    if ($exit) {
+        exit;
+    }
+}
+
 function create_link(string $section, string $subsection, string $page, string $link, array $pages, string $urlSection, string $urlSubSection, string $urlPage): string {
     $active = '';
     if ($urlSection === $section && $urlSubSection === $subsection && in_array($urlPage, $pages)) {

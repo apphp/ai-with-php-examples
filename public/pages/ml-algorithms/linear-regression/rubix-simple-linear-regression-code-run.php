@@ -44,9 +44,7 @@ $memoryEnd = memory_get_usage();
     <div class="collapse pb-4" id="collapseDataset">
         <div class="card card-body pb-0">
             <code id="code">
-                adsadsa
-                dasd
-                asdadx
+                <?php highlight_file('houses.csv'); ?>
             </code>
         </div>
     </div>
@@ -76,17 +74,20 @@ $memoryEnd = memory_get_usage();
 
                 // Data points
                 const data = [
-                    { x: 800, y: 160000 },
-                    { x: 900, y: 180000 },
-                    { x: 1000, y: 200000 },
-                    { x: 1100, y: 220000 },
-                    { x: 1200, y: 240000 },
-                    { x: 1300, y: 260000 },
-                    { x: 1400, y: 280000 },
-                    { x: 1450, y: 310500, highlight: true },  // This is our bold point
-                    { x: 1500, y: 290000 },
-                    { x: 1600, y: 320000 },
-                    { x: 1700, y: 340000 }
+                    <?php
+                    // Add predictiom
+                    $samples[] = [$newSample[0]];
+                    $labels[] = round($prediction[0]);
+
+                    // Print data combining samples and labels
+                    for ($i = 0; $i < count($samples); $i++) {
+                        $highlight = ($samples[$i][0] == 2250) ? ', highlight: true' : '';
+                        echo sprintf("    { x: %.0f, y: %.0f ".$highlight."},\n",
+                            $samples[$i][0],  // Square footage from samples
+                            $labels[$i]       // Price from labels
+                        );
+                    }
+                    ?>
                 ];
 
                 // Calculate linear regression
@@ -205,7 +206,7 @@ $memoryEnd = memory_get_usage();
                                 position: 'bottom',
                                 title: {
                                     display: true,
-                                    __text: 'Square Footage',
+                                    text: 'Square Footage (sq.ft)',
                                     font: {
                                         size: 14
                                     }
@@ -216,7 +217,8 @@ $memoryEnd = memory_get_usage();
                                 },
                                 ticks: {
                                     callback: function(value) {
-                                        return value.toLocaleString() + ' sq.ft';
+                                       // return value.toLocaleString() + ' sq.ft';
+                                       return value.toLocaleString();
                                     }
                                 }
                             },
@@ -224,14 +226,15 @@ $memoryEnd = memory_get_usage();
                                 beginAtZero: true,
                                 title: {
                                     display: true,
-                                    __text: 'Price ($)',
+                                    text: 'Price ($)',
                                     font: {
                                         size: 14
                                     }
                                 },
                                 ticks: {
                                     callback: function(value) {
-                                        return '$' + value.toLocaleString();
+                                        //return '$' + value.toLocaleString();
+                                        return value.toLocaleString();
                                     }
                                 },
                                 grid: {

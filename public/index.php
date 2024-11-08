@@ -24,23 +24,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <title>Artificial Intelligence with PHP</title>
-    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
+    <link rel="icon" type="image/webp" href="favicon.webp">
 
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/dist/css/all.min.css" crossorigin="anonymous">
     <script src="assets/dist/js/chart.js"></script>
 </head>
 <body>

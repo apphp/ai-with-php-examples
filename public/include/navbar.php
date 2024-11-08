@@ -11,7 +11,7 @@ $menu = include('menu.php');
     <div class="position-sticky pt-3">
         <?php foreach ($menu as $category => $items): ?>
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                <span><?= htmlspecialchars($category) ?></span>
+                <span><?= $category ?></span>
             </h6>
             <ul class="nav flex-column mb-2">
                 <?php foreach ($items as $item): ?>

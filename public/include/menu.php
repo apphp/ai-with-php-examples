@@ -2,10 +2,10 @@
 
 //////////////////////
 $menu = [
-    'Introduction' => [
+    '<i class="fas fa-home me-1"></i> Introduction' => [
         ['section' => '', 'subSection' => '', 'page' => 'home', 'title' => 'Getting Started', 'permissions' => ['home']],
     ],
-    'Machine Learning' => [
+    '<i class="fas fa-robot me-1"></i> Machine Learning' => [
         [
             'title' => 'Mathematics for ML',
             'subMenu' => [

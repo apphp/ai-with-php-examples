@@ -134,7 +134,16 @@ code.gray {
   color: #fff;
   background-color: #0d6efd;
 }
+
+/** NAVIGATION */
+
+.nav-link {
+  padding: .3rem 1rem .3rem 1rem;
+}
+.nav-link small {
+  font-weight: normal;
+}
+
 .nav-sub-link {
   font-size: 13px;
 }
-

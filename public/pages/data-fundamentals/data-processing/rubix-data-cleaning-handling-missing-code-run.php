@@ -1,5 +1,6 @@
 <?php
 
+$memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
@@ -9,6 +10,7 @@ include('rubix-data-cleaning-handling-missing-code.php');
 //////////////////////////////
 $result = ob_get_clean();
 $microtimeEnd = microtime(true);
+$memoryEnd = memory_get_usage();
 
 ?>
 
@@ -60,7 +62,8 @@ $microtimeEnd = microtime(true);
 
 <div>
     Result:
-    <span class="float-end">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
+    <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>
+    <span class="float-end me-2">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
     <code id="code" class="code-result">
         <pre><?= $result; ?></pre>
     </code>

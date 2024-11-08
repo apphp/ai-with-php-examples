@@ -4,6 +4,10 @@ function running_time(float $microtimeEnd, float $microtimeStart): string {
     $timeDif = ($microtimeEnd - $microtimeStart);
     return (string)($timeDif > 0.001 ? round($timeDif, 3) : '< 0.001');
 }
+function memory_usage(float $endMemory, float $startMemory): string {
+    $memoryUsed = $endMemory - $startMemory;
+    return round($memoryUsed / 1024 / 1024, 3);
+}
 
 function create_link(string $section, string $subsection, string $page, string $link, array $pages, string $urlSection, string $urlSubSection, string $urlPage): string {
     $active = '';

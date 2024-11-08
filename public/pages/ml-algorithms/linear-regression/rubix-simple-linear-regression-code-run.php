@@ -1,5 +1,6 @@
 <?php
 
+$memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
@@ -9,6 +10,7 @@ include('rubix-simple-linear-regression-code.php');
 //////////////////////////////
 $result = ob_get_clean();
 $microtimeEnd = microtime(true);
+$memoryEnd = memory_get_usage();
 
 ?>
 
@@ -244,7 +246,8 @@ $microtimeEnd = microtime(true);
         </div>
         <div class="col-5 p-0 m-0">
             <p>Result:
-            <span class="float-end">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
+                <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>
+                <span class="float-end me-2">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
             </p>
             <code id="code" class="code-result">
                 <pre><?= $result; ?></pre>

@@ -35,17 +35,21 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <p>Dataset</p>
-    <code id="code">
-        <?php highlight_file('customers.csv'); ?>
-    </code>
+    <p class="btn btn-link px-0 py-0" id="toggleDataset" data-bs-toggle="collapse" href="#collapseDataset" role="button" aria-expanded="false" aria-controls="collapseDataset" title="Click to expand">
+        Dataset <i id="toggleIconDataset" class="fa-regular fa-square-plus"></i>
+    </p>
+    <div class="collapse pb-4" id="collapseDataset">
+        <code id="code">
+            <?php highlight_file('customers.csv'); ?>
+        </code>
+    </div>
 </div>
 
 <div>
-    <p class="btn btn-link px-0 py-0" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Example of use
+    <p class="btn btn-link px-0 py-0" id="toggleExampleOfUse" data-bs-toggle="collapse" href="#collapseExampleOfUse" role="button" aria-expanded="false" aria-controls="collapseExampleOfUse" title="Click to expand">
+        Example of use <i id="toggleIconExampleOfUse" class="fa-regular fa-square-plus"></i>
     </p>
-    <div class="collapse pb-4" id="collapseExample">
+    <div class="collapse pb-4" id="collapseExampleOfUse">
         <div class="card card-body pb-0">
             <div class="bd-clipboard">
                 <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">

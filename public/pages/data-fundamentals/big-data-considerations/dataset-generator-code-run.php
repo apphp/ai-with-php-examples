@@ -32,16 +32,20 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <p>Example of use:</p>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>
-        &nbsp;
+    <p class="btn btn-link px-0 py-0" id="toggleExampleOfUse" data-bs-toggle="collapse" href="#collapseExampleOfUse" role="button" aria-expanded="false" aria-controls="collapseExampleOfUse" title="Click to expand">
+        Example of use <i id="toggleIcon" class="fa-regular fa-square-plus"></i>
+    </p>
+    <div class="collapse pb-4" id="collapseExampleOfUse">
+        <div class="bd-clipboard">
+            <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
+                Copy
+            </button>
+            &nbsp;
+        </div>
+        <code id="code">
+            <?= highlight_file(dirname(__FILE__) . '/dataset-generator-code-usage.php', true); ?>
+        </code>
     </div>
-    <code id="code">
-        <?= highlight_file(dirname(__FILE__) . '/dataset-generator-code-usage.php', true); ?>
-    </code>
 </div>
 <div>
     Result:

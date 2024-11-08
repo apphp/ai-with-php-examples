@@ -147,3 +147,15 @@ code.gray {
 .nav-sub-link {
   font-size: 13px;
 }
+
+#toggleExampleOfUse, #toggleDataset {
+  /*color: #444;*/
+  font-size: 14px;
+  text-decoration-line: none;
+}
+#toggleExampleOfUse i, #toggleDataset i {
+  position: absolute;
+  margin-left: 5px;
+  margin-top: 4px;
+}
+

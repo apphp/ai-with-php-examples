@@ -46,4 +46,6 @@ $scaledActuals = array_map(function($val) { return $val / 1000; }, $actuals);
 
 $score = $mse->score($scaledPredictions, $scaledActuals);
 
-echo "\n\nMean Squared Error (scaled): " . number_format(abs($score), 3);
+echo "\n\nMean Squared Error (scaled): $" . number_format(abs($score), 3) . "k²";
+echo "\nRoot Mean Squared Error (scaled): $" . number_format(sqrt(abs($score)), decimals: 2) . "k";
+

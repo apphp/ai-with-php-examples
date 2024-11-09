@@ -12,6 +12,13 @@
     <h3 class="h5">Linear Regression with Rubix</h3>
     <p><a href="<?= create_href('ml-algorithms', 'linear-regression', 'rubix-simple-linear-regression') ?>">Simple Linear Regression</a></p>
 
+    <br>
+    <br>
+    <br>
+
+    <h3 class="h5">Linear Regression with PHP-ML</h3>
+    <p><a href="<?= create_href('ml-algorithms', 'linear-regression', 'phpml-simple-linear-regression') ?>">Simple Linear Regression</a></p>
+
 </div>
 
 <div>

@@ -3,18 +3,18 @@
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">Simple Linear Regression with Rubix</h2>
+    <h2 class="h4">Multiple Linear Regression with Rubix</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a href="<?=create_href('ml-algorithms', 'linear-regression', 'rubix-simple-linear-regression-code-run')?>" class="btn btn-sm btn-outline-primary">&#9654; Run Code</a>
+            <a href="<?=create_href('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression-code-run')?>" class="btn btn-sm btn-outline-primary">&#9654; Run Code</a>
         </div>
     </div>
 </div>
 
 <div>
     <p>
-        Used when there is only one independent variable.
-        For this example, let’s use a small dataset with square footage and price.
+        Involves two or more independent variables. For example, predicting house prices based on
+        factors like area, number of rooms, and location.
     </p>
 </div>
 
@@ -25,7 +25,7 @@
     <div class="collapse pb-4" id="collapseDataset">
         <div class="card card-body pb-0">
             <code id="code">
-                <?php highlight_file('houses1.csv'); ?>
+                <?php highlight_file('houses2.csv'); ?>
             </code>
         </div>
     </div>
@@ -39,7 +39,7 @@
         </button>&nbsp;
     </div>
     <code id="code">
-        <?php highlight_file('rubix-simple-linear-regression-code.php'); ?>
+        <?php highlight_file('rubix-multiple-linear-regression-code.php'); ?>
     </code>
 </div>
 

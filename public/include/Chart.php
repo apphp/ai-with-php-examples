@@ -210,4 +210,64 @@ class Chart {
         return $return;
     }
 
+    public static function drawMultiLinearRegression(
+        array $samples,
+        array $labels,
+        string $xLabel = '',
+    ): string {
+
+        $return = "
+            <div id='my3DScatterChart''></div>
+
+            <script>
+                // Define data for the 3D scatter plot
+                const scatterData = [{";
+
+                    $return .= 'x: [';
+                    foreach ($samples as $sample) {
+                        $return .= $sample[0] . ',';
+                    }
+                    $return .= '],' . "\n";
+
+                    $return .= 'y: [';
+                    foreach ($samples as $sample) {
+                        $return .= $sample[1] . ',';
+                    }
+                    $return .= '],' . "\n";
+
+                    $return .= 'z: [';
+                    foreach ($labels as $label) {
+                        $return .= $label . ',';
+                    }
+                    $return .= '],' . "\n";
+
+                    $return .= "
+                mode: 'markers',           // Show as points
+                    marker: {
+                        size: 8,
+                        color: 'rgba(255, 0, 0, 0.8)' // Red color with opacity
+                    },
+                    type: 'scatter3d'           // 3D scatter plot type
+                }];
+
+                // Define layout for the 3D scatter plot
+                const layout = {
+                    title: '3D Scatter Plot',
+                    scene: {
+                        xaxis: { title: '".htmlspecialchars($xLabel)."' },
+                        yaxis: { title: 'Y Axis' },
+                        zaxis: { title: 'Z Axis' }
+                    },
+                    margin: {
+                        l: 0, r: 0, b: 0, t: 0
+                    }
+                };
+
+                // Render the plot in the specified div
+                Plotly.newPlot('my3DScatterChart', scatterData, layout);
+            </script>";
+
+        return $return;
+    }
+
 }

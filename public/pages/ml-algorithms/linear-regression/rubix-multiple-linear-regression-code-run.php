@@ -5,7 +5,7 @@ $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 
-include('rubix-simple-linear-regression-code.php');
+include('rubix-multiple-linear-regression-code.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -19,18 +19,18 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">Simple Linear Regression with Rubix</h2>
+    <h2 class="h4">Multiple Linear Regression with Rubix</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a href="<?=create_href('ml-algorithms', 'linear-regression', 'rubix-simple-linear-regression')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?=create_href('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>
 
 <div>
     <p>
-        Used when there is only one independent variable.
-        For this example, let’s use a small dataset with square footage and price.
+        Involves two or more independent variables. For example, predicting house prices based on
+        factors like area, number of rooms, and location.
     </p>
 </div>
 
@@ -44,7 +44,7 @@ $memoryEnd = memory_get_usage();
     <div class="collapse pb-4" id="collapseDataset">
         <div class="card card-body pb-0">
             <code id="code">
-                <?php highlight_file('houses1.csv'); ?>
+                <?php highlight_file('houses2.csv'); ?>
             </code>
         </div>
     </div>
@@ -57,26 +57,28 @@ $memoryEnd = memory_get_usage();
                 &nbsp;
             </div>
             <code id="code">
-                <?= highlight_file(dirname(__FILE__) . '/rubix-simple-linear-regression-code.php', true); ?>
+                <?= highlight_file(dirname(__FILE__) . '/rubix-multiple-linear-regression-code.php', true); ?>
             </code>
         </div>
     </div>
 </div>
+
+<?php //ddd($labels); ?>
 
 <div class="container px-2">
     <div class="row justify-content-start p-0">
         <div class="col-md-12 col-lg-7 px-1 pe-4">
             <p>Chart:</p>
             <?php
-                echo Chart::drawLinearRegression(
+                echo Chart::drawMultiLinearRegression(
                     samples:  $samples,
                     labels: $labels,
-                    xLabel: 'Square Footage (sq.ft)',
-                    yLabel: 'Price ($)',
-                    datasetLabel: 'House Prices',
-                    regressionLabel: 'Regression Line',
-                    predictionPoint: [$newSample[0], round($prediction[0])],
-                    minY: 100_000,
+                    xLabel: 'Number of rooms',
+//                    yLabel: 'Price ($)',
+//                    datasetLabel: 'House Prices',
+//                    regressionLabel: 'Regression Line',
+//                    predictionPoint: [$newSamples[1], round($predictions[1])],
+//                    minY: 100_000,
                 );
             ?>
         </div>
@@ -91,5 +93,12 @@ $memoryEnd = memory_get_usage();
         </div>
 
     </div>
+
+
+
+
+
+
+
 </div>
 

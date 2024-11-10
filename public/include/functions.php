@@ -19,6 +19,10 @@ function dd($data = [], bool $exit = false) :void {
     }
 }
 
+function ddd($data = []) :void {
+    dd($data, true);
+}
+
 function create_link(string $section, string $subsection, string $page, string $link, array $pages, string $urlSection, string $urlSubSection, string $urlPage): string {
     $active = '';
     if ($urlSection === $section && $urlSubSection === $subsection && in_array($urlPage, $pages)) {

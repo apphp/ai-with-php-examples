@@ -7,7 +7,7 @@ use Phpml\Metric\Regression;
 use Phpml\Regression\LeastSquares;
 
 // Load the raw data from CSV
-$dataset = new CsvDataset(dirname(__FILE__) . '/houses.csv', 1, true);
+$dataset = new CsvDataset(dirname(__FILE__) . '/houses1.csv', 1, true);
 
 $samples = $dataset->getSamples();
 $labels = $dataset->getTargets();

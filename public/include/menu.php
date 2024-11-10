@@ -28,7 +28,12 @@ $menu = [
             'title' => 'ML Algorithms',
             'subMenu' => [
                 ['section' => 'ml-algorithms', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
-                ['section' => 'ml-algorithms', 'subSection' => 'linear-regression', 'page' => 'index', 'title' => 'Linear Regression', 'permissions' => ['index', 'rubix-simple-linear-regression', 'rubix-simple-linear-regression-code-run', 'phpml-simple-linear-regression', 'phpml-simple-linear-regression-code-run']],
+                ['section' => 'ml-algorithms', 'subSection' => 'linear-regression', 'page' => 'index', 'title' => 'Linear Regression', 'permissions' => [
+                    'index',
+                    'rubix-simple-linear-regression', 'rubix-simple-linear-regression-code-run',
+                    'rubix-multiple-linear-regression', 'rubix-multiple-linear-regression-code-run',
+                    'phpml-simple-linear-regression', 'phpml-simple-linear-regression-code-run'
+                ]],
             ],
         ],
     ],

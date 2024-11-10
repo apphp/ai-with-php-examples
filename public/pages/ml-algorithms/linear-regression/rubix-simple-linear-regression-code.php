@@ -9,7 +9,7 @@ use Rubix\ML\Regressors\Ridge;
 use Rubix\ML\CrossValidation\Metrics\MeanSquaredError;
 
 // Load the raw data from CSV
-$dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/houses.csv', true));
+$dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/houses1.csv', true));
 
 // Convert samples and labels to float
 $samples = array_map(fn($sample) => array_map('floatval', $sample), $dataset->samples());

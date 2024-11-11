@@ -14,7 +14,7 @@
 <div>
     <p>
         Involves two or more independent variables. For example, predicting house prices based on
-        factors like area, number of rooms, and location.
+        factors like size, number of rooms, and location.
     </p>
 </div>
 

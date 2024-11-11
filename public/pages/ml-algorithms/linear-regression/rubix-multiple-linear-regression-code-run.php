@@ -30,7 +30,7 @@ $memoryEnd = memory_get_usage();
 <div>
     <p>
         Involves two or more independent variables. For example, predicting house prices based on
-        factors like area, number of rooms, and location.
+        factors like size, number of rooms, and location.
     </p>
 </div>
 
@@ -63,8 +63,6 @@ $memoryEnd = memory_get_usage();
     </div>
 </div>
 
-<?php //ddd($labels); ?>
-
 <div class="container px-2">
     <div class="row justify-content-start p-0">
         <div class="col-md-12 col-lg-7 px-1 pe-4">
@@ -74,11 +72,11 @@ $memoryEnd = memory_get_usage();
                     samples:  $samples,
                     labels: $labels,
                     xLabel: 'Number of rooms',
-//                    yLabel: 'Price ($)',
-//                    datasetLabel: 'House Prices',
-//                    regressionLabel: 'Regression Line',
-//                    predictionPoint: [$newSamples[1], round($predictions[1])],
-//                    minY: 100_000,
+                    yLabel: 'Square footage (sq.ft)',
+                    zLabel: 'Price ($)',
+                    mainTraceLabel: 'Dataset',
+                    customTraceLabel: 'Prediction',
+                    predictionPoints: ['x' => [$newSamples[0][0], $newSamples[1][0]], 'y' => [$newSamples[0][1], $newSamples[1][1]], 'z' => [round($predictions[0]), round($predictions[1])]],
                 );
             ?>
         </div>

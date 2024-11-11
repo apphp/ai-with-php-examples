@@ -24,10 +24,10 @@ class Chart {
         }
 
         $return = "
-            <canvas id='myChart'></canvas>
+            <canvas id='myLinearChart'></canvas>
 
             <script>
-                const ctx = document.getElementById('myChart');
+                const ctx = document.getElementById('myLinearChart');
 
                 // Data points
                 const data = [";
@@ -35,7 +35,7 @@ class Chart {
                     // Print data combining samples and labels
                     for ($i = 0; $i < count($samples); $i++) {
                         $highlight = ($samples[$i][0] == $predictionX) ? ', highlight: true' : '';
-                        $return .= sprintf('    { x: %.0f, y: %.0f ' .$highlight."},\n",
+                        $return .= sprintf('{ x: %.0f, y: %.0f ' .$highlight."},\n",
                             $samples[$i][0],  // Square footage from samples
                             $labels[$i]       // Price from labels
                         );
@@ -214,6 +214,11 @@ class Chart {
         array $samples,
         array $labels,
         string $xLabel = '',
+        string $yLabel = '',
+        string $zLabel = '',
+        string $mainTraceLabel = '',
+        string $customTraceLabel = '',
+        array $predictionPoints = []
     ): string {
 
         $return = "
@@ -223,44 +228,72 @@ class Chart {
                 // Define data for the 3D scatter plot
                 const scatterData = [{";
 
+                    // Render x axis
                     $return .= 'x: [';
-                    foreach ($samples as $sample) {
-                        $return .= $sample[0] . ',';
-                    }
+                    foreach ($samples as $sample) $return .= $sample[0] . ',';
                     $return .= '],' . "\n";
 
+                    // Render y axis
                     $return .= 'y: [';
-                    foreach ($samples as $sample) {
-                        $return .= $sample[1] . ',';
-                    }
+                    foreach ($samples as $sample) $return .= $sample[1] . ',';
                     $return .= '],' . "\n";
 
+                    // Render z axis
                     $return .= 'z: [';
-                    foreach ($labels as $label) {
-                        $return .= $label . ',';
-                    }
+                    foreach ($labels as $label) $return .= $label . ',';
                     $return .= '],' . "\n";
 
                     $return .= "
-                mode: 'markers',           // Show as points
+                    mode: 'markers', // Show as points
                     marker: {
                         size: 8,
-                        color: 'rgba(255, 0, 0, 0.8)' // Red color with opacity
+                        color: 'rgba(99,190,255)' // Red color with opacity
                     },
-                    type: 'scatter3d'           // 3D scatter plot type
-                }];
+                    type: 'scatter3d', // 3D scatter plot type
+                    name: '".htmlspecialchars($mainTraceLabel)."'
+                }";
+
+
+                // Add additional points in red
+                if (!empty($predictionPoints)) {
+                    $return .= ",{";
+                    $return .= 'x: [';
+                    foreach ($predictionPoints['x'] as $point) $return .= $point . ',';
+                    $return .= '],' . "\n";
+                    $return .= 'y: [';
+                    foreach ($predictionPoints['y'] as $point) $return .= $point . ',';
+                    $return .= '],' . "\n";
+                    $return .= 'z: [';
+                    foreach ($predictionPoints['z'] as $point) $return .= $point . ',';
+                    $return .= '],' . "\n";
+                    $return .= "mode: 'markers',\n";
+                    // Red color with high opacity
+                    $return .= "marker: {size: 9,color: 'rgba(255,0,0,0.8)'},\n";
+                    $return .= "type: 'scatter3d',";
+                    $return .= "name: '".htmlspecialchars($customTraceLabel)."'";
+                    $return .= "}";
+                }
+
+                $return .= "];
 
                 // Define layout for the 3D scatter plot
                 const layout = {
-                    title: '3D Scatter Plot',
+                    __title: '3D Scatter Plot',
                     scene: {
                         xaxis: { title: '".htmlspecialchars($xLabel)."' },
-                        yaxis: { title: 'Y Axis' },
-                        zaxis: { title: 'Z Axis' }
+                        yaxis: { title: '".htmlspecialchars($yLabel)."' },
+                        zaxis: { title: '".htmlspecialchars($zLabel)."' },
+                        camera: {
+                            eye: {
+                                x: 0.9,
+                                y: 2.1,
+                                z: 0.7
+                            }
+                        }
                     },
                     margin: {
-                        l: 0, r: 0, b: 0, t: 0
-                    }
+                        l: 150, r: 0, b: 0, t: 0
+                    },  // to set the xaxis range to 0 to 1
                 };
 
                 // Render the plot in the specified div

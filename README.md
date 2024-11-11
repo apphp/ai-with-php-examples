@@ -47,5 +47,7 @@ To install these examples, follow these steps:
     - Data Normalization
   - ML Algorithms
     - Linear Regression
+      - Simple Linear Regression
+      - Multiple Linear Regression
 
 

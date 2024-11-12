@@ -24,7 +24,7 @@
     </p>
     <div class="collapse pb-4" id="collapseDataset">
         <div class="card card-body pb-0">
-            <code id="code">
+            <code id="dataset">
                 <?php highlight_file('houses1.csv'); ?>
             </code>
         </div>

@@ -43,7 +43,7 @@ $memoryEnd = memory_get_usage();
     </p>
     <div class="collapse pb-4" id="collapseDataset">
         <div class="card card-body pb-0">
-            <code id="code">
+            <code id="dataset">
                 <?php highlight_file('houses1.csv'); ?>
             </code>
         </div>
@@ -69,8 +69,8 @@ $memoryEnd = memory_get_usage();
             <p>Chart:</p>
             <?php
                 echo Chart::drawLinearRegression(
-                    samples:  $samples,
-                    labels: $labels,
+                    samples:  $dataset->samples(),
+                    labels: $dataset->labels(),
                     xLabel: 'Square Footage (sq.ft)',
                     yLabel: 'Price ($)',
                     datasetLabel: 'House Prices',

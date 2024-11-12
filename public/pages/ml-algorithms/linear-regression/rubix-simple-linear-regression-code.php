@@ -7,16 +7,17 @@ use Rubix\ML\Datasets\Unlabeled;
 use Rubix\ML\Extractors\CSV;
 use Rubix\ML\Regressors\Ridge;
 use Rubix\ML\CrossValidation\Metrics\MeanSquaredError;
+use Rubix\ML\Transformers\MissingDataImputer;
+use Rubix\ML\Transformers\NumericStringConverter;
+
 
 // Load the raw data from CSV
 $dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/houses1.csv', true));
 
-// Convert samples and labels to float
-$samples = array_map(fn($sample) => array_map('floatval', $sample), $dataset->samples());
-$labels = array_map('floatval', $dataset->labels());
-
-// Create new dataset with float values
-$dataset = new Labeled($samples, $labels);
+// Convert samples and labels to their equivalent integer and floating point types
+$dataset->apply(new NumericStringConverter())
+    ->apply(new MissingDataImputer())
+    ->transformLabels('intval');
 
 // Create and train Ridge regression model
 // 1.0 controls how much we prevent overfitting

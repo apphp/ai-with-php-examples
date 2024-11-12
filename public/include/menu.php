@@ -32,7 +32,8 @@ $menu = [
                     'index',
                     'rubix-simple-linear-regression', 'rubix-simple-linear-regression-code-run',
                     'rubix-multiple-linear-regression', 'rubix-multiple-linear-regression-code-run',
-                    'phpml-simple-linear-regression', 'phpml-simple-linear-regression-code-run'
+                    'phpml-simple-linear-regression', 'phpml-simple-linear-regression-code-run',
+                    'phpml-multiple-linear-regression', 'phpml-multiple-linear-regression-code-run'
                 ]],
             ],
         ],

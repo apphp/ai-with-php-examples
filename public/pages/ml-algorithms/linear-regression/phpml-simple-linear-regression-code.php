@@ -7,17 +7,17 @@ use Phpml\Metric\Regression;
 use Phpml\Regression\LeastSquares;
 
 // Load the raw data from CSV
-$dataset = new CsvDataset(dirname(__FILE__) . '/houses1.csv', 1, true);
+$dataset = new CsvDataset(dirname(__FILE__) . '/houses1.csv', [], true);
 
 $samples = $dataset->getSamples();
 $labels = $dataset->getTargets();
 
-$regression = new LeastSquares();
-$regression->train($samples, $labels);
+$regressor = new LeastSquares();
+$regressor->train($samples, $labels);
 
 // Predict price for a 2250 sq ft house
 $newSample = [2250];
-$predictedPrice = $regression->predict($newSample);
+$predictedPrice = $regressor->predict($newSample);
 
 // Show results
 echo 'Sample size: 2250 sq.ft';
@@ -25,8 +25,8 @@ echo "\nPredicted Price for: $" . number_format($predictedPrice, decimals: 2);
 
 // Calculate MSE - check how accurate our model is using Mean Squared Error
 // Lower number = better predictions
-$predictions = array_map(function($sample) use ($regression) {
-    return $regression->predict($sample);
+$predictions = array_map(function($sample) use ($regressor) {
+    return $regressor->predict($sample);
 }, $samples);
 
 // Calculate MSE using PHP-ML's built-in metric

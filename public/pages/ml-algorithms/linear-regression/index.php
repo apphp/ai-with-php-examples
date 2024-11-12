@@ -24,6 +24,7 @@
 
     <ui class="list">
         <li><a href="<?= create_href('ml-algorithms', 'linear-regression', 'phpml-simple-linear-regression') ?>">Simple Linear Regression</a></li>
+        <li><a href="<?= create_href('ml-algorithms', 'linear-regression', 'phpml-multiple-linear-regression') ?>">Multiple Linear Regression</a></li>
     </ui>
 </div>
 

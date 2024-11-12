@@ -8,8 +8,11 @@
         Chunked processing is crucial when dealing with datasets that are too large to fit in memory.
         This technique involves processing data in smaller, manageable pieces.
     </p>
-    <p><a href="<?=create_href('data-fundamentals', 'big-data-considerations', 'chunked-processing')?>">Chunked Processing</a></p>
-    <p><a href="<?=create_href('data-fundamentals', 'big-data-considerations', 'dataset-generator')?>">Dataset Generator</a></p>
+
+    <ui class="list">
+        <li><a href="<?= create_href('data-fundamentals', 'big-data-considerations', 'chunked-processing') ?>">Chunked Processing</a></li>
+        <li><a href="<?= create_href('data-fundamentals', 'big-data-considerations', 'dataset-generator') ?>">Dataset Generator</a></li>
+    </ui>
 </div>
 
 <div>

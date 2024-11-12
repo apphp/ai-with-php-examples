@@ -10,16 +10,21 @@
         equation to observed data, allowing predictions of continuous outcomes based on input features.
     </p>
     <h3 class="h5">Linear Regression with Rubix</h3>
-    <p><a href="<?= create_href('ml-algorithms', 'linear-regression', 'rubix-simple-linear-regression') ?>">Simple Linear Regression</a></p>
-    <p><a href="<?= create_href('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression') ?>">Multiple Linear Regression</a></p>
+
+    <ui class="list">
+        <li><a href="<?= create_href('ml-algorithms', 'linear-regression', 'rubix-simple-linear-regression') ?>">Simple Linear Regression</a></li>
+        <li><a href="<?= create_href('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression') ?>">Multiple Linear Regression</a></li>
+    </ui>
 
     <br>
     <br>
     <br>
 
     <h3 class="h5">Linear Regression with PHP-ML</h3>
-    <p><a href="<?= create_href('ml-algorithms', 'linear-regression', 'phpml-simple-linear-regression') ?>">Simple Linear Regression</a></p>
 
+    <ui class="list">
+        <li><a href="<?= create_href('ml-algorithms', 'linear-regression', 'phpml-simple-linear-regression') ?>">Simple Linear Regression</a></li>
+    </ui>
 </div>
 
 <div>

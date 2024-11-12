@@ -10,7 +10,10 @@
         transformations while representing physical or mathematical quantities. This invariance property makes them particularly powerful for
         describing physical laws and mathematical relationships that should remain consistent regardless of the chosen coordinate system.
     </p>
-    <p><a href="<?= create_href('mathematics', 'tensors', 'creating-tensors') ?>">Creating Tensors</a></p>
+
+    <ui class="list">
+        <li><a href="<?= create_href('mathematics', 'tensors', 'creating-tensors') ?>">Creating Tensors</a></li>
+    </ui>
 </div>
 
 <div>

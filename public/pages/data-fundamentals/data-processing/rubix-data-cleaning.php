@@ -19,10 +19,14 @@
 </div>
 
 <div>
-    <p>Dataset</p>
-    <code id="code">
-        <?php highlight_file('customers.csv'); ?>
-    </code>
+    <p class="btn btn-link px-0 py-0" id="toggleDataset" data-bs-toggle="collapse" href="#collapseDataset" role="button" aria-expanded="false" aria-controls="collapseDataset" title="Click to expand">
+        Dataset <i id="toggleIconDataset" class="fa-regular fa-square-plus"></i>
+    </p>
+    <div class="collapse pb-4" id="collapseDataset">
+        <code id="code">
+            <?php highlight_file('customers.csv'); ?>
+        </code>
+    </div>
 </div>
 
 <div>

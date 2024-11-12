@@ -21,7 +21,7 @@ $menu = [
             'subMenu' => [
                 ['section' => 'data-fundamentals', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
                 ['section' => 'data-fundamentals', 'subSection' => 'big-data-considerations', 'page' => 'index', 'title' => 'Big Data Considerations', 'permissions' => ['index', 'chunked-processing', 'chunked-processing-code-run', 'dataset-generator', 'dataset-generator-code-run']],
-                ['section' => 'data-fundamentals', 'subSection' => 'data-processing', 'page' => 'index', 'title' => 'Data Processing', 'permissions' => ['index', 'rubix-data-cleaning', 'rubix-data-cleaning-handling-missing-code-run', 'rubix-data-normalization', 'rubix-data-normalization-code-run']],
+                ['section' => 'data-fundamentals', 'subSection' => 'data-processing', 'page' => 'index', 'title' => 'Data Processing', 'permissions' => ['index', 'rubix-data-cleaning', 'rubix-data-cleaning-handling-missing-code-run', 'rubix-data-normalization', 'rubix-data-normalization-code-run', 'rubix-data-standartization',]],
             ],
         ],
         [

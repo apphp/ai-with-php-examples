@@ -34,22 +34,24 @@ $memoryEnd = memory_get_usage();
     </p>
 </div>
 
+
 <div>
-    <p>Dataset</p>
-    <code class="gray">
+    <p class="btn btn-link px-0 py-0 me-4" id="toggleDataset" data-bs-toggle="collapse" href="#collapseDataset" role="button" aria-expanded="false" aria-controls="collapseDataset" title="Click to expand">
+        Dataset <i id="toggleIconDataset" class="fa-regular fa-square-plus"></i>
+    </p>
+    <p class="btn btn-link px-0 py-0" id="toggleExampleOfUse" data-bs-toggle="collapse" href="#collapseExampleOfUse" role="button" aria-expanded="false" aria-controls="collapseExampleOfUse" title="Click to expand">
+        Example of use <i id="toggleIconExampleOfUse" class="fa-regular fa-square-plus"></i>
+    </p>
+    <div class="collapse pb-4" id="collapseDataset">
+        <code class="gray">
         <pre>
 [100, 500, 25],
 [150, 300, 15],
 [200, 400, 20],
 [50, 200, 10]</pre>
-    </code>
-</div>
-
-<div>
-    <p class="btn btn-link px-0 py-0" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Example of use
-    </p>
-    <div class="collapse pb-4" id="collapseExample">
+        </code>
+    </div>
+    <div class="collapse pb-4" id="collapseExampleOfUse">
         <div class="card card-body pb-0">
             <div class="bd-clipboard">
                 <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
@@ -62,7 +64,6 @@ $memoryEnd = memory_get_usage();
             </code>
         </div>
     </div>
-
 </div>
 
 <div>

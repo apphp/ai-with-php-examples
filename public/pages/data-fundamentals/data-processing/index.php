@@ -10,8 +10,11 @@
         stages of data processing, which include data collection, data cleaning, data transformation, data integration, and data reduction.
     </p>
     <h3 class="h5">Data Processing with Rubix</h3>
-    <p><a href="<?= create_href('data-fundamentals', 'data-processing', 'rubix-data-cleaning') ?>">Data Cleaning</a></p>
-    <p><a href="<?= create_href('data-fundamentals', 'data-processing', 'rubix-data-normalization') ?>">Data Normalization</a></p>
+    <ui class="list">
+        <li><a href="<?= create_href('data-fundamentals', 'data-processing', 'rubix-data-cleaning') ?>">Data Cleaning</a></li>
+        <li><a href="<?= create_href('data-fundamentals', 'data-processing', 'rubix-data-normalization') ?>">Data Normalization</a></li>
+        <li><a href="<?= create_href('data-fundamentals', 'data-processing', 'rubix-data-standartization') ?>">Data Standardization</a></li>
+    </ui>
 </div>
 
 <div>

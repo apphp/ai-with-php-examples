@@ -30,6 +30,10 @@ To install these examples, follow these steps:
 4. After installation is complete, type in your browser: http://localhost:8088/
 5. If everything is OK, you should see the website with examples of code.
 
+## Using Libraries for UI
+  - Chart.js [https://www.chartjs.org/](https://www.chartjs.org/)
+  - Plotly.js [https://plotly.com/javascript/](https://plotly.com/javascript/)
+
 
 ## The Following Examples are Available:
 - Machine Learning
@@ -45,6 +49,7 @@ To install these examples, follow these steps:
   - Stages of Data Processing
     - Data Cleaning
     - Data Normalization
+    - Data Standardization
   - ML Algorithms
     - Linear Regression
       - Simple Linear Regression

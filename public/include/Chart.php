@@ -223,7 +223,7 @@ class Chart {
     ): string {
 
         $return = "
-            <div id='my3DScatterChart'></div>
+            <div id='my3DScatterChart' style='transform: translateY(-20px);'></div>
 
             <script>
                 // Define data for the 3D scatter plot
@@ -330,7 +330,7 @@ class Chart {
                     },
                     margin: {
                         l: 150, r: 0, b: 0, t: 20
-                    },  // to set the xaxis range to 0 to 1
+                    }, 
                 };
 
                 // Render the plot in the specified div

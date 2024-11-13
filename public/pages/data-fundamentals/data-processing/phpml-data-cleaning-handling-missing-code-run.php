@@ -5,7 +5,7 @@ $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 
-include('rubix-data-cleaning-handling-missing-code.php');
+include('phpml-data-cleaning-handling-missing-code.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -19,18 +19,17 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">Handling Missing Values with Rubix</h2>
+    <h2 class="h4">Handling Missing Values with PHP-ML</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a href="<?=create_href('data-fundamentals', 'data-processing', 'rubix-data-cleaning')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?=create_href('data-fundamentals', 'data-processing', 'phpml-data-cleaning')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>
 
 <div>
     <p>
-        RubixML provides the MissingDataImputer for handling missing values. This imputer allows you to fill in missing values using strategies like
-        Mean, Median, or Constant.
+        PHP-ML doesn’t have a built-in MissingDataImputer, but we can write custom code to handle missing values.
     </p>
 </div>
 
@@ -55,7 +54,7 @@ $memoryEnd = memory_get_usage();
                 &nbsp;
             </div>
             <code id="code">
-                <?= highlight_file(dirname(__FILE__) . '/rubix-data-cleaning-handling-missing-code.php', true); ?>
+                <?= highlight_file(dirname(__FILE__) . '/phpml-data-cleaning-handling-missing-code.php', true); ?>
             </code>
         </div>
     </div>

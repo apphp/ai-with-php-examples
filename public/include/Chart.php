@@ -218,15 +218,45 @@ class Chart {
         string $zLabel = '',
         string $mainTraceLabel = '',
         string $customTraceLabel = '',
-        array $predictionPoints = []
+        array $predictionPoints = [],
+        bool $useThirdArgument = false
     ): string {
 
         $return = "
-            <div id='my3DScatterChart''></div>
+            <div id='my3DScatterChart'></div>
 
             <script>
                 // Define data for the 3D scatter plot
-                const scatterData = [{";
+                const scatterData = [";
+
+                // ----------------------------------------
+                // DATASET
+                // ----------------------------------------
+                $maxSize = max(array_column($samples, 2));
+
+                // Use 3rd argument
+                if ($useThirdArgument) {
+                    $ind = 0;
+                    foreach ($samples as $sample) {
+                        $return .= "{";
+                        $return .= 'x: [';
+                        $return .= $sample[0] . ',';
+                        $return .= '],' . "\n";
+                        $return .= 'y: [';
+                        $return .= $sample[1] . ',';
+                        $return .= '],' . "\n";
+                        $return .= 'z: [';
+                        $return .= $labels[$ind++] . ',';
+                        $return .= '],' . "\n";
+                        $return .= "mode: 'markers',\n";
+                        // Red color with high opacity
+                        $return .= "marker: {size: ". (int)( 8 * $sample[2] / $maxSize ).",color: 'rgba(99,190,255)'},\n";
+                        $return .= "type: 'scatter3d',";
+                        $return .= "name: '".htmlspecialchars($mainTraceLabel).' '.$ind."'";
+                        $return .= "},";
+                    }
+                } else {
+                    $return .= "{";
 
                     // Render x axis
                     $return .= 'x: [';
@@ -250,13 +280,16 @@ class Chart {
                         color: 'rgba(99,190,255)' // Red color with opacity
                     },
                     type: 'scatter3d', // 3D scatter plot type
-                    name: '".htmlspecialchars($mainTraceLabel)."'
-                }";
+                    name: '".htmlspecialchars($mainTraceLabel)."'";
 
+                    $return .= "},";
+                }
 
-                // Add additional points in red
+                // ----------------------------------------
+                // ADD ADDITIONAL POINTS IN RED
+                // ----------------------------------------
                 if (!empty($predictionPoints)) {
-                    $return .= ",{";
+                    $return .= "{";
                     $return .= 'x: [';
                     foreach ($predictionPoints['x'] as $point) $return .= $point . ',';
                     $return .= '],' . "\n";
@@ -268,10 +301,14 @@ class Chart {
                     $return .= '],' . "\n";
                     $return .= "mode: 'markers',\n";
                     // Red color with high opacity
-                    $return .= "marker: {size: 9,color: 'rgba(255,0,0,0.8)'},\n";
+                    if ($useThirdArgument) {
+                        $return .= "marker: {size: ". (int)( 8 * $sample[2] / $maxSize) . ", color: 'rgba(0,0,0,0.8)'},\n";
+                    } else {
+                        $return .= "marker: {size: 9, color: 'rgba(255,0,0,0.8)'},\n";
+                    }
                     $return .= "type: 'scatter3d',";
                     $return .= "name: '".htmlspecialchars($customTraceLabel)."'";
-                    $return .= "}";
+                    $return .= "},";
                 }
 
                 $return .= "];
@@ -292,7 +329,7 @@ class Chart {
                         }
                     },
                     margin: {
-                        l: 150, r: 0, b: 0, t: 0
+                        l: 150, r: 0, b: 0, t: 20
                     },  // to set the xaxis range to 0 to 1
                 };
 

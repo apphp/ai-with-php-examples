@@ -166,3 +166,14 @@ ui.list li {
   margin-left: 10px;
   margin-bottom: 2px;
 }
+
+/* Add styles to hide the sidebar when 'collapsed' class is added */
+#sidebarMenu.collapsed {
+  width: 30px !important;
+}
+#main.expanded {
+  width: calc(100% - 30px) !important;
+}
+#navbar.nonvisible{
+  visibility: hidden;
+}

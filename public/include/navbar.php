@@ -7,9 +7,16 @@ $page = $page ?? 'index';
 $menu = include('menu.php');
 
 ?>
+
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar overflow-auto">
     <div class="position-sticky pt-3">
-        <?php foreach ($menu as $category => $items): ?>
+        <!-- Toggle Button -->
+        <div class="mt-0 px-1" style="width:18px;float:right;cursor:pointer;border: 1px solid #aaa" id="btn-panel-close">
+            <i id="btn-panel-close-icon" class="fa fa-chevron-left" style="color: #999"></i>
+        </div>
+
+        <div id="navbar">
+            <?php foreach ($menu as $category => $items): ?>
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                 <span><?= $category ?></span>
             </h6>
@@ -50,5 +57,6 @@ $menu = include('menu.php');
                 <?php endforeach; ?>
             </ul>
         <?php endforeach; ?>
+        </div>
     </div>
 </nav>

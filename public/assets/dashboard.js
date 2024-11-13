@@ -73,3 +73,23 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+// JavaScript to toggle sidebar visibility
+document.getElementById('btn-panel-close').addEventListener('click', function() {
+  const sidebar = document.getElementById('sidebarMenu');
+  const icon = document.getElementById('btn-panel-close-icon');
+  const nav = document.getElementById('navbar');
+  const main = document.getElementById('main');
+
+  // Toggle sidebar classes
+  ['col-md-3', 'col-lg-2', 'col-md-1', 'col-lg-1', 'collapsed'].forEach(cls => sidebar.classList.toggle(cls));
+
+  // Toggle icon classes
+  ['fa-chevron-left', 'fa-chevron-right'].forEach(cls => icon.classList.toggle(cls));
+
+  // Toggle navbar visibility
+  nav.classList.toggle('nonvisible');
+
+  // Toggle main content classes
+  ['col-md-9', 'col-lg-10', 'col-md-12', 'col-lg-12', 'expanded'].forEach(cls => main.classList.toggle(cls));
+});

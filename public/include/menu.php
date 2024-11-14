@@ -27,6 +27,7 @@ $menu = [
                     'rubix-data-normalization', 'rubix-data-normalization-code-run',
                     'rubix-data-standardization', 'rubix-data-standardization-code-run',
                     'phpml-data-cleaning', 'phpml-data-cleaning-handling-missing-code-run',
+                    'phpml-data-normalization', 'phpml-data-normalization-code-run',
                 ]],
             ],
         ],

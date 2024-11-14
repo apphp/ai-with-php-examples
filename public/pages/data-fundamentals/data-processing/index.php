@@ -23,6 +23,7 @@
     <h3 class="h5">Data Processing with PHP-ML</h3>
     <ui class="list">
         <li><a href="<?= create_href('data-fundamentals', 'data-processing', 'phpml-data-cleaning') ?>">Data Cleaning</a></li>
+        <li><a href="<?= create_href('data-fundamentals', 'data-processing', 'phpml-data-normalization') ?>">Data Normalization</a></li>
     </ui>
 </div>
 

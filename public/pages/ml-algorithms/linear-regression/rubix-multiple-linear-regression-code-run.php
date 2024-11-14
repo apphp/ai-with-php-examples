@@ -66,7 +66,7 @@ $memoryEnd = memory_get_usage();
 <div class="container px-2">
     <div class="row justify-content-start p-0">
         <div class="col-md-12 col-lg-7 px-1 pe-4">
-            <p>Chart:</p>
+            <p><b>Chart:</b></p>
             <?php
                 echo Chart::drawMultiLinearRegression(
                     samples:  $dataset->samples(),
@@ -81,7 +81,31 @@ $memoryEnd = memory_get_usage();
             ?>
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
-            <p>Result:
+            <div>
+                <div class="mt-1">
+                    <b>Features:</b>
+                </div>
+                <div class="form-check form-check-inline mt-2">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                    <label class="form-check-label" for="inlineCheckbox1">Rooms</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                    <label class="form-check-label" for="inlineCheckbox2">Size</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                    <label class="form-check-label" for="inlineCheckbox3">Location</label>
+                </div>
+                <div class="form-check form-check-inline float-end">
+                    <a class="btn btn-sm btn-outline-primary">Re-generate</a>
+                </div>
+            </div>
+
+            <hr>
+
+            <p>
+                <b>Result:</b>
                 <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>
                 <span class="float-end me-2">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
             </p>
@@ -91,12 +115,6 @@ $memoryEnd = memory_get_usage();
         </div>
 
     </div>
-
-
-
-
-
-
 
 </div>
 

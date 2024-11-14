@@ -32,7 +32,45 @@ function copyToClipboard() {
   }, 1000);
 }
 
+// Usage:
+// toggleSidebar(true)  // to collapse
+// toggleSidebar(false) // to expand
+function toggleSidebar(collapse) {
+  // Get elements
+  const elements = {
+    sidebar: document.getElementById('sidebarMenu'),
+    svgicon: document.getElementById('svg-panel-close'),
+    navbar: document.getElementById('navbar'),
+    main: document.getElementById('main')
+  };
+
+  // Check if all elements exist
+  if (!Object.values(elements).every(Boolean)) {
+    throw new Error('Required elements not found');
+  }
+
+  const { sidebar, svgicon, navbar, main } = elements;
+
+  // Toggle classes based on collapse state
+  sidebar.classList.toggle('col-md-3', !collapse);
+  sidebar.classList.toggle('col-md-1', collapse);
+  sidebar.classList.toggle('col-lg-2', !collapse);
+  sidebar.classList.toggle('col-lg-1', collapse);
+  sidebar.classList.toggle('collapsed', collapse);
+
+  navbar.classList.toggle('nonvisible', collapse);
+  svgicon.classList.toggle('rotate-180', collapse);
+
+  main.classList.toggle('col-md-9', !collapse);
+  main.classList.toggle('col-md-12', collapse);
+  main.classList.toggle('col-lg-10', !collapse);
+  main.classList.toggle('col-lg-12', collapse);
+  main.classList.toggle('expanded', collapse);
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
+  // Toggle Example of use
   const toggleText = document.getElementById('toggleExampleOfUse') || null;
   const toggleIcon = document.getElementById('toggleIconExampleOfUse') || null;
   const collapseElement = document.getElementById('collapseExampleOfUse') || null;
@@ -43,9 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleIcon.classList.add('fa-square-minus');
       toggleText.title = 'Click to collapse';
     });
-  }
 
-  if (collapseElement !== null) {
     collapseElement.addEventListener('hidden.bs.collapse', function () {
       toggleIcon.classList.remove('fa-square-minus');
       toggleIcon.classList.add('fa-square-plus');
@@ -53,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Toggle Dataset
   const toggleTextDataset = document.getElementById('toggleDataset') || null;
   const toggleIconDataset = document.getElementById('toggleIconDataset') || null;
   const collapseElementDataset = document.getElementById('collapseDataset') || null;
@@ -63,33 +100,32 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleIconDataset.classList.add('fa-square-minus');
       toggleTextDataset.title = 'Click to collapse';
     });
-  }
 
-  if (collapseElementDataset !== null) {
     collapseElementDataset.addEventListener('hidden.bs.collapse', function () {
       toggleIconDataset.classList.remove('fa-square-minus');
       toggleIconDataset.classList.add('fa-square-plus');
       toggleText.title = 'Click to expand';
     });
   }
+
+  // Restore side bar state
+  const sideBarState = localStorage.getItem("sidebar");
+  if (sideBarState === "collapsed") {
+    toggleSidebar(true)
+  } else {
+    toggleSidebar(false)
+  }
 });
 
 // JavaScript to toggle sidebar visibility
 document.getElementById('btn-panel-close').addEventListener('click', function() {
-  const sidebar = document.getElementById('sidebarMenu');
-  const icon = document.getElementById('btn-panel-close-icon');
-  const nav = document.getElementById('navbar');
-  const main = document.getElementById('main');
-
-  // Toggle sidebar classes
-  ['col-md-3', 'col-lg-2', 'col-md-1', 'col-lg-1', 'collapsed'].forEach(cls => sidebar.classList.toggle(cls));
-
-  // Toggle icon classes
-  ['fa-chevron-left', 'fa-chevron-right'].forEach(cls => icon.classList.toggle(cls));
-
-  // Toggle navbar visibility
-  nav.classList.toggle('nonvisible');
-
-  // Toggle main content classes
-  ['col-md-9', 'col-lg-10', 'col-md-12', 'col-lg-12', 'expanded'].forEach(cls => main.classList.toggle(cls));
+  if (this.title === "Collapse") {
+    this.title = "Expand";
+    localStorage.setItem("sidebar", "collapsed");
+    toggleSidebar(true)
+  } else {
+    this.title = "Collapse";
+    localStorage.setItem("sidebar", "expanded");
+    toggleSidebar(false)
+  }
 });

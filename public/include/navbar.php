@@ -11,8 +11,8 @@ $menu = include('menu.php');
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar overflow-auto">
     <div class="position-sticky pt-3">
         <!-- Toggle Button -->
-        <div class="mt-0 px-1" style="width:18px;float:right;cursor:pointer;border: 1px solid #aaa" id="btn-panel-close">
-            <i id="btn-panel-close-icon" class="fa fa-chevron-left" style="color: #999"></i>
+        <div id="btn-panel-close" title="Collapse">
+            <svg id="svg-panel-close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18" preserveAspectRatio="xMidYMid meet" width="18" height="18" style="vertical-align: middle;"><g clip-path="url(#PanelLeftClose_svg__a)"><path stroke="#777" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4.791 14.5v-13m8.653 13H2.556c-.413 0-.809-.152-1.1-.423A1.394 1.394 0 0 1 1 13.055V2.945C1 2.147 1.696 1.5 2.556 1.5h10.888c.86 0 1.556.647 1.556 1.445v10.11c0 .798-.697 1.445-1.556 1.445Z"></path><path fill="#777" d="M8.017 7.618a.4.4 0 0 0 0 .566l2.4 2.4a.4.4 0 0 0 .683-.283v-4.8a.4.4 0 0 0-.683-.283l-2.4 2.4Z"></path></g><defs><clipPath id="PanelLeftClose_svg__a"><path d="M0 0h18v18H0z"></path></clipPath></defs></svg>
         </div>
 
         <div id="navbar">

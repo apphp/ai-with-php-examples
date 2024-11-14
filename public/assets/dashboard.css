@@ -177,3 +177,22 @@ ui.list li {
 #navbar.nonvisible{
   visibility: hidden;
 }
+
+/* Side panel */
+#btn-panel-close {
+  float: right;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+#sidebarMenu.collapsed #btn-panel-close {
+  margin-right: 6px;
+}
+
+#btn-panel-close i {
+  color: #999
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}

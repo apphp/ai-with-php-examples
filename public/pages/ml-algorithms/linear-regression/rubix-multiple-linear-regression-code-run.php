@@ -96,6 +96,9 @@ if (empty($features)) {
                 <form action="index.php" type="GET">
                     <?=create_form_fields('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression-code-run')?>
                     <?=create_form_features(['Rooms', 'Size', 'Location'], $features);?>
+                    <div class="form-check form-check-inline float-end p-0 m-0">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
+                    </div>
                 </form>
             </div>
 

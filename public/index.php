@@ -29,6 +29,7 @@
     <link rel="icon" type="image/webp" href="favicon.webp">
 
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/dist/css/dark-mode.css" rel="stylesheet">
     <link href="assets/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/dist/css/all.min.css" crossorigin="anonymous">
     <script src="assets/dist/js/chart.js"></script>
@@ -41,7 +42,14 @@
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-<!--    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">-->
+
+    <div class="form-check form-switch mt-1" title="Swith Light/Dark mode" style="width: 50px; margin-bottom: -2px !important;">
+        <input type="checkbox" class="form-check-input cursor-pointer" id="darkSwitch">
+        <label class="custom-control-label" for="darkSwitch"></label>
+    </div>
+
+
+    <!--    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">-->
 <!--    <div class="navbar-nav">-->
 <!--        <div class="nav-item text-nowrap">-->
 <!--            <a class="nav-link px-3" href="#"></a>-->
@@ -64,6 +72,7 @@
 <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/dist/js/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
 <script src="assets/dashboard.js"></script>
+<script src="assets/dist/js/dark-mode-switch.min.js"></script>
 
 </body>
 </html>

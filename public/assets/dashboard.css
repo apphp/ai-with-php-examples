@@ -218,3 +218,7 @@ ui.list li {
 .modebar-container {
   display: none;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

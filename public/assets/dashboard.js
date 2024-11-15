@@ -68,6 +68,27 @@ function toggleSidebar(collapse) {
   main.classList.toggle('expanded', collapse);
 }
 
+function setCookie(name, value, days) {
+  let expires = "";
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name) {
+  const nameEQ = name + "=";
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i].trim();
+    if (cookie.indexOf(nameEQ) === 0) {
+      return cookie.substring(nameEQ.length, cookie.length);
+    }
+  }
+  return null;
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   // Toggle Example of use
@@ -108,24 +129,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Restore side bar state
-  const sideBarState = localStorage.getItem("sidebar");
-  if (sideBarState === "collapsed") {
-    toggleSidebar(true)
-  } else {
-    toggleSidebar(false)
-  }
+  // // Restore side bar state
+  // const sideBarState = getCookie("sidebar");
+  // if (sideBarState === "collapsed") {
+  //   toggleSidebar(true)
+  // } else {
+  //   toggleSidebar(false)
+  // }
 });
 
 // JavaScript to toggle sidebar visibility
 document.getElementById('btn-panel-close').addEventListener('click', function() {
   if (this.title === "Collapse") {
     this.title = "Expand";
-    localStorage.setItem("sidebar", "collapsed");
+    setCookie("sidebar", "collapsed", 7);
     toggleSidebar(true)
   } else {
     this.title = "Collapse";
-    localStorage.setItem("sidebar", "expanded");
+    setCookie("sidebar", "expanded", 7);
     toggleSidebar(false)
   }
 });
+

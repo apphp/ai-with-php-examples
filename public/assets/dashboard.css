@@ -196,3 +196,21 @@ ui.list li {
 .rotate-180 {
   transform: rotate(180deg);
 }
+
+/***********************
+ * DEBUG
+ ***********************/
+.debug {
+  border: 1px dotted #990000;
+}
+
+.debug > p {
+  border: 1px dotted #009900;
+}
+
+/***********************
+ * PlotlyJS
+ ***********************/
+.modebar-container {
+  display: none;
+}

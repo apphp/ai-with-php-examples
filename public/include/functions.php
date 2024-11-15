@@ -41,6 +41,14 @@ function create_href(string $section, string $subsection, string $page): string 
     return 'index.php?section=' . $section . '&subsection=' . $subsection . '&page=' . $page;
 }
 
+function create_form_fields(string $section, string $subsection, string $page): string {
+    $output = '<input type="hidden" name="section" value="' . $section . '" />';
+    $output .= '<input type="hidden" name="subsection" value="' . $subsection . '" />';
+    $output .= '<input type="hidden" name="page" value="' . $page . '" />';
+
+    return $output;
+}
+
 // Function to validate the GET parameters against the $menu array
 function is_valid_page(array $menu, $section, $subSection, $page): bool {
     if(!is_string($section) || !is_string($subSection) || !is_string($page)){

@@ -213,12 +213,13 @@ class Chart {
     public static function drawMultiLinearRegression(
         array $samples,
         array $labels,
-        string $xLabel = '',
-        string $yLabel = '',
-        string $zLabel = '',
+        array $features,
+        array $titles,
+        string $targetLabel = '',
         string $mainTraceLabel = '',
         string $customTraceLabel = '',
-        array $predictionPoints = [],
+        array $predictionSamples = [],
+        array $predictionResults = [],
         bool $useThirdArgument = false
     ): string {
 
@@ -260,12 +261,12 @@ class Chart {
 
                     // Render x axis
                     $return .= 'x: [';
-                    foreach ($samples as $sample) $return .= $sample[0] . ',';
+                    foreach ($samples as $sample) $return .= $sample[$features[0]] . ',';
                     $return .= '],' . "\n";
 
                     // Render y axis
                     $return .= 'y: [';
-                    foreach ($samples as $sample) $return .= $sample[1] . ',';
+                    foreach ($samples as $sample) $return .= $sample[$features[1]] . ',';
                     $return .= '],' . "\n";
 
                     // Render z axis
@@ -288,16 +289,16 @@ class Chart {
                 // ----------------------------------------
                 // ADD ADDITIONAL POINTS IN RED
                 // ----------------------------------------
-                if (!empty($predictionPoints)) {
+                if (!empty($predictionSamples)) {
                     $return .= "{";
                     $return .= 'x: [';
-                    foreach ($predictionPoints['x'] as $point) $return .= $point . ',';
+                    foreach ($predictionSamples as $point) $return .= $point[$features[0]] . ',';
                     $return .= '],' . "\n";
                     $return .= 'y: [';
-                    foreach ($predictionPoints['y'] as $point) $return .= $point . ',';
+                    foreach ($predictionSamples as $point) $return .= $point[$features[1]] . ',';
                     $return .= '],' . "\n";
                     $return .= 'z: [';
-                    foreach ($predictionPoints['z'] as $point) $return .= $point . ',';
+                    foreach ($predictionResults as $point) $return .= $point . ',';
                     $return .= '],' . "\n";
                     $return .= "mode: 'markers',\n";
                     // Red color with high opacity
@@ -317,9 +318,9 @@ class Chart {
                 const layout = {
                     __title: '3D Scatter Plot',
                     scene: {
-                        xaxis: { title: '".htmlspecialchars($xLabel)."' },
-                        yaxis: { title: '".htmlspecialchars($yLabel)."' },
-                        zaxis: { title: '".htmlspecialchars($zLabel)."' },
+                        xaxis: { title: '".htmlspecialchars($titles[$features[0]])."' },
+                        yaxis: { title: '".htmlspecialchars($titles[$features[1]])."' },
+                        zaxis: { title: '".htmlspecialchars($targetLabel)."' },
                         camera: {
                             eye: {
                                 x: 0.9,

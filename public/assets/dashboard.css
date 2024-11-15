@@ -204,8 +204,12 @@ ui.list li {
   border: 1px dotted #990000;
 }
 
-.debug > p {
+.debug > div {
   border: 1px dotted #009900;
+}
+
+.debug > div > div {
+  border: 1px dotted #000099;
 }
 
 /***********************

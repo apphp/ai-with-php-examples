@@ -21,7 +21,7 @@ $memoryEnd = memory_get_usage();
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
     <h2 class="h4">Simple Linear Regression with PHP-ML</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group me-2">
+        <div class="btn-group">
             <a href="<?=create_href('ml-algorithms', 'linear-regression', 'phpml-simple-linear-regression')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
@@ -63,7 +63,7 @@ $memoryEnd = memory_get_usage();
     </div>
 </div>
 
-<div class="container px-2">
+<div class="container-fluid px-2">
     <div class="row justify-content-start p-0">
         <div class="col-md-12 col-lg-7 px-1 pe-4">
             <p><b>Chart:</b></p>

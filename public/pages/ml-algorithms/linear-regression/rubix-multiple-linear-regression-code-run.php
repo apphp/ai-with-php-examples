@@ -95,22 +95,7 @@ if (empty($features)) {
                 </div>
                 <form action="index.php" type="GET">
                     <?=create_form_fields('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression-code-run')?>
-
-                    <div class="form-check form-check-inline mt-2">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="features[]" value="0" <?=in_array('0', $features) ? 'checked' : '';?>>
-                        <label class="form-check-label" for="inlineCheckbox1">Rooms</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="features[]" value="1" <?=in_array('1', $features) ? 'checked' : '';?>>
-                        <label class="form-check-label" for="inlineCheckbox2">Size</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="features[]" value="2" <?=in_array('2', $features) ? 'checked' : '';?>>
-                        <label class="form-check-label" for="inlineCheckbox3">Location</label>
-                    </div>
-                    <div class="form-check form-check-inline float-end p-0 m-0">
-                        <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
-                    </div>
+                    <?=create_form_features(['Rooms', 'Size', 'Location'], $features);?>
                 </form>
             </div>
 
@@ -121,7 +106,7 @@ if (empty($features)) {
                 <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>
                 <span class="float-end me-2">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
             </div>
-            <code id="code" class="code-result">
+            <code class="code-result">
                 <pre><?= $result; ?></pre>
             </code>
         </div>

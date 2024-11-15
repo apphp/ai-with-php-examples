@@ -220,7 +220,6 @@ class Chart {
         string $customTraceLabel = '',
         array $predictionSamples = [],
         array $predictionResults = [],
-        bool $useThirdArgument = false
     ): string {
 
         $return = "
@@ -230,13 +229,14 @@ class Chart {
                 // Define data for the 3D scatter plot
                 const scatterData = [";
 
+                $useThirdArgument = count($features) === 3;
+
                 // ----------------------------------------
                 // DATASET
                 // ----------------------------------------
-                $maxSize = max(array_column($samples, 2));
-
                 // Use 3rd argument
                 if ($useThirdArgument) {
+                    $maxSize = max(array_column($samples, 2));
                     $ind = 0;
                     foreach ($samples as $sample) {
                         $return .= "{";
@@ -251,7 +251,7 @@ class Chart {
                         $return .= '],' . "\n";
                         $return .= "mode: 'markers',\n";
                         // Red color with high opacity
-                        $return .= "marker: {size: ". (int)( 8 * $sample[2] / $maxSize ).",color: 'rgba(99,190,255)'},\n";
+                        $return .= "marker: {size: ". (int)(8 * $sample[2] / $maxSize ).",color: 'rgba(99,190,255)'},\n";
                         $return .= "type: 'scatter3d',";
                         $return .= "name: '".htmlspecialchars($mainTraceLabel).' '.$ind."'";
                         $return .= "},";
@@ -266,7 +266,7 @@ class Chart {
 
                     // Render y axis
                     $return .= 'y: [';
-                    foreach ($samples as $sample) $return .= $sample[$features[1]] . ',';
+                    foreach ($samples as $sample) $return .= (isset($features[1]) ? $sample[$features[1]] : '0') . ',';
                     $return .= '],' . "\n";
 
                     // Render z axis
@@ -295,7 +295,7 @@ class Chart {
                     foreach ($predictionSamples as $point) $return .= $point[$features[0]] . ',';
                     $return .= '],' . "\n";
                     $return .= 'y: [';
-                    foreach ($predictionSamples as $point) $return .= $point[$features[1]] . ',';
+                    foreach ($predictionSamples as $point) $return .= (isset($features[1]) ? $point[$features[1]] : '0') . ',';
                     $return .= '],' . "\n";
                     $return .= 'z: [';
                     foreach ($predictionResults as $point) $return .= $point . ',';
@@ -303,7 +303,7 @@ class Chart {
                     $return .= "mode: 'markers',\n";
                     // Red color with high opacity
                     if ($useThirdArgument) {
-                        $return .= "marker: {size: ". (int)( 8 * $sample[2] / $maxSize) . ", color: 'rgba(0,0,0,0.8)'},\n";
+                        $return .= "marker: {size: ". (int)(8 * $sample[2] / $maxSize) . ", color: 'rgba(0,0,0,0.8)'},\n";
                     } else {
                         $return .= "marker: {size: 9, color: 'rgba(255,0,0,0.8)'},\n";
                     }
@@ -319,7 +319,7 @@ class Chart {
                     __title: '3D Scatter Plot',
                     scene: {
                         xaxis: { title: '".htmlspecialchars($titles[$features[0]])."' },
-                        yaxis: { title: '".htmlspecialchars($titles[$features[1]])."' },
+                        yaxis: { title: '".(isset($features[1]) ? htmlspecialchars($titles[$features[1]]) : '')."' },
                         zaxis: { title: '".htmlspecialchars($targetLabel)."' },
                         camera: {
                             eye: {

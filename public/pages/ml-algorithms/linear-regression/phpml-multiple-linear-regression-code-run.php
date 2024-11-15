@@ -12,6 +12,13 @@ $result = ob_get_clean();
 $microtimeEnd = microtime(true);
 $memoryEnd = memory_get_usage();
 
+$features = $_GET['features'] ?? [];
+
+if (empty($features)) {
+    $features[0] = '0';
+    $features[1] = '1';
+}
+
 ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -71,17 +78,33 @@ $memoryEnd = memory_get_usage();
                 echo Chart::drawMultiLinearRegression(
                     samples:  $samples,
                     labels: $labels,
-                    xLabel: 'Number of rooms',
-                    yLabel: 'Square footage (sq.ft)',
-                    zLabel: 'Price ($)',
+                    features: $features,
+                    titles: ['Number of rooms', 'Square footage (sq.ft)', 'Location (km to center)'],
+                    targetLabel: 'Price ($)',
                     mainTraceLabel: 'Dataset',
                     customTraceLabel: 'Prediction',
-                    predictionPoints: ['x' => [$newSamples[0][0], $newSamples[1][0]], 'y' => [$newSamples[0][1], $newSamples[1][1]], 'z' => [round($predictions[0]), round($predictions[1])]],
+                    predictionSamples: $newSamples,
+                    predictionResults: $predictions,
                 );
             ?>
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
-            <div class="mb-1">
+            <div>
+                <div class="mt-1">
+                    <b>Features:</b>
+                </div>
+                <form action="index.php" type="GET">
+                    <?=create_form_fields('ml-algorithms', 'linear-regression', 'phpml-multiple-linear-regression-code-run')?>
+                    <?=create_form_features(['Rooms', 'Size', 'Location'], $features);?>
+                    <div class="form-check form-check-inline float-end p-0 m-0">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
+                    </div>
+                </form>
+            </div>
+
+            <hr>
+
+            <div class="pb-1">
                 <b>Result:</b>
                 <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>
                 <span class="float-end me-2">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>

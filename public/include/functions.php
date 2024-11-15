@@ -49,6 +49,21 @@ function create_form_fields(string $section, string $subsection, string $page): 
     return $output;
 }
 
+function create_form_features(array $features = [], array $data = []) {
+    $output = '';
+    $ind = 0;
+    $value = 0;
+    foreach ($features as $feature) {
+        $ind++;
+        $output .= '<div class="form-check form-check-inline mt-2">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox'.$ind.'" name="features[]" value="'.$value.'"' . (in_array($value, $data) ? ' checked' : '') . '>
+            <label class="form-check-label" for="inlineCheckbox'.$ind.'">' . $feature . '</label>
+        </div>';
+        $value++;
+    }
+    return $output;
+}
+
 // Function to validate the GET parameters against the $menu array
 function is_valid_page(array $menu, $section, $subSection, $page): bool {
     if(!is_string($section) || !is_string($subSection) || !is_string($page)){

@@ -52,20 +52,20 @@ function toggleSidebar(collapse) {
   const { sidebar, svgicon, navbar, main } = elements;
 
   // Toggle classes based on collapse state
-  sidebar.classList.toggle('col-md-3', !collapse);
   sidebar.classList.toggle('col-md-1', collapse);
-  sidebar.classList.toggle('col-lg-2', !collapse);
   sidebar.classList.toggle('col-lg-1', collapse);
   sidebar.classList.toggle('collapsed', collapse);
+  sidebar.classList.toggle('col-md-3', !collapse);
+  sidebar.classList.toggle('col-lg-2', !collapse);
 
   navbar.classList.toggle('nonvisible', collapse);
   svgicon.classList.toggle('rotate-180', collapse);
 
-  main.classList.toggle('col-md-9', !collapse);
   main.classList.toggle('col-md-12', collapse);
-  main.classList.toggle('col-lg-10', !collapse);
   main.classList.toggle('col-lg-12', collapse);
   main.classList.toggle('expanded', collapse);
+  main.classList.toggle('col-md-9', !collapse);
+  main.classList.toggle('col-lg-10', !collapse);
 }
 
 function setCookie(name, value, days) {

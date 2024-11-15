@@ -7,6 +7,7 @@
     $section = !empty($_GET['section']) ? $_GET['section'] : '';
     $subSection = !empty($_GET['subsection']) ? $_GET['subsection'] : '';
     $page = $_GET['page'] ?? 'home';
+    $sideBar = $_COOKIE['sidebar'] ?? '';
 
     // Check if the current page is valid; if not, set default values
     if (!is_valid_page($menu, $section, $subSection, $page)) {
@@ -52,7 +53,7 @@
     <div class="row">
         <?php include('include/navbar.php'); ?>
 
-        <main id="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-3 pb-4">
+        <main id="main" class="<?= $sideBar === 'collapsed' ? 'col-md-12 col-lg-12 expanded' : 'col-md-9 col-lg-10'; ?> ms-sm-auto px-md-4 pt-3 pb-4">
             <?php include('include/breadcrumbs.php'); ?>
 
             <?php include('pages/'.($section ? $section . '/' : '').($subSection ? $subSection . '/' : '').$page.'.php'); ?>

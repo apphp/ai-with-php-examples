@@ -46,6 +46,15 @@ $menu = [
             ],
         ],
     ],
+    '<i class="fas fa-network-wired me-1"></i> Neural Networks' => [
+        [
+            'title' => 'Types of NN',
+            'subMenu' => [
+                ['section' => 'neural-network', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
+                ['section' => 'neural-network', 'subSection' => 'simple-perceptron', 'page' => 'index', 'title' => 'Basic Neural Network', 'permissions' => ['index', 'rubix-simple-perceptron', 'rubix-simple-perceptron-code-run']],
+            ],
+        ],
+    ],
 ];
 
 return $menu;

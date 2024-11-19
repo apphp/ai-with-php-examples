@@ -4,35 +4,29 @@ require APP_PATH . 'vendor/autoload.php';
 
 use Rubix\ML\Datasets\Labeled;
 use Rubix\ML\Datasets\Unlabeled;
+use Rubix\ML\Extractors\CSV;
 use Rubix\ML\NeuralNet\Layers\Dense;
 use Rubix\ML\NeuralNet\Layers\Activation;
 use Rubix\ML\NeuralNet\Optimizers\Adam;
 use Rubix\ML\NeuralNet\ActivationFunctions\ReLU;
 use Rubix\ML\Classifiers\MultilayerPerceptron;
+use Rubix\ML\Transformers\MissingDataImputer;
+use Rubix\ML\Transformers\NumericStringConverter;
 
 // Create a simple dataset for binary classification
 // Example: Predict if a student will pass (1) or fail (0) based on study hours and previous test score
-$samples = [
-    [2, 65],  // 2 hours study, 65% previous score
-    [1, 45],
-    [8, 85],
-    [4, 75],
-    [7, 90],
-    [3, 55],
-    [6, 78],
-    [5, 80],
-];
 
-$labels = ['fail', 'fail', 'pass', 'pass', 'pass', 'fail', 'pass', 'pass'];
+// Load the raw data from CSV
+$dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/exams.csv', true));
 
-// Create a labeled dataset
-$dataset = new Labeled($samples, $labels);
+// Convert all numeric strings to their proper numeric types
+$dataset->apply(new NumericStringConverter());
 
 // Initialize neural network with no hidden layers (simple perceptron)
 $estimator = new MultilayerPerceptron([
     new Dense(1), // Output layer with single neuron
     new Activation(new ReLU()), // ReLU activation function
-], 100, // Maximum number of epochs
+], 10000, // Maximum number of epochs
     new Adam(0.01) // Learning rate of 0.01
 );
 

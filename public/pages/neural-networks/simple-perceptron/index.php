@@ -9,7 +9,7 @@
 
     <h3 class="h5">Basic Neural Network with Rubix</h3>
     <ui class="list">
-        <li><a href="<?= create_href('neural-network', 'simple-perceptron', 'rubix-simple-perceptron') ?>">Simple Perceptron</a></li>
+        <li><a href="<?= create_href('neural-networks', 'simple-perceptron', 'rubix-simple-perceptron') ?>">Simple Perceptron</a></li>
     </ui>
 
     <br>
@@ -17,6 +17,7 @@
 
     <h3 class="h5">Basic Neural Network with PHP-ML</h3>
     <ui class="list">
+        <li><a href="<?= create_href('neural-networks', 'simple-perceptron', 'phpml-simple-perceptron') ?>">Simple Perceptron</a></li>
     </ui>
 </div>
 

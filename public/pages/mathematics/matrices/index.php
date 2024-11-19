@@ -6,7 +6,7 @@
     <h2 class="h4">Matrices with PHP</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?= create_href('mathematics', 'matrices', 'matrices-code-run') ?>" class="btn btn-sm btn-outline-primary">&#9654; Run Code</a>
+            <a href="<?= create_href('mathematics', 'matrices', 'matrices-code-run') ?>" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
         </div>
     </div>
 </div>

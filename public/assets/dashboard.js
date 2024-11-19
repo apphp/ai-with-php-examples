@@ -129,13 +129,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // // Restore side bar state
-  // const sideBarState = getCookie("sidebar");
-  // if (sideBarState === "collapsed") {
-  //   toggleSidebar(true)
-  // } else {
-  //   toggleSidebar(false)
-  // }
+  // Toggle Dataset
+  const toggleTextTestData = document.getElementById('toggleTestData') || null;
+  const toggleIconTestData = document.getElementById('toggleIconTestData') || null;
+  const collapseElementTestData = document.getElementById('collapseTestData') || null;
+
+  if (collapseElementTestData !== null) {
+    collapseElementTestData.addEventListener('shown.bs.collapse', function () {
+      toggleIconTestData.classList.remove('fa-square-plus');
+      toggleIconTestData.classList.add('fa-square-minus');
+      toggleTextTestData.title = 'Click to collapse';
+    });
+
+    collapseElementTestData.addEventListener('hidden.bs.collapse', function () {
+      toggleIconTestData.classList.remove('fa-square-minus');
+      toggleIconTestData.classList.add('fa-square-plus');
+      toggleText.title = 'Click to expand';
+    });
+  }
 });
 
 // JavaScript to toggle sidebar visibility

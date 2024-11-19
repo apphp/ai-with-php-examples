@@ -6,7 +6,7 @@
     <h2 class="h4">Chunked Processing</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?=create_href('data-fundamentals', 'big-data-considerations', 'chunked-processing-code-run')?>" class="btn btn-sm btn-outline-primary">&#9654; Run Code</a>
+            <a href="<?=create_href('data-fundamentals', 'big-data-considerations', 'chunked-processing-code-run')?>" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
         </div>
     </div>
 </div>

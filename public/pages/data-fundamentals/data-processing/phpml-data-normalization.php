@@ -7,7 +7,7 @@
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
             <a href="<?= create_href('data-fundamentals', 'data-processing', 'phpml-data-normalization-code-run') ?>"
-               class="btn btn-sm btn-outline-primary">&#9654; Run Code</a>
+               class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
         </div>
     </div>
 </div>

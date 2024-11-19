@@ -2,6 +2,146 @@
 
 class Chart {
 
+    public static function drawLinearSeparation(
+        array $samples,
+        array $labels,
+    ): string {
+        $return = "
+            <canvas id='myLinearSeparationChart'></canvas>
+
+            <script>
+                const ctx = document.getElementById('myLinearSeparationChart');
+    
+                // Data points
+                const passData = [
+                    { x: 8, y: 85 },
+                    { x: 4, y: 75 },
+                    { x: 7, y: 90 },
+                    { x: 6, y: 78 },
+                    { x: 5, y: 80 },
+                    { x: 8, y: 85 },
+                    { x: 7, y: 88 }
+                ];
+    
+                const failData = [
+                    { x: 2, y: 65 },
+                    { x: 1, y: 45 },
+                    { x: 3, y: 55 }
+                ];
+    
+                // Generate separation line points
+                const separationLineData = [];
+                for (let x = 0; x <= 9; x += 0.5) {
+                    separationLineData.push({
+                        x: x,
+                        y: -5 * x + 75
+                    });
+                }
+    
+                const chart = new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: 'Pass',
+                            data: passData,
+                            backgroundColor: 'rgb(75, 192, 75)',
+                            pointRadius: 8
+                        },
+                        {
+                            label: 'Fail',
+                            data: failData,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            pointRadius: 8
+                        },
+                        {
+                            label: 'Decision Boundary',
+                            data: separationLineData,
+                            type: 'line',
+                            borderColor: 'rgb(128, 128, 128)',
+                            borderDash: [5, 5],
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        layout: {
+                            padding: {
+                                left: 10,
+                                right: 10,
+                                top: -100,    // Reduced top padding
+                                bottom: 10
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Study Hours',
+                                    font: {
+                                        size: 14,
+                                        weight: 'bold'
+                                    }
+                                },
+                                min: 0,
+                                max: 9
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Previous Score',
+                                    font: {
+                                        size: 14,
+                                        weight: 'bold'
+                                    }
+                                },
+                                min: 40,
+                                max: 95
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: {
+                                        size: 14
+                                    }
+                                }
+                            },
+                            title: {
+                                display: true,
+                                __text: '',
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                },
+                                padding: {
+                                    top: 10,
+                                    bottom: 30
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        if (context.dataset.label === 'Decision Boundary') {
+                                            return '';
+                                        }
+                                        return context.dataset.label + ': ' + context.parsed.x + ' hours, ' + context.parsed.y + '%';
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            </script>
+        ";
+
+        return $return;
+    }
+
     public static function drawLinearRegression(
         array $samples,
         array $labels,
@@ -181,7 +321,7 @@ class Chart {
                                 offset: true,
                             },
                             y: {
-                                " . ($minY != 0 ? 'beginAtZero: false, min: '.$minY.',' : 'beginAtZero: true') . "
+                                " . ($minY != 0 ? 'beginAtZero: false, min: '.$minY.',' : 'beginAtZero: true,') . "
                                 title: {
                                     display: true,
                                     text: '".htmlspecialchars($yLabel)."',
@@ -200,7 +340,6 @@ class Chart {
                                     }
                                 },
                                 offset: false,
-
                             }
                         }
                     }

@@ -50,8 +50,8 @@ $menu = [
         [
             'title' => 'Types of NN',
             'subMenu' => [
-                ['section' => 'neural-network', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
-                ['section' => 'neural-network', 'subSection' => 'simple-perceptron', 'page' => 'index', 'title' => 'Basic Neural Network', 'permissions' => ['index', 'rubix-simple-perceptron', 'rubix-simple-perceptron-code-run']],
+                ['section' => 'neural-networks', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
+                ['section' => 'neural-networks', 'subSection' => 'simple-perceptron', 'page' => 'index', 'title' => 'Basic Neural Network', 'permissions' => ['index', 'rubix-simple-perceptron', 'rubix-simple-perceptron-code-run', 'phpml-simple-perceptron', 'phpml-simple-perceptron-code-run']],
             ],
         ],
     ],

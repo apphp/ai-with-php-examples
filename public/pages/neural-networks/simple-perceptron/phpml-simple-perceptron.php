@@ -3,10 +3,10 @@
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">Basic Neural Network with Rubix</h2>
+    <h2 class="h4">Basic Neural Network with PHP-ML</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?=create_href('neural-network', 'simple-perceptron', 'rubix-simple-perceptron-code-run')?>" class="btn btn-sm btn-outline-primary">&#9654; Run Code</a>
+            <a href="<?=create_href('neural-networks', 'simple-perceptron', 'phpml-simple-perceptron-code-run')?>" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
         </div>
     </div>
 </div>
@@ -24,7 +24,7 @@
     <div class="collapse pb-4" id="collapseDataset">
         <div class="card card-body pb-0">
             <code id="dataset">
-                <?php highlight_file('houses2.csv'); ?>
+                <?php highlight_file('exams.csv'); ?>
             </code>
         </div>
     </div>
@@ -38,7 +38,7 @@
         </button>&nbsp;
     </div>
     <code id="code">
-        <?php highlight_file('rubix-simple-perceptron-code.php'); ?>
+        <?php highlight_file('phpml-simple-perceptron-code.php'); ?>
     </code>
 </div>
 

@@ -41,23 +41,23 @@ $memoryEnd = memory_get_usage();
         Test Data <i id="toggleIconTestData" class="fa-regular fa-square-plus"></i>
     </p>
     <div class="row">
-    <div class="collapse pb-4 col-6" id="collapseDataset">
-        <div class="card card-body pb-0">
-            <code id="dataset">
-                <?php highlight_file('exams.csv'); ?>
-            </code>
+        <div class="collapse col-md-12 col-lg-7 mb-4" id="collapseDataset">
+            <div class="card card-body pb-0">
+                <code id="dataset">
+                    <?php highlight_file('exams.csv'); ?>
+                </code>
+            </div>
         </div>
-    </div>
-    <div class="collapse pb-4 col-6" id="collapseTestData">
-        <div class="card card-body pb-0">
-            <code class="gray">
+        <div class="collapse col-md-12 col-lg-5 mb-4" id="collapseTestData">
+            <div class="card card-body pb-0">
+                <code class="gray">
         <pre>
 [6, 82],  // New student: 6 hours study, 82% previous score
 [1, 50],  // New student: 1 hour study, 50% previous score
 </pre>
-            </code>
+                </code>
+            </div>
         </div>
-    </div>
     </div>
 </div>
 

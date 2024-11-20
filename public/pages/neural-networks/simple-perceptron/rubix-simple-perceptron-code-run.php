@@ -68,15 +68,14 @@ $memoryEnd = memory_get_usage();
             <div style="height:350px;">
             <?php
                 echo Chart::drawLinearSeparation(
-                samples:  $dataset->samples(),
-                labels: $dataset->labels(),
-//            xLabel: 'Hours Study',
-//            yLabel: 'Previous Score',
-//            datasetLabel: 'Exam Results',
-            //regressionLabel: 'Regression Line',
-            //predictionPoint: [$newSample[0], round($predictedPrice)],
-            //minY: 100_000,
-            );
+                    samples:  $dataset->samples(),
+                    labels: $dataset->labels(),
+                    separationBorder: 80,
+                    classOneValue: 'pass',
+                    classTwoValue: 'fail',
+                    classOneLabel: 'Passed',
+                    classTwoLabel: 'Failed',
+                );
             ?>
             </div>
         </div>

@@ -27,7 +27,7 @@ $estimator = new MultilayerPerceptron([
     new Dense(1), // Output layer with single neuron
     new Activation(new ReLU()), // ReLU activation function
 ], 10000, // Maximum number of epochs
-    new Adam(0.01) // Learning rate of 0.01
+    new Adam(0.01), // Learning rate of 0.01
 );
 
 // Train the network

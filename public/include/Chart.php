@@ -5,36 +5,43 @@ class Chart {
     public static function drawLinearSeparation(
         array $samples,
         array $labels,
+        int $separationBorder = 75,
+        string $classOneValue = '',
+        string $classTwoValue = '',
+        string $classOneLabel = '',
+        string $classTwoLabel = '',
     ): string {
+        $totalSamples = count($samples);
+
         $return = "
             <canvas id='myLinearSeparationChart'></canvas>
 
             <script>
                 const ctx = document.getElementById('myLinearSeparationChart');
+
+                // Pass data
+                const passData = [";
+                    for ($i = 0; $i < $totalSamples; $i++) {
+                        if ($labels[$i] === $classOneValue) {
+                            $return .= '{ x: ' . $samples[$i][0] . ', y: ' . $samples[$i][1] . ' },';
+                        }
+                    }
+                $return .= "];
     
-                // Data points
-                const passData = [
-                    { x: 8, y: 85 },
-                    { x: 4, y: 75 },
-                    { x: 7, y: 90 },
-                    { x: 6, y: 78 },
-                    { x: 5, y: 80 },
-                    { x: 8, y: 85 },
-                    { x: 7, y: 88 }
-                ];
-    
-                const failData = [
-                    { x: 2, y: 65 },
-                    { x: 1, y: 45 },
-                    { x: 3, y: 55 }
-                ];
+                const failData = [";
+                    for ($i = 0; $i < $totalSamples; $i++) {
+                        if ($labels[$i] === $classTwoValue) {
+                            $return .= '{ x: ' . $samples[$i][0] . ', y: ' . $samples[$i][1] . ' },';
+                        }
+                    }
+                $return .= "];
     
                 // Generate separation line points
                 const separationLineData = [];
-                for (let x = 0; x <= 9; x += 0.5) {
+                for (let x = 0; x <= ".$totalSamples."; x += 0.5) {
                     separationLineData.push({
                         x: x,
-                        y: -5 * x + 75
+                        y: -5 * x + ".$separationBorder."
                     });
                 }
     
@@ -42,13 +49,13 @@ class Chart {
                     type: 'scatter',
                     data: {
                         datasets: [{
-                            label: 'Pass',
+                            label: '".$classOneLabel."',
                             data: passData,
                             backgroundColor: 'rgb(75, 192, 75)',
                             pointRadius: 8
                         },
                         {
-                            label: 'Fail',
+                            label: '".$classTwoLabel."',
                             data: failData,
                             backgroundColor: 'rgb(255, 99, 132)',
                             pointRadius: 8
@@ -129,7 +136,6 @@ class Chart {
                                             return '';
                                         }
                                         return context.dataset.label + ': ' + context.parsed.x + ' hours, ' + context.parsed.y + '%';
-
                                     }
                                 }
                             }

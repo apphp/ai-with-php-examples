@@ -8,6 +8,9 @@
     $subSection = !empty($_GET['subsection']) ? $_GET['subsection'] : '';
     $page = $_GET['page'] ?? 'home';
     $sideBar = $_COOKIE['sidebar'] ?? '';
+    $darkSwitch = $_COOKIE['darkSwitch'] ?? '';
+
+    $dataTheme = $darkSwitch === 'dark' ? ' data-theme="dark"' : '';
 
     // Check if the current page is valid; if not, set default values
     if (!is_valid_page($menu, $section, $subSection, $page)) {
@@ -35,8 +38,7 @@
     <script src="assets/dist/js/chart.js"></script>
     <script src="assets/dist/js/plotly-latest.min.js"></script>
 </head>
-<body>
-
+<body<?=$dataTheme;?>>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="index.php">AI with PHP Examples</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,7 +74,7 @@
 <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/dist/js/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
 <script src="assets/dashboard.js"></script>
-<script src="assets/dist/js/dark-mode-switch.min.js"></script>
+<script src="assets/dist/js/dark-mode-switch.js"></script>
 
 </body>
 </html>

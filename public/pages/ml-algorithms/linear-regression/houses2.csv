@@ -1,4 +1,4 @@
-rooms,size,location,price
+rooms,size,distance,price
 1,500,8,157250
 2,750,9,198500
 2,700,7,207825

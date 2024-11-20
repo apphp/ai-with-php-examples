@@ -35,32 +35,13 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <p class="btn btn-link px-0 py-0 me-4" id="toggleDataset" data-bs-toggle="collapse" href="#collapseDataset" role="button" aria-expanded="false" aria-controls="collapseDataset" title="Click to expand">
-        Dataset <i id="toggleIconDataset" class="fa-regular fa-square-plus"></i>
-    </p>
-    <p class="btn btn-link px-0 py-0" id="toggleExampleOfUse" data-bs-toggle="collapse" href="#collapseExampleOfUse" role="button" aria-expanded="false" aria-controls="collapseExampleOfUse" title="Click to expand">
-        Example of use <i id="toggleIconExampleOfUse" class="fa-regular fa-square-plus"></i>
-    </p>
-    <div class="collapse pb-4" id="collapseDataset">
-        <div class="card card-body pb-0">
-            <code id="dataset">
-                <?php highlight_file('houses1.csv'); ?>
-            </code>
-        </div>
-    </div>
-    <div class="collapse pb-4" id="collapseExampleOfUse">
-        <div class="card card-body pb-0">
-            <div class="bd-clipboard">
-                <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-                    Copy
-                </button>
-                &nbsp;
-            </div>
-            <code id="code">
-                <?= highlight_file(dirname(__FILE__) . '/phpml-simple-linear-regression-code.php', true); ?>
-            </code>
-        </div>
-    </div>
+    <?php
+    $testData = [
+        'size',
+        '2250    // New house: 2250 sq ft'
+    ];
+    echo create_dataset_and_test_data_links(__DIR__ . '/houses1.csv', $testData);
+    ?>
 </div>
 
 <div class="container-fluid px-2">

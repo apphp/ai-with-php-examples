@@ -34,31 +34,14 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <p class="btn btn-link px-0 py-0 me-4" id="toggleDataset" data-bs-toggle="collapse" href="#collapseDataset" role="button" aria-expanded="false" aria-controls="collapseDataset" title="Click to expand">
-        Dataset <i id="toggleIconDataset" class="fa-regular fa-square-plus"></i>
-    </p>
-    <p class="btn btn-link px-0 py-0" id="toggleTestData" data-bs-toggle="collapse" href="#collapseTestData" role="button" aria-expanded="false" aria-controls="collapseTestData" title="Click to expand">
-        Test Data <i id="toggleIconTestData" class="fa-regular fa-square-plus"></i>
-    </p>
-    <div class="row">
-        <div class="collapse col-md-12 col-lg-7 mb-4" id="collapseDataset">
-            <div class="card card-body pb-0">
-                <code id="dataset">
-                    <?php highlight_file('exams.csv'); ?>
-                </code>
-            </div>
-        </div>
-        <div class="collapse col-md-12 col-lg-5 mb-4" id="collapseTestData">
-            <div class="card card-body pb-0">
-                <code class="gray">
-        <pre>
-[6, 82],  // New student: 6 hours study, 82% previous score
-[1, 50],  // New student: 1 hour study, 50% previous score
-</pre>
-                </code>
-            </div>
-        </div>
-    </div>
+    <?php
+        $testData = [
+            'hours study,previous score',
+            '6,82  // New student: 6 hours study, 82% previous score',
+            '1,50  // New student: 1 hour study, 50% previous score'
+        ];
+        echo create_dataset_and_test_data_links(__DIR__ . '/exams.csv', $testData);
+    ?>
 </div>
 
 <div class="container px-2">

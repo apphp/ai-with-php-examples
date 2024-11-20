@@ -37,37 +37,19 @@ if (empty($features)) {
 <div>
     <p>
         Involves two or more independent variables. For example, predicting house prices based on
-        factors like size, number of rooms, and location.
+        factors like size, number of rooms, and location (distance to city center).
     </p>
 </div>
 
 <div>
-    <p class="btn btn-link px-0 py-0 me-4" id="toggleDataset" data-bs-toggle="collapse" href="#collapseDataset" role="button" aria-expanded="false" aria-controls="collapseDataset" title="Click to expand">
-        Dataset <i id="toggleIconDataset" class="fa-regular fa-square-plus"></i>
-    </p>
-    <p class="btn btn-link px-0 py-0" id="toggleExampleOfUse" data-bs-toggle="collapse" href="#collapseExampleOfUse" role="button" aria-expanded="false" aria-controls="collapseExampleOfUse" title="Click to expand">
-        Example of use <i id="toggleIconExampleOfUse" class="fa-regular fa-square-plus"></i>
-    </p>
-    <div class="collapse pb-4" id="collapseDataset">
-        <div class="card card-body pb-0">
-            <code id="dataset">
-                <?php highlight_file('houses2.csv'); ?>
-            </code>
-        </div>
-    </div>
-    <div class="collapse pb-4" id="collapseExampleOfUse">
-        <div class="card card-body pb-0">
-            <div class="bd-clipboard">
-                <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-                    Copy
-                </button>
-                &nbsp;
-            </div>
-            <code id="code">
-                <?= highlight_file(dirname(__FILE__) . '/phpml-multiple-linear-regression-code.php', true); ?>
-            </code>
-        </div>
-    </div>
+    <?php
+        $testData = [
+            'rooms,size,distance',
+            '4,1800,3,  // First house',
+            '2,1200,8   // Second house'
+        ];
+        echo create_dataset_and_test_data_links(__DIR__ . '/houses2.csv', $testData);
+    ?>
 </div>
 
 <div class="container px-2">
@@ -95,7 +77,7 @@ if (empty($features)) {
                 </div>
                 <form action="index.php" type="GET">
                     <?=create_form_fields('ml-algorithms', 'linear-regression', 'phpml-multiple-linear-regression-code-run')?>
-                    <?=create_form_features(['Rooms', 'Size', 'Location'], $features);?>
+                    <?=create_form_features(['Rooms', 'Size', 'Distance'], $features);?>
                     <div class="form-check form-check-inline float-end p-0 m-0">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
                     </div>

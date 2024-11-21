@@ -23,35 +23,62 @@ function ddd($data = []) :void {
     dd($data, true);
 }
 
-function create_dataset_and_test_data_links(string $datasetFile = '', array $testData = []){
+function create_dataset_and_test_data_links(array|string $datasetData = '', array $testData = []){
     $output = '<p class="btn btn-link px-0 py-0 me-4" id="toggleDataset" data-bs-toggle="collapse" href="#collapseDataset" role="button" aria-expanded="false" aria-controls="collapseDataset" title="Click to expand">
         Dataset <i id="toggleIconDataset" class="fa-regular fa-square-plus"></i>
-    </p>
-    <p class="btn btn-link px-0 py-0" id="toggleTestData" data-bs-toggle="collapse" href="#collapseTestData" role="button" aria-expanded="false" aria-controls="collapseTestData" title="Click to expand">
-        Test Data <i id="toggleIconTestData" class="fa-regular fa-square-plus"></i>
-    </p>
-    <div class="row">
-        <div class="collapse col-md-12 col-lg-7 mb-4" id="collapseDataset">
-            <div class="card card-body pb-0">
-                <code id="dataset">
-                    '.highlight_file($datasetFile, true).'
-                </code>
-            </div>
-        </div>
-        <div class="collapse col-md-12 col-lg-5 mb-4" id="collapseTestData">
-            <div class="card card-body pb-0">
-                <code class="gray">
-        <pre>';
+    </p>';
 
-        foreach ($testData as $test) {
-            $output .= $test . PHP_EOL;
+    if ($testData) {
+        $output .= '<p class="btn btn-link px-0 py-0" id="toggleTestData" data-bs-toggle="collapse" href="#collapseTestData" role="button" aria-expanded="false" aria-controls="collapseTestData" title="Click to expand">
+        Test Data <i id="toggleIconTestData" class="fa-regular fa-square-plus"></i>
+        </p>';
+    }
+
+    $output .= '<div class="row">';
+
+        if (is_array($datasetData) && empty($testData)) {
+            $output .= '<div class="collapse col-md-12 col-lg-7 mb-4" id="collapseDataset">
+                <div class="card card-body pb-0">
+                    <code class="gray">
+            <pre>';
+
+            foreach ($datasetData as $test) {
+                $output .= $test . PHP_EOL;
+            }
+
+            $output .= '</pre>
+                    </code>
+                </div>
+            </div>';
+        } else {
+            if ($datasetData) {
+                $output .= '<div class="collapse col-md-12 col-lg-7 mb-4" id="collapseDataset">
+                    <div class="card card-body pb-0">
+                    <code id="dataset">
+                        ' . highlight_file($datasetData, true) . '
+                    </code>
+                    </div>
+                    </div>';
+            }
+
+            if ($testData) {
+                $output .= '<div class="collapse col-md-12 col-lg-5 mb-4" id="collapseTestData">
+                    <div class="card card-body pb-0">
+                    <code class="gray">
+                    <pre>';
+
+                foreach ($testData as $test) {
+                    $output .= $test . PHP_EOL;
+                }
+
+                $output .= '</pre>
+                    </code>
+                    </div>
+                    </div>';
+            }
         }
 
-        $output .= '</pre>
-                </code>
-            </div>
-        </div>
-    </div>';
+    $output .= '</div>';
 
     return $output;
 }

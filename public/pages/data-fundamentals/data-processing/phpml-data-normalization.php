@@ -21,18 +21,15 @@
 </div>
 
 <div>
-    <p class="btn btn-link px-0 py-0" id="toggleDataset" data-bs-toggle="collapse" href="#collapseDataset" role="button" aria-expanded="false" aria-controls="collapseDataset" title="Click to expand">
-        Dataset <i id="toggleIconDataset" class="fa-regular fa-square-plus"></i>
-    </p>
-    <div class="collapse pb-4" id="collapseDataset">
-        <code class="gray">
-        <pre>
-[100, 500, 25],
-[150, 300, 15],
-[200, 400, 20],
-[50, 200, 10]</pre>
-        </code>
-    </div>
+    <?php
+        $dataset = [
+            '[100, 500, 25],',
+            '[150, 300, 15],',
+            '[200, 400, 20],',
+            '[50, 200, 10]'
+        ];
+        echo create_dataset_and_test_data_links($dataset);
+    ?>
 </div>
 
 <div>

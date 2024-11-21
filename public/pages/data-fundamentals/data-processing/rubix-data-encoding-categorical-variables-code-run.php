@@ -35,30 +35,9 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <p class="btn btn-link px-0 py-0 me-4" id="toggleDataset" data-bs-toggle="collapse" href="#collapseDataset" role="button" aria-expanded="false" aria-controls="collapseDataset" title="Click to expand">
-        Dataset <i id="toggleIconDataset" class="fa-regular fa-square-plus"></i>
-    </p>
-    <p class="btn btn-link px-0 py-0" id="toggleExampleOfUse" data-bs-toggle="collapse" href="#collapseExampleOfUse" role="button" aria-expanded="false" aria-controls="collapseExampleOfUse" title="Click to expand">
-        Example of use <i id="toggleIconExampleOfUse" class="fa-regular fa-square-plus"></i>
-    </p>
-    <div class="collapse pb-4" id="collapseDataset">
-        <code id="dataset">
-            <?php highlight_file('colors_and_size.csv'); ?>
-        </code>
-    </div>
-    <div class="collapse pb-4" id="collapseExampleOfUse">
-        <div class="card card-body pb-0">
-            <div class="bd-clipboard">
-                <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-                    Copy
-                </button>
-                &nbsp;
-            </div>
-            <code id="code">
-                <?= highlight_file(dirname(__FILE__) . '/rubix-data-encoding-categorical-variables-code.php', true); ?>
-            </code>
-        </div>
-    </div>
+    <?php
+        echo create_dataset_and_test_data_links(__DIR__ . '/colors_and_size.csv');
+    ?>
 </div>
 
 <div class="mb-1">

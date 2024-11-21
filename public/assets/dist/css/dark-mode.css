@@ -1,7 +1,7 @@
 
 [data-theme="dark"] {
   background-color: #1b1b1b !important;
-  color: #eee;
+  color: #ccc;
 }
 
 [data-theme="dark"] .bg-black {
@@ -24,35 +24,72 @@
   box-shadow: inset -1px 0 0 #212121;
 }
 [data-theme="dark"] .sidebar .nav-link {
-  color: #9a9a9a !important;
+  color: #9B3922 !important;
 }
 [data-theme="dark"] .sidebar .nav-link:not(.nav-sub-link):hover {
-  color: #fff !important;
+  color: #F2613F !important;
   background-color: #333;
 }
-[data-theme="dark"] main a {
-  color: #9a9a9a !important;
-}
-[data-theme="dark"] main a:hover {
-  color: #fff !important;
-}
+
 [data-theme="dark"] .code-result pre {
   background-color: #343434;
 }
 [data-theme="dark"] code pre {
   background-color: #343434;
+  border: 0;
+  color: #a9a9a9 !important;
+}
+[data-theme="dark"] code pre code[style="color: #000000"]{
+  color: #a9a9a9 !important;
 }
 [data-theme="dark"] code pre span[style="color: #0000BB"]{
-  color: #ff97a0 !important;
+  color: #a2a0C3 !important;
 }
 [data-theme="dark"] code pre span[style="color: #DD0000"]{
-  color: #00d061 !important;
+  color: #00b061 !important;
 }
 [data-theme="dark"] code pre span[style="color: #007700"]{
-  color: #c1cff1 !important;
+  color: #d1dff1 !important;
 }
 [data-theme="dark"] code pre span[style="color: #FF8000"]{
-  color: #888 !important;
+  color: #999999 !important;
 }
 
 
+[data-theme="dark"] .btn-outline-primary {
+  color: #0d6efd;
+  border-color: #D6BD98;
+}
+
+[data-theme="dark"] .btn-outline-primary {
+  color: #fff;
+  /*background-color: #9B3922;*/
+  border-color: #D6BD98;
+}
+[data-theme="dark"] .btn-outline-primary:hover {
+  color: #fff !important;
+  background-color: #9B3922;
+  border-color: #9B3922;
+}
+
+[data-theme="dark"] .btn-clipboard:hover, .btn-clipboard {
+  color: #fff;
+  background-color: #9B3922;
+  border-color: #D6BD98;
+}
+[data-theme="dark"] .btn-clipboard:hover, .btn-clipboard:focus {
+  color: #fff;
+  background-color: #9B3922;
+}
+
+[data-theme="dark"] .btn-link {
+  font-weight: 400;
+  color: #9B3922;
+  text-decoration: underline;
+}
+[data-theme="dark"] main a {
+  color: #9B3922 !important;
+}
+[data-theme="dark"] main a:hover {
+  color: #F2613F !important;
+}

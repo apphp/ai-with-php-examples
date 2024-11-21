@@ -58,6 +58,8 @@ $memoryEnd = memory_get_usage();
                     classTwoValue: 'fail',
                     classOneLabel: 'Passed',
                     classTwoLabel: 'Failed',
+                    predictionLabel: 'Test Data',
+                    predictionSamples: $testSamples,
                 );
             ?>
             </div>

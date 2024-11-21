@@ -10,6 +10,8 @@ class Chart {
         string $classTwoValue = '',
         string $classOneLabel = '',
         string $classTwoLabel = '',
+        string $predictionLabel = '',
+        array $predictionSamples = [],
     ): string {
         $totalSamples = count($samples);
 
@@ -17,25 +19,36 @@ class Chart {
             <canvas id='myLinearSeparationChart'></canvas>
 
             <script>
-                const ctx = document.getElementById('myLinearSeparationChart');
+                const ctx = document.getElementById('myLinearSeparationChart');" . PHP_EOL;
 
-                // Pass data
-                const passData = [";
+                // Passed data
+                $return .= "const passData = [";
                     for ($i = 0; $i < $totalSamples; $i++) {
                         if ($labels[$i] === $classOneValue) {
                             $return .= '{ x: ' . $samples[$i][0] . ', y: ' . $samples[$i][1] . ' },';
                         }
                     }
-                $return .= "];
-    
-                const failData = [";
+                $return .= "];" . PHP_EOL;
+
+                // Failed data
+                $return .= "const failData = [";
                     for ($i = 0; $i < $totalSamples; $i++) {
                         if ($labels[$i] === $classTwoValue) {
                             $return .= '{ x: ' . $samples[$i][0] . ', y: ' . $samples[$i][1] . ' },';
                         }
                     }
-                $return .= "];
-    
+                $return .= "];" . PHP_EOL;
+
+                // Prediction data
+                if ($predictionSamples) {
+                    $return .= "const predictData = [";
+                    foreach ($predictionSamples as $sample) {
+                        $return .= '{ x: ' . $sample[0] . ', y: ' . $sample[1] . ' },';
+                    }
+                    $return .= "];" . PHP_EOL;
+                }
+
+                $return .= "
                 // Generate separation line points
                 const separationLineData = [];
                 for (let x = 0; x <= ".$totalSamples."; x += 0.5) {
@@ -51,16 +64,35 @@ class Chart {
                         datasets: [{
                             label: '".$classOneLabel."',
                             data: passData,
-                            backgroundColor: 'rgb(75, 192, 75)',
-                            pointRadius: 8
+                            backgroundColor: 'rgb(99, 190, 99)',
+                            borderWidth: 1,
+                            pointRadius: 5,
+                            pointHoverRadius: 5,
+                            pointStyle: 'circle'
                         },
                         {
                             label: '".$classTwoLabel."',
                             data: failData,
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            pointRadius: 8
-                        },
-                        {
+                            backgroundColor: 'rgb(99,190,255)',
+                            borderWidth: function(context) {return context.raw.highlight ? 1 : 1;},
+                            pointRadius: 5,
+                            pointHoverRadius: 5,
+                            pointStyle: 'circle'
+                        },";
+
+                        if ($predictionSamples) {
+                            $return .= "{
+                                label: '".$predictionLabel."',
+                                data: predictData,
+                                backgroundColor: 'rgb(255, 99, 132)',
+                                borderWidth: function(context) {return context.raw.highlight ? 1 : 1;},
+                                pointRadius: 5,
+                                pointHoverRadius: 5,
+                                pointStyle: 'circle'
+                            },";
+                        }
+
+                        $return .= "{
                             label: 'Decision Boundary',
                             data: separationLineData,
                             type: 'line',
@@ -244,18 +276,10 @@ class Chart {
                                         'rgba(255, 99, 132, 1)' :  // Bold point border
                                         'rgb(75,143,192)';   // Other points border
                                 },
-                                borderWidth: function(context) {
-                                    return context.raw.highlight ? 1 : 1;  // Thicker border for bold point
-                                },
-                                pointRadius: function(context) {
-                                    return context.raw.highlight ? 4 : 3;  // Larger radius for bold point
-                                },
-                                pointHoverRadius: function(context) {
-                                    return context.raw.highlight ? 4 : 3;
-                                },
-                                pointStyle: function(context) {
-                                    return context.raw.highlight ? 'circle' : 'circle';  // Using circles for all points
-                                }
+                                borderWidth: function(context) {return context.raw.highlight ? 1 : 1;},
+                                pointRadius: function(context) {return context.raw.highlight ? 5 : 4;},
+                                pointHoverRadius: function(context) {return context.raw.highlight ? 5 : 4;},
+                                pointStyle: function(context) {return context.raw.highlight ? 'circle' : 'circle';}
                             },
                             {
                                 label: '".htmlspecialchars($regressionLabel)."',
@@ -396,7 +420,7 @@ class Chart {
                         $return .= '],' . "\n";
                         $return .= "mode: 'markers',\n";
                         // Red color with high opacity
-                        $return .= "marker: {size: ". (int)(8 * $sample[2] / $maxSize ).",color: 'rgba(99,190,255)'},\n";
+                        $return .= "marker: {size: ". (int)(6 * $sample[2] / $maxSize ).",color: 'rgba(99,190,255)'},\n";
                         $return .= "type: 'scatter3d',";
                         $return .= "name: '".htmlspecialchars($mainTraceLabel).' '.$ind."'";
                         $return .= "},";
@@ -422,7 +446,7 @@ class Chart {
                     $return .= "
                     mode: 'markers', // Show as points
                     marker: {
-                        size: 8,
+                        size: 6,
                         color: 'rgba(99,190,255)' // Red color with opacity
                     },
                     type: 'scatter3d', // 3D scatter plot type
@@ -448,9 +472,9 @@ class Chart {
                     $return .= "mode: 'markers',\n";
                     // Red color with high opacity
                     if ($useThirdArgument) {
-                        $return .= "marker: {size: ". (int)(8 * $sample[2] / $maxSize) . ", color: 'rgba(0,0,0,0.8)'},\n";
+                        $return .= "marker: {size: ". (int)(6 * $sample[2] / $maxSize) . ", color: 'rgba(0,0,0,0.8)'},\n";
                     } else {
-                        $return .= "marker: {size: 9, color: 'rgba(255,0,0,0.8)'},\n";
+                        $return .= "marker: {size: 7, color: 'rgba(255,0,0,0.8)'},\n";
                     }
                     $return .= "type: 'scatter3d',";
                     $return .= "name: '".htmlspecialchars($customTraceLabel)."'";

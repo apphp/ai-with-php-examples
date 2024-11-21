@@ -19,9 +19,7 @@
 </div>
 
 <div>
-    <?php
-        echo create_dataset_and_test_data_links(__DIR__ . '/colors_and_size.csv');
-    ?>
+    <?= create_dataset_and_test_data_links(__DIR__ . '/colors_and_size.csv'); ?>
 </div>
 
 <div>

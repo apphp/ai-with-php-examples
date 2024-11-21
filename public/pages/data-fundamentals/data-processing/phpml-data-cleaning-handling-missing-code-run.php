@@ -34,9 +34,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?php
-        echo create_dataset_and_test_data_links(__DIR__ . '/customers.csv');
-    ?>
+    <?= create_dataset_and_test_data_links(__DIR__ . '/customers.csv'); ?>
 </div>
 
 <div class="mb-1">

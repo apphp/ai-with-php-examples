@@ -19,16 +19,7 @@
 </div>
 
 <div>
-    <p class="btn btn-link px-0 py-0 me-4" id="toggleDataset" data-bs-toggle="collapse" href="#collapseDataset" role="button" aria-expanded="false" aria-controls="collapseDataset" title="Click to expand">
-        Dataset <i id="toggleIconDataset" class="fa-regular fa-square-plus"></i>
-    </p>
-    <div class="collapse pb-4" id="collapseDataset">
-        <div class="card card-body pb-0">
-            <code id="dataset">
-                <?php highlight_file('houses2.csv'); ?>
-            </code>
-        </div>
-    </div>
+    <?= create_dataset_and_test_data_links(__DIR__ . '/houses2.csv'); ?>
 </div>
 
 <div>

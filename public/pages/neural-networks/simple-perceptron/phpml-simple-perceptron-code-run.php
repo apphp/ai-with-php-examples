@@ -44,7 +44,7 @@ $memoryEnd = memory_get_usage();
     ?>
 </div>
 
-<div class="container px-2">
+<div class="container-fluid px-2">
     <div class="row justify-content-start p-0">
         <div class="col-md-12 col-lg-7 px-1 pe-4">
             <p><b>Chart: Linear Separation</b></p>

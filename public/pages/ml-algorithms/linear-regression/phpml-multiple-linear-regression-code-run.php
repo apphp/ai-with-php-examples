@@ -52,7 +52,7 @@ if (empty($features)) {
     ?>
 </div>
 
-<div class="container px-2">
+<div class="container-fluid px-2">
     <div class="row justify-content-start p-0">
         <div class="col-md-12 col-lg-7 px-1 pe-5">
             <p><b>Chart:</b></p>

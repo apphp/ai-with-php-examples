@@ -41,7 +41,7 @@ function create_example_of_use_links(string $datasetFile = '') :string {
     return $output;
 }
 
-function create_dataset_and_test_data_links(array|string $datasetData = '', array $testData = []) :string {
+function create_dataset_and_test_data_links(array|string $datasetData = '', array $testData = [], bool $fullWidth = false) :string {
     $output = '<p class="btn btn-link px-0 py-0 me-4" id="toggleDataset" data-bs-toggle="collapse" href="#collapseDataset" role="button" aria-expanded="false" aria-controls="collapseDataset" title="Click to expand">
         Dataset <i id="toggleIconDataset" class="fa-regular fa-square-plus"></i>
     </p>';
@@ -55,7 +55,7 @@ function create_dataset_and_test_data_links(array|string $datasetData = '', arra
     $output .= '<div class="row">';
 
         if (is_array($datasetData) && empty($testData)) {
-            $output .= '<div class="collapse col-md-12 col-lg-7 mb-4" id="collapseDataset">
+            $output .= '<div class="collapse col-md-12 col-lg-7 mb-4 pe-4" id="collapseDataset">
                 <div class="card card-body pb-0">
                     <code class="gray">
             <pre>';
@@ -70,7 +70,7 @@ function create_dataset_and_test_data_links(array|string $datasetData = '', arra
             </div>';
         } else {
             if ($datasetData) {
-                $output .= '<div class="collapse col-md-12 col-lg-7 mb-4" id="collapseDataset">
+                $output .= '<div class="collapse col-md-12 '.($fullWidth ? 'col-lg-12' : 'col-lg-7 pe-4').' mb-4" id="collapseDataset">
                     <div class="card card-body pb-0">
                     <code id="dataset">
                         ' . highlight_file($datasetData, true) . '
@@ -80,7 +80,7 @@ function create_dataset_and_test_data_links(array|string $datasetData = '', arra
             }
 
             if ($testData) {
-                $output .= '<div class="collapse col-md-12 col-lg-5 mb-4" id="collapseTestData">
+                $output .= '<div class="collapse col-md-12 col-lg-5 mb-4 ps-2" id="collapseTestData">
                     <div class="card card-body pb-0">
                     <code class="gray">
                     <pre>';

@@ -27,7 +27,7 @@
             '[200, 400, 20],',
             '[50, 200, 10]'
         ];
-        echo create_dataset_and_test_data_links($dataset);
+        echo create_dataset_and_test_data_links($dataset, fullWidth: true);
     ?>
 </div>
 

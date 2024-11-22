@@ -55,7 +55,7 @@ function create_dataset_and_test_data_links(array|string $datasetData = '', arra
     $output .= '<div class="row">';
 
         if (is_array($datasetData) && empty($testData)) {
-            $output .= '<div class="collapse col-md-12 col-lg-7 mb-4 pe-4" id="collapseDataset">
+            $output .= '<div class="collapse col-md-12 '.($fullWidth ? 'col-lg-12' : 'col-lg-7 pe-4').' mb-4 pe-4" id="collapseDataset">
                 <div class="card card-body pb-0">
                     <code class="gray">
             <pre>';

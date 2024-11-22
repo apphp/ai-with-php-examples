@@ -54,5 +54,10 @@ To install these examples, follow these steps:
     - Linear Regression
       - Simple Linear Regression
       - Multiple Linear Regression
+  -  Neural Networks
+    - Basic Neural Network
+      - Simple Perceptron
+
+
 
 

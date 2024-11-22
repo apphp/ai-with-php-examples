@@ -4,7 +4,6 @@
     "type": "project",
     "license": "MIT",
     "version": "0.2.0",
-    "minimum-stability": "dev",
     "require": {
         "php": "~8.3.0",
         "php-ai/php-ml": "^0.10.0",

@@ -41,9 +41,19 @@ body {
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
+.sidebar h6 {
+  color: #222 !important;
+}
+
+.sidebar .nav-link.nav-sub-link {
+  color: #555 !important;
+  margin-top: 3px;
+  padding-bottom: 2px;
+}
+
 .sidebar .nav-link {
   font-weight: 500;
-  color: #333;
+  color: #666;
 }
 
 .sidebar .nav-link .feather {
@@ -53,6 +63,11 @@ body {
 
 .sidebar .nav-link.active {
   color: #2470dc;
+}
+
+.sidebar .nav-link:hover {
+  color: #2470dc;
+  background-color: #efefef;
 }
 
 .sidebar .nav-link:hover .feather,

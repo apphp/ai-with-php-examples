@@ -65,7 +65,7 @@ body {
   color: #2470dc;
 }
 
-.sidebar .nav-link:hover {
+.sidebar .nav-link:not(.nav-sub-link):hover {
   color: #2470dc;
   background-color: #efefef;
 }
@@ -124,7 +124,6 @@ body {
 .nav-link small {
   font-weight: normal;
 }
-
 .nav-sub-link {
   font-size: 13px;
 }

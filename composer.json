@@ -1,7 +1,9 @@
 {
     "name": "apphp/ai-with-php-examples",
+    "description": "Code examples provided for the book Artificial Intelligence with PHP.",
     "type": "project",
     "license": "MIT",
+    "version": "0.2.0",
     "minimum-stability": "dev",
     "require": {
         "php": "~8.3.0",

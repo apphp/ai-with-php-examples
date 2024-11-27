@@ -5,6 +5,15 @@ $menu = [
     '<i class="fas fa-home me-1"></i> Introduction' => [
         ['section' => '', 'subSection' => '', 'page' => 'home', 'title' => 'Getting Started', 'permissions' => ['home']],
     ],
+    '<i class="fas fa-brain me-1"></i> Artificial Intelligence' => [
+        [
+            'title' => 'Search Algoritms',
+            'subMenu' => [
+                ['section' => 'search-algorithms', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
+                ['section' => 'search-algorithms', 'subSection' => 'uninformed-search', 'page' => 'index', 'title' => 'Uninformed Search', 'permissions' => ['index', 'breadth-first-search', 'breadth-first-search-code-run']],
+            ],
+        ],
+    ],
     '<i class="fas fa-robot me-1"></i> Machine Learning' => [
         [
             'title' => 'Mathematics for ML',

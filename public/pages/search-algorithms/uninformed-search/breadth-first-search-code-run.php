@@ -55,18 +55,22 @@ $memoryEnd = memory_get_usage();
     <div class="row justify-content-start p-0">
         <div class="col-md-12 col-lg-7 px-1 pe-4">
             <p><b>Graph:</b></p>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
 
-
-            <div class="container">
-                <div class="controls">
-                    <button id="prevBtn" class="btn-graph" onclick="prevStep()" disabled>Previous Step</button>
-                    <button id="nextBtn" class="btn-graph" onclick="nextStep()">Next Step</button>
-                    <button id="resetBtn" class="btn-graph" onclick="resetSearch()">Reset</button>
+            <div class="row pt-0" style="margin-top: -27px">
+                <div class="col pt-1">
+                    <div id="step-info" class="step-info">
+                        Starting BFS traversal...
+                    </div>
                 </div>
-                <div id="step-info" class="step-info">
-                    Starting BFS traversal...
+                <div class="col p-0">
+                    <div class="controls">
+                        <button id="prevBtn" class="btn-graph" onclick="prevStep()" disabled>Previous Step</button>
+                        <button id="nextBtn" class="btn-graph" onclick="nextStep()">Next Step</button>
+                        <button id="resetBtn" class="btn-graph" onclick="resetSearch()">Reset</button>
+                    </div>
                 </div>
+            </div>
+            <div class="container mb-5">
                 <div id="diagram"></div>
             </div>
 
@@ -166,37 +170,6 @@ $memoryEnd = memory_get_usage();
 
                 updateDiagram();
             </script>
-            <style>
-
-                .controls {
-                    margin: 20px 0;
-                    text-align: center;
-                }
-                .btn-graph {
-                    padding: 5px 10px;
-                    margin: 0 5px;
-                    background: #2ea723;
-                    color: white;
-                    border: none;
-                    border-radius: 4px;
-                    cursor: pointer;
-                }
-                .btn-graph:hover {
-                    background: #248f1c;
-                }
-                .btn-graph:disabled {
-                    background: #ccc;
-                    cursor: not-allowed;
-                }
-                .step-info {
-                    margin: 10px 0;
-                    padding: 10px;
-                    background: #f5f5f5;
-                    border-radius: 4px;
-                }
-            </style>
-
-
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
             <div class="mb-1">

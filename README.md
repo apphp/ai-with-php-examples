@@ -33,6 +33,7 @@ To install these examples, follow these steps:
 ## Using Libraries for UI
   - Chart.js [https://www.chartjs.org/](https://www.chartjs.org/)
   - Plotly.js [https://plotly.com/javascript/](https://plotly.com/javascript/)
+  - Mermaid.js [https://mermaid.js.org/](https://mermaid.js.org/)
 
 
 ## The Following Examples are Available:

@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="assets/dist/css/all.min.css" crossorigin="anonymous">
     <script src="assets/dist/js/chart.js"></script>
     <script src="assets/dist/js/plotly-latest.min.js"></script>
+    <script src="assets/dist/js/mermaid.min.js"></script>
 </head>
 <body<?=$dataTheme;?>>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">

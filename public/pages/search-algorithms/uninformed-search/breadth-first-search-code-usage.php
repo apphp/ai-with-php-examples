@@ -33,5 +33,5 @@ $graph->addEdge('G', 'I');
 $bfsResult = $graph->bfs('S');
 
 // Output the BFS traversal
-echo "BFS traversal starting from vertex 'S': " . implode(' -> ', $bfsResult);
+echo "BFS traversal starting from vertex 'S': \n" . implode(' -> ', $bfsResult);
 // Output: BFS traversal starting from vertex 'A': A -> B -> C -> D -> E

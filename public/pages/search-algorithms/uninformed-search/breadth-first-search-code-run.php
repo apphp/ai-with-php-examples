@@ -56,120 +56,56 @@ $memoryEnd = memory_get_usage();
         <div class="col-md-12 col-lg-7 px-1 pe-4">
             <p><b>Graph:</b></p>
 
-            <div class="row pt-0" style="margin-top: -27px">
-                <div class="col pt-1">
-                    <div id="step-info" class="step-info">
-                        Starting BFS traversal...
-                    </div>
-                </div>
-                <div class="col p-0">
-                    <div class="controls">
-                        <button id="prevBtn" class="btn-graph" onclick="prevStep()" disabled>Previous Step</button>
-                        <button id="nextBtn" class="btn-graph" onclick="nextStep()">Next Step</button>
-                        <button id="resetBtn" class="btn-graph" onclick="resetSearch()">Reset</button>
-                    </div>
-                </div>
-            </div>
-            <div class="container mb-5">
-                <div id="diagram"></div>
-            </div>
+            <?php
+                $graph = '
+                    graph TB
+                        S((S))-->A((A))
+                        S-->B((B))
+                        A-->C((C))
+                        A-->D((D))
+                        C-->E((E))
+                        C-->F((F))
+                        E-->K((K))
+                        B-->G((G))
+                        B-->H((H))
+                        G-->I((I))
+                        
+                    %% Apply styles
+                        class S sNode
+                        class K gNode
+                        
+                    %% Styling
+                        classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px;
+                        linkStyle default stroke:#2ea723,stroke-width:2px;
+                        classDef sNode fill:#a0eFeF,stroke:#333,stroke-width:1px
+                        classDef gNode fill:#FFA07A,stroke:#333,stroke-width:1px
+                        
+                        classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px
+                        classDef visited fill:#ff9999,stroke:#ff0000,stroke-width:2px
+                        classDef current fill:#ffff99,stroke:#ffa500,stroke-width:3px                        
+                    ';
 
-            <script>
-                const bfsSteps = [
-                    { visit: 'S', info: 'Starting at root node S' },
-                    { visit: 'A', info: 'Visiting first level node A' },
-                    { visit: 'B', info: 'Visiting first level node B' },
-                    { visit: 'C', info: 'Visiting second level node C' },
-                    { visit: 'D', info: 'Visiting second level node D' },
-                    { visit: 'G', info: 'Visiting second level node G' },
-                    { visit: 'H', info: 'Visiting second level node H' },
-                    { visit: 'E', info: 'Visiting third level node E' },
-                    { visit: 'F', info: 'Visiting third level node F' },
-                    { visit: 'I', info: 'Visiting third level node I' },
-                    { visit: 'K', info: 'Visiting fourth level node K - Search complete!' }
-                ];
+                $steps = '[
+                    { visit: "S", info: "Starting at root node S" },
+                    { visit: "A", info: "Visiting first level node A" },
+                    { visit: "B", info: "Visiting first level node B" },
+                    { visit: "C", info: "Visiting second level node C" },
+                    { visit: "D", info: "Visiting second level node D" },
+                    { visit: "G", info: "Visiting second level node G" },
+                    { visit: "H", info: "Visiting second level node H" },
+                    { visit: "E", info: "Visiting third level node E" },
+                    { visit: "F", info: "Visiting third level node F" },
+                    { visit: "I", info: "Visiting third level node I" },
+                    { visit: "K", info: "Visiting fourth level node K - Search complete!" }
+                ]';
 
-                let currentStep = -1;
+                echo Chart::drawTreeDiagram(
+                    graph: $graph,
+                    steps: $steps,
+                    defaultMessage: 'Starting BFS traversal...'
+                );
+            ?>
 
-                function generateDiagram(visitedNodes) {
-                    return `
-                graph TB
-                S((S))-->A((A))
-                S-->B((B))
-                A-->C((C))
-                A-->D((D))
-                C-->E((E))
-                C-->F((F))
-                E-->K((K))
-                B-->G((G))
-                B-->H((H))
-                G-->I((I))
-
-           %% Apply styles
-                class S sNode
-                class K gNode
-
-                %% Styling
-                classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px;
-                linkStyle default stroke:#2ea723,stroke-width:2px;
-                classDef sNode fill:#a0eFeF,stroke:#333,stroke-width:1px
-                classDef gNode fill:#FFA07A,stroke:#333,stroke-width:1px
-
-                    classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px
-                    classDef visited fill:#ff9999,stroke:#ff0000,stroke-width:2px
-                    classDef current fill:#ffff99,stroke:#ffa500,stroke-width:3px
-
-                    ${visitedNodes.slice(0, -1).map(node => `class ${node} visited`).join('\n')}
-                    ${visitedNodes.length > 0 ? `class ${visitedNodes[visitedNodes.length-1]} current` : ''}
-            `;
-                }
-
-                function updateDiagram() {
-                    const container = document.getElementById('diagram');
-                    const visitedNodes = bfsSteps.slice(0, currentStep + 1).map(step => step.visit);
-                    container.innerHTML = `<div class="mermaid">${generateDiagram(visitedNodes)}</div>`;
-
-                    document.getElementById('step-info').textContent =
-                        currentStep >= 0 ? bfsSteps[currentStep].info : 'Starting BFS traversal...';
-
-                    document.getElementById('prevBtn').disabled = currentStep <= 0;
-                    document.getElementById('nextBtn').disabled = currentStep >= bfsSteps.length - 1;
-
-                    mermaid.init(undefined, document.querySelector('.mermaid'));
-                }
-
-                function nextStep() {
-                    if (currentStep < bfsSteps.length - 1) {
-                        currentStep++;
-                        updateDiagram();
-                    }
-                }
-
-                function prevStep() {
-                    if (currentStep > 0) {
-                        currentStep--;
-                        updateDiagram();
-                    }
-                }
-
-                function resetSearch() {
-                    currentStep = -1;
-                    updateDiagram();
-                }
-
-                // Initialize
-                mermaid.initialize({
-                    startOnLoad: false,
-                    theme: 'default',
-                    securityLevel: 'loose',
-                    flowchart: {
-                        curve: 'basis',
-                        padding: 25
-                    }
-                });
-
-                updateDiagram();
-            </script>
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
             <div class="mb-1">

@@ -510,4 +510,93 @@ class Chart {
         return $return;
     }
 
+    public static function drawTreeDiagram(
+        string $graph,
+        string $steps,
+        string $defaultMessage = ''
+    ){
+        $output = '
+        <div class="row pt-0" style="margin-top: -27px">
+                <div class="col pt-1">
+                    <div id="step-info" class="step-info">
+                       '.$defaultMessage.'
+                    </div>
+                </div>
+                <div class="col p-0">
+                    <div class="controls">
+                        <button id="prevBtn" class="btn-graph" onclick="prevStep()" disabled>Previous Step</button>
+                        <button id="nextBtn" class="btn-graph" onclick="nextStep()">Next Step</button>
+                        <button id="resetBtn" class="btn-graph" onclick="resetSearch()">Reset</button>
+                    </div>
+                </div>
+            </div>
+            <div class="container mb-5">
+                <div id="diagram"></div>
+            </div>
+            
+            <script>
+                const treeSteps = '.$steps.';
+                let currentStep = -1;
+
+                function generateDiagram(visitedNodes) {
+                    return `
+                        '.$graph.'
+                        ${visitedNodes.slice(0, -1).map(node => `class ${node} visited`).join("\n")}
+                        ${visitedNodes.length > 0 ? `class ${visitedNodes[visitedNodes.length-1]} current` : ""}
+                    `;
+                }
+
+                function updateDiagram() {
+                    const container = document.getElementById("diagram");
+                    const visitedNodes = treeSteps.slice(0, currentStep + 1).map(step => step.visit);
+                    container.innerHTML = `<div class="mermaid">${generateDiagram(visitedNodes)}</div>`;
+
+                    document.getElementById("step-info").textContent =
+                        currentStep >= 0 ? treeSteps[currentStep].info : "'.$defaultMessage.'";
+
+                    document.getElementById("prevBtn").disabled = currentStep <= 0;
+                    document.getElementById("nextBtn").disabled = currentStep >= treeSteps.length - 1;
+
+                    mermaid.init(undefined, document.querySelector(".mermaid"));
+                }
+
+                function nextStep() {
+                    if (currentStep < treeSteps.length - 1) {
+                        currentStep++;
+                        updateDiagram();
+                    }
+                }
+
+                function prevStep() {
+                    if (currentStep > 0) {
+                        currentStep--;
+                        updateDiagram();
+                    }
+                }
+
+                function resetSearch() {
+                    currentStep = -1;
+                    updateDiagram();
+                }
+
+                // Initialize
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: "default",
+                    securityLevel: "loose",
+                    flowchart: {
+                        curve: "basis",
+                        padding: 25
+                    }
+                });
+
+                updateDiagram();
+            </script>
+        ';
+
+
+        return $output;
+    }
+
+
 }

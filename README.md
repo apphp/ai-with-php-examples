@@ -37,7 +37,7 @@ To install these examples, follow these steps:
 
 
 ## The Following Examples are Available:
--  Artificial Intelligence
+- Artificial Intelligence
   - Search Algoritms
     - Uninformed Search
       - Breadth-First Search (BFS)

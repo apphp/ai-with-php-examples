@@ -37,6 +37,11 @@ To install these examples, follow these steps:
 
 
 ## The Following Examples are Available:
+-  Artificial Intelligence
+  - Search Algoritms
+    - Uninformed Search
+      - Breadth-First Search (BFS)
+      - Depth-First Search (DFS)
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

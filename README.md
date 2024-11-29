@@ -60,7 +60,8 @@ To install these examples, follow these steps:
     - Linear Regression
       - Simple Linear Regression
       - Multiple Linear Regression
-  - Neural Networks
+- Neural Networks
+  - Types of NN
     - Basic Neural Network
       - Simple Perceptron
 

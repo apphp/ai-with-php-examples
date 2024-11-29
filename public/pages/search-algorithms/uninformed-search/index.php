@@ -14,6 +14,7 @@
 
     <ui class="list">
         <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'breadth-first-search') ?>">Breadth-First Search (BFS)</a></li>
+        <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'depth-first-search') ?>">Depth-First Search (DFS)</a></li>
     </ui>
 </div>
 

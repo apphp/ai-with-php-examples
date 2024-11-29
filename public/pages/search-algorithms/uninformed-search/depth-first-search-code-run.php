@@ -5,7 +5,7 @@ $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
-include('breadth-first-search-code-usage.php');
+include('depth-first-search-code-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -19,18 +19,20 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">Breadth-First Search (BFS)</h2>
+    <h2 class="h4">Depth-First Search (DFS)</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?=create_href('search-algorithms', 'uninformed-search', 'breadth-first-search')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?=create_href('search-algorithms', 'uninformed-search', 'depth-first-search')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>
 
 <div>
     <p>
-        Breadth-First Search is a widely used search strategy for traversing trees or graphs. It explores nodes level by level, expanding all
-        successor nodes at the current depth before moving on to the next layer. This systematic breadthwise exploration is what gives BFS its name.
+        Depth-First Search (DFS) is a classic algorithm for traversing or searching through tree and graph data structures. As the name suggests, DFS
+        explores as far down a branch as possible before backtracking to examine other paths. This behavior makes DFS particularly useful in scenarios
+        where exploring deep hierarchies or paths is necessary. It relies on a stack data structure — either explicitly (using a manual stack) or
+        implicitly (via recursion) — to manage the nodes being visited.
     </p>
 </div>
 
@@ -46,7 +48,7 @@ $memoryEnd = memory_get_usage();
             &nbsp;
         </div>
         <code id="code">
-            <?= highlight_file(dirname(__FILE__) . '/breadth-first-search-code-usage.php', true); ?>
+            <?= highlight_file(dirname(__FILE__) . '/depth-first-search-code-usage.php', true); ?>
         </code>
     </div>
 </div>
@@ -60,15 +62,15 @@ $memoryEnd = memory_get_usage();
                 $graph = '
                     graph TB
                         S((S))-->A((A))
-                        S-->B((B))
+                        S-->H((H))
+                        A-->B((B))
                         A-->C((C))
-                        A-->D((D))
-                        C-->E((E))
-                        C-->F((F))
-                        E-->K((K))
-                        B-->G((G))
-                        B-->H((H))
-                        G-->I((I))
+                        B-->D((D))
+                        B-->E((E))
+                        C-->K((K))
+                        H-->I((I))
+                        H-->J((J))
+                        I-->K1((K))
                         
                     %% Apply styles
                         class S sNode
@@ -88,21 +90,17 @@ $memoryEnd = memory_get_usage();
                 $steps = '[
                     { visit: "S", info: "Starting at root node S" },
                     { visit: "A", info: "Visiting first level node A" },
-                    { visit: "B", info: "Visiting first level node B" },
-                    { visit: "C", info: "Visiting second level node C" },
-                    { visit: "D", info: "Visiting second level node D" },
-                    { visit: "G", info: "Visiting second level node G" },
-                    { visit: "H", info: "Visiting second level node H" },
+                    { visit: "B", info: "Visiting second level node B" },
+                    { visit: "D", info: "Visiting third level node D" },
                     { visit: "E", info: "Visiting third level node E" },
-                    { visit: "F", info: "Visiting third level node F" },
-                    { visit: "I", info: "Visiting third level node I" },
-                    { visit: "K", info: "Visiting fourth level node K - Search complete!" }
+                    { visit: "C", info: "Visiting second level node C" },
+                    { visit: "K", info: "Visiting third level node K - Search complete!" }
                 ]';
 
                 echo Chart::drawTreeDiagram(
                     graph: $graph,
                     steps: $steps,
-                    defaultMessage: 'Starting BFS traversal...'
+                    defaultMessage: 'Starting DFS traversal...'
                 );
             ?>
 

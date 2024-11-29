@@ -10,7 +10,11 @@ $menu = [
             'title' => 'Search Algoritms',
             'subMenu' => [
                 ['section' => 'search-algorithms', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
-                ['section' => 'search-algorithms', 'subSection' => 'uninformed-search', 'page' => 'index', 'title' => 'Uninformed Search', 'permissions' => ['index', 'breadth-first-search', 'breadth-first-search-code-run']],
+                ['section' => 'search-algorithms', 'subSection' => 'uninformed-search', 'page' => 'index', 'title' => 'Uninformed Search', 'permissions' => [
+                    'index',
+                    'breadth-first-search', 'breadth-first-search-code-run',
+                    'depth-first-search', 'depth-first-search-code-run',
+                ]],
             ],
         ],
     ],

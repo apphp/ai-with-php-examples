@@ -102,6 +102,63 @@ class Graph {
         return $path;
     }
 
+    public function dls(string $startVertex, int $maxDepth, string $target = null): array {
+        if (!isset($this->adjacencyList[$startVertex])) {
+            throw new InvalidArgumentException("Start vertex does not exist in the graph");
+        }
+
+        $visited = [];
+        $path = [];
+        $found = false;
+
+        // Helper function for recursive DLS
+        $dlsRecursive = function(string $vertex, int $depth) use (&$dlsRecursive, &$visited, &$path, &$found, $maxDepth, $target): void {
+            // Mark current vertex as visited
+            $visited[$vertex] = true;
+
+            // Add vertex to path
+            $path[] = [
+                'vertex' => $vertex,
+                'level' => $this->levels[$vertex],
+                'depth' => $depth
+            ];
+
+            // If we found the target, mark as found
+            if ($vertex === $target) {
+                $found = true;
+                return;
+            }
+
+            // If we've reached max depth, stop exploring this path
+            if ($depth >= $maxDepth) {
+                return;
+            }
+
+            // Visit all adjacent vertices
+            foreach ($this->adjacencyList[$vertex] as $neighbor) {
+                if (!isset($visited[$neighbor]) && !$found) {
+                    $dlsRecursive($neighbor, $depth + 1);
+                }
+            }
+
+            // If this path didn't lead to the target and we're backtracking,
+            // we can optionally remove this vertex from visited to allow it
+            // to be visited again through a different path
+            if (!$found) {
+                unset($visited[$vertex]);
+            }
+        };
+
+        // Start DLS from the given vertex at depth 0
+        $dlsRecursive($startVertex, 0);
+
+        return [
+            'path' => $path,
+            'found' => $found,
+            'maxDepth' => $maxDepth
+        ];
+    }
+
     public function getAdjacencyList(): array {
         return $this->adjacencyList;
     }

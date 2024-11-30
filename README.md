@@ -42,6 +42,7 @@ To install these examples, follow these steps:
     - Uninformed Search
       - Breadth-First Search (BFS)
       - Depth-First Search (DFS)
+      - Depth-Limited Search (DLS)
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

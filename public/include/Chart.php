@@ -513,8 +513,29 @@ class Chart {
     public static function drawTreeDiagram(
         string $graph,
         string $steps,
-        string $defaultMessage = ''
+        string $defaultMessage = '',
+        string $style = '',
+        string $startNode = 'S',
+        string $endNode = 'K',
     ){
+        if(!$style){
+            $style = '
+                %% Apply styles
+                    class '.$startNode.' sNode
+                    class '.$endNode.' gNode
+                
+                %% Styling
+                    classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px;
+                    linkStyle default stroke:#2ea723,stroke-width:2px;
+                    classDef sNode fill:#a0eFeF,stroke:#333,stroke-width:1px
+                    classDef gNode fill:#FFA07A,stroke:#333,stroke-width:1px
+                    
+                    classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px
+                    classDef visited fill:#ff9999,stroke:#ff0000,stroke-width:2px
+                    classDef current fill:#ffff99,stroke:#ffa500,stroke-width:3px 
+            ';
+        }
+
         $output = '
         <div class="row pt-0" style="margin-top: -27px">
                 <div class="col pt-1">
@@ -540,7 +561,7 @@ class Chart {
 
                 function generateDiagram(visitedNodes) {
                     return `
-                        '.$graph.'
+                        '.$graph.'  '.$style.'
                         ${visitedNodes.slice(0, -1).map(node => `class ${node} visited`).join("\n")}
                         ${visitedNodes.length > 0 ? `class ${visitedNodes[visitedNodes.length-1]} current` : ""}
                     `;

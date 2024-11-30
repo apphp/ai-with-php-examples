@@ -14,6 +14,7 @@ $menu = [
                     'index',
                     'breadth-first-search', 'breadth-first-search-code-run',
                     'depth-first-search', 'depth-first-search-code-run',
+                    'depth-limited-search', 'depth-limited-search-code-run',
                 ]],
             ],
         ],

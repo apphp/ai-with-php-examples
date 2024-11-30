@@ -70,21 +70,7 @@ $memoryEnd = memory_get_usage();
                         C-->K((K))
                         H-->I((I))
                         H-->J((J))
-                        I-->K1((K))
-                        
-                    %% Apply styles
-                        class S sNode
-                        class K gNode
-                        
-                    %% Styling
-                        classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px;
-                        linkStyle default stroke:#2ea723,stroke-width:2px;
-                        classDef sNode fill:#a0eFeF,stroke:#333,stroke-width:1px
-                        classDef gNode fill:#FFA07A,stroke:#333,stroke-width:1px
-                        
-                        classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px
-                        classDef visited fill:#ff9999,stroke:#ff0000,stroke-width:2px
-                        classDef current fill:#ffff99,stroke:#ffa500,stroke-width:3px                        
+                        I-->K1((K))                       
                     ';
 
                 $steps = '[
@@ -100,7 +86,9 @@ $memoryEnd = memory_get_usage();
                 echo Chart::drawTreeDiagram(
                     graph: $graph,
                     steps: $steps,
-                    defaultMessage: 'Starting DFS traversal...'
+                    defaultMessage: 'Starting DFS traversal...',
+                    startNode: 'S',
+                    endNode: 'K',
                 );
             ?>
 

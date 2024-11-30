@@ -5,7 +5,7 @@ $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
-include('breadth-first-search-code-usage.php');
+include('depth-limited-search-code-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -19,18 +19,20 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">Breadth-First Search (BFS)</h2>
+    <h2 class="h4">Depth-Limited Search (DFS)</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?=create_href('search-algorithms', 'uninformed-search', 'breadth-first-search')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?=create_href('search-algorithms', 'uninformed-search', 'depth-limited-search')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>
 
 <div>
     <p>
-        Breadth-First Search is a widely used search strategy for traversing trees or graphs. It explores nodes level by level, expanding all
-        successor nodes at the current depth before moving on to the next layer. This systematic breadthwise exploration is what gives BFS its name.
+        The Depth-Limited Search (DLS) algorithm is an extension of the Depth-First Search (DFS) algorithm, designed to address the challenge of
+        infinite paths in certain problem spaces. DLS introduces a predetermined depth limit to the search process, treating nodes at this limit as
+        though they have no successors. By constraining the depth, DLS avoids the pitfalls of exploring infinite paths while maintaining the
+        advantages of depth-first traversal.
     </p>
 </div>
 
@@ -46,7 +48,7 @@ $memoryEnd = memory_get_usage();
             &nbsp;
         </div>
         <code id="code">
-            <?= highlight_file(dirname(__FILE__) . '/breadth-first-search-code-usage.php', true); ?>
+            <?= highlight_file(dirname(__FILE__) . '/depth-limited-search-code-usage.php', true); ?>
         </code>
     </div>
 </div>
@@ -65,32 +67,28 @@ $memoryEnd = memory_get_usage();
                         A-->D((D))
                         C-->E((E))
                         C-->F((F))
-                        E-->K((K))
-                        B-->G((G))
-                        B-->H((H))
-                        G-->I((I))                     
+                        D-->G((G))
+                        B-->I((I))
+                        B-->J((J))
+                        I-->H((H))                       
                     ';
 
                 $steps = '[
                     { visit: "S", info: "Starting at root node S" },
                     { visit: "A", info: "Visiting first level node A" },
-                    { visit: "B", info: "Visiting first level node B" },
                     { visit: "C", info: "Visiting second level node C" },
                     { visit: "D", info: "Visiting second level node D" },
-                    { visit: "G", info: "Visiting second level node G" },
-                    { visit: "H", info: "Visiting second level node H" },
-                    { visit: "E", info: "Visiting third level node E" },
-                    { visit: "F", info: "Visiting third level node F" },
-                    { visit: "I", info: "Visiting third level node I" },
-                    { visit: "K", info: "Visiting fourth level node K - Search complete!" }
+                    { visit: "B", info: "Visiting first level node B" },
+                    { visit: "I", info: "Visiting second level node I" },
+                    { visit: "J", info: "Visiting second level node J - Search complete!" }
                 ]';
 
                 echo Chart::drawTreeDiagram(
                     graph: $graph,
                     steps: $steps,
-                    defaultMessage: 'Starting BFS traversal...',
+                    defaultMessage: 'Starting DLS traversal with max depth = 2...',
                     startNode: 'S',
-                    endNode: 'K',
+                    endNode: 'J',
                 );
             ?>
 

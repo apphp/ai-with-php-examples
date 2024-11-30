@@ -1,4 +1,10 @@
 
+[data-theme="dark"] input[type="checkbox"] {
+  background-color: #292929;
+  border-color: #9B3922;
+  box-shadow: none;
+}
+
 [data-theme="dark"] {
   background-color: #1b1b1b !important;
   color: #ccc;
@@ -114,3 +120,26 @@
 [data-theme="dark"] main a:hover {
   color: #F2613F !important;
 }
+
+/* Graph action buttons */
+[data-theme="dark"] button {
+  color: #9B3922 !important;
+  border-color: #D6BD98;
+  background-color: #000;
+}
+[data-theme="dark"] button:disabled {
+  color: #000 !important;
+  background-color: #6C757D;
+  border-color: #999;
+}
+[data-theme="dark"] button:not(:disabled):hover {
+  color: #fff !important;
+  background-color: #9B3922;
+  border-color: #9B3922;
+}
+
+[data-theme="dark"] .main-svg {
+  filter: invert(90%) hue-rotate(10deg);
+}
+
+

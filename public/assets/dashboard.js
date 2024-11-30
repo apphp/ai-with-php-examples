@@ -57,7 +57,8 @@ function toggleSidebar(collapse) {
   sidebar.classList.toggle('collapsed', collapse);
   sidebar.classList.toggle('col-md-3', !collapse);
   sidebar.classList.toggle('col-lg-2', !collapse);
-
+  sidebar.classList.toggle('overflow-hidden', collapse);
+  
   navbar.classList.toggle('nonvisible', collapse);
   svgicon.classList.toggle('rotate-180', collapse);
 

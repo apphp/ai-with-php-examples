@@ -47,10 +47,9 @@
     </button>
 
     <div class="form-check form-switch mt-1" title="Swith Light/Dark mode" style="width: 50px; margin-bottom: -2px !important;">
-        <input type="checkbox" class="form-check-input cursor-pointer" id="darkSwitch">
+        <input type="checkbox" class="form-check-input cursor-pointer" id="darkSwitch" <?= $darkSwitch ? 'checked' : ''?>>
         <label class="custom-control-label" for="darkSwitch"></label>
     </div>
-
 
     <!--    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">-->
 <!--    <div class="navbar-nav">-->

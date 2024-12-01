@@ -558,8 +558,20 @@ class Chart {
             <script>
                 const treeSteps = '.$steps.';
                 let currentStep = -1;
+                let visitedNodes = [];
 
-                function generateDiagram(visitedNodes) {
+                function generateDiagram(steps) {
+                    // Reset and rebuild visited nodes based on steps
+                    visitedNodes = [];
+                    steps.forEach(step => {
+                        if (step.reset) {
+                            // Clear all visited nodes on reset
+                            visitedNodes = [];
+                        } else if (step.visit) {
+                            visitedNodes.push(step.visit);
+                        }
+                    });
+            
                     return `
                         '.$graph.'  '.$style.'
                         ${visitedNodes.slice(0, -1).map(node => `class ${node} visited`).join("\n")}
@@ -569,15 +581,13 @@ class Chart {
 
                 function updateDiagram() {
                     const container = document.getElementById("diagram");
-                    const visitedNodes = treeSteps.slice(0, currentStep + 1).map(step => step.visit);
-                    container.innerHTML = `<div class="mermaid">${generateDiagram(visitedNodes)}</div>`;
-
-                    document.getElementById("step-info").textContent =
-                        currentStep >= 0 ? treeSteps[currentStep].info : "'.$defaultMessage.'";
-
+                    const currentSteps = treeSteps.slice(0, currentStep + 1);
+                    container.innerHTML = `<div class="mermaid">${generateDiagram(currentSteps)}</div>`;
+                
+                    document.getElementById("step-info").textContent = currentStep >= 0 ? treeSteps[currentStep].info : "'.$defaultMessage.'";
                     document.getElementById("prevBtn").disabled = currentStep <= 0;
                     document.getElementById("nextBtn").disabled = currentStep >= treeSteps.length - 1;
-
+                
                     mermaid.init(undefined, document.querySelector(".mermaid"));
                 }
 

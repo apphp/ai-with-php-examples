@@ -43,6 +43,7 @@ To install these examples, follow these steps:
       - Breadth-First Search (BFS)
       - Depth-First Search (DFS)
       - Depth-Limited Search (DLS)
+      - Iterative Deepening Depth-First Search (IDDFS)
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

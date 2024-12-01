@@ -159,6 +159,43 @@ class Graph {
         ];
     }
 
+    public function iddfs(string $startVertex, string $target = null, int $maxIterations = 100): array {
+        if (!isset($this->adjacencyList[$startVertex])) {
+            throw new InvalidArgumentException("Start vertex does not exist in the graph");
+        }
+
+        $allPaths = [];
+        $depth = 0;
+
+        // Iteratively increase depth until target is found or max depth is reached
+        while ($depth < $maxIterations) {
+            $result = $this->dls($startVertex, $depth, $target);
+            $allPaths[] = [
+                'depth_limit' => $depth,
+                'path' => $result['path'],
+                'found' => $result['found']
+            ];
+
+            // If target is found, return all paths explored
+            if ($result['found']) {
+                return [
+                    'success' => true,
+                    'final_depth' => $depth,
+                    'paths' => $allPaths
+                ];
+            }
+
+            $depth++;
+        }
+
+        // If target wasn't found within maxIterations
+        return [
+            'success' => false,
+            'final_depth' => $depth - 1,
+            'paths' => $allPaths
+        ];
+    }
+
     public function getAdjacencyList(): array {
         return $this->adjacencyList;
     }

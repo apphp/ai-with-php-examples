@@ -16,6 +16,7 @@
         <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'breadth-first-search') ?>">Breadth-First Search (BFS)</a></li>
         <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'depth-first-search') ?>">Depth-First Search (DFS)</a></li>
         <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'depth-limited-search') ?>">Depth-Limited Search (DLS)</a></li>
+        <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'iterative-deepening-depth-first-search') ?>">Iterative Deepening Depth-First Search (IDDFS)</a></li>
     </ui>
 </div>
 

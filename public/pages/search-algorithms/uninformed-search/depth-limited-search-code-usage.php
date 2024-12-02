@@ -48,7 +48,3 @@ foreach ($depths as $maxDepth) {
         );
     }
 }
-
-// Output the DFS traversal
-//echo "DFS traversal starting from vertex 'S':\n";
-//$graph->printPath($dfsResult);

@@ -44,6 +44,7 @@ To install these examples, follow these steps:
       - Depth-First Search (DFS)
       - Depth-Limited Search (DLS)
       - Iterative Deepening Depth-First Search (IDDFS)
+      - Uniform Cost Search (UCS)
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

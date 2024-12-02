@@ -17,6 +17,7 @@
         <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'depth-first-search') ?>">Depth-First Search (DFS)</a></li>
         <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'depth-limited-search') ?>">Depth-Limited Search (DLS)</a></li>
         <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'iterative-deepening-depth-first-search') ?>">Iterative Deepening Depth-First Search (IDDFS)</a></li>
+        <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'uniform-cost-search') ?>">Uniform Cost Search (UCS)</a></li>
     </ui>
 </div>
 

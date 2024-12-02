@@ -5,10 +5,13 @@ declare(strict_types=1);
 class Graph {
     private array $adjacencyList;
     private array $levels;
+    // Store edge weights
+    private array $weights;
 
     public function __construct() {
         $this->adjacencyList = [];
         $this->levels = [];
+        $this->weights = [];
     }
 
     public function addVertex(string $vertex, int $level = -1): void {
@@ -18,18 +21,23 @@ class Graph {
         }
     }
 
-    public function addEdge(string $vertex1, string $vertex2): void {
+    public function addEdge(string $vertex1, string $vertex2, float $weight = 1.0): void {
         if (!isset($this->adjacencyList[$vertex1]) || !isset($this->adjacencyList[$vertex2])) {
-            throw new InvalidArgumentException("Both vertices must exist in the graph");
+            throw new InvalidArgumentException("Both vertices must exist in the graph.");
         }
 
+        $this->adjacencyList[$vertex2][] = $vertex1;
+        // For undirected graph
         $this->adjacencyList[$vertex1][] = $vertex2;
-        $this->adjacencyList[$vertex2][] = $vertex1; // For undirected graph
+
+        // Store weights for both directions
+        $this->weights["$vertex1->$vertex2"] = $weight;
+        $this->weights["$vertex2->$vertex1"] = $weight;
     }
 
     public function bfs(string $startVertex): array {
         if (!isset($this->adjacencyList[$startVertex])) {
-            throw new InvalidArgumentException("Start vertex does not exist in the graph");
+            throw new InvalidArgumentException("Start vertex does not exist in the graph.");
         }
 
         $visited = [];
@@ -63,7 +71,7 @@ class Graph {
 
     public function dfs(string $startVertex, string $target = null): array {
         if (!isset($this->adjacencyList[$startVertex])) {
-            throw new InvalidArgumentException("Start vertex does not exist in the graph");
+            throw new InvalidArgumentException("Start vertex does not exist in the graph.");
         }
 
         $visited = [];
@@ -104,7 +112,7 @@ class Graph {
 
     public function dls(string $startVertex, int $maxDepth, string $target = null): array {
         if (!isset($this->adjacencyList[$startVertex])) {
-            throw new InvalidArgumentException("Start vertex does not exist in the graph");
+            throw new InvalidArgumentException("Start vertex does not exist in the graph.");
         }
 
         $visited = [];
@@ -161,7 +169,7 @@ class Graph {
 
     public function iddfs(string $startVertex, string $target = null, int $maxIterations = 100): array {
         if (!isset($this->adjacencyList[$startVertex])) {
-            throw new InvalidArgumentException("Start vertex does not exist in the graph");
+            throw new InvalidArgumentException("Start vertex does not exist in the graph.");
         }
 
         $allPaths = [];
@@ -196,6 +204,74 @@ class Graph {
         ];
     }
 
+    public function ucs(string $startVertex, string $targetVertex = null): array {
+        if (!isset($this->adjacencyList[$startVertex])) {
+            throw new InvalidArgumentException("Start vertex does not exist in the graph");
+        }
+
+        $pq = new SplPriorityQueue();
+        $pq->setExtractFlags(SplPriorityQueue::EXTR_BOTH);
+
+        $costs = [$startVertex => 0];
+        $visited = [];
+        $previous = [$startVertex => null];  // Track the previous node
+        $path = [];
+        $explored = [];  // Track all explored nodes
+
+        $pq->insert($startVertex, 0);
+
+        while (!$pq->isEmpty()) {
+            $current = $pq->extract();
+            $currentVertex = $current['data'];
+            $currentCost = -$current['priority'];
+
+            if (isset($visited[$currentVertex])) {
+                continue;
+            }
+
+            $visited[$currentVertex] = true;
+            $explored[] = [
+                'vertex' => $currentVertex,
+                'level' => $this->levels[$currentVertex],
+                'cost' => $currentCost
+            ];
+
+            if ($currentVertex === $targetVertex) {
+                break;
+            }
+
+            foreach ($this->adjacencyList[$currentVertex] as $neighbor) {
+                $weight = $this->weights["$currentVertex->$neighbor"] ?? 1.0;
+                $newCost = $costs[$currentVertex] + $weight;
+
+                if (!isset($costs[$neighbor]) || $newCost < $costs[$neighbor]) {
+                    $costs[$neighbor] = $newCost;
+                    $previous[$neighbor] = $currentVertex;  // Store the previous node
+                    $pq->insert($neighbor, -$newCost);
+                }
+            }
+        }
+
+        // Reconstruct the optimal path
+        $optimalPath = [];
+        $current = $targetVertex;
+        while ($current !== null) {
+            $optimalPath[] = [
+                'vertex' => $current,
+                'level' => $this->levels[$current],
+                'cost' => $costs[$current]
+            ];
+            $current = $previous[$current];
+        }
+
+        return [
+            'success' => isset($visited[$targetVertex]),
+            'explored' => $explored,  // All nodes explored during search
+            'optimalPath' => array_reverse($optimalPath),  // The actual optimal path
+            'cost' => $costs[$targetVertex] ?? INF
+        ];
+    }
+
     public function getAdjacencyList(): array {
         return $this->adjacencyList;
     }
@@ -204,6 +280,32 @@ class Graph {
         foreach ($path as $node) {
             echo sprintf("Node: %s (Level %d)\n", $node['vertex'], $node['level']);
         }
+    }
+
+    public function printUcsPath(array $result): void {
+        if (!$result['success']) {
+            echo "Target not found!\n";
+            return;
+        }
+
+        echo "\nNodes explored during UCS (in order of exploration):\n";
+        foreach ($result['explored'] as $node) {
+            echo sprintf("Node: %s (Level %d, Cost %.2f)\n",
+                $node['vertex'],
+                $node['level'],
+                $node['cost']
+            );
+        }
+
+        echo "\nOptimal path found:\n";
+        foreach ($result['optimalPath'] as $node) {
+            echo sprintf("Node: %s (Level %d, Cost %.2f)\n",
+                $node['vertex'],
+                $node['level'],
+                $node['cost']
+            );
+        }
+        echo sprintf("Total Cost: %.2f\n", $result['cost']);
     }
 
     // Helper method to print the adjacency list (for debugging)

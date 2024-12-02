@@ -34,4 +34,3 @@ $graph->printUcsPath($result);
 
 echo "\nThe output should show S -> A -> D -> G as the optimal path";
 echo "\nwith a total cost of 1 + 2 + 3 = 6";
-

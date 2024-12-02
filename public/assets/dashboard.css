@@ -289,3 +289,15 @@ code.gray {
   background: #ff;
   border-radius: 4px;
 }
+.mermaid .edgeLabel {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border-radius: 20px;
+  min-width: 17px;
+  height: 23px;
+  display: block;
+  fill: #fff;
+}
+.mermaid .edgeLabel {
+  fill: #677 !important;
+  color: #677 !important;
+}

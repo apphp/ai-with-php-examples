@@ -60,15 +60,15 @@ $memoryEnd = memory_get_usage();
             <?php
                 $graph = '
                     graph TB
-                        S((S))-->A((A))
-                        S-->B((B))
-                        B-->G1((G))
-                        A-->C((C))
-                        A-->D((D))
-                        D-->F((F))
-                        D-->G((G))
-                        C-->E((E))
-                        E-->G2((G))                    
+                        S((S))-->|1| A((A))
+                        S-->|4| B((B))
+                        B-->|5| G1((G))
+                        A-->|3| C((C))
+                        A-->|2| D((D))
+                        D-->|4| F((F))
+                        D-->|3| G((G))
+                        C-->|5| E((E))
+                        E-->|5| G2((G))                    
                     ';
 
                 $steps = '[

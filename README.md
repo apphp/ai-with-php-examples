@@ -45,6 +45,7 @@ To install these examples, follow these steps:
       - Depth-Limited Search (DLS)
       - Iterative Deepening Depth-First Search (IDDFS)
       - Uniform Cost Search (UCS)
+      - Bidirectional Search (BDS)
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

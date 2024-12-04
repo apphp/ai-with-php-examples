@@ -517,22 +517,28 @@ class Chart {
         string $style = '',
         string $startNode = 'S',
         string $endNode = 'K',
+        string $intersectionNode = '',
     ){
         if(!$style){
             $style = '
                 %% Apply styles
                     class '.$startNode.' sNode
                     class '.$endNode.' gNode
+                    '.($intersectionNode ? 'class '.$intersectionNode.' iNode' : '').'
                 
                 %% Styling
                     classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px;
                     linkStyle default stroke:#2ea723,stroke-width:2px;
                     classDef sNode fill:#a0eFeF,stroke:#333,stroke-width:1px
                     classDef gNode fill:#FFA07A,stroke:#333,stroke-width:1px
+                    '.($intersectionNode ? 'classDef iNode fill:#A07AFF,stroke:#333' : '').'
                     
                     classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px
                     classDef visited fill:#ff9999,stroke:#ff0000,stroke-width:2px
                     classDef current fill:#ffff99,stroke:#ffa500,stroke-width:3px 
+                    
+                    
+
             ';
         }
 

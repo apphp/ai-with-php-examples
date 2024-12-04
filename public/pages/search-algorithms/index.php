@@ -7,5 +7,12 @@
     <p>
         In this section you may find examples of code, related to Search Algorithms in AI.
     </p>
+
+    <p>
+        <ui>
+            <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'index') ?>">Uninformed (Blind) Search</a></li>
+            <li><a href="#">Informed (Heuristic) Search</a></li>
+        </ui>
+    </p>
 </div>
 

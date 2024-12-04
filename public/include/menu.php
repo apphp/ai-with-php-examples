@@ -17,6 +17,7 @@ $menu = [
                     'depth-limited-search', 'depth-limited-search-code-run',
                     'iterative-deepening-depth-first-search', 'iterative-deepening-depth-first-search-code-run',
                     'uniform-cost-search', 'uniform-cost-search-code-run',
+                    'bidirectional-search', 'bidirectional-search-code-run',
                 ]],
             ],
         ],

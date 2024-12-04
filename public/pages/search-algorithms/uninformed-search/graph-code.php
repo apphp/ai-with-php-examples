@@ -272,6 +272,198 @@ class Graph {
         ];
     }
 
+    public function bds(string $startVertex, string $targetVertex): array {
+        if (!isset($this->adjacencyList[$startVertex]) || !isset($this->adjacencyList[$targetVertex])) {
+            throw new InvalidArgumentException("Both start and target vertices must exist in the graph.");
+        }
+
+        // Initialize forward and backward search queues
+        $forwardQueue = new SplQueue();
+        $backwardQueue = new SplQueue();
+
+        // Initialize visited sets and parent tracking for both directions
+        $forwardVisited = [$startVertex => true];
+        $backwardVisited = [$targetVertex => true];
+        $forwardParent = [$startVertex => null];
+        $backwardParent = [$targetVertex => null];
+
+        // Initialize path tracking
+        $forwardPath = [];
+        $backwardPath = [];
+        $intersectionVertex = null;
+
+        // Add start and target vertices to their respective queues
+        $forwardQueue->enqueue($startVertex);
+        $backwardQueue->enqueue($targetVertex);
+
+        while (!$forwardQueue->isEmpty() && !$backwardQueue->isEmpty()) {
+            // Process forward search
+            $intersectionVertex = $this->processBdsQueue(
+                $forwardQueue,
+                $forwardVisited,
+                $backwardVisited,
+                $forwardParent,
+                $forwardPath,
+                'forward'
+            );
+
+            if ($intersectionVertex !== null) {
+                return $this->constructBdsPath(
+                    $intersectionVertex,
+                    $forwardParent,
+                    $backwardParent,
+                    $forwardPath,
+                    $backwardPath
+                );
+            }
+
+            // Process backward search
+            $intersectionVertex = $this->processBdsQueue(
+                $backwardQueue,
+                $backwardVisited,
+                $forwardVisited,
+                $backwardParent,
+                $backwardPath,
+                'backward'
+            );
+
+            if ($intersectionVertex !== null) {
+                return $this->constructBdsPath(
+                    $intersectionVertex,
+                    $forwardParent,
+                    $backwardParent,
+                    $forwardPath,
+                    $backwardPath
+                );
+            }
+        }
+
+        // No path found
+        return [
+            'success' => false,
+            'path' => [],
+            'forwardExplored' => $forwardPath,
+            'backwardExplored' => $backwardPath
+        ];
+    }
+
+    private function processBdsQueue(
+        SplQueue $queue,
+        array &$currentVisited,
+        array $oppositeVisited,
+        array &$parentMap,
+        array &$pathTracking,
+        string $direction
+    ): ?string {
+        if ($queue->isEmpty()) {
+            return null;
+        }
+
+        $currentVertex = $queue->dequeue();
+
+        // Add to path tracking
+        $pathTracking[] = [
+            'vertex' => $currentVertex,
+            'level' => $this->levels[$currentVertex],
+            'direction' => $direction
+        ];
+
+        // Check neighbors
+        foreach ($this->adjacencyList[$currentVertex] as $neighbor) {
+            // If we've found intersection with opposite search
+            if (isset($oppositeVisited[$neighbor])) {
+                return $neighbor;
+            }
+
+            // If not visited in current direction, add to queue
+            if (!isset($currentVisited[$neighbor])) {
+                $currentVisited[$neighbor] = true;
+                $parentMap[$neighbor] = $currentVertex;
+                $queue->enqueue($neighbor);
+            }
+        }
+
+        return null;
+    }
+
+    private function constructBdsPath(
+        string $intersectionVertex,
+        array $forwardParent,
+        array $backwardParent,
+        array $forwardExplored,
+        array $backwardExplored
+    ): array {
+        $path = [];
+
+        // Construct path from start to intersection
+        $current = $intersectionVertex;
+        $forwardPath = [];
+        while ($current !== null) {
+            $forwardPath[] = [
+                'vertex' => $current,
+                'level' => $this->levels[$current]
+            ];
+            $current = $forwardParent[$current] ?? null;
+        }
+        $forwardPath = array_reverse($forwardPath);
+
+        // Construct path from intersection to target
+        $current = $backwardParent[$intersectionVertex] ?? null;
+        $backwardPath = [];
+        while ($current !== null) {
+            $backwardPath[] = [
+                'vertex' => $current,
+                'level' => $this->levels[$current]
+            ];
+            $current = $backwardParent[$current] ?? null;
+        }
+
+        // Combine paths
+        $path = array_merge($forwardPath, $backwardPath);
+
+        return [
+            'success' => true,
+            'path' => $path,
+            'forwardExplored' => $forwardExplored,
+            'backwardExplored' => $backwardExplored,
+            'intersectionVertex' => $intersectionVertex
+        ];
+    }
+
+    // Add this helper method to print BDS results
+    public function printBdsPath(array $result): void {
+        if (!$result['success']) {
+            echo "No path found between vertices!\n";
+            return;
+        }
+
+        echo "\nNodes explored from start (forward direction):\n";
+        foreach ($result['forwardExplored'] as $node) {
+            echo sprintf("Node: %s (Level %d, Direction: %s)\n",
+                $node['vertex'],
+                $node['level'],
+                $node['direction']
+            );
+        }
+
+        echo "\nNodes explored from target (backward direction):\n";
+        foreach ($result['backwardExplored'] as $node) {
+            echo sprintf("Node: %s (Level %d, Direction: %s)\n",
+                $node['vertex'],
+                $node['level'],
+                $node['direction']
+            );
+        }
+
+        echo "\nFinal path found (intersection at {$result['intersectionVertex']}):\n";
+        foreach ($result['path'] as $node) {
+            echo sprintf("Node: %s (Level %d)\n",
+                $node['vertex'],
+                $node['level']
+            );
+        }
+    }
+
     public function getAdjacencyList(): array {
         return $this->adjacencyList;
     }

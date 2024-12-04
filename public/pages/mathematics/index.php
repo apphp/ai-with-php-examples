@@ -7,5 +7,12 @@
     <p>
         In this section you may find examples of code, related to Mathematics for ML.
     </p>
+
+    <ui class="list">
+        <li><a href="<?=create_href('mathematics', 'scalars', 'index')?>">Scalars</a></li>
+        <li><a href="<?=create_href('mathematics', 'vectors', 'index')?>">Vectors</a></li>
+        <li><a href="<?=create_href('mathematics', 'matrices', 'index')?>">Matrices</a></li>
+        <li><a href="<?=create_href('mathematics', 'tensors', 'index')?>">Tensors</a></li>
+    </ui>
 </div>
 

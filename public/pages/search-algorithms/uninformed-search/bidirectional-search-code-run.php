@@ -22,19 +22,24 @@ $memoryEnd = memory_get_usage();
     <h2 class="h4">Bidirectional Search (BDS)</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?=create_href('search-algorithms', 'uninformed-search', 'bidirectional-search')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?= create_href('search-algorithms', 'uninformed-search', 'bidirectional-search') ?>" class="btn btn-sm btn-outline-primary">Show
+                Code</a>
         </div>
     </div>
 </div>
 
 <div>
     <p>
-        ...
+        Bidirectional Search (BDS) is an efficient graph traversal algorithm that conducts two simultaneous searches: one starting from the initial
+        state (forward search) and the other from the goal state (backward search). These searches progress until their respective search trees
+        intersect, signaling that a solution path has been found. By effectively replacing a single large search space with two smaller subgraphs, BDS
+        minimizes the computational overhead, making it an attractive option for navigating vast graphs.
     </p>
 </div>
 
 <div>
-    <p class="btn btn-link px-0 py-0" id="toggleExampleOfUse" data-bs-toggle="collapse" href="#collapseExampleOfUse" role="button" aria-expanded="false" aria-controls="collapseExampleOfUse" title="Click to expand">
+    <p class="btn btn-link px-0 py-0" id="toggleExampleOfUse" data-bs-toggle="collapse" href="#collapseExampleOfUse" role="button"
+       aria-expanded="false" aria-controls="collapseExampleOfUse" title="Click to expand">
         Example of use <i id="toggleIcon" class="fa-regular fa-square-plus"></i>
     </p>
     <div class="collapse pb-4" id="collapseExampleOfUse">
@@ -56,7 +61,7 @@ $memoryEnd = memory_get_usage();
             <p><b>Graph:</b></p>
 
             <?php
-                $graph = '
+            $graph = '
                     graph TB
                         A((A)) --- E((E))
                         B((B)) --- E
@@ -74,7 +79,7 @@ $memoryEnd = memory_get_usage();
                         K --- O((O))                 
                     ';
 
-                $steps = '[
+            $steps = '[
                     { visit: "A", info: "Starting at root node A" },
                     { visit: "E", info: "Proceeds forward and visiting node E" },
                     { visit: "O", info: "Proceeds backward and visiting node O" },
@@ -86,14 +91,14 @@ $memoryEnd = memory_get_usage();
                     { visit: "H", info: "Proceeds backward and visiting node H - Search complete!" }
                 ]';
 
-                echo Chart::drawTreeDiagram(
-                    graph: $graph,
-                    steps: $steps,
-                    defaultMessage: 'Starting BDS traversal...',
-                    startNode: 'A',
-                    endNode: 'O',
-                    intersectionNode: 'H',
-                );
+            echo Chart::drawTreeDiagram(
+                graph: $graph,
+                steps: $steps,
+                defaultMessage: 'Starting BDS traversal...',
+                startNode: 'A',
+                endNode: 'O',
+                intersectionNode: 'H',
+            );
             ?>
 
         </div>

@@ -14,7 +14,10 @@
 
 <div>
     <p>
-        ...
+        Bidirectional Search (BDS) is an efficient graph traversal algorithm that conducts two simultaneous searches: one starting from the initial
+        state (forward search) and the other from the goal state (backward search). These searches progress until their respective search trees
+        intersect, signaling that a solution path has been found. By effectively replacing a single large search space with two smaller subgraphs, BDS
+        minimizes the computational overhead, making it an attractive option for navigating vast graphs.
     </p>
     <p>Example of Class Graph (with BDS search):</p>
 </div>
@@ -30,5 +33,3 @@
         <?php highlight_file('graph-code.php'); ?>
     </code>
 </div>
-
-

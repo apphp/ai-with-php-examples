@@ -6,4 +6,8 @@
     <p>
         In this section you may find examples of code, related to NN types.
     </p>
+
+    <ui class="list">
+        <li><a href="<?=create_href('neural-networks', 'simple-perceptron', 'index')?>">Basic Neural Network</a></li>
+    </ui>
 </div>

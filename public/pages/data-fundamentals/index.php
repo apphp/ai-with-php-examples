@@ -7,5 +7,10 @@
     <p>
         In this section you may find examples of code, related to Data Fundamentals.
     </p>
+
+    <ui class="list">
+        <li><a href="<?=create_href('data-fundamentals', 'big-data-considerations', 'index')?>">Big Data Considerations</a></li>
+        <li><a href="<?=create_href('data-fundamentals', 'data-processing', 'index')?>">Data Processing</a></li>
+    </ui>
 </div>
 

@@ -77,18 +77,18 @@ $memoryEnd = memory_get_usage();
                     { visit: "S", info: "Starting at root node S - Not Found!" },
                     { reset: true, info: "Reset for depth 1 search" },
                    
-                    { visit: "S", info: "Starting at root node S" },
-                    { visit: "A", info: "Visiting first level node A" },
-                    { visit: "B", info: "Visiting first level node B - Not Found!" },
+                    { visit: "S", info: "Starting at root node S", edge: null },
+                    { visit: "A", info: "Visiting first level node A", edge: "S-A" },
+                    { visit: "B", info: "Visiting first level node B - Not Found!", edge: "S-B" },
                     { reset: true, info: "Reset for depth 2 search" },
                     
-                    { visit: "S", info: "Starting at root node S" },
-                    { visit: "A", info: "Visiting first level node A" },
-                    { visit: "C", info: "Visiting second level node C" },
-                    { visit: "D", info: "Visiting second level node D" },
-                    { visit: "B", info: "Visiting first level node B" },
-                    { visit: "E", info: "Visiting second level node E" },
-                    { visit: "F", info: "Visiting second level node F - Search complete!" },
+                    { visit: "S", info: "Starting at root node S", edge: null },
+                    { visit: "A", info: "Visiting first level node A", edge: "S-A" },
+                    { visit: "C", info: "Visiting second level node C", edge: "A-C" },
+                    { visit: "D", info: "Visiting second level node D", edge: "A-D" },
+                    { visit: "B", info: "Visiting first level node B", edge: "S-B" },
+                    { visit: "E", info: "Visiting second level node E", edge: "B-E" },
+                    { visit: "F", info: "Visiting second level node F - Search complete!", edge: "B-F" },
                 ]';
 
                 echo Chart::drawTreeDiagram(

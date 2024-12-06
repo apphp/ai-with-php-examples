@@ -80,15 +80,15 @@ $memoryEnd = memory_get_usage();
                     ';
 
             $steps = '[
-                    { visit: "A", info: "Starting at root node A" },
-                    { visit: "E", info: "Proceeds forward and visiting node E" },
-                    { visit: "O", info: "Proceeds backward and visiting node O" },
-                    { visit: "B", info: "Proceeds forward and visiting node B" },
-                    { visit: "K", info: "Proceeds backward and visiting node K" },
-                    { visit: "G", info: "Proceeds forward and visiting node G" },
-                    { visit: "I", info: "Proceeds backward and visiting node I" },
-                    { visit: "H", info: "Proceeds forward and visiting node H" },
-                    { visit: "H", info: "Proceeds backward and visiting node H - Search complete!" }
+                    { visit: "A", info: "Starting at root node A", edge: null },
+                    { visit: "E", info: "Proceeds forward and visiting node E", edge: "A-E" },
+                    { visit: "O", info: "Proceeds backward and visiting node O", edge: null },
+                    { visit: "B", info: "Proceeds forward and visiting node B", edge: "B-E" },
+                    { visit: "K", info: "Proceeds backward and visiting node K", edge: "K-O" },
+                    { visit: "G", info: "Proceeds forward and visiting node G", edge: "E-G" },
+                    { visit: "I", info: "Proceeds backward and visiting node I", edge: "I-K" },
+                    { visit: "H", info: "Proceeds forward and visiting node H", edge: "G-H" },
+                    { visit: "H", info: "Proceeds backward and visiting node H - Search complete!", edge: "H-I" }
                 ]';
 
             echo Chart::drawTreeDiagram(

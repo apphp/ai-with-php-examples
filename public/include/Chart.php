@@ -537,8 +537,8 @@ class Chart {
                     classDef visited fill:#ff9999,stroke:#ff0000,stroke-width:2px
                     classDef current fill:#ffff99,stroke:#ffa500,stroke-width:3px 
                     
-                    
-
+                %% Color visited edges
+                    ${generateEdgeStyles()}
             ';
         }
 
@@ -562,27 +562,104 @@ class Chart {
             </div>
             
             <script>
-                const treeSteps = '.$steps.';
+                let treeSteps = '.$steps.';
                 let currentStep = -1;
                 let visitedNodes = [];
+                let visitedEdges = [];
 
                 function generateDiagram(steps) {
                     // Reset and rebuild visited nodes based on steps
                     visitedNodes = [];
+                    visitedEdges = [];
+                    
                     steps.forEach(step => {
                         if (step.reset) {
                             // Clear all visited nodes on reset
                             visitedNodes = [];
-                        } else if (step.visit) {
-                            visitedNodes.push(step.visit);
+                            visitedEdges = [];
+                        } else {
+                            if (step.visit) visitedNodes.push(step.visit);
+                            if (step.edge) visitedEdges.push(step.edge);
                         }
                     });
             
                     return `
-                        '.$graph.'  '.$style.'
+                        '.$graph.'  
+                        '.$style.'
                         ${visitedNodes.slice(0, -1).map(node => `class ${node} visited`).join("\n")}
                         ${visitedNodes.length > 0 ? `class ${visitedNodes[visitedNodes.length-1]} current` : ""}
                     `;
+                }
+                                
+                function extractEdgesFromGraph(graphDefinition) {
+                    // Split the graph definition into lines
+                    const lines = graphDefinition.split("\n");
+                    const edgeMap = {};
+                    let edgeIndex = 0;
+                
+                    // Process each line to find edge definitions
+                    lines.forEach(line => {
+                        // Remove leading/trailing whitespace
+                        line = line.trim();
+                        
+                        let separator = "";
+                        if (line.includes("---")) {
+                            separator = "---";
+                        } else if (line.includes("-->")) {
+                            separator = "-->";
+                        }
+                        
+                        // Look for lines that define edges (containing ---)
+                        if (line.includes(separator)) {
+                            // Remove any comments and trim
+                            line = line.split("%")[0].trim();
+                            
+                            // Extract node names and clean them
+                            const nodes = line.split(separator).map(node => {
+                                // Extract just the letter(s) between (( and ))
+                                const match = node.match(/\(\(([A-Z]+)\)\)/);
+                                return match ? match[1] : node.trim();
+                            });
+                            
+                            if (nodes.length === 2) {
+                                // Create bidirectional edge mappings
+                                const edge1 = `${nodes[0]}-${nodes[1]}`;
+                                const edge2 = `${nodes[1]}-${nodes[0]}`;
+                                
+                                // Only add if not already in map
+                                if (!(edge1 in edgeMap)) {
+                                    edgeMap[edge1] = edgeIndex;
+                                    edgeMap[edge2] = edgeIndex;
+                                    edgeIndex++;
+                                }
+                            }
+                        }
+                    });
+                    
+                    return edgeMap;
+                }
+                
+                function generateEdgeStyles() {
+                    let edgeStyles = [];
+                    let edgeIndex = 0;
+                    
+                    // Get the graph definition from the generateDiagram function
+                    const graphDefinition = `
+                        '.$graph.'
+                    `;
+                
+                    // Dynamically create edge map
+                    const edgeMap = extractEdgesFromGraph(graphDefinition);
+                    
+                    visitedEdges.forEach((edge, index) => {
+                        const edgeNum = edgeMap[edge];
+                        if (edgeNum !== undefined) {
+                            const color = "#ff0000";
+                            edgeStyles.push(`linkStyle ${edgeNum} stroke:${color},stroke-width:3px`);
+                        }
+                    });
+                
+                    return edgeStyles.join("\n");
                 }
 
                 function updateDiagram() {
@@ -634,6 +711,5 @@ class Chart {
 
         return $output;
     }
-
 
 }

@@ -72,17 +72,17 @@ $memoryEnd = memory_get_usage();
                     ';
 
                 $steps = '[
-                    { visit: "S", info: "Starting at root node S" },
-                    { visit: "A", info: "Visiting first level node A" },
-                    { visit: "B", info: "Visiting first level node B" },
-                    { visit: "C", info: "Visiting second level node C" },
-                    { visit: "D", info: "Visiting second level node D" },
-                    { visit: "G", info: "Visiting second level node G" },
-                    { visit: "H", info: "Visiting second level node H" },
-                    { visit: "E", info: "Visiting third level node E" },
-                    { visit: "F", info: "Visiting third level node F" },
-                    { visit: "I", info: "Visiting third level node I" },
-                    { visit: "K", info: "Visiting fourth level node K - Search complete!" }
+                    { visit: "S", info: "Starting at root node S", edge: null },
+                    { visit: "A", info: "Visiting first level node A", edge: "S-A" },
+                    { visit: "B", info: "Visiting first level node B", edge: "S-B" },
+                    { visit: "C", info: "Visiting second level node C", edge: "A-C" },
+                    { visit: "D", info: "Visiting second level node D", edge: "A-D" },
+                    { visit: "G", info: "Visiting second level node G", edge: "B-G" },
+                    { visit: "H", info: "Visiting second level node H", edge: "B-H" },
+                    { visit: "E", info: "Visiting third level node E", edge: "C-E" },
+                    { visit: "F", info: "Visiting third level node F", edge: "C-F" },
+                    { visit: "I", info: "Visiting third level node I", edge: "G-I" },
+                    { visit: "K", info: "Visiting fourth level node K - Search complete!", edge: "E-K" }
                 ]';
 
                 echo Chart::drawTreeDiagram(

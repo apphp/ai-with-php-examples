@@ -74,13 +74,13 @@ $memoryEnd = memory_get_usage();
                     ';
 
                 $steps = '[
-                    { visit: "S", info: "Starting at root node S" },
-                    { visit: "A", info: "Visiting first level node A" },
-                    { visit: "B", info: "Visiting second level node B" },
-                    { visit: "D", info: "Visiting third level node D" },
-                    { visit: "E", info: "Visiting third level node E" },
-                    { visit: "C", info: "Visiting second level node C" },
-                    { visit: "K", info: "Visiting third level node K - Search complete!" }
+                    { visit: "S", info: "Starting at root node S", edge: null },
+                    { visit: "A", info: "Visiting first level node A", edge: "S-A" },
+                    { visit: "B", info: "Visiting second level node B", edge: "A-B" },
+                    { visit: "D", info: "Visiting third level node D", edge: "B-D" },
+                    { visit: "E", info: "Visiting third level node E", edge: "B-E" },
+                    { visit: "C", info: "Visiting second level node C", edge: "A-C" },
+                    { visit: "K", info: "Visiting third level node K - Search complete!", edge: "C-K" }
                 ]';
 
                 echo Chart::drawTreeDiagram(

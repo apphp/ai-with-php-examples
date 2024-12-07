@@ -535,7 +535,8 @@ class Chart {
                     
                     classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px
                     classDef visited fill:#ff9999,stroke:#ff0000,stroke-width:2px
-                    classDef current fill:#ffff99,stroke:#ffa500,stroke-width:3px 
+                    classDef current fill:#ffff99,stroke:#ffa500,stroke-width:2px 
+                    classDef finish fill:#ff8800,stroke:#333,stroke-width:1.5px 
                     
                 %% Color visited edges
                     ${generateEdgeStyles()}
@@ -587,7 +588,7 @@ class Chart {
                         '.$graph.'  
                         '.$style.'
                         ${visitedNodes.slice(0, -1).map(node => `class ${node} visited`).join("\n")}
-                        ${visitedNodes.length > 0 ? `class ${visitedNodes[visitedNodes.length-1]} current` : ""}
+                        ${visitedNodes.length > 0 ? (visitedNodes[visitedNodes.length-1] == "'.$endNode.'") ? `class '.$endNode.' finish` : `class ${visitedNodes[visitedNodes.length-1]} current` : ""}
                     `;
                 }
                                 

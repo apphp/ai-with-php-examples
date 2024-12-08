@@ -10,7 +10,7 @@
 
     <ui class="list">
         <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'index') ?>">Uninformed (Blind) Search</a></li>
-        <li><a href="#">Informed (Heuristic) Search</a></li>
+        <li><a href="<?= create_href('search-algorithms', 'informed-search', 'index') ?>">Informed (Heuristic) Search</a></li>
     </ui>
 </div>
 

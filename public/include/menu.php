@@ -19,6 +19,10 @@ $menu = [
                     'uniform-cost-search', 'uniform-cost-search-code-run',
                     'bidirectional-search', 'bidirectional-search-code-run',
                 ]],
+                ['section' => 'search-algorithms', 'subSection' => 'informed-search', 'page' => 'index', 'title' => 'Informed Search', 'permissions' => [
+                    'index',
+                    'greedy-search', 'greedy-search-code-run',
+                ]],
             ],
         ],
     ],

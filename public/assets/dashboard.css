@@ -301,3 +301,8 @@ code.gray {
   fill: #677 !important;
   color: #677 !important;
 }
+.mermaid small.sub-title {
+  margin-top: -5px;
+  display: block;
+  font-size: 11px;
+}

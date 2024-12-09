@@ -58,7 +58,7 @@ function toggleSidebar(collapse) {
   sidebar.classList.toggle('col-md-3', !collapse);
   sidebar.classList.toggle('col-lg-2', !collapse);
   sidebar.classList.toggle('overflow-hidden', collapse);
-  
+
   navbar.classList.toggle('nonvisible', collapse);
   svgicon.classList.toggle('rotate-180', collapse);
 
@@ -94,10 +94,10 @@ function getCookie(name) {
 document.addEventListener('DOMContentLoaded', function () {
   // Toggle Example of use
   const toggleText = document.getElementById('toggleExampleOfUse') || null;
-  const toggleIcon = document.getElementById('toggleIconExampleOfUse') || null;
+  const toggleIcon = document.getElementById('toggleIcon') || null;
   const collapseElement = document.getElementById('collapseExampleOfUse') || null;
 
-  if (collapseElement !== null) {
+  if (toggleText !== null) {
     collapseElement.addEventListener('shown.bs.collapse', function () {
       toggleIcon.classList.remove('fa-square-plus');
       toggleIcon.classList.add('fa-square-minus');

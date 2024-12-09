@@ -1,7 +1,7 @@
 <?php
 
 // Create the graph and add vertices with their levels
-$graph = new Graph();
+$graph = new UninformedSearchGraph();
 
 // Add all vertices with their respective levels
 $graph->addVertex('S', 0);  // Start node at level 0
@@ -30,6 +30,8 @@ $graph->addEdge('E', 'J');
 
 // Perform IDDFS to find node 'F'
 echo "Performing IDDFS to find node 'F':\n";
+echo "---------------------------------\n";
+
 $result = $graph->iddfs('S', 'F');
 
 // Output the DFS traversal

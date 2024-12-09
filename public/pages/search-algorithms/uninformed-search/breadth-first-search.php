@@ -28,7 +28,7 @@
         &nbsp;
     </div>
     <code id="code">
-        <?php highlight_file('graph-code.php'); ?>
+        <?php highlight_file('uninformed-graph-code.php'); ?>
     </code>
 </div>
 

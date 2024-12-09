@@ -1,7 +1,7 @@
 <?php
 
 // Create the graph and add vertices with their levels
-$graph = new Graph();
+$graph = new UninformedSearchGraph();
 
 // Add vertices
 $graph->addVertex('S', 0);  // Level 0
@@ -33,4 +33,6 @@ $bfsResult = $graph->bfs('S');
 
 // Output the BFS traversal
 echo "BFS traversal starting from vertex 'S':\n";
+echo "--------------------------------------\n\n";
+
 $graph->printPath($bfsResult);

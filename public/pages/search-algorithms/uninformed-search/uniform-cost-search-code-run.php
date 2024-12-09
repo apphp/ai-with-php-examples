@@ -1,5 +1,5 @@
 <?php
-include_once('graph-code.php');
+include_once('uninformed-graph-code.php');
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);

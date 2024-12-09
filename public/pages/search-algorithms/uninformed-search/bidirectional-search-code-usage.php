@@ -1,7 +1,7 @@
 <?php
 
 // Create the graph and add vertices with their levels
-$graph = new Graph();
+$graph = new UninformedSearchGraph();
 
 // Add all vertices with their respective levels to show the tree structure
 $vertices = [

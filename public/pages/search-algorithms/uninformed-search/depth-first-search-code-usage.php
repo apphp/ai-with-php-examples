@@ -1,7 +1,7 @@
 <?php
 
 // Create the graph and add vertices with their levels
-$graph = new Graph();
+$graph = new UninformedSearchGraph();
 
 // Add vertices with their levels
 $graph->addVertex('S', 0);  // Level 0
@@ -31,4 +31,5 @@ $dfsResult = $graph->dfs('S', 'K');
 
 // Output the DFS traversal
 echo "DFS traversal starting from vertex 'S':\n";
+echo "--------------------------------------\n\n";
 $graph->printPath($dfsResult);

@@ -1,7 +1,7 @@
 <?php
 
 // Create the graph and add vertices with their levels
-$graph = new Graph();
+$graph = new UninformedSearchGraph();
 
 // Add all vertices with their respective levels
 $graph->addVertex('S', 0);  // Start node at level 0
@@ -30,6 +30,9 @@ $graph->addEdge('I', 'H');
 
 // Try DLS with different depth limits
 $depths = [1, 2, 3];
+
+echo "DLS traversal starting from vertex 'S':\n";
+echo "--------------------------------------\n";
 
 foreach ($depths as $maxDepth) {
     echo "\nTrying DLS with max depth = $maxDepth to find node 'J':\n";

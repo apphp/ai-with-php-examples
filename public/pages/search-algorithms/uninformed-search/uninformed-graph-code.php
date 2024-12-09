@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-class Graph {
+class UninformedSearchGraph {
     private array $adjacencyList;
     private array $levels;
     // Store edge weights

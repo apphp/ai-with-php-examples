@@ -1,7 +1,7 @@
 <?php
 
 // Create the graph and add vertices with their levels
-$graph = new Graph();
+$graph = new UninformedSearchGraph();
 
 // Add all vertices with their respective levels
 $graph->addVertex('S', 0); // Starting node at level 0
@@ -26,6 +26,7 @@ $graph->addEdge('E', 'G', 5);
 
 // Perform UCS from S to G
 echo "UCS traversal starting from vertex 'S':\n";
+echo "--------------------------------------\n";
 $result = $graph->ucs('S', 'G');
 
 // Print the result

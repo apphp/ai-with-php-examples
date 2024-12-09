@@ -30,7 +30,7 @@
         &nbsp;
     </div>
     <code id="code">
-        <?php highlight_file('graph-code.php'); ?>
+        <?php highlight_file('informed-graph-code.php'); ?>
     </code>
 </div>
 

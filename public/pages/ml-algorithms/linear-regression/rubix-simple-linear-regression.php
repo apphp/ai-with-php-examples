@@ -23,15 +23,5 @@
 </div>
 
 <div>
-    <p>Example of use:</p>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>&nbsp;
-    </div>
-    <code id="code">
-        <?php highlight_file('rubix-simple-linear-regression-code.php'); ?>
-    </code>
+    <?= create_example_of_use_links(__DIR__ . '/rubix-simple-linear-regression-code.php', opened: true); ?>
 </div>
-
-

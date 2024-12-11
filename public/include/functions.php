@@ -23,20 +23,28 @@ function ddd($data = []) :void {
     dd($data, true);
 }
 
-function create_example_of_use_links(string $datasetFile = '') :string {
-    $output = '
+function create_example_of_use_links(string $datasetFile = '', string $title = 'Example of use', bool $opened = false) :string {
+
+    if ($opened) {
+        $output = ($title ? '<p>'.$title.':</p>' : '') . '
+        <div class="bd-clipboard">
+            <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
+            Copy
+            </button>&nbsp;
+        </div>
+        <code id="code">'. highlight_file($datasetFile, true) . '</code>';
+    } else {
+        $output = '
         <p class="btn btn-link px-0 py-0" id="toggleExampleOfUse" data-bs-toggle="collapse" href="#collapseExampleOfUse" role="button" aria-expanded="false" aria-controls="collapseExampleOfUse" title="Click to expand">
-            Example of use <i id="toggleIcon" class="fa-regular fa-square-plus"></i>
+            '.$title.' <i id="toggleIcon" class="fa-regular fa-square-plus"></i>
         </p>
         <div class="collapse pb-4" id="collapseExampleOfUse">
             <div class="bd-clipboard">
                 <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>&nbsp;
             </div>
-            <code id="code">';
-        $output .= highlight_file($datasetFile, true);
-        $output .= '
-            </code>
+            <code id="code">'. highlight_file($datasetFile, true) . '</code>
         </div>';
+    }
 
     return $output;
 }

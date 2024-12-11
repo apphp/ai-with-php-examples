@@ -16,18 +16,9 @@
         Chunked processing is crucial when dealing with datasets that are too large to fit in memory.
         This technique involves processing data in smaller, manageable pieces.
     </p>
-    <p>Example of Class ChunkedProcessor:</p>
 </div>
 
 <div>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>&nbsp;
-    </div>
-    <code id="code">
-        <?php highlight_file('chunked-processing-code.php'); ?>
-    </code>
+    <?= create_example_of_use_links(__DIR__ . '/chunked-processing-code.php', title: 'Example of Class ChunkedProcessor', opened: true); ?>
 </div>
-
 

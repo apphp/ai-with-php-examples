@@ -20,18 +20,9 @@
         manipulate data directly in PHP. This functionality is essential for PHP developers who want to implement machine learning models or perform
         matrix-heavy computations without needing to rely on external languages or software.
     </p>
-    <p>Example of Class Tensor:</p>
 </div>
 
 <div>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>&nbsp;
-    </div>
-    <code id="code">
-        <?php highlight_file('creating-tensors-code.php'); ?>
-    </code>
+    <?= create_example_of_use_links(__DIR__ . '/creating-tensors-code.php', title: 'Example of Class Tensor', opened: true); ?>
 </div>
-
 

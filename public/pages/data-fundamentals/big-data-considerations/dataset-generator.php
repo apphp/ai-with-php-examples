@@ -15,18 +15,8 @@
     <p>
         Generators provide a memory-efficient way to iterate over large datasets by yielding values one at a time.
     </p>
-    <p>Example of Class DatasetGenerator:</p>
 </div>
 
 <div>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>&nbsp;
-    </div>
-    <code id="code">
-        <?php highlight_file('dataset-generator-code.php'); ?>
-    </code>
+    <?= create_example_of_use_links(__DIR__ . '/dataset-generator-code.php', title: 'Example of Class DatasetGenerator', opened: true); ?>
 </div>
-
-

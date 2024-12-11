@@ -142,4 +142,10 @@
   filter: invert(90%) hue-rotate(10deg);
 }
 
-
+/* mermaid */
+[data-theme="dark"] .mermaid .edgeLabel {
+  background-color: #1b1b1b !important;
+}
+[data-theme="dark"] .mermaid .marker {
+  fill: #888877 !important;
+}

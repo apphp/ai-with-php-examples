@@ -48,6 +48,7 @@ To install these examples, follow these steps:
       - Bidirectional Search (BDS)
     - Informed (Heuristic) Search
       - Greedy Search
+      - A* Tree Search
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

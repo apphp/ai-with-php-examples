@@ -19,19 +19,10 @@
         inspired by human intuition — choosing the option that appears best at each step without considering the overall problem structure. While
         simple and often efficient, greedy search is not guaranteed to find the optimal solution.
     </p>
-    <p>Example of Class Graph (with greedy search):</p>
 </div>
 
 <div>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>
-        &nbsp;
-    </div>
-    <code id="code">
-        <?php highlight_file('informed-graph-code.php'); ?>
-    </code>
+    <?= create_example_of_use_links(__DIR__ . '/informed-graph-code.php', title: 'Example of class <code>InformedSearchGraph</code> (with Greedy search)', opened: true); ?>
 </div>
 
 

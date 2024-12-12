@@ -22,6 +22,7 @@ $menu = [
                 ['section' => 'search-algorithms', 'subSection' => 'informed-search', 'page' => 'index', 'title' => 'Informed Search', 'permissions' => [
                     'index',
                     'greedy-search', 'greedy-search-code-run',
+                    'a-tree-search', 'a-tree-search-code-run',
                 ]],
             ],
         ],

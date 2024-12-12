@@ -17,7 +17,7 @@
         Breadth-First Search is a widely used search strategy for traversing trees or graphs. It explores nodes level by level, expanding all
         successor nodes at the current depth before moving on to the next layer. This systematic breadthwise exploration is what gives BFS its name.
     </p>
-    <p>Example of Class Graph (with BFS search):</p>
+    <p>Example of class <code>UninformedSearchGraph</code> (with BFS search):</p>
 </div>
 
 <div>

@@ -19,7 +19,7 @@
         intersect, signaling that a solution path has been found. By effectively replacing a single large search space with two smaller subgraphs, BDS
         minimizes the computational overhead, making it an attractive option for navigating vast graphs.
     </p>
-    <p>Example of Class Graph (with BDS search):</p>
+    <p>Example of class <code>UninformedSearchGraph</code> (with BDS search):</p>
 </div>
 
 <div>

@@ -19,7 +19,7 @@
         though they have no successors. By constraining the depth, DLS avoids the pitfalls of exploring infinite paths while maintaining the
         advantages of depth-first traversal.
     </p>
-    <p>Example of Class Graph (with DLS search):</p>
+    <p>Example of class <code>UninformedSearchGraph</code> (with DLS search):</p>
 </div>
 
 <div>

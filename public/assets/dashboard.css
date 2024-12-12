@@ -8,6 +8,17 @@ body {
   vertical-align: text-bottom;
 }
 
+code:not(#code) {
+  background-color: #f7f7f7;
+  color:#304030;
+  padding: 3px;
+  font-family: monospace;
+}
+
+code#code code {
+  padding: 0 !important;
+}
+
 /*
  * Sidebar
  */

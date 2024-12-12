@@ -19,7 +19,7 @@
         where exploring deep hierarchies or paths is necessary. It relies on a stack data structure — either explicitly (using a manual stack) or
         implicitly (via recursion) — to manage the nodes being visited.
     </p>
-    <p>Example of Class Graph (with DFS search):</p>
+    <p>Example of class <code>UninformedSearchGraph</code> (with DFS search):</p>
 </div>
 
 <div>

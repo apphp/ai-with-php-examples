@@ -19,7 +19,7 @@
         of the search space. Unlike traditional DFS, which dives to the maximum depth at once, or BFS, which requires significant memory to maintain a
         queue of explored nodes, IDDFS systematically increases the search depth, ensuring thorough exploration while minimizing resource usage.
     </p>
-    <p>Example of Class Graph (with IDDFS search):</p>
+    <p>Example of class <code>UninformedSearchGraph</code> (with IDDFS search):</p>
 </div>
 
 <div>

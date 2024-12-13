@@ -75,8 +75,8 @@ if (empty($features)) {
                 <div class="mt-1">
                     <b>Features:</b>
                 </div>
-                <form action="index.php" type="GET">
-                    <?=create_form_fields('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression-code-run')?>
+                <form action="<?= APP_SEO_LINKS ? create_href('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression-code-run') : 'index.php'; ?>" type="GET">
+                    <?= !APP_SEO_LINKS ? create_form_fields('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression-code-run') : '';?>
                     <?=create_form_features(['Rooms', 'Size', 'Location'], $features);?>
                     <div class="form-check form-check-inline float-end p-0 m-0">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>

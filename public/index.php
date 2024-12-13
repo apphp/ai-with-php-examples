@@ -1,5 +1,6 @@
 <?php
     include('include/global.php');
+    include('include/request.php');
     include('include/functions.php');
     include('include/Chart.php');
     $menu = include_once('include/menu.php');
@@ -29,19 +30,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <title>Artificial Intelligence with PHP</title>
-    <link rel="icon" type="image/webp" href="favicon.webp">
+    <link rel="icon" type="image/webp" href="<?=APP_URL?>favicon.webp">
 
-    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/dist/css/dark-mode.css" rel="stylesheet">
-    <link href="assets/dashboard.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/dist/css/all.min.css" crossorigin="anonymous">
-    <script src="assets/dist/js/chart.js"></script>
-    <script src="assets/dist/js/plotly-latest.min.js"></script>
-    <script src="assets/dist/js/mermaid.min.js"></script>
+    <link href="<?=APP_URL?>assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=APP_URL?>assets/dist/css/dark-mode.css" rel="stylesheet">
+    <link href="<?=APP_URL?>assets/dashboard.css" rel="stylesheet">
+    <link href="<?=APP_URL?>assets/dist/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="<?=APP_URL?>assets/dist/js/chart.js"></script>
+    <script src="<?=APP_URL?>assets/dist/js/plotly-latest.min.js"></script>
+    <script src="<?=APP_URL?>assets/dist/js/mermaid.min.js"></script>
 </head>
 <body<?=$dataTheme;?>>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="index.php">AI with PHP Examples</a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="<?=APP_URL?>">AI with PHP Examples</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -71,10 +72,10 @@
     </div>
 </div>
 
-<script src="assets/dist/js/bootstrap.bundle.min.js"></script>
-<script src="assets/dist/js/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
-<script src="assets/dashboard.js"></script>
-<script src="assets/dist/js/dark-mode-switch.js"></script>
+<script src="<?=APP_URL?>assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="<?=APP_URL?>assets/dist/js/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+<script src="<?=APP_URL?>assets/dashboard.js"></script>
+<script src="<?=APP_URL?>assets/dist/js/dark-mode-switch.js"></script>
 
 </body>
 </html>

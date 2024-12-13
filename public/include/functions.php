@@ -4,12 +4,13 @@ function running_time(float $microtimeEnd, float $microtimeStart): string {
     $timeDif = ($microtimeEnd - $microtimeStart);
     return (string)($timeDif > 0.001 ? round($timeDif, 3) : '< 0.001');
 }
+
 function memory_usage(float $endMemory, float $startMemory): string {
     $memoryUsed = $endMemory - $startMemory;
     return round($memoryUsed / 1024 / 1024, 3);
 }
 
-function dd($data = [], bool $exit = false) :void {
+function dd($data = [], bool $exit = false): void {
     echo '<pre>';
     print_r($data);
     echo '</pre>';
@@ -19,37 +20,37 @@ function dd($data = [], bool $exit = false) :void {
     }
 }
 
-function ddd($data = []) :void {
+function ddd($data = []): void {
     dd($data, true);
 }
 
-function create_example_of_use_links(string $datasetFile = '', string $title = 'Example of use', bool $opened = false) :string {
+function create_example_of_use_links(string $datasetFile = '', string $title = 'Example of use', bool $opened = false): string {
 
     if ($opened) {
-        $output = ($title ? '<p>'.$title.':</p>' : '') . '
+        $output = ($title ? '<p>' . $title . ':</p>' : '') . '
         <div class="bd-clipboard">
             <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
             Copy
             </button>&nbsp;
         </div>
-        <code id="code">'. highlight_file($datasetFile, true) . '</code>';
+        <code id="code">' . highlight_file($datasetFile, true) . '</code>';
     } else {
         $output = '
         <p class="btn btn-link px-0 py-0" id="toggleExampleOfUse" data-bs-toggle="collapse" href="#collapseExampleOfUse" role="button" aria-expanded="false" aria-controls="collapseExampleOfUse" title="Click to expand">
-            '.$title.' <i id="toggleIcon" class="fa-regular fa-square-plus"></i>
+            ' . $title . ' <i id="toggleIcon" class="fa-regular fa-square-plus"></i>
         </p>
         <div class="collapse pb-4" id="collapseExampleOfUse">
             <div class="bd-clipboard">
                 <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>&nbsp;
             </div>
-            <code id="code">'. highlight_file($datasetFile, true) . '</code>
+            <code id="code">' . highlight_file($datasetFile, true) . '</code>
         </div>';
     }
 
     return $output;
 }
 
-function create_dataset_and_test_data_links(array|string $datasetData = '', array $testData = [], bool $fullWidth = false) :string {
+function create_dataset_and_test_data_links(array|string $datasetData = '', array $testData = [], bool $fullWidth = false): string {
     $output = '<p class="btn btn-link px-0 py-0 me-4" id="toggleDataset" data-bs-toggle="collapse" href="#collapseDataset" role="button" aria-expanded="false" aria-controls="collapseDataset" title="Click to expand">
         Dataset <i id="toggleIconDataset" class="fa-regular fa-square-plus"></i>
     </p>';
@@ -62,47 +63,47 @@ function create_dataset_and_test_data_links(array|string $datasetData = '', arra
 
     $output .= '<div class="row">';
 
-        if (is_array($datasetData) && empty($testData)) {
-            $output .= '<div class="collapse col-md-12 '.($fullWidth ? 'col-lg-12' : 'col-lg-7 pe-4').' mb-4 pe-4" id="collapseDataset">
+    if (is_array($datasetData) && empty($testData)) {
+        $output .= '<div class="collapse col-md-12 ' . ($fullWidth ? 'col-lg-12' : 'col-lg-7 pe-4') . ' mb-4 pe-4" id="collapseDataset">
                 <div class="card card-body pb-0">
                     <code class="gray">
             <pre>';
 
-            foreach ($datasetData as $test) {
-                $output .= $test . PHP_EOL;
-            }
+        foreach ($datasetData as $test) {
+            $output .= $test . PHP_EOL;
+        }
 
-            $output .= '</pre>
+        $output .= '</pre>
                     </code>
                 </div>
             </div>';
-        } else {
-            if ($datasetData) {
-                $output .= '<div class="collapse col-md-12 '.($fullWidth ? 'col-lg-12' : 'col-lg-7 pe-4').' mb-4" id="collapseDataset">
+    } else {
+        if ($datasetData) {
+            $output .= '<div class="collapse col-md-12 ' . ($fullWidth ? 'col-lg-12' : 'col-lg-7 pe-4') . ' mb-4" id="collapseDataset">
                     <div class="card card-body pb-0">
                     <code id="dataset">
                         ' . highlight_file($datasetData, true) . '
                     </code>
                     </div>
                     </div>';
-            }
+        }
 
-            if ($testData) {
-                $output .= '<div class="collapse col-md-12 col-lg-5 mb-4 ps-2" id="collapseTestData">
+        if ($testData) {
+            $output .= '<div class="collapse col-md-12 col-lg-5 mb-4 ps-2" id="collapseTestData">
                     <div class="card card-body pb-0">
                     <code class="gray">
                     <pre>';
 
-                foreach ($testData as $test) {
-                    $output .= $test . PHP_EOL;
-                }
+            foreach ($testData as $test) {
+                $output .= $test . PHP_EOL;
+            }
 
-                $output .= '</pre>
+            $output .= '</pre>
                     </code>
                     </div>
                     </div>';
-            }
         }
+    }
 
     $output .= '</div>';
 
@@ -115,7 +116,11 @@ function create_link(string $section, string $subsection, string $page, string $
         $active = ' active';
     }
 
-    $output = '<a class="nav-link' . $active . '" href="index.php?section=' . $section . '&subsection=' . $subsection . '&page=' . $page . '">';
+    if (APP_SEO_LINKS) {
+        $output = '<a class="nav-link' . $active . '" href="' . create_href($section, $subsection, $page) . '">';
+    } else {
+        $output = '<a class="nav-link' . $active . '" href="index.php?section=' . $section . '&subsection=' . $subsection . '&page=' . $page . '">';
+    }
     $output .= '<span data-feather="file-text">&bull; </span>';
     $output .= '<small>' . $link . '</small>';
     $output .= '</a>';
@@ -123,7 +128,11 @@ function create_link(string $section, string $subsection, string $page, string $
     return $output;
 }
 
-function create_href(string $section, string $subsection, string $page): string {
+function create_href(string $section = '', string $subsection = '', string $page = ''): string {
+    if (APP_SEO_LINKS) {
+        return APP_URL . ($section ? $section . '/' : '') . ($subsection ? $subsection . '/' : '') . $page;
+    }
+
     return 'index.php?section=' . $section . '&subsection=' . $subsection . '&page=' . $page;
 }
 
@@ -142,8 +151,8 @@ function create_form_features(array $features = [], array $data = []) {
     foreach ($features as $feature) {
         $ind++;
         $output .= '<div class="form-check form-check-inline mt-2">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox'.$ind.'" name="features[]" value="'.$value.'"' . (in_array($value, $data) ? ' checked' : '') . '>
-            <label class="form-check-label" for="inlineCheckbox'.$ind.'">' . $feature . '</label>
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox' . $ind . '" name="features[]" value="' . $value . '"' . (in_array($value, $data) ? ' checked' : '') . '>
+            <label class="form-check-label" for="inlineCheckbox' . $ind . '">' . $feature . '</label>
         </div>';
         $value++;
     }
@@ -152,7 +161,7 @@ function create_form_features(array $features = [], array $data = []) {
 
 // Function to validate the GET parameters against the $menu array
 function is_valid_page(array $menu, $section, $subSection, $page): bool {
-    if(!is_string($section) || !is_string($subSection) || !is_string($page)){
+    if (!is_string($section) || !is_string($subSection) || !is_string($page)) {
         return false;
     }
 

@@ -18,19 +18,10 @@
         designed to handle situations where each edge has a different cost, aiming to find the path to the goal node with the lowest cumulative cost.
         UCS achieves this by expanding nodes based on their path costs, starting from the root node.
     </p>
-    <p>Example of class <code>UninformedSearchGraph</code> (with UCS search):</p>
 </div>
 
 <div>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>
-        &nbsp;
-    </div>
-    <code id="code">
-        <?php highlight_file('uninformed-graph-code.php'); ?>
-    </code>
+    <?= create_example_of_use_links(__DIR__ . '/uninformed-graph-code.php', title: 'Example of class <code>UninformedSearchGraph</code> (with UCS search)', opened: true); ?>
 </div>
 
 

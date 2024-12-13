@@ -19,19 +19,10 @@
         of the search space. Unlike traditional DFS, which dives to the maximum depth at once, or BFS, which requires significant memory to maintain a
         queue of explored nodes, IDDFS systematically increases the search depth, ensuring thorough exploration while minimizing resource usage.
     </p>
-    <p>Example of class <code>UninformedSearchGraph</code> (with IDDFS search):</p>
 </div>
 
 <div>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>
-        &nbsp;
-    </div>
-    <code id="code">
-        <?php highlight_file('uninformed-graph-code.php'); ?>
-    </code>
+    <?= create_example_of_use_links(__DIR__ . '/uninformed-graph-code.php', title: 'Example of class <code>UninformedSearchGraph</code> (with IDDFS search)', opened: true); ?>
 </div>
 
 

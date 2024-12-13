@@ -19,19 +19,10 @@
         where exploring deep hierarchies or paths is necessary. It relies on a stack data structure — either explicitly (using a manual stack) or
         implicitly (via recursion) — to manage the nodes being visited.
     </p>
-    <p>Example of class <code>UninformedSearchGraph</code> (with DFS search):</p>
 </div>
 
 <div>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>
-        &nbsp;
-    </div>
-    <code id="code">
-        <?php highlight_file('uninformed-graph-code.php'); ?>
-    </code>
+    <?= create_example_of_use_links(__DIR__ . '/uninformed-graph-code.php', title: 'Example of class <code>UninformedSearchGraph</code> (with DFS search)', opened: true); ?>
 </div>
 
 

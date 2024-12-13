@@ -19,6 +19,6 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/chunked-processing-code.php', title: 'Example of Class ChunkedProcessor', opened: true); ?>
+    <?= create_example_of_use_links(__DIR__ . '/chunked-processing-code.php', title: 'Example of class <code>ChunkedProcessor</code>', opened: true); ?>
 </div>
 

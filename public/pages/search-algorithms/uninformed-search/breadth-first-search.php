@@ -17,19 +17,10 @@
         Breadth-First Search is a widely used search strategy for traversing trees or graphs. It explores nodes level by level, expanding all
         successor nodes at the current depth before moving on to the next layer. This systematic breadthwise exploration is what gives BFS its name.
     </p>
-    <p>Example of class <code>UninformedSearchGraph</code> (with BFS search):</p>
 </div>
 
 <div>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>
-        &nbsp;
-    </div>
-    <code id="code">
-        <?php highlight_file('uninformed-graph-code.php'); ?>
-    </code>
+    <?= create_example_of_use_links(__DIR__ . '/uninformed-graph-code.php', title: 'Example of class <code>UninformedSearchGraph</code> (with BFS search)', opened: true); ?>
 </div>
 
 

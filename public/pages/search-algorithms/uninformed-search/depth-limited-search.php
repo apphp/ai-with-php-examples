@@ -19,19 +19,10 @@
         though they have no successors. By constraining the depth, DLS avoids the pitfalls of exploring infinite paths while maintaining the
         advantages of depth-first traversal.
     </p>
-    <p>Example of class <code>UninformedSearchGraph</code> (with DLS search):</p>
 </div>
 
 <div>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>
-        &nbsp;
-    </div>
-    <code id="code">
-        <?php highlight_file('uninformed-graph-code.php'); ?>
-    </code>
+    <?= create_example_of_use_links(__DIR__ . '/uninformed-graph-code.php', title: 'Example of class <code>UninformedSearchGraph</code> (with DLS search)', opened: true); ?>
 </div>
 
 

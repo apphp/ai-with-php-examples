@@ -18,17 +18,8 @@
         algorithms. It provides a robust set of methods for performing vectors calculations, making it a valuable tool for developers working on AI
         projects in PHP.
     </p>
-    <p>Example of Class Vector:</p>
 </div>
 
 <div>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>
-        &nbsp;
-    </div>
-    <code id="code">
-        <?php highlight_file('vectors-code.php'); ?>
-    </code>
+    <?= create_example_of_use_links(__DIR__ . '/vectors-code.php', title: 'Example of class <code>Vector</code>', opened: true); ?>
 </div>

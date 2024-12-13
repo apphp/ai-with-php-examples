@@ -23,6 +23,6 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/creating-tensors-code.php', title: 'Example of Class Tensor', opened: true); ?>
+    <?= create_example_of_use_links(__DIR__ . '/creating-tensors-code.php', title: 'Example of class <code>Tensor</code>', opened: true); ?>
 </div>
 

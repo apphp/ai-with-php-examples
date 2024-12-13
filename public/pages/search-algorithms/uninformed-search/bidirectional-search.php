@@ -19,17 +19,8 @@
         intersect, signaling that a solution path has been found. By effectively replacing a single large search space with two smaller subgraphs, BDS
         minimizes the computational overhead, making it an attractive option for navigating vast graphs.
     </p>
-    <p>Example of class <code>UninformedSearchGraph</code> (with BDS search):</p>
 </div>
 
 <div>
-    <div class="bd-clipboard">
-        <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
-            Copy
-        </button>
-        &nbsp;
-    </div>
-    <code id="code">
-        <?php highlight_file('uninformed-graph-code.php'); ?>
-    </code>
+    <?= create_example_of_use_links(__DIR__ . '/uninformed-graph-code.php', title: 'Example of class <code>UninformedSearchGraph</code> (with BDS search)', opened: true); ?>
 </div>

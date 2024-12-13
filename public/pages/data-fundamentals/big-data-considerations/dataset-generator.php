@@ -18,5 +18,5 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/dataset-generator-code.php', title: 'Example of Class DatasetGenerator', opened: true); ?>
+    <?= create_example_of_use_links(__DIR__ . '/dataset-generator-code.php', title: 'Example of class DatasetGenerator', opened: true); ?>
 </div>

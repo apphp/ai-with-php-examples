@@ -26,7 +26,7 @@ $path = $graph->greedySearch('S', 'G');
 
 if ($path !== null) {
     echo "Path found:\n";
-    $graph->printPath($path);
+    $graph->printPath($path, showCost: false);
 } else {
     echo "No path found!\n";
 }

@@ -14,7 +14,9 @@
 
 <div>
     <p>
-        A* Tree Search, commonly referred to as A* Search, is a widely used pathfinding and graph traversal algorithm. It builds on the strengths of uniform-cost search and greedy search, offering a robust mechanism for finding the most cost-effective path from a starting node to a goal node.
+        A* Tree Search, commonly referred to as A* Search, is a widely used pathfinding and graph traversal algorithm. It builds on the strengths of
+        uniform-cost search and greedy search, offering a robust mechanism for finding the most cost-effective path from a starting node to a goal
+        node.
     </p>
 </div>
 

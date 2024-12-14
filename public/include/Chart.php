@@ -190,9 +190,11 @@ class Chart {
         array $predictionPoint = [],
         int $minX = 0,
         int $minY = 0,
+        string $darkSwitch = ''
     ): string {
 
         $predictionX = '';
+        $darkSwitch = $darkSwitch ?: ($_COOKIE['darkSwitch'] ?? '');
 
         // Add prediction point
         if (!empty($predictionPoint) && count($predictionPoint) == 2) {
@@ -285,8 +287,8 @@ class Chart {
                                 label: '".htmlspecialchars($regressionLabel)."',
                                 data: regressionLine,
                                 type: 'line',
-                                borderColor: 'rgba(255, 0, 0, 0.2)',
-                                backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                                borderColor: '".($darkSwitch === 'dark' ? 'rgba(255, 0, 0, 0.2)' : 'rgba(225, 225, 225, 1)')."',
+                                backgroundColor: '".($darkSwitch === 'dark' ? 'rgba(255, 0, 0, 0.1)' : 'rgba(245, 245, 245, 1)')."',
                                 borderWidth: 2,
                                 pointRadius: 0,
                                 fill: false,

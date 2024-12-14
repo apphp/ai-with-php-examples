@@ -19,6 +19,17 @@ code#code code {
   padding: 0 !important;
 }
 
+.form-switch-mode {
+  width: 50px;
+  margin-bottom: -2px !important;
+}
+
+@media (max-width: 768px) {
+  .form-switch-mode {
+    margin-right: 80px;
+  }
+}
+
 /*
  * Sidebar
  */
@@ -168,6 +179,11 @@ ui.list li {
 
 #btn-panel-close i {
   color: #999
+}
+@media (max-width: 768px) {
+  #btn-panel-close {
+    display: none;
+  }
 }
 
 .rotate-180 {

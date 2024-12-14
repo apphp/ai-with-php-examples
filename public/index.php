@@ -47,7 +47,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="form-check form-switch mt-1" title="Swith Light/Dark mode" style="width: 50px; margin-bottom: -2px !important;">
+    <div class="form-check form-switch form-switch-mode mt-1" title="Swith Light/Dark Mode">
         <input type="checkbox" class="form-check-input cursor-pointer" id="darkSwitch" <?= $darkSwitch ? 'checked' : ''?>>
         <label class="custom-control-label" for="darkSwitch"></label>
     </div>

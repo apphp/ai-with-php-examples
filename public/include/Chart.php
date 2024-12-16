@@ -560,7 +560,7 @@ class Chart {
                     </div>
                 </div>
             </div>
-            <div class="container mb-5">
+            <div class="container mb-5" style="overflow: hidden; min-height: 600px; width: 100%; position: relative;">
                 <div id="diagram"></div>
             </div>
             
@@ -593,11 +593,12 @@ class Chart {
                         ${visitedNodes.length > 0 ? (visitedNodes[visitedNodes.length-1] == "'.$endNode.'") ? `class '.$endNode.' finish` : `class ${visitedNodes[visitedNodes.length-1]} current` : ""}
                     `;
                 }
-                                
+                
                 function extractEdgesFromGraph(graphDefinition) {
                     // Split the graph definition into lines
                     const lines = graphDefinition.split("\n");
                     const edgeMap = {};
+                    const weightMap = {};
                     let edgeIndex = 0;
                 
                     // Process each line to find edge definitions
@@ -605,41 +606,67 @@ class Chart {
                         // Remove leading/trailing whitespace
                         line = line.trim();
                         
-                        let separator = "";
-                        if (line.includes("---")) {
-                            separator = "---";
-                        } else if (line.includes("-->")) {
-                            separator = "-->";
-                        }
+                        // Skip the graph TB line and empty lines
+                        if (line.startsWith("graph TB") || !line) return;
                         
-                        // Look for lines that define edges (containing ---)
-                        if (line.includes(separator)) {
+                        // Look for lines that define edges (containing -->)
+                        if (line.includes("-->")) {
                             // Remove any comments and trim
-                            line = line.split("%")[0].trim();
+                            line = line.split(""%"")[0].trim();
                             
-                            // Extract node names and clean them
-                            const nodes = line.split(separator).map(node => {
-                                // Extract just the letter(s) between (( and ))
-                                const match = node.match(/\(\(([A-Z]+)\)\)/);
-                                return match ? match[1] : node.trim();
-                            });
+                            // Split the line into parts considering the edge weight
+                            const parts = line.split("-->").map(part => part.trim());
                             
-                            if (nodes.length === 2) {
-                                // Create bidirectional edge mappings
-                                const edge1 = `${nodes[0]}-${nodes[1]}`;
-                                const edge2 = `${nodes[1]}-${nodes[0]}`;
+                            if (parts.length === 2) {
+                                let sourceNode = parts[0];
+                                let targetPart = parts[1];
+                                
+                                // Extract source node name
+                                const sourceMatch = sourceNode.match(/\(\(([A-Z][0-9]?)\</);
+                                if (!sourceMatch) {
+                                    const simpleMatch = sourceNode.match(/\(\(([A-Z][0-9]?)\)\)/);
+                                    sourceNode = simpleMatch ? simpleMatch[1] : sourceNode;
+                                } else {
+                                    sourceNode = sourceMatch[1];
+                                }
+                                
+                                // Handle weight and target node
+                                let weight = 1; // default weight
+                                let targetNode = "";
+                                
+                                // Check if there is a weight
+                                if (targetPart.includes(""|"")) {
+                                    const weightMatch = targetPart.match(/\|(\d+)\|/);
+                                    if (weightMatch) {
+                                        weight = parseInt(weightMatch[1]);
+                                    }
+                                    // Extract the actual target part after the weight
+                                    targetPart = targetPart.split("|").pop().trim();
+                                }
+                                
+                                // Extract target node name
+                                const targetMatch = targetPart.match(/\(\(([A-Z][0-9]?)\</);
+                                if (!targetMatch) {
+                                    const simpleMatch = targetPart.match(/\(\(([A-Z][0-9]?)\)\)/);
+                                    targetNode = simpleMatch ? simpleMatch[1] : targetPart;
+                                } else {
+                                    targetNode = targetMatch[1];
+                                }
+                                
+                                // Create directed edge mapping
+                                const edge = `${sourceNode}-${targetNode}`;
                                 
                                 // Only add if not already in map
-                                if (!(edge1 in edgeMap)) {
-                                    edgeMap[edge1] = edgeIndex;
-                                    edgeMap[edge2] = edgeIndex;
+                                if (!(edge in edgeMap)) {
+                                    edgeMap[edge] = edgeIndex;
+                                    weightMap[edge] = weight;
                                     edgeIndex++;
                                 }
                             }
                         }
                     });
-                    
-                    return edgeMap;
+
+                    return { edges: edgeMap, weights: weightMap };
                 }
                 
                 function generateEdgeStyles() {
@@ -655,7 +682,7 @@ class Chart {
                     const edgeMap = extractEdgesFromGraph(graphDefinition);
                     
                     visitedEdges.forEach((edge, index) => {
-                        const edgeNum = edgeMap[edge];
+                        const edgeNum = edgeMap.edges[edge];
                         if (edgeNum !== undefined) {
                             const color = "#ff0000";
                             edgeStyles.push(`linkStyle ${edgeNum} stroke:${color},stroke-width:3px`);

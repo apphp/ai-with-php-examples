@@ -14,6 +14,7 @@
     <ui class="list">
         <li><a href="<?= create_href('search-algorithms', 'informed-search', 'greedy-search') ?>">Greedy Search</a></li>
         <li><a href="<?= create_href('search-algorithms', 'informed-search', 'a-tree-search') ?>">A* Tree Search</a></li>
+        <li><a href="<?= create_href('search-algorithms', 'informed-search', 'a-graph-search') ?>">A* Graph Search</a></li>
     </ui>
 </div>
 

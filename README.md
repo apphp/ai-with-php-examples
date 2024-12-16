@@ -49,6 +49,7 @@ To install these examples, follow these steps:
     - Informed (Heuristic) Search
       - Greedy Search
       - A* Tree Search
+      - A* Graph Search
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

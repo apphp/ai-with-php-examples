@@ -5,7 +5,7 @@ $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
-include('a-tree-search-code-usage.php');
+include('a-graph-search-code-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -19,10 +19,10 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">A* Tree Search</h2>
+    <h2 class="h4">A* Graph Search</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?= create_href('search-algorithms', 'informed-search', 'a-tree-search') ?>" class="btn btn-sm btn-outline-primary">Show
+            <a href="<?= create_href('search-algorithms', 'informed-search', 'a-graph-search') ?>" class="btn btn-sm btn-outline-primary">Show
                 Code</a>
         </div>
     </div>
@@ -30,14 +30,17 @@ $memoryEnd = memory_get_usage();
 
 <div>
     <p>
-        A* Tree Search, commonly referred to as A* Search, is a widely used pathfinding and graph traversal algorithm. It builds on the strengths of
-        uniform-cost search and greedy search, offering a robust mechanism for finding the most cost-effective path from a starting node to a goal
-        node.
+        A* Graph Search is an enhancement of the A* Tree Search algorithm, designed to optimize its efficiency by addressing a key limitation: the
+        re-exploration of nodes. In tree search, the same node can be expanded multiple times across different branches, wasting time and
+        computational resources.
+        <br>
+        A* Graph Search mitigates this issue by introducing a critical rule: a node is not expanded more than once. This improvement allows the
+        algorithm to explore paths more efficiently while retaining the benefits of A*’s heuristic-based approach.
     </p>
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/a-tree-search-code-usage.php'); ?>
+    <?= create_example_of_use_links(__DIR__ . '/a-graph-search-code-usage.php'); ?>
 </div>
 
 <div class="container-fluid px-2">
@@ -64,13 +67,13 @@ $memoryEnd = memory_get_usage();
                     { visit: "D", info: "Visiting first level node D", edge: "S-D" },
                     { visit: "B", info: "Visiting first level node B", edge: "D-B" },
                     { visit: "E", info: "Visiting first level node E", edge: "B-E" },
-                    { visit: "G", info: "Visiting third level node G - Search complete!", edge: "E1-G" }
+                    { visit: "G", info: "Visiting third level node G - Search complete!", edge: "E-G" }
                 ]';
 
             echo Chart::drawTreeDiagram(
                 graph: $graph,
                 steps: $steps,
-                defaultMessage: 'Starting A* Tree traversal...',
+                defaultMessage: 'Starting A* Graph traversal...',
                 startNode: 'S',
                 endNode: 'G',
                 intersectionNode: '',

@@ -23,6 +23,7 @@ $menu = [
                     'index',
                     'greedy-search', 'greedy-search-code-run',
                     'a-tree-search', 'a-tree-search-code-run',
+                    'a-graph-search', 'a-graph-search-code-run',
                 ]],
             ],
         ],

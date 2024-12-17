@@ -17,7 +17,7 @@
         A* Graph Search is an enhancement of the A* Tree Search algorithm, designed to optimize its efficiency by addressing a key limitation: the
         re-exploration of nodes. In tree search, the same node can be expanded multiple times across different branches, wasting time and
         computational resources.
-        <br>
+        <br><br>
         A* Graph Search mitigates this issue by introducing a critical rule: a node is not expanded more than once. This improvement allows the
         algorithm to explore paths more efficiently while retaining the benefits of A*’s heuristic-based approach.
     </p>

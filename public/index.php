@@ -36,6 +36,8 @@
     <link href="<?=APP_URL?>assets/dist/css/dark-mode.css" rel="stylesheet">
     <link href="<?=APP_URL?>assets/dashboard.css" rel="stylesheet">
     <link href="<?=APP_URL?>assets/dist/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+
+    <script src="<?=APP_URL?>assets/global.js"></script>
     <script src="<?=APP_URL?>assets/dist/js/chart.js"></script>
     <script src="<?=APP_URL?>assets/dist/js/plotly-latest.min.js"></script>
     <script src="<?=APP_URL?>assets/dist/js/mermaid.min.js"></script>

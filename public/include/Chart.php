@@ -531,9 +531,9 @@ class Chart {
                 %% Styling
                     classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px;
                     linkStyle default stroke:#2ea723,stroke-width:2px;
-                    classDef sNode fill:#a0eFeF,stroke:#333,stroke-width:1px
-                    classDef gNode fill:#FFA07A,stroke:#333,stroke-width:1px
-                    '.($intersectionNode ? 'classDef iNode fill:#A07AFF,stroke:#333' : '').'
+                    classDef sNode fill:#a0eFeF,stroke:#333,stroke-width:1px          
+                    '.($intersectionNode ? 'classDef gNode fill:#a0eFeF,stroke:#333,stroke-width:1px' : 'classDef gNode fill:#FFB07A,stroke:#333,stroke-width:1px').'
+                    '.($intersectionNode ? 'classDef iNode fill:#FFB07A,stroke:#333,stroke-width:1px' : '').'
                     
                     classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px
                     classDef visited fill:#ff9999,stroke:#ff0000,stroke-width:2px
@@ -590,7 +590,9 @@ class Chart {
                         '.$graph.'  
                         '.$style.'
                         ${visitedNodes.slice(0, -1).map(node => `class ${node} visited`).join("\n")}
-                        ${visitedNodes.length > 0 ? (visitedNodes[visitedNodes.length-1] == "'.$endNode.'") ? `class '.$endNode.' finish` : `class ${visitedNodes[visitedNodes.length-1]} current` : ""}
+                        ${visitedNodes.length > 0 
+                            ? (visitedNodes[visitedNodes.length-1] == "'.($intersectionNode ?: $endNode).'") ? `class '.($intersectionNode ?: $endNode).' finish` 
+                            : `class ${visitedNodes[visitedNodes.length-1]} current` : ""}
                     `;
                 }
                 
@@ -600,6 +602,7 @@ class Chart {
                     const edgeMap = {};
                     const weightMap = {};
                     let edgeIndex = 0;
+                    let separatorType = "";
                 
                     // Process each line to find edge definitions
                     lines.forEach(line => {
@@ -610,12 +613,14 @@ class Chart {
                         if (line.startsWith("graph TB") || !line) return;
                         
                         // Look for lines that define edges (containing -->)
-                        if (line.includes("-->")) {
+                        separatorType = line.includes("-->") ? "-->" : (line.includes("---") ? "---" : "");
+
+                        if (separatorType) {
                             // Remove any comments and trim
-                            line = line.split(""%"")[0].trim();
+                            line = line.split("%")[0].trim();
                             
                             // Split the line into parts considering the edge weight
-                            const parts = line.split("-->").map(part => part.trim());
+                            const parts = line.split(separatorType).map(part => part.trim());
                             
                             if (parts.length === 2) {
                                 let sourceNode = parts[0];
@@ -635,7 +640,7 @@ class Chart {
                                 let targetNode = "";
                                 
                                 // Check if there is a weight
-                                if (targetPart.includes(""|"")) {
+                                if (targetPart.includes("|")) {
                                     const weightMatch = targetPart.match(/\|(\d+)\|/);
                                     if (weightMatch) {
                                         weight = parseInt(weightMatch[1]);

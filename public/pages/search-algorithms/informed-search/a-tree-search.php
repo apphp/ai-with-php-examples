@@ -18,7 +18,7 @@
         uniform-cost search and greedy search, offering a robust mechanism for finding the most cost-effective path from a starting node to a goal
         node.
         <br><br>
-        A* uses a heuristic function, , where is the cumulative cost to reach the current node, and is an estimated cost to reach the goal from the
+        A* uses a heuristic function, $f(x) = g(x) + h(x)$, where is the cumulative cost to reach the current node, and is an estimated cost to reach the goal from the
         current node. This balance between actual cost and estimated cost makes A* one of the most efficient search algorithms in many applications,
         including game development, robotics, and network optimization.
     </p>

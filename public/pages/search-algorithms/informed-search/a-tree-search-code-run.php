@@ -5,7 +5,7 @@ $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
-include('a-graph-search-code-usage.php');
+include('a-tree-search-code-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -19,10 +19,10 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">A* Graph Search</h2>
+    <h2 class="h4">A* Tree Search</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?= create_href('search-algorithms', 'informed-search', 'a-graph-search') ?>" class="btn btn-sm btn-outline-primary">Show
+            <a href="<?= create_href('search-algorithms', 'informed-search', 'a-tree-search') ?>" class="btn btn-sm btn-outline-primary">Show
                 Code</a>
         </div>
     </div>
@@ -30,17 +30,18 @@ $memoryEnd = memory_get_usage();
 
 <div>
     <p>
-        A* Graph Search is an enhancement of the A* Tree Search algorithm, designed to optimize its efficiency by addressing a key limitation: the
-        re-exploration of nodes. In tree search, the same node can be expanded multiple times across different branches, wasting time and
-        computational resources.
+        A* Tree Search, commonly referred to as A* Search, is a widely used pathfinding and graph traversal algorithm. It builds on the strengths of
+        uniform-cost search and greedy search, offering a robust mechanism for finding the most cost-effective path from a starting node to a goal
+        node.
         <br><br>
-        A* Graph Search mitigates this issue by introducing a critical rule: a node is not expanded more than once. This improvement allows the
-        algorithm to explore paths more efficiently while retaining the benefits of A*’s heuristic-based approach.
+        A* uses a heuristic function, $f(x) = g(x) + h(x)$, where is the cumulative cost to reach the current node, and is an estimated cost to reach the goal from the
+        current node. This balance between actual cost and estimated cost makes A* one of the most efficient search algorithms in many applications,
+        including game development, robotics, and network optimization.
     </p>
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/a-graph-search-code-usage.php'); ?>
+    <?= create_example_of_use_links(__DIR__ . '/a-tree-search-code-usage.php'); ?>
 </div>
 
 <div class="container-fluid px-2">
@@ -52,6 +53,8 @@ $memoryEnd = memory_get_usage();
             $graph = '
                     graph TB
                         S((S<small class="sub-title">h=7</small>))--> |3| A((A<small class="sub-title">h=9</small>))
+                        A-->|1| B1((B<small class="sub-title">h=4</small>))
+                        B1-->|5| G3((G<small class="sub-title">h=0</small>))
                         S-->|2| D((D<small class="sub-title">h=5</small>))
                         D-->|1| B((B<small class="sub-title">h=4</small>))
                         D-->|4| E1((E<small class="sub-title">h=3</small>))

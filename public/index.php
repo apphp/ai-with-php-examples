@@ -41,6 +41,15 @@
     <script src="<?=APP_URL?>assets/dist/js/chart.js"></script>
     <script src="<?=APP_URL?>assets/dist/js/plotly-latest.min.js"></script>
     <script src="<?=APP_URL?>assets/dist/js/mermaid.min.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']], // Настройка для инлайн-формул
+                displayMath: [['$$', '$$'], ['\\[', '\\]']] // Настройка для блочных формул
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" src="<?=APP_URL?>assets/dist/js/tex-mml-chtml.js"></script>
 </head>
 <body<?=$dataTheme;?>>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">

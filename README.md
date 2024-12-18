@@ -34,6 +34,7 @@ To install these examples, follow these steps:
   - Chart.js [https://www.chartjs.org/](https://www.chartjs.org/)
   - Plotly.js [https://plotly.com/javascript/](https://plotly.com/javascript/)
   - Mermaid.js [https://mermaid.js.org/](https://mermaid.js.org/)
+  - MathJax [https://www.mathjax.org/](https://www.mathjax.org/)
 
 
 ## The Following Examples are Available:

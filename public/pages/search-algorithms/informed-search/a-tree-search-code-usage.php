@@ -3,37 +3,34 @@
 // Create the graph and add vertices with their levels
 $graph = new InformedSearchGraph();
 
-//// Add vertices with their levels and heuristic values
-//$graph->addVertex('S', 0, 7);  // Start node
-//$graph->addVertex('A', 1, 9);
-//$graph->addVertex('D', 1, 5);
-//$graph->addVertex('B', 2, 4);
-//$graph->addVertex('E', 2, 3);
-//$graph->addVertex('C', 3, 2);
-//$graph->addVertex('G1', 4, 0); // First G node (from C)
-//$graph->addVertex('G2', 3, 0); // Second G node (from E)
-//$graph->addVertex('G', 4, 0); // Third G node (from E)
-//
-//// Add edges with their costs
-//$graph->addEdge('S', 'A', 3);
-//$graph->addEdge('S', 'D', 2);
-//$graph->addEdge('D', 'B', 1);
-//$graph->addEdge('D', 'E', 4);
-//$graph->addEdge('B', 'C', 2);
-//$graph->addEdge('B', 'E', 1);
-//$graph->addEdge('C', 'G1', 4); // Path to first G
-//$graph->addEdge('E', 'G2', 3); // Path to second G
-//$graph->addEdge('E', 'G', 3); // Path to third G (the one highlighted in orange)
-//
-//// Find path using A* search to G3 (the highlighted goal node)
-//echo "Performing A* search search from S to G:\n";
-//echo "---------------------------------------\n\n";
-//
-//$path = $graph->aStarSearch('S', 'G');
-//if ($path !== null) {
-//    $graph->printPath($path);
-//} else {
-//    echo "No path found!\n";
-//}
+// Add vertices with their heuristic values (h)
+$graph->addVertex('S', 0, 7.0); // Start node with h=7
+$graph->addVertex('A', 1, 9.0); // h=9
+$graph->addVertex('B', 2, 4.0); // h=4
+$graph->addVertex('C', 3, 2.0); // h=2
+$graph->addVertex('D', 1, 5.0); // h=5
+$graph->addVertex('E', 2, 3.0); // h=3
+$graph->addVertex('G', 4, 0.0); // Goal node with h=0
 
-echo "to be implemented";
+// Add edges with costs as shown in the image
+$graph->addEdge('S', 'A', 3.0);
+$graph->addEdge('S', 'D', 2.0);
+$graph->addEdge('A', 'B', 1.0);
+$graph->addEdge('B', 'G', 5.0);
+$graph->addEdge('D', 'E', 4.0);
+$graph->addEdge('D', 'B', 1.0);
+$graph->addEdge('B', 'C', 2.0);
+$graph->addEdge('B', 'E', 1.0);
+$graph->addEdge('E', 'G', 3.0);
+$graph->addEdge('C', 'G', 4.0);
+
+// Run A* Tree Search
+echo "Performing A* Tree Search from S to G:\n";
+echo "-------------------------------------\n\n";
+
+$path = $graph->aStarTreeSearch('S', 'G');
+if ($path !== null) {
+    $graph->printPath($path);
+} else {
+    echo "No path found!\n";
+}

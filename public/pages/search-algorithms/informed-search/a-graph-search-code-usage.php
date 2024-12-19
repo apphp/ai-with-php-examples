@@ -25,11 +25,11 @@ $graph->addEdge('C', 'G1', 4); // Path to first G
 $graph->addEdge('E', 'G2', 3); // Path to second G
 $graph->addEdge('E', 'G', 3); // Path to third G (the one highlighted in orange)
 
-// Find path using A* search to G3 (the highlighted goal node)
-echo "Performing A* search search from S to G:\n";
+// Find path using A* Group search to G3 (the highlighted goal node)
+echo "Performing A* Group Search from S to G:\n";
 echo "---------------------------------------\n\n";
 
-$path = $graph->aStarSearch('S', 'G');
+$path = $graph->aStarGroupSearch('S', 'G');
 if ($path !== null) {
     $graph->printPath($path);
 } else {

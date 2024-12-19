@@ -101,7 +101,78 @@ class InformedSearchGraph {
         return $path;
     }
 
-    public function aStarSearch(string $start, string $goal): ?array {
+    public function aStarTreeSearch(string $start, string $goal): ?array {
+        if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
+            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+        }
+
+        // Priority queue implemented as array with state information
+        $openSet = [[
+            'vertex' => $start,
+            'gScore' => 0.0,
+            'fScore' => $this->heuristics[$start],
+            'path' => [
+                [
+                    'vertex' => $start,
+                    'level' => $this->levels[$start],
+                    'heuristic' => $this->heuristics[$start]
+                ]
+            ]
+        ]];
+
+        while (!empty($openSet)) {
+            // Find node in openSet with lowest fScore
+            $currentIndex = 0;
+            $currentFScore = $openSet[0]['fScore'];
+
+            for ($i = 1; $i < count($openSet); $i++) {
+                if ($openSet[$i]['fScore'] < $currentFScore) {
+                    $currentIndex = $i;
+                    $currentFScore = $openSet[$i]['fScore'];
+                }
+            }
+
+            $current = $openSet[$currentIndex];
+            $currentVertex = $current['vertex'];
+
+            // Check if we've reached the goal
+            if ($currentVertex === $goal) {
+                return $current['path'];
+            }
+
+            // Remove current from openSet
+            array_splice($openSet, $currentIndex, 1);
+
+            // Explore all neighbors
+            foreach ($this->adjacencyList[$currentVertex] as $neighbor) {
+                // Calculate g score for this path
+                $tentativeGScore = $current['gScore'] + $this->getEdgeCost($currentVertex, $neighbor);
+
+                // Calculate f score (g score + heuristic)
+                $fScore = $tentativeGScore + $this->heuristics[$neighbor];
+
+                // Create new path
+                $newPath = $current['path'];
+                $newPath[] = [
+                    'vertex' => $neighbor,
+                    'level' => $this->levels[$neighbor],
+                    'heuristic' => $this->heuristics[$neighbor]
+                ];
+
+                // Add new state to openSet
+                $openSet[] = [
+                    'vertex' => $neighbor,
+                    'gScore' => $tentativeGScore,
+                    'fScore' => $fScore,
+                    'path' => $newPath
+                ];
+            }
+        }
+
+        return null; // No path found
+    }
+
+    public function aStarGroupSearch(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
             throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
         }

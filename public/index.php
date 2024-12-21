@@ -19,7 +19,7 @@
         $subSection = '';
         $page = 'home';
 
-        header('location: index.php');
+        header('location: ' . APP_URL);
         exit;
     }
 ?>

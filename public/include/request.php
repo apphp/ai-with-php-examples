@@ -6,6 +6,11 @@ if (APP_SEO_LINKS) {
     // Get the request URI
     $requestUri = $_SERVER['REQUEST_URI'];
 
+    // Clear dir part of URI
+    if (APP_URL_DIR) {
+        $requestUri = str_ireplace(APP_URL_DIR, '', $requestUri);
+    }
+
     // Remove query string if present
     $path = parse_url($requestUri, PHP_URL_PATH);
 

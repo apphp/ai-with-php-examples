@@ -2,3 +2,4 @@
 .run/*
 composer.lock
 vendor/
+public/include/global.default

@@ -24,6 +24,20 @@ function ddd($data = []): void {
     dd($data, true);
 }
 
+function create_run_code_button(string $title, string $section, string $subsection, string $page) {
+    $output = '<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h2 class="h4">' . $title . '</h2>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group">
+                <a href="' . create_href($section, $subsection, $page). '"
+                   class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
+            </div>
+        </div>
+    </div>';
+
+   return $output;
+}
+
 function create_example_of_use_links(string $datasetFile = '', string $title = 'Example of use', bool $opened = false): string {
 
     if ($opened) {

@@ -22,7 +22,7 @@ $memoryEnd = memory_get_usage();
     <h2 class="h4">Iterative Deepening A*</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?= create_href('search-algorithms', 'informed-search', 'a-graph-search') ?>" class="btn btn-sm btn-outline-primary">Show
+            <a href="<?= create_href('search-algorithms', 'informed-search', 'iterative-deepening-a-search') ?>" class="btn btn-sm btn-outline-primary">Show
                 Code</a>
         </div>
     </div>

@@ -296,6 +296,105 @@ class InformedSearchGraph {
         return null; // No path found
     }
 
+    public function idaStarSearch(string $start, string $goal): ?array {
+        if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
+            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+        }
+
+        // Initialize the bound as the heuristic value of the start node
+        $bound = $this->heuristics[$start];
+
+        // Initial path contains only the start node
+        $path = [
+            [
+                'vertex' => $start,
+                'level' => $this->levels[$start],
+                'heuristic' => $this->heuristics[$start]
+            ]
+        ];
+
+        while (true) {
+            // Search with current bound
+            $result = $this->idaStarRecursive($path, 0, $bound, $goal);
+
+            if (is_array($result)) {
+                // Path found
+                return $result;
+            }
+
+            if ($result === PHP_FLOAT_MAX) {
+                // No path exists
+                return null;
+            }
+
+            // Update bound to the minimum f-value that exceeded current bound
+            $bound = $result;
+        }
+    }
+
+    private function idaStarRecursive(array $path, float $g, float $bound, string $goal): array|float {
+        $current = $path[count($path) - 1]['vertex'];
+        $f = $g + $this->heuristics[$current];
+
+        // If f exceeds bound, return f as the new minimum bound
+        if ($f > $bound) {
+            return $f;
+        }
+
+        // If goal is reached, return the path
+        if ($current === $goal) {
+            return $path;
+        }
+
+        $min = PHP_FLOAT_MAX;
+
+        // Explore all neighbors
+        foreach ($this->adjacencyList[$current] as $neighbor) {
+            // Check if neighbor is already in path (avoid cycles)
+            $inPath = false;
+            foreach ($path as $node) {
+                if ($node['vertex'] === $neighbor) {
+                    $inPath = true;
+                    break;
+                }
+            }
+            if ($inPath) {
+                continue;
+            }
+
+            // Add neighbor to path
+            $path[] = [
+                'vertex' => $neighbor,
+                'level' => $this->levels[$neighbor],
+                'heuristic' => $this->heuristics[$neighbor]
+            ];
+
+            // Recursively search from neighbor
+            $result = $this->idaStarRecursive(
+                $path,
+                $g + $this->getEdgeCost($current, $neighbor),
+                $bound,
+                $goal
+            );
+
+            // Remove neighbor from path (backtrack)
+            array_pop($path);
+
+            // Process result
+            if (is_array($result)) {
+                // Path to goal found
+                return $result;
+            }
+
+            // Update minimum bound if needed
+            if ($result < $min) {
+                $min = $result;
+            }
+        }
+
+        return $min;
+    }
+
     public function printPath(array $path, bool $showCost = true): void {
         $totalCost = 0;
         $previousVertex = null;

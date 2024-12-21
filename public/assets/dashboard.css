@@ -11,7 +11,7 @@ body {
 code:not(#code) {
   background-color: #f7f7f7;
   color:#304030;
-  padding: 3px;
+  padding: 0;
   font-family: monospace;
 }
 

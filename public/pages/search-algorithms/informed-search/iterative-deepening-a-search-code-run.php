@@ -49,31 +49,25 @@ $memoryEnd = memory_get_usage();
             <?php
             $graph = '
                     graph TB
-                        S((S<small class="sub-title">h=7</small>))--> |3| A((A<small class="sub-title">h=9</small>))
-                        S-->|2| D((D<small class="sub-title">h=5</small>))
-                        D-->|1| B((B<small class="sub-title">h=4</small>))
-                        D-->|4| E1((E<small class="sub-title">h=3</small>))
-                        E1-->|3| G1((G<small class="sub-title">h=0</small>))
-                        B-->|2| C((C<small class="sub-title">h=2</small>))
-                        B-->|1| E((E<small class="sub-title">h=3</small>))
-                        C-->|4| G2((G<small class="sub-title">h=0</small>))
-                        E-->|3| G((G<small class="sub-title">h=0</small>))
+                        A((A<small class="sub-title">h=7</small>))--> |3| B((B<small class="sub-title">h=5</small>))
+                        A--> |4| C((C<small class="sub-title">h=10</small>))
+                        B--> |5| D((D<small class="sub-title">h=10</small>))
+                        B--> |4| E((E<small class="sub-title">h=9</small>))
+                        C--> |3| F((F<small class="sub-title">h=7</small>))
                     ';
 
             $steps = '[
-                    { visit: "S", info: "Starting at root node S", edge: null },
-                    { visit: "D", info: "Visiting first level node D", edge: "S-D" },
-                    { visit: "B", info: "Visiting first level node B", edge: "D-B" },
-                    { visit: "E", info: "Visiting first level node E", edge: "B-E" },
-                    { visit: "G", info: "Visiting third level node G - Search complete!", edge: "E-G" }
+                    { visit: "A", info: "Starting at root node A", edge: null },
+                    { visit: "C", info: "Visiting first level node C", edge: "A-C" },
+                    { visit: "F", info: "Visiting second level node F - Search complete!", edge: "C-F" }
                 ]';
 
             echo Chart::drawTreeDiagram(
                 graph: $graph,
                 steps: $steps,
                 defaultMessage: 'Starting A* Graph traversal...',
-                startNode: 'S',
-                endNode: 'G',
+                startNode: 'A',
+                endNode: 'F',
                 intersectionNode: '',
             );
             ?>

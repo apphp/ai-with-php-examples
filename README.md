@@ -51,6 +51,7 @@ To install these examples, follow these steps:
       - Greedy Search
       - A* Tree Search
       - A* Graph Search
+      - Iterative Deepening A*
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

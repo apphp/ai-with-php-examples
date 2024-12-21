@@ -8,7 +8,7 @@ $menu = include('menu.php');
 
 ?>
 
-<nav id="sidebarMenu" class="<?= $sideBar === 'collapsed' ? 'col-md-1 col-lg-1 collapsed' : 'col-md-3 col-lg-2 collapse'; ?> d-md-block bg-light sidebar overflow-auto">
+<nav id="sidebarMenu" class="<?= $sideBar === 'collapsed' ? 'col-md-1 col-lg-1 collapsed' : 'col-md-3 col-lg-2 collapse'; ?> d-md-block bg-light sidebar overflow-auto pb-4">
     <div class="position-sticky pt-3">
         <!-- Toggle Button -->
         <div id="btn-panel-close" title="<?= $sideBar === 'collapsed' ? 'Expand' : 'Collapse'; ?>">

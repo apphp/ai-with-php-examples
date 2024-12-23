@@ -2,14 +2,7 @@
     <h1 class="h2">Linear Regression with PHP</h1>
 </div>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">Simple Linear Regression with PHP-ML</h2>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group">
-            <a href="<?=create_href('ml-algorithms', 'linear-regression', 'phpml-simple-linear-regression-code-run')?>" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
-        </div>
-    </div>
-</div>
+<?= create_run_code_button('Simple Linear Regression with PHP-ML', 'ml-algorithms', 'linear-regression', 'phpml-simple-linear-regression-code-run'); ?>
 
 <div>
     <p>

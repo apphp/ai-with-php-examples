@@ -52,6 +52,7 @@ To install these examples, follow these steps:
       - A* Tree Search
       - A* Graph Search
       - Iterative Deepening A*
+      - Beam Search
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

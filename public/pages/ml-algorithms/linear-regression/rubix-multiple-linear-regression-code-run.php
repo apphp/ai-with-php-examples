@@ -13,7 +13,7 @@ $microtimeEnd = microtime(true);
 $memoryEnd = memory_get_usage();
 
 $features = $_GET['features'] ?? [];
-verify_features($features, ['0', '1', '2'], ['0', '1']);
+verify_fields($features, ['0', '1', '2'], ['0', '1']);
 
 ?>
 
@@ -73,7 +73,7 @@ verify_features($features, ['0', '1', '2'], ['0', '1']);
                 </div>
                 <form action="<?= APP_SEO_LINKS ? create_href('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression-code-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression-code-run') : '';?>
-                    <?=create_form_features(['Rooms', 'Size', 'Location'], $features);?>
+                    <?=create_form_features(['Rooms' => 0, 'Size' => 1, 'Location' => 2], $features);?>
                     <div class="form-check form-check-inline float-end p-0 m-0">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
                     </div>

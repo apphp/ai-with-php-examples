@@ -20,7 +20,7 @@ $graph->addEdge('A', 'C', 4.0); // Right branch
 $graph->addEdge('C', 'F', 3.0);
 
 // Perform IDA* search from S to G
-echo "Performing IDA* search from A to F:\n";
+echo "Performing IDA* Search from A to F:\n";
 echo "----------------------------------\n\n";
 
 $path = $graph->idaStarSearch('A', 'F');

@@ -24,14 +24,20 @@ function ddd($data = []): void {
     dd($data, true);
 }
 
-function verify_features(array &$features, array $verificationData, array $defaultData): void {
+function verify_fields(array|string &$features, array $verificationData, array|string $defaultData): void {
     if (empty($features)) {
         $features = $defaultData;
     } else {
-        foreach ($features as $feature) {
-            if (!in_array($feature, $verificationData)) {
+        if (is_array($features)) {
+            foreach ($features as $feature) {
+                if (!in_array($feature, $verificationData)) {
+                    $features = $defaultData;
+                    break;
+                }
+            }
+        } else {
+            if (!in_array($features, $verificationData)) {
                 $features = $defaultData;
-                break;
             }
         }
     }
@@ -42,13 +48,13 @@ function create_run_code_button(string $title, string $section, string $subsecti
         <h2 class="h4">' . $title . '</h2>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group">
-                <a href="' . create_href($section, $subsection, $page). '"
+                <a href="' . create_href($section, $subsection, $page) . '"
                    class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
             </div>
         </div>
     </div>';
 
-   return $output;
+    return $output;
 }
 
 function create_example_of_use_links(string $datasetFile = '', string $title = 'Example of use', bool $opened = false): string {
@@ -171,17 +177,25 @@ function create_form_fields(string $section, string $subsection, string $page): 
     return $output;
 }
 
-function create_form_features(array $features = [], array $data = []) {
+function create_form_features(array $features = [], array $data = [], string $fieldName = 'features', string $type = 'checkbox') {
     $output = '';
     $ind = 0;
-    $value = 0;
-    foreach ($features as $feature) {
+    $type = $type === 'radio' ? 'radio' : 'checkbox';
+
+    foreach ($features as $name => $feature) {
         $ind++;
-        $output .= '<div class="form-check form-check-inline mt-2">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox' . $ind . '" name="features[]" value="' . $value . '"' . (in_array($value, $data) ? ' checked' : '') . '>
-            <label class="form-check-label" for="inlineCheckbox' . $ind . '">' . $feature . '</label>
-        </div>';
-        $value++;
+
+        if ($type === 'radio') {
+            $output .= '<div class="form-check form-check-inline mt-2">
+            <input class="form-check-input" type="radio" id="inlineRadio' . $ind . '" name="' . $fieldName . '" value="' . $feature . '"' . (in_array($feature, $data) ? ' checked' : '') . '>
+            <label class="form-check-label" for="inlineRadio' . $ind . '">' . $name . '</label>
+            </div>';
+        } else {
+            $output .= '<div class="form-check form-check-inline mt-2">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox' . $ind . '" name="' . $fieldName . '[]" value="' . $feature . '"' . (in_array($feature, $data) ? ' checked' : '') . '>
+            <label class="form-check-label" for="inlineCheckbox' . $ind . '">' . $name . '</label>
+            </div>';
+        }
     }
     return $output;
 }

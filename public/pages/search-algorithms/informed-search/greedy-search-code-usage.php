@@ -18,8 +18,8 @@ $graph->addEdge('D', 'B');  // D -> B
 $graph->addEdge('D', 'E');  // D -> E
 $graph->addEdge('E', 'G');  // E -> G
 
-// Perform greedy search from S to G
-echo "Performing greedy search from S to G:\n";
+// Perform Greedy search from S to G
+echo "Performing Greedy search from S to G:\n";
 echo "------------------------------------\n\n";
 
 $path = $graph->greedySearch('S', 'G');

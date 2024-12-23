@@ -24,6 +24,19 @@ function ddd($data = []): void {
     dd($data, true);
 }
 
+function verify_features(array &$features, array $verificationData, array $defaultData): void {
+    if (empty($features)) {
+        $features = $defaultData;
+    } else {
+        foreach ($features as $feature) {
+            if (!in_array($feature, $verificationData)) {
+                $features = $defaultData;
+                break;
+            }
+        }
+    }
+}
+
 function create_run_code_button(string $title, string $section, string $subsection, string $page) {
     $output = '<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h2 class="h4">' . $title . '</h2>

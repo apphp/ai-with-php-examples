@@ -13,11 +13,7 @@ $microtimeEnd = microtime(true);
 $memoryEnd = memory_get_usage();
 
 $features = $_GET['features'] ?? [];
-
-if (empty($features)) {
-    $features[0] = '0';
-    $features[1] = '1';
-}
+verify_features($features, ['0', '1', '2'], ['0', '1']);
 
 ?>
 

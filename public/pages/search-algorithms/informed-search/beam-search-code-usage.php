@@ -38,7 +38,16 @@ $beamWidths = [1, 2, 3];
 echo "Performing Beam Search from A to G:\n";
 echo "------------------------------------\n\n";
 
+// Init beam
+$beam ??= 1;
+
 foreach ($beamWidths as $width) {
+
+    // Show only specified width
+    if ($width != $beam){
+        continue;
+    }
+
     echo "Beam Search (width = $width):\n";
     echo "=========================\n";
     $path = $graph->beamSearch('A', 'G', $width);

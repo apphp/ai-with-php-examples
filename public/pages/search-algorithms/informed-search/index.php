@@ -15,8 +15,8 @@
         <li><a href="<?= create_href('search-algorithms', 'informed-search', 'greedy-search') ?>">Greedy Search</a></li>
         <li><a href="<?= create_href('search-algorithms', 'informed-search', 'a-tree-search') ?>">A* Tree Search</a></li>
         <li><a href="<?= create_href('search-algorithms', 'informed-search', 'a-graph-search') ?>">A* Graph Search</a></li>
-        <li><a href="<?= create_href('search-algorithms', 'informed-search', 'iterative-deepening-a-search') ?>">Iterative Deepening A*</a></li>
-        <li><a href="<?= create_href('search-algorithms', 'informed-search', 'beam-search') ?>">Beam Deepening</a></li>
+        <li><a href="<?= create_href('search-algorithms', 'informed-search', 'iterative-deepening-a-search') ?>">Iterative Deepening A* Search</a></li>
+        <li><a href="<?= create_href('search-algorithms', 'informed-search', 'beam-search') ?>">Beam Search</a></li>
     </ui>
 </div>
 

@@ -12,7 +12,7 @@ $result = ob_get_clean();
 $microtimeEnd = microtime(true);
 $memoryEnd = memory_get_usage();
 
-$features = $_GET['features'] ?? [];
+$features = isset($_GET['features']) && is_array($_GET['features']) ? $_GET['features'] : [];
 verify_fields($features, ['0', '1', '2'], ['0', '1']);
 
 ?>

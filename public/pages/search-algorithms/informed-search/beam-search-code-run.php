@@ -1,6 +1,9 @@
 <?php
 include_once('informed-graph-code.php');
 
+$beam = isset($_GET['beam']) && is_string($_GET['beam']) ? $_GET['beam'] : '';
+verify_fields($beam, ['1', '2', '3'], '1');
+
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();
@@ -12,8 +15,6 @@ $result = ob_get_clean();
 $microtimeEnd = microtime(true);
 $memoryEnd = memory_get_usage();
 
-$beam = $_GET['beam'] ?? [];
-verify_fields($beam, ['1', '2', '3'], '1');
 
 ?>
 

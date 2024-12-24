@@ -3,9 +3,6 @@
 // Create the graph and add vertices with their levels
 $graph = new InformedSearchGraph();
 
-// Create a new graph instance
-$graph = new InformedSearchGraph();
-
 // Add vertices with their levels and heuristic values
 // Format: vertex name, level, heuristic value
 $graph->addVertex('A', 0, 0);  // Start node

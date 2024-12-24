@@ -57,7 +57,7 @@ $memoryEnd = memory_get_usage();
             <?php
             $graph = '
                     graph TB
-                        A((A<small class="sub-title">h=7</small>))--> |2| B((B<small class="sub-title">h=1</small>))
+                        A((A<small class="sub-title">h=0</small>))--> |2| B((B<small class="sub-title">h=1</small>))
                         A--> |1| C((C<small class="sub-title">h=2</small>))                
                         A--> |2| D((D<small class="sub-title">h=3</small>))                
                         B--> |3| E((E<small class="sub-title">h=3</small>))                
@@ -67,7 +67,8 @@ $memoryEnd = memory_get_usage();
                         D--> |3| G((G<small class="sub-title">h=0</small>))                
                     ';
 
-            $steps = '[
+            if ($beam === '3') {
+                $steps = '[
                     { visit: "A", info: "Starting at root node A", edge: null },
                     { visit: "B", info: "Visiting first level node B", edge: "A-B" },
                     { visit: "C", info: "Visiting first level node C", edge: "A-C" },
@@ -78,6 +79,26 @@ $memoryEnd = memory_get_usage();
                     { visit: "G", info: "Visiting third level node G - Search complete!", edge: "E-G" },
                     { visit: "G", info: "Visiting third level node G - Search complete!", edge: "F-G" }
                 ]';
+           } elseif ($beam === '2') {
+                $steps = '[
+                    { visit: "A", info: "Starting at root node A", edge: null },
+                    { visit: "B", info: "Visiting first level node B", edge: "A-B" },
+                    { visit: "C", info: "Visiting first level node C", edge: "A-C" },
+                    { visit: "E", info: "Visiting second level node E", edge: "B-E" },
+                    { visit: "F", info: "Visiting second level node F", edge: "C-F" },
+                    { visit: "G", info: "Visiting third level node G - Search complete!", edge: "E-G" },
+                    { visit: "G", info: "Visiting third level node G - Search complete!", edge: "F-G" }
+                ]';
+            } else {
+                $steps = '[
+                    { visit: "A", info: "Starting at root node A", edge: null },
+                    { visit: "B", info: "Visiting first level node B", edge: "A-B" },
+                    { visit: "E", info: "Visiting second level node E", edge: "B-E" },
+                    { visit: "G", info: "Visiting third level node G - Search complete!", edge: "E-G" },
+                ]';
+            }
+
+
 
             echo Chart::drawTreeDiagram(
                 graph: $graph,

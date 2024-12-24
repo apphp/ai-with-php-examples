@@ -2,15 +2,7 @@
     <h1 class="h2">Data Cleaning with PHP</h1>
 </div>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">Data Normalization with Rubix</h2>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group">
-            <a href="<?= create_href('data-fundamentals', 'data-processing', 'rubix-data-normalization-code-run') ?>"
-               class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
-        </div>
-    </div>
-</div>
+<?= create_run_code_button('Data Normalization with Rubix', 'data-fundamentals', 'data-processing', 'rubix-data-normalization-code-run'); ?>
 
 <div>
     <p>

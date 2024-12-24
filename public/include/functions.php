@@ -43,13 +43,25 @@ function verify_fields(array|string &$features, array $verificationData, array|s
     }
 }
 
-function create_run_code_button(string $title, string $section, string $subsection, string $page) {
+function create_show_code_button(string $title, string $section, string $subsection, string $page): string {
+    $output = '<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h2 class="h4">' . $title . '</h2>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group">
+            <a href="' . create_href($section, $subsection, $page) . '" class="btn btn-sm btn-outline-primary">Show Code</a>
+        </div>
+    </div>
+</div>';
+
+    return $output;
+}
+
+function create_run_code_button(string $title, string $section, string $subsection, string $page): string {
     $output = '<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h2 class="h4">' . $title . '</h2>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group">
-                <a href="' . create_href($section, $subsection, $page) . '"
-                   class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
+                <a href="' . create_href($section, $subsection, $page) . '" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
             </div>
         </div>
     </div>';

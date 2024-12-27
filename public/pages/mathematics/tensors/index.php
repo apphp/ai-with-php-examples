@@ -3,7 +3,7 @@
 </div>
 
 <div>
-    <h2 class="h4">Tensors</h2>
+    <h2 class="h4">Tensors with PHP</h2>
     <p>
         Tensors in linear algebra are mathematical objects that generalize scalars, vectors, and matrices to higher dimensions.
         At their core, tensors are multilinear maps or multilinear functions. They can be understood as objects that remain invariant under coordinate
@@ -16,6 +16,3 @@
     </ui>
 </div>
 
-<div>
-
-</div>

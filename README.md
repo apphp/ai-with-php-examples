@@ -59,6 +59,7 @@ To install these examples, follow these steps:
     - Vector Operations with PHP
     - Matrices with PHP
     - Tensors
+    - Linear Transformations
   - Data Fundamentals
     - Big Data Techniques in PHP
       - Chunked Processing

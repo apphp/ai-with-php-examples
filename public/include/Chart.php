@@ -743,7 +743,6 @@ class Chart {
             </script>
         ';
 
-
         return $output;
     }
 

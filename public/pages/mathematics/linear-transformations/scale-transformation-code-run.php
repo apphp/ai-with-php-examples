@@ -68,10 +68,10 @@ $memoryEnd = memory_get_usage();
                                 </div>
                             </div>
                             <div class="matrix-grid">
-                                <input type="number" id="m11" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" value="2" step="0.5" width="50px">
-                                <input type="number" id="m12" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" value="0" step="0.5" width="50px">
-                                <input type="number" id="m21" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" value="0" step="0.5" width="50px">
-                                <input type="number" id="m22" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" value="3" step="0.5" width="50px">
+                                <input type="number" id="m11" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="2" step="0.5" width="50px">
+                                <input type="number" id="m12" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="0" step="0.5" width="50px">
+                                <input type="number" id="m21" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="0" step="0.5" width="50px">
+                                <input type="number" id="m22" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="3" step="0.5" width="50px">
                             </div>
                         </div>
                         <div class="col-6">
@@ -79,11 +79,11 @@ $memoryEnd = memory_get_usage();
                             <div class="vector-inputs">
                                 <div>
                                     <label class="vector-component" for="vectorX">X Component:</label>
-                                    <input type="number" id="vectorX" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" value="1" step="0.5">
+                                    <input type="number" id="vectorX" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="1" step="0.5">
                                 </div>
                                 <div>
                                     <label class="vector-component" for="vectorY">Y Component:</label>
-                                    <input type="number" id="vectorY" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" value="2" step="0.5">
+                                    <input type="number" id="vectorY" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="2" step="0.5">
                                 </div>
                             </div>
                         </div>

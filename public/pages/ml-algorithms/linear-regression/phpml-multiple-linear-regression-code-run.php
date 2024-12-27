@@ -91,8 +91,6 @@ verify_fields($features, ['0', '1', '2'], ['0', '1']);
                 <pre><?= $result; ?></pre>
             </code>
         </div>
-
     </div>
-
 </div>
 

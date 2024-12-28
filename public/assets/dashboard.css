@@ -352,10 +352,10 @@ code.gray {
 }
 
 @media (max-width: 580px) {
-  /*.ms-sm-auto {*/
-  /*  margin-left: -25px !important;*/
-  /*}*/
   .container-fluid {
     padding-left: 12px;
+  }
+  #main:not(.expanded) .bd-clipboard {
+    right: 15px;
   }
 }

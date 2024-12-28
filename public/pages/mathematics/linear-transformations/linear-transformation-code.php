@@ -46,6 +46,33 @@ class LinearTransformation {
     }
 
     /**
+     * Apply linear transformation with weights and bias: y = Wx + b
+     * @param array $input The input vector
+     * @param array $bias The bias vector
+     * @return array The transformed vector with bias added
+     * @throws InvalidArgumentException If dimensions don't match
+     */
+    public function linearLayer(array $input, array $bias): array {
+        // First validate that bias vector length matches number of rows
+        if (count($bias) !== $this->rows) {
+            throw new InvalidArgumentException(
+                "Bias dimension must match matrix rows"
+            );
+        }
+
+        // Use existing transform method to compute Wx
+        $transformed = $this->transform($input);
+
+        // Add bias to each element: Wx + b
+        $result = [];
+        for ($i = 0; $i < $this->rows; $i++) {
+            $result[] = $transformed[$i] + $bias[$i];
+        }
+
+        return $result;
+    }
+
+    /**
      * Get the transformation matrix
      * @return array The transformation matrix
      */

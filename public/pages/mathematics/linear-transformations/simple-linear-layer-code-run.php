@@ -6,7 +6,7 @@ $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 
-include('scale-transformation-code-usage.php');
+include('simple-linear-layer-code-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -20,22 +20,23 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">Scale Transformation</h2>
+    <h2 class="h4">Simple Linear Layer</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?=create_href('mathematics', 'linear-transformations', 'scale-transformation')?>"  class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?=create_href('mathematics', 'linear-transformations', 'simple-linear-layer')?>"  class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>
 
 <div>
     <p>
+        In neural networks, linear transformations are represented as: $y = Wx + b$. Here, $W$ is a weight matrix, $x$ is the input, and $b$ is the bias vector.<br>
         In PHP it can be written as a class <code>LinearTransformation</code> with implementation of linear transformation operations.
     </p>
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/scale-transformation-code-usage.php'); ?>
+    <?= create_example_of_use_links(__DIR__ . '/simple-linear-layer-code-usage.php'); ?>
 </div>
 
 
@@ -46,14 +47,16 @@ $memoryEnd = memory_get_usage();
 
             <?php
                 echo Chart::drawVectorField(
-                    vector: $vector2D,
-                    matrix: $transformMatrix
+                    matrix: $weightMatrix,
+                    vector: $inputVector,
+                    bias: $bias,
+                    type: 'linear'
                 );
             ?>
 
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
-            <form action="<?= APP_SEO_LINKS ? create_href('mathematics', 'linear-transformations', 'scale-transformation-code-run') : 'index.php'; ?>" type="GET">
+            <form action="<?= APP_SEO_LINKS ? create_href('mathematics', 'linear-transformations', 'simple-linear-layer-code-run') : 'index.php'; ?>" type="GET">
                 <div class="float-end p-0 m-0 me-1">
                     <button type="submit" class="btn btn-sm btn-outline-primary">Reset</button>
                 </div>
@@ -62,15 +65,15 @@ $memoryEnd = memory_get_usage();
             <hr>
             <?php
                 echo Chart::drawVectorFieldControls(
-                    vector: $vector2D,
-                    matrix: $transformMatrix
+                    //vector: $vector2D,
+                    //matrix: $transformMatrix
                 );
             ?>
             <div class="form-section me-1">
                 <form id="transformForm" onsubmit="return false;">
                     <div class="row">
                         <div class="col-6">
-                            <b>Transformation Matrix ($A$)</b>
+                            <b>Weight Matrix ($W$)</b>
                             <div class="row">
                                 <div class="col-6">
                                     <label class="vector-component" for="m11">X Component:</label>
@@ -81,8 +84,8 @@ $memoryEnd = memory_get_usage();
                             </div>
                             <div class="matrix-grid">
                                 <input type="number" id="m11" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="2" step="0.5" width="50px">
-                                <input type="number" id="m12" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="0" step="0.5" width="50px">
-                                <input type="number" id="m21" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="0" step="0.5" width="50px">
+                                <input type="number" id="m12" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="-1" step="0.5" width="50px">
+                                <input type="number" id="m21" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="1" step="0.5" width="50px">
                                 <input type="number" id="m22" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="3" step="0.5" width="50px">
                             </div>
                         </div>
@@ -98,19 +101,31 @@ $memoryEnd = memory_get_usage();
                                     <input type="number" id="vectorY" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="2" step="0.5">
                                 </div>
                             </div>
+
+                            <b>Bias Vector ($b$)</b>
+                            <div class="vector-inputs">
+                                <div>
+                                    <label class="vector-component" for="vectorX">X Component:</label>
+                                    <input type="number" id="biasX" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="1" step="0.5">
+                                </div>
+                                <div>
+                                    <label class="vector-component" for="vectorY">Y Component:</label>
+                                    <input type="number" id="biasY" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="0" step="0.5">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <b>Output Vector ($Ax$)</b>
+                    <b>Output Vector ($y = Wx + b$)</b>
                     <div class="output-vector">
                         <div class="vector-inputs">
                             <div>
                                 <label class="vector-component">X Component:</label>
-                                <div id="outputX">2</div>
+                                <div id="outputX">1</div>
                             </div>
                             <div>
                                 <label class="vector-component">Y Component:</label>
-                                <div id="outputY">6</div>
+                                <div id="outputY">7</div>
                             </div>
                         </div>
                     </div>

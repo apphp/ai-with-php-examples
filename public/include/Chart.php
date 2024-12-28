@@ -745,11 +745,16 @@ class Chart {
     }
 
     public static function drawVectorField(
-        array $vector,
-        array $matrix
+        array $vector = [],
+        array $matrix = [],
+        array $bias = [],
+        string $type = 'scale' /* scale|linear */
     ): string {
         $vectorX = $vector[0] ?? 0;
         $vectorY = $vector[1] ?? 0;
+
+        $biasX = $bias[0] ?? 0;
+        $biasY = $bias[1] ?? 0;
 
         $m11 = $matrix[0][0] ?? 0;
         $m12 = $matrix[0][1] ?? 0;
@@ -761,8 +766,9 @@ class Chart {
             
             <script>
                 class VectorGridChart {
-                    constructor(containerId) {
+                    constructor(containerId, mode = "'.$type.'") {
                         this.containerId = containerId;
+                        this.mode = mode;
                         this.initPlot();
                         this.setupEventListeners();
                     }
@@ -796,18 +802,82 @@ class Chart {
 
                         return { inputVector, outputVector };
                     }
+                    
+                    calculateLinearLayer() {
+                        // Get matrix (weights) values
+                        const matrix = {
+                            m11: parseFloat(document.getElementById("m11")?.value ? document.getElementById("m11").value : '.$m11.') || 0,
+                            m12: parseFloat(document.getElementById("m12")?.value ? document.getElementById("m12").value : '.$m12.') || 0,
+                            m21: parseFloat(document.getElementById("m21")?.value ? document.getElementById("m21").value : '.$m21.') || 0,
+                            m22: parseFloat(document.getElementById("m22")?.value ? document.getElementById("m22").value : '.$m22.') || 0,
+                        };
+                
+                        // Get input vector values
+                        const inputVector = {
+                            x: parseFloat(document.getElementById("vectorX")?.value ? document.getElementById("vectorX").value : '.$vectorX.') || 0,
+                            y: parseFloat(document.getElementById("vectorY")?.value ? document.getElementById("vectorY").value : '.$vectorY.') || 0
+                        };
+                
+                        // Get bias values
+                        const bias = {
+                            x: parseFloat(document.getElementById("biasX")?.value ? document.getElementById("biasX").value : '.$biasX.') || 0,
+                            y: parseFloat(document.getElementById("biasY")?.value ? document.getElementById("biasY").value : '.$biasY.') || 0
+                        };
+                                                
+                        // Calculate Wx + b
+                        const outputVector = {
+                            x: matrix.m11 * inputVector.x + matrix.m12 * inputVector.y + bias.x,
+                            y: matrix.m21 * inputVector.x + matrix.m22 * inputVector.y + bias.y
+                        };
+                
+                        // Update output display if elements exist
+                        if (document.getElementById("outputX") && document.getElementById("outputY")) {
+                            document.getElementById("outputX").textContent = outputVector.x.toFixed(2);
+                            document.getElementById("outputY").textContent = outputVector.y.toFixed(2);
+                        }
+                
+                        return { inputVector, outputVector, matrix, bias };
+                    }
 
                     updatePlot() {
-                        const { inputVector, outputVector } = this.calculateTransformation();
+                        let result;
 
+                        if (this.mode === "linear") {
+                            result = this.calculateLinearLayer();
+                        } else {
+                            result = this.calculateTransformation();
+                        }
+                        
+                        const { inputVector, outputVector } = result;      
+                        
+                        // Calculate intermediate vector (Wx) for layer mode
+                        let weightVector = null;
+                        let biasVector = null;
+                        if (this.mode === "linear") {
+                            // Calculate the weight transformation vector (Wx)
+                            weightVector = {
+                                x: result.matrix.m11 * inputVector.x + result.matrix.m12 * inputVector.y,
+                                y: result.matrix.m21 * inputVector.x + result.matrix.m22 * inputVector.y
+                            };
+                            
+                            // Calculate bias vector
+                            biasVector = {
+                                x: result.bias ? result.bias.x : 0,
+                                y: result.bias ? result.bias.y : 0
+                            };
+                        }
+                        
                         const maxVal = Math.max(
                             Math.abs(inputVector.x),
                             Math.abs(inputVector.y),
                             Math.abs(outputVector.x),
                             Math.abs(outputVector.y),
+                            this.mode === "linear" ? Math.abs(weightVector.x) : 0,
+                            this.mode === "linear" ? Math.abs(weightVector.y) : 0,
+                            this.mode === "linear" ? Math.abs(biasVector.x) : 0,
+                            this.mode === "linear" ? Math.abs(biasVector.y) : 0,
                             1
                         );
-
                         if (document.getElementById("output-vector")) {
                             document.getElementById("output-vector").textContent = outputVector.x + ", " + outputVector.y;
                         }
@@ -834,17 +904,40 @@ class Chart {
                                 name: "Input Vector",
                                 line: { color: "rgb(75, 192, 192)", width: 2 },
                                 marker: { size: 8 }
-                            },
-                            // Output Vector
-                            {
-                                x: [0, outputVector.x],
-                                y: [0, outputVector.y],
-                                mode: "lines+markers",
-                                name: "Output Vector",
-                                line: { color: "rgb(255, 99, 132)", width: 2 },
-                                marker: { size: 8 }
                             }
                         ];
+                        
+                        // Add bias vector if in linear layer mode (green)
+                        if (this.mode === "linear") {
+                            data.push({
+                                x: [weightVector.x, outputVector.x],
+                                y: [weightVector.y, outputVector.y],
+                                mode: "lines+markers",
+                                name: "Bias Vector (b)",
+                                line: { color: "rgb(75, 192, 75)", width: 2, dash: "dot" },
+                                marker: { size: 8 }
+                            });
+                            
+                            // Weight Transform Vector (purple)
+                            data.push({
+                                x: [0, weightVector.x],
+                                y: [0, weightVector.y],
+                                mode: "lines+markers",
+                                name: "Weight Transform (Wx)",
+                                line: { color: "rgb(153, 102, 255)", width: 2 },
+                                marker: { size: 8 }
+                            });
+                        }
+                        
+                        // Final Output Vector (red)
+                        data.push({
+                            x: [0, outputVector.x],
+                            y: [0, outputVector.y],
+                            mode: "lines+markers",
+                            name: this.mode === "linear" ? "Final Output (Wx + b)" : "Output (Wx)",
+                            line: { color: "rgb(255, 99, 132)", width: 2 },
+                            marker: { size: 8 }
+                        });
 
                         const layout = {
                             title: "",
@@ -900,8 +993,8 @@ class Chart {
     }
 
     public static function drawVectorFieldControls(
-        array $vector,
-        array $matrix
+        array $vector = [],
+        array $matrix = []
     ): string {
         return '';
     }

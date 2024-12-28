@@ -13,5 +13,6 @@
 
     <ui class="list">
         <li><a href="<?= create_href('mathematics', 'linear-transformations', 'scale-transformation') ?>">Scale Transformation</a></li>
+        <li><a href="<?= create_href('mathematics', 'linear-transformations', 'simple-linear-layer') ?>">Simple Linear Layer</a></li>
     </ui>
 </div>

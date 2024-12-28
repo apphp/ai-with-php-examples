@@ -61,6 +61,7 @@ To install these examples, follow these steps:
     - Tensors
     - Linear Transformations
       - Scale Transformation
+      - Simple Linear Layer
   - Data Fundamentals
     - Big Data Techniques in PHP
       - Chunked Processing

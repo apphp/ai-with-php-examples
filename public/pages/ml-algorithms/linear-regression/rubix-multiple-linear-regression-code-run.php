@@ -74,7 +74,7 @@ verify_fields($features, ['0', '1', '2'], ['0', '1']);
                 <form action="<?= APP_SEO_LINKS ? create_href('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression-code-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression-code-run') : '';?>
                     <?=create_form_features(['Rooms' => 0, 'Size' => 1, 'Location' => 2], $features);?>
-                    <div class="form-check form-check-inline float-end p-0 m-0">
+                    <div class="form-check form-check-inline float-end p-0 m-0 me-1">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
                     </div>
                 </form>

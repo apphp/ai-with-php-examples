@@ -13,6 +13,7 @@
         <li><a href="<?=create_href('mathematics', 'vectors', 'index')?>">Vectors</a></li>
         <li><a href="<?=create_href('mathematics', 'matrices', 'index')?>">Matrices</a></li>
         <li><a href="<?=create_href('mathematics', 'tensors', 'index')?>">Tensors</a></li>
+        <li><a href="<?=create_href('mathematics', 'linear-transformations', 'index')?>">Linear Transformations</a></li>
     </ui>
 </div>
 

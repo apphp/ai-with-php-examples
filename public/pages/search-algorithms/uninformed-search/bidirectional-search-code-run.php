@@ -100,7 +100,6 @@ $memoryEnd = memory_get_usage();
                 intersectionNode: 'H',
             );
             ?>
-
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
             <div class="mb-1">

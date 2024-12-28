@@ -14,7 +14,7 @@
 
 <div>
     <p>
-        In PHP it can be written as a class LinearTransformation with implementation of linear transformation operations.
+        In PHP it can be written as a class <code>LinearTransformation</code> with implementation of linear transformation operations.
     </p>
 </div>
 

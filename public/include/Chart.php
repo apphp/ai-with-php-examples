@@ -520,7 +520,7 @@ class Chart {
         string $startNode = 'S',
         string $endNode = 'K',
         string $intersectionNode = '',
-    ){
+    ): string {
         if(!$style){
             $style = '
                 %% Apply styles
@@ -545,7 +545,7 @@ class Chart {
             ';
         }
 
-        $output = '
+        return '
         <div class="row pt-0" style="margin-top: -27px">
                 <div class="col pt-1">
                     <div id="step-info" class="step-info">
@@ -742,8 +742,167 @@ class Chart {
                 updateDiagram();
             </script>
         ';
-
-        return $output;
     }
 
+    public static function drawVectorField(
+        array $vector,
+        array $matrix
+    ): string {
+        $vectorX = $vector[0] ?? 0;
+        $vectorY = $vector[1] ?? 0;
+
+        $m11 = $matrix[0][0] ?? 0;
+        $m12 = $matrix[0][1] ?? 0;
+        $m21= $matrix[1][0] ?? 0;
+        $m22 = $matrix[1][1] ?? 0;
+
+        return '
+            <div class="chart-container" id="vectorPlot"></div>
+            
+            <script>
+                class VectorGridChart {
+                    constructor(containerId) {
+                        this.containerId = containerId;
+                        this.initPlot();
+                        this.setupEventListeners();
+                    }
+            
+                    initPlot() {
+                        this.updatePlot();
+                    }
+            
+                    calculateTransformation() {
+                        const matrix = {
+                            m11: parseFloat(document.getElementById("m11")?.value ? document.getElementById("m11").value : '.$m11.') || 0,
+                            m12: parseFloat(document.getElementById("m12")?.value ? document.getElementById("m12").value : '.$m12.') || 0,
+                            m21: parseFloat(document.getElementById("m21")?.value ? document.getElementById("m21").value : '.$m21.') || 0,
+                            m22: parseFloat(document.getElementById("m22")?.value ? document.getElementById("m22").value : '.$m22.') || 0,
+                        };
+            
+                        const inputVector = {
+                            x: parseFloat(document.getElementById("vectorX")?.value ? document.getElementById("vectorX").value : '.$vectorX.') || 0,
+                            y: parseFloat(document.getElementById("vectorY")?.value ? document.getElementById("vectorY").value : '.$vectorY.') || 0
+                        };
+                        
+                        const outputVector = {
+                            x: matrix.m11 * inputVector.x + matrix.m12 * inputVector.y,
+                            y: matrix.m21 * inputVector.x + matrix.m22 * inputVector.y
+                        };
+
+                        if (document.getElementById("outputX") && document.getElementById("outputY")) {
+                            document.getElementById("outputX").textContent = outputVector.x.toFixed(2);
+                            document.getElementById("outputY").textContent = outputVector.y.toFixed(2);
+                        }
+
+                        return { inputVector, outputVector };
+                    }
+
+                    updatePlot() {
+                        const { inputVector, outputVector } = this.calculateTransformation();
+
+                        const maxVal = Math.max(
+                            Math.abs(inputVector.x),
+                            Math.abs(inputVector.y),
+                            Math.abs(outputVector.x),
+                            Math.abs(outputVector.y),
+                            1
+                        );
+
+                        if (document.getElementById("output-vector")) {
+                            document.getElementById("output-vector").textContent = outputVector.x + ", " + outputVector.y;
+                        }
+
+                        // Add 1 unit padding to the maxVal for y-axis
+                        const yAxisPadding = 1;
+
+                        // Calculate tick interval to show 5 ticks
+                        let dticks = 1;
+                        if (maxVal > 10){
+                            // Round maxVal up to the nearest multiple of 5
+                            const roundedMax = Math.ceil(maxVal / 5) * 5;
+                            // Calculate the step size and adjust to the nearest multiple of 5
+                            dticks = Math.ceil(roundedMax / 10);
+                            dticks = Math.ceil(dticks / 5) * 5;
+                        }
+
+                        const data = [
+                            // Input Vector
+                            {
+                                x: [0, inputVector.x],
+                                y: [0, inputVector.y],
+                                mode: "lines+markers",
+                                name: "Input Vector",
+                                line: { color: "rgb(75, 192, 192)", width: 2 },
+                                marker: { size: 8 }
+                            },
+                            // Output Vector
+                            {
+                                x: [0, outputVector.x],
+                                y: [0, outputVector.y],
+                                mode: "lines+markers",
+                                name: "Output Vector",
+                                line: { color: "rgb(255, 99, 132)", width: 2 },
+                                marker: { size: 8 }
+                            }
+                        ];
+
+                        const layout = {
+                            title: "",
+                            showlegend: true,
+                            legend: {
+                                orientation: "h",
+                                y: -0.2,
+                                x: 0.5,
+                                xanchor: "center",
+                                yanchor: "top"
+                            },
+                            xaxis: {
+                                range: [-(maxVal + yAxisPadding), maxVal + yAxisPadding],
+                                zeroline: true,
+                                dtick: dticks,
+                                gridcolor: "rgb(238, 238, 238)",
+                            },
+                            yaxis: {
+                                range: [-(maxVal + yAxisPadding), maxVal + yAxisPadding], // Extended y-axis range
+                                zeroline: true,
+                                gridcolor: "rgb(238, 238, 238)",
+                            },
+                            paper_bgcolor: "white",
+                            plot_bgcolor: "white",
+                            margin: {
+                                t: 10,  // top margin
+                                b: 50,  // bottom margin
+                                l: 20,  // left margin
+                                r: 20   // right margin
+                            }
+                        };
+
+                        Plotly.newPlot(this.containerId, data, layout, {
+                            responsive: true,
+                            displayModeBar: false
+                        });
+                    }
+
+                    setupEventListeners() {
+                        const inputs = document.querySelectorAll("input");
+                        inputs.forEach(input => {
+                            input.addEventListener("input", () => this.updatePlot());
+                        });
+                    }
+                }
+
+                // Initialize the chart when the page loads
+                document.addEventListener("DOMContentLoaded", () => {
+                    const chart = new VectorGridChart("vectorPlot");
+                });
+            </script>
+        ';
+    }
+
+    public static function drawVectorFieldControls(
+        array $vector,
+        array $matrix
+    ): string {
+        return '';
+    }
 }

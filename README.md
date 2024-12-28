@@ -60,6 +60,7 @@ To install these examples, follow these steps:
     - Matrices with PHP
     - Tensors
     - Linear Transformations
+      - Scale Transformation
   - Data Fundamentals
     - Big Data Techniques in PHP
       - Chunked Processing

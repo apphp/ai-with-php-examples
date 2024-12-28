@@ -148,18 +148,36 @@ document.addEventListener('DOMContentLoaded', function () {
       toggleText.title = 'Click to expand';
     });
   }
+
+  // JavaScript to toggle sidebar visibility
+  const btnPanelClose = document.getElementById('btn-panel-close') || null;
+  if (btnPanelClose) {
+    btnPanelClose.addEventListener('click', function() {
+      if (this.title === "Collapse") {
+        this.title = "Expand";
+        setCookie("sidebar", "collapsed", 7);
+        toggleSidebar(true)
+      } else {
+        this.title = "Collapse";
+        setCookie("sidebar", "expanded", 7);
+        toggleSidebar(false)
+      }
+    });
+  }
+
+  // JavaScript to toggle sidebar menu
+  const btnToggler = document.getElementById('btn-toggler') || null;
+  if (btnToggler) {
+    btnToggler.addEventListener('click', function() {
+      if (btnPanelClose.title !== "Collapse") {
+        this.title = "Collapse";
+        setCookie("sidebar", "expanded", 7);
+        toggleSidebar(false)
+      }
+    });
+  }
+
 });
 
-// JavaScript to toggle sidebar visibility
-document.getElementById('btn-panel-close').addEventListener('click', function() {
-  if (this.title === "Collapse") {
-    this.title = "Expand";
-    setCookie("sidebar", "collapsed", 7);
-    toggleSidebar(true)
-  } else {
-    this.title = "Collapse";
-    setCookie("sidebar", "expanded", 7);
-    toggleSidebar(false)
-  }
-});
+
 

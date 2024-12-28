@@ -24,11 +24,7 @@ code#code code {
   margin-bottom: -2px !important;
 }
 
-@media (max-width: 768px) {
-  .form-switch-mode {
-    margin-right: 80px;
-  }
-}
+
 
 /*
  * Sidebar
@@ -46,12 +42,6 @@ code#code code {
   z-index: 100; /* Behind the navbar */
   padding: 48px 0 0; /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-}
-
-@media (max-width: 580px) {
-  .container-fluid {
-    padding-left: 45px;
-  }
 }
 
 .sidebar-sticky {
@@ -179,11 +169,6 @@ ui.list li {
 
 #btn-panel-close i {
   color: #999
-}
-@media (max-width: 768px) {
-  #btn-panel-close {
-    display: none;
-  }
 }
 
 .rotate-180 {
@@ -332,4 +317,45 @@ code.gray {
   margin-top: -5px;
   display: block;
   font-size: 11px;
+}
+
+/***********************
+ * Media
+ ***********************/
+
+@media (max-width: 768px) {
+  #btn-panel-close {
+    display: none;
+  }
+  #sidebarMenu.collapsed {
+    width: 0px !important;
+  }
+
+  #main:not(.expanded) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  #main:not(.expanded) .bd-clipboard {
+    right: 10px;
+  }
+
+  #main.expanded {
+    padding-right: 0px;
+  }
+  #main.expanded.ms-sm-auto {
+    margin-left: 10px !important;
+  }
+
+  .form-switch-mode {
+    margin-right: 80px;
+  }
+}
+
+@media (max-width: 580px) {
+  /*.ms-sm-auto {*/
+  /*  margin-left: -25px !important;*/
+  /*}*/
+  .container-fluid {
+    padding-left: 12px;
+  }
 }

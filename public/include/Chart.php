@@ -744,7 +744,7 @@ class Chart {
         ';
     }
 
-    public static function drawVectorField(
+    public static function drawVectors(
         array $vector = [],
         array $matrix = [],
         array $bias = [],
@@ -992,10 +992,143 @@ class Chart {
         ';
     }
 
-    public static function drawVectorFieldControls(
+    public static function drawVectorControls(
         array $vector = [],
-        array $matrix = []
+        array $matrix = [],
+        array $bias = [],
+        string $matrixTitle = '',
+        string $iVectorTitle = '',
+        string $oVectorTitle = '',
+        string $bVectorTitle = '',
     ): string {
-        return '';
+
+        $vectorX = $vector[0] ?? 0;
+        $vectorY = $vector[1] ?? 0;
+
+        $biasX = $bias[0] ?? 0;
+        $biasY = $bias[1] ?? 0;
+
+        $m11 = $matrix[0][0] ?? 0;
+        $m12 = $matrix[0][1] ?? 0;
+        $m21= $matrix[1][0] ?? 0;
+        $m22 = $matrix[1][1] ?? 0;
+
+        $output = '           
+            <div id="vectorControls" class="form-section me-1">
+                <form id="transformForm" onsubmit="return false;">
+                    <div class="row">
+                        <div class="col-6">
+                            <b>'.$matrixTitle.'</b>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="vector-component" for="m11">X Component:</label>
+                                </div>
+                                <div class="col-6">
+                                    <label class="vector-component" for="m12">Y Component:</label>
+                                </div>
+                            </div>
+                            <div class="matrix-grid">
+                                <input type="number" id="m11" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$m11.'" step="0.5" width="50px">
+                                <input type="number" id="m12" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$m12.'" step="0.5" width="50px">
+                                <input type="number" id="m21" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$m21.'" step="0.5" width="50px">
+                                <input type="number" id="m22" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$m22.'" step="0.5" width="50px">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <b>'.$iVectorTitle.'</b>
+                            <div class="vector-inputs">
+                                <div>
+                                    <label class="vector-component" for="vectorX">X Component:</label>
+                                    <input type="number" id="vectorX" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$vectorX.'" step="0.5">
+                                </div>
+                                <div>
+                                    <label class="vector-component" for="vectorY">Y Component:</label>
+                                    <input type="number" id="vectorY" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$vectorY.'" step="0.5">
+                                </div>
+                            </div>
+                            
+                            ';
+
+                            if($bVectorTitle) {
+                                $output .= '
+                                    <b>' . $bVectorTitle . '</b>
+                                    <div class="vector-inputs">
+                                        <div>
+                                            <label class="vector-component" for="vectorX">X Component:</label>
+                                            <input type="number" id="biasX" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="1" step="0.5">
+                                        </div>
+                                        <div>
+                                            <label class="vector-component" for="vectorY">Y Component:</label>
+                                            <input type="number" id="biasY" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="0" step="0.5">
+                                        </div>
+                                    </div>';
+                            }
+
+                            $output .= '
+                        </div>
+                    </div>
+
+                    <b>'.$oVectorTitle.'</b>
+                    <div class="output-vector">
+                        <div class="vector-inputs">
+                            <div>
+                                <label class="vector-component">X Component:</label>
+                                <div id="outputX">2</div>
+                            </div>
+                            <div>
+                                <label class="vector-component">Y Component:</label>
+                                <div id="outputY">6</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <style>
+                #vectorControls {
+                    padding: 0px;
+                    border-radius: 8px;
+                }
+                #vectorControls b {
+                    margin-bottom: 5px;
+                    display: inline-block;
+                }
+                #vectorControls .vector-component {
+                    font-size: 12px;
+                }
+                #vectorControls .matrix-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                }
+                #vectorControls .vector-inputs {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 20px;
+                    margin-bottom: 20px;
+                }
+                #vectorControls input[type="number"] {
+                    width: 100%;
+                    padding: 4px 6px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
+                #vectorControls .output-vector {
+                    background: #f5f5f5;
+                    padding: 8px 10px;
+                    border-radius: .2rem;
+                }
+                #vectorControls .output-vector .vector-inputs {
+                    margin: 0px;
+                }
+                #vectorControls .chart-container {
+                    min-height: 450px;
+                    padding: 0px;
+                }
+            </style>
+        ';
+
+        return $output;
     }
 }

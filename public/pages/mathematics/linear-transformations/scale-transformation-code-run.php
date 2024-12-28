@@ -45,7 +45,7 @@ $memoryEnd = memory_get_usage();
             <p><b>Chart:</b></p>
 
             <?php
-                echo Chart::drawVectorField(
+                echo Chart::drawVectors(
                     vector: $vector2D,
                     matrix: $transformMatrix
                 );
@@ -60,62 +60,16 @@ $memoryEnd = memory_get_usage();
                 <div class="clearfix"></div>
             </form>
             <hr>
+
             <?php
-                echo Chart::drawVectorFieldControls(
+                echo Chart::drawVectorControls(
                     vector: $vector2D,
-                    matrix: $transformMatrix
+                    matrix: $transformMatrix,
+                    matrixTitle: 'Transformation Matrix ($A$)',
+                    iVectorTitle: 'Input Vector ($x$)',
+                    oVectorTitle: 'Output Vector ($Ax$)',
                 );
             ?>
-            <div class="form-section me-1">
-                <form id="transformForm" onsubmit="return false;">
-                    <div class="row">
-                        <div class="col-6">
-                            <b>Transformation Matrix ($A$)</b>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label class="vector-component" for="m11">X Component:</label>
-                                </div>
-                                <div class="col-6">
-                                    <label class="vector-component" for="m12">Y Component:</label>
-                                </div>
-                            </div>
-                            <div class="matrix-grid">
-                                <input type="number" id="m11" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="2" step="0.5" width="50px">
-                                <input type="number" id="m12" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="0" step="0.5" width="50px">
-                                <input type="number" id="m21" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="0" step="0.5" width="50px">
-                                <input type="number" id="m22" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="3" step="0.5" width="50px">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <b>Input Vector ($x$)</b>
-                            <div class="vector-inputs">
-                                <div>
-                                    <label class="vector-component" for="vectorX">X Component:</label>
-                                    <input type="number" id="vectorX" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="1" step="0.5">
-                                </div>
-                                <div>
-                                    <label class="vector-component" for="vectorY">Y Component:</label>
-                                    <input type="number" id="vectorY" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="2" step="0.5">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <b>Output Vector ($Ax$)</b>
-                    <div class="output-vector">
-                        <div class="vector-inputs">
-                            <div>
-                                <label class="vector-component">X Component:</label>
-                                <div id="outputX">2</div>
-                            </div>
-                            <div>
-                                <label class="vector-component">Y Component:</label>
-                                <div id="outputY">6</div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
             <hr>
 
             <div class="pb-1">
@@ -130,49 +84,7 @@ $memoryEnd = memory_get_usage();
     </div>
 </div>
 
-<style>
-    .form-section {
-        padding: 0px;
-        border-radius: 8px;
-    }
-    .form-section b {
-        margin-bottom: 5px;
-        display: inline-block;
-    }
-    .form-section .vector-component {
-        font-size: 12px;
-    }
-    .matrix-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-    .vector-inputs {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 20px;
-    }
-    input[type="number"] {
-        width: 100%;
-        padding: 4px 6px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-    .output-vector {
-        background: #f5f5f5;
-        padding: 8px 10px;
-        border-radius: .2rem;
-    }
-    .output-vector .vector-inputs {
-        margin: 0px;
-    }
-    .chart-container {
-        min-height: 450px;
-        padding: 0px;
-    }
-</style>
+
 
 
 

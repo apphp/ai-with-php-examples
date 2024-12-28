@@ -157,3 +157,12 @@
   fill: #888877 !important;
 }
 
+/* vectors */
+[data-theme="dark"] #vectorControls input[type="number"] {
+  background-color: #393939 !important;
+  color: #fff !important;
+}
+
+[data-theme="dark"] #vectorControls .output-vector {
+  background-color: #343434 !important;
+}

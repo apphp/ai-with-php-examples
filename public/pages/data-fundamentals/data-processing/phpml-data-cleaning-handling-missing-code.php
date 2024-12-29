@@ -5,7 +5,7 @@ require APP_PATH . 'vendor/autoload.php';
 use Phpml\Dataset\CsvDataset;
 
 // Load the dataset
-$dataset = new CsvDataset(dirname(__FILE__) . '/customers.csv', 3);
+$dataset = new CsvDataset(dirname(__FILE__) . '/data/customers.csv', 3);
 
 // Custom function to replace missing values with the mean of the column
 function imputeMissingValues($dataset) {

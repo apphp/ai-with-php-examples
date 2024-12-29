@@ -7,7 +7,7 @@ use Rubix\ML\Extractors\CSV;
 use Rubix\ML\Transformers\OneHotEncoder;
 
 // Load the dataset using CSV
-$dataset = Unlabeled::fromIterator(new CSV(dirname(__FILE__) . '/colors_and_size.csv', false));
+$dataset = Unlabeled::fromIterator(new CSV(dirname(__FILE__) . '/data/colors_and_size.csv', false));
 
 $encoder = new OneHotEncoder();
 $encoder->fit($dataset);

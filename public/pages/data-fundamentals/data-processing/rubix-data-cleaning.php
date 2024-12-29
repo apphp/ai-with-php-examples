@@ -12,7 +12,7 @@
 </div>
 
 <div>
-    <?= create_dataset_and_test_data_links(__DIR__ . '/customers.csv', fullWidth: true); ?>
+    <?= create_dataset_and_test_data_links(__DIR__ . '/data/customers.csv', fullWidth: true); ?>
 </div>
 
 <div>

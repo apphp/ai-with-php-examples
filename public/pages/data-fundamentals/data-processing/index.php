@@ -40,16 +40,9 @@
                 <h3 class="h5">Rubix</h3>
                 <ui class="list">
                     <li><a href="<?= create_href('data-fundamentals', 'data-processing', 'rubix-data-encoding-categorical-variables') ?>">Encoding Categorical Variables</a></li>
+                    <li><a href="<?= create_href('data-fundamentals', 'data-processing', 'rubix-data-encoding-normalizing-numerical-features') ?>">Normalizing and Scaling Numerical Features</a></li>
                 </ui>
-
             </div>
         </div>
     </div>
-
-
-
-</div>
-
-<div>
-
 </div>

@@ -59,6 +59,7 @@ $menu = [
                     'rubix-data-normalization', 'rubix-data-normalization-code-run',
                     'rubix-data-standardization', 'rubix-data-standardization-code-run',
                     'rubix-data-encoding-categorical-variables', 'rubix-data-encoding-categorical-variables-code-run',
+                    'rubix-data-encoding-normalizing-numerical-features', 'rubix-data-encoding-normalizing-numerical-features-code-run',
                     'phpml-data-cleaning', 'phpml-data-cleaning-handling-missing-code-run',
                     'phpml-data-normalization', 'phpml-data-normalization-code-run',
                 ]],

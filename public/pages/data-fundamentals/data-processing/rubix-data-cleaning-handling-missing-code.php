@@ -9,7 +9,7 @@ use Rubix\ML\Extractors\CSV;
 use Rubix\ML\Strategies\Prior;
 
 // Load the dataset using CSV
-$dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/customers.csv', true));
+$dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/customers.csv', true));
 
 // Create imputer with percentile strategy for numeric values and
 // Prior (most frequent value) strategy for categorical values

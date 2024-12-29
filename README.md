@@ -68,8 +68,12 @@ To install these examples, follow these steps:
       - Dataset Generator
   - Stages of Data Processing
     - Data Cleaning
-    - Data Normalization
-    - Data Standardization
+      - Data Cleaning
+      - Data Normalization
+      - Data Standardization
+    - Data Transformation
+      - Encoding Categorical Variables
+      - Normalizing and Scaling Numerical Features
   - ML Algorithms
     - Linear Regression
       - Simple Linear Regression

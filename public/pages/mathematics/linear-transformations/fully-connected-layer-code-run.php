@@ -6,7 +6,7 @@ $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 
-include('simple-linear-layer-code-usage.php');
+include('fully-connected-layer-code-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -20,23 +20,24 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">Simple Linear Layer</h2>
+    <h2 class="h4">Fully Connected Layer</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?=create_href('mathematics', 'linear-transformations', 'simple-linear-layer')?>"  class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?=create_href('mathematics', 'linear-transformations', 'fully-connected-layer')?>"  class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>
 
 <div>
     <p>
-        In neural networks, linear transformations are represented as: $y = Wx + b$. Here, $W$ is a weight matrix, $x$ is the input, and $b$ is the bias vector.<br>
+        In a neural network, each layer applies a linear transformation followed by an activation function: $y = Wx + b$.
+        Here, $W$ is a weight matrix, $x$ is the input, and $b$ is the bias vector.<br>
         In PHP it can be written as a class <code>LinearTransformation</code> with implementation of linear transformation operations.
     </p>
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/simple-linear-layer-code-usage.php'); ?>
+    <?= create_example_of_use_links(__DIR__ . '/fully-connected-layer-code-usage.php'); ?>
 </div>
 
 
@@ -56,7 +57,7 @@ $memoryEnd = memory_get_usage();
 
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
-            <form action="<?= APP_SEO_LINKS ? create_href('mathematics', 'linear-transformations', 'simple-linear-layer-code-run') : 'index.php'; ?>" type="GET">
+            <form action="<?= APP_SEO_LINKS ? create_href('mathematics', 'linear-transformations', 'fully-connected-layer-code-run') : 'index.php'; ?>" type="GET">
                 <div class="float-end p-0 m-0 me-1">
                     <button type="submit" class="btn btn-sm btn-outline-primary">Reset</button>
                 </div>

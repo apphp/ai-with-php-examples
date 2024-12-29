@@ -796,8 +796,8 @@ class Chart {
                         };
 
                         if (document.getElementById("outputX") && document.getElementById("outputY")) {
-                            document.getElementById("outputX").textContent = outputVector.x.toFixed(2);
-                            document.getElementById("outputY").textContent = outputVector.y.toFixed(2);
+                            document.getElementById("outputX").textContent = outputVector.x.toFixed(1);
+                            document.getElementById("outputY").textContent = outputVector.y.toFixed(1);
                         }
 
                         return { inputVector, outputVector };
@@ -832,8 +832,8 @@ class Chart {
                 
                         // Update output display if elements exist
                         if (document.getElementById("outputX") && document.getElementById("outputY")) {
-                            document.getElementById("outputX").textContent = outputVector.x.toFixed(2);
-                            document.getElementById("outputY").textContent = outputVector.y.toFixed(2);
+                            document.getElementById("outputX").textContent = outputVector.x.toFixed(1);
+                            document.getElementById("outputY").textContent = outputVector.y.toFixed(1);
                         }
                 
                         return { inputVector, outputVector, matrix, bias };
@@ -996,6 +996,7 @@ class Chart {
         array $vector = [],
         array $matrix = [],
         array $bias = [],
+        array $result = [],
         string $matrixTitle = '',
         string $iVectorTitle = '',
         string $oVectorTitle = '',
@@ -1005,13 +1006,16 @@ class Chart {
         $vectorX = $vector[0] ?? 0;
         $vectorY = $vector[1] ?? 0;
 
-        $biasX = $bias[0] ?? 0;
-        $biasY = $bias[1] ?? 0;
-
         $m11 = $matrix[0][0] ?? 0;
         $m12 = $matrix[0][1] ?? 0;
         $m21= $matrix[1][0] ?? 0;
         $m22 = $matrix[1][1] ?? 0;
+
+        $biasX = $bias[0] ?? 0;
+        $biasY = $bias[1] ?? 0;
+
+        $resultX = $result[0] ?? 0;
+        $resultY = $result[1] ?? 0;
 
         $output = '           
             <div id="vectorControls" class="form-section me-1">
@@ -1045,9 +1049,7 @@ class Chart {
                                     <label class="vector-component" for="vectorY">Y Component:</label>
                                     <input type="number" id="vectorY" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$vectorY.'" step="0.5">
                                 </div>
-                            </div>
-                            
-                            ';
+                            </div>';
 
                             if($bVectorTitle) {
                                 $output .= '
@@ -1055,11 +1057,11 @@ class Chart {
                                     <div class="vector-inputs">
                                         <div>
                                             <label class="vector-component" for="vectorX">X Component:</label>
-                                            <input type="number" id="biasX" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="1" step="0.5">
+                                            <input type="number" id="biasX" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$biasX.'" step="0.5">
                                         </div>
                                         <div>
                                             <label class="vector-component" for="vectorY">Y Component:</label>
-                                            <input type="number" id="biasY" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="0" step="0.5">
+                                            <input type="number" id="biasY" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$biasY.'" step="0.5">
                                         </div>
                                     </div>';
                             }
@@ -1073,11 +1075,11 @@ class Chart {
                         <div class="vector-inputs">
                             <div>
                                 <label class="vector-component">X Component:</label>
-                                <div id="outputX">2</div>
+                                <div id="outputX">'.$resultX.'</div>
                             </div>
                             <div>
                                 <label class="vector-component">Y Component:</label>
-                                <div id="outputY">6</div>
+                                <div id="outputY">'.$resultY.'</div>
                             </div>
                         </div>
                     </div>

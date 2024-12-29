@@ -14,5 +14,7 @@
     <ui class="list">
         <li><a href="<?= create_href('mathematics', 'linear-transformations', 'scale-transformation') ?>">Scale Transformation</a></li>
         <li><a href="<?= create_href('mathematics', 'linear-transformations', 'simple-linear-layer') ?>">Simple Linear Layer</a></li>
+        <li><a href="<?= create_href('mathematics', 'linear-transformations', 'fully-connected-layer') ?>">Fully Connected Layer</a></li>
+        <li><a href="<?= create_href('mathematics', 'linear-transformations', 'relu-activation') ?>">ReLU Activation</a></li>
     </ui>
 </div>

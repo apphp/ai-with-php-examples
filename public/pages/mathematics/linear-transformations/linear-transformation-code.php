@@ -73,6 +73,19 @@ class LinearTransformation {
     }
 
     /**
+     * Static method to perform linear transformation with weights and bias: y = Wx + b
+     * @param array $weights The weight matrix W
+     * @param array $bias The bias vector b
+     * @param array $input The input vector x
+     * @return array The transformed vector
+     * @throws InvalidArgumentException If dimensions don't match
+     */
+    public function linearTransform(array $weights, array $bias, array $input): array {
+        // Use existing linearLayer method
+        return $this->linearLayer($input, $bias);
+    }
+
+    /**
      * Get the transformation matrix
      * @return array The transformation matrix
      */

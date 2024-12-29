@@ -43,6 +43,8 @@ $menu = [
                     'index',
                     'scale-transformation', 'scale-transformation-code-run',
                     'simple-linear-layer', 'simple-linear-layer-code-run',
+                    'fully-connected-layer', 'fully-connected-layer-code-run',
+                    'relu-activation', 'relu-activation-code-run',
                 ]],
             ],
         ],

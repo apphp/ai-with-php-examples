@@ -1133,4 +1133,173 @@ class Chart {
 
         return $output;
     }
+
+    public static function drawReLU(
+        array $vector = [],
+        array $matrix = [],
+        array $bias = [],
+    ): string{
+        $vectorX = $vector[0] ?? 0;
+        $vectorY = $vector[1] ?? 0;
+
+        $biasX = $bias[0] ?? 0;
+        $biasY = $bias[1] ?? 0;
+
+        $m11 = $matrix[0][0] ?? 0;
+        $m12 = $matrix[0][1] ?? 0;
+        $m21= $matrix[1][0] ?? 0;
+        $m22 = $matrix[1][1] ?? 0;
+
+        return '
+            <div class="chart-container" id="reluPlot"></div>
+            
+            <script>
+                class ReluGridChart {
+                    constructor(containerId) {
+                        this.containerId = containerId;
+                        this.initPlot();
+                        this.setupEventListeners();
+                    }
+                    
+                    initPlot() {
+                        this.updatePlot();
+                    }
+                    
+                    calculateLinearLayer() {
+                        // Get matrix (weights) values
+                        const matrix = {
+                            m11: parseFloat(document.getElementById("m11")?.value ? document.getElementById("m11").value : '.$m11.') || 0,
+                            m12: parseFloat(document.getElementById("m12")?.value ? document.getElementById("m12").value : '.$m12.') || 0,
+                            m21: parseFloat(document.getElementById("m21")?.value ? document.getElementById("m21").value : '.$m21.') || 0,
+                            m22: parseFloat(document.getElementById("m22")?.value ? document.getElementById("m22").value : '.$m22.') || 0,
+                        };
+                
+                        // Get input vector values
+                        const inputVector = {
+                            x: parseFloat(document.getElementById("vectorX")?.value ? document.getElementById("vectorX").value : '.$vectorX.') || 0,
+                            y: parseFloat(document.getElementById("vectorY")?.value ? document.getElementById("vectorY").value : '.$vectorY.') || 0
+                        };
+                
+                        // Get bias values
+                        const bias = {
+                            x: parseFloat(document.getElementById("biasX")?.value ? document.getElementById("biasX").value : '.$biasX.') || 0,
+                            y: parseFloat(document.getElementById("biasY")?.value ? document.getElementById("biasY").value : '.$biasY.') || 0
+                        };
+                                                
+                        // Calculate Wx + b
+                        const outputVector = {
+                            x: matrix.m11 * inputVector.x + matrix.m12 * inputVector.y + bias.x,
+                            y: matrix.m21 * inputVector.x + matrix.m22 * inputVector.y + bias.y
+                        };
+                
+                        // Update output display if elements exist
+                        if (document.getElementById("outputX") && document.getElementById("outputY")) {
+                            document.getElementById("outputX").textContent = outputVector.x.toFixed(1);
+                            document.getElementById("outputY").textContent = outputVector.y.toFixed(1);
+                        }
+                
+                        return { inputVector, outputVector, matrix, bias };
+                    }
+                    
+                    relu(vector) {
+                        return vector.map(v => Math.max(0, v));
+                    }
+                    
+                    updatePlot() {                    
+                        // Generate points for ReLU function line
+                        const x = Array.from({length: 201}, (_, i) => -10 + i * 0.1);
+                        const y = x.map(val => Math.max(0, val));
+                        
+                        let result = this.calculateLinearLayer();
+                        const { inputVector, outputVector } = result; 
+                        
+                        let reluResult = this.relu([outputVector.x, outputVector.y]);
+        
+                        // Example points from the image
+                        const exampleX = [outputVector.x, outputVector.y];
+                        const exampleY = [reluResult[0], reluResult[1]];
+        
+                        // Create the line trace for ReLU function
+                        const reluTrace = {
+                            x: x,
+                            y: y,
+                            mode: "lines",
+                            name: "ReLU(x)",
+                            line: {
+                                color: "rgb(66, 133, 244)",
+                                width: 2
+                            }
+                        };
+        
+                        // Create the scatter trace for example points
+                        const pointsTrace = {
+                            x: exampleX,
+                            y: exampleY,
+                            mode: "markers",
+                            name: "Example Points",
+                            marker: {
+                                color: "rgb(234, 67, 53)",
+                                size: 10
+                            }
+                        };
+        
+                        // Layout configuration
+                        const layout = {
+                            title: {
+                                text: "",
+                                font: {
+                                    size: 24
+                                }
+                            },
+                            xaxis: {
+                                title: "Input (x)",
+                                range: [-10, 10],
+                                gridcolor: "#E2E2E2",
+                                zerolinecolor: "#969696",
+                                zerolinewidth: 1
+                            },
+                            yaxis: {
+                                title: "Output ReLU(x)",
+                                range: [-1, 10],
+                                gridcolor: "#E2E2E2",
+                                zerolinecolor: "#969696",
+                                zerolinewidth: 1
+                            },
+                            plot_bgcolor: "white",
+                            paper_bgcolor: "white",
+                            showlegend: true,
+                            legend: {
+                                x: 0.02,
+                                y: 1.05
+                            },
+                            margin: {
+                                t: 5,   // top margin
+                                b: 100, // bottom margin
+                                l: 60,  // left margin
+                                r: 25   // right margin
+                            }
+                        };
+                              
+                        // Create the plot
+                        Plotly.newPlot(this.containerId, [reluTrace, pointsTrace], layout, {
+                            responsive: true,
+                            displayModeBar: false
+                        });
+                    }
+                    
+                    setupEventListeners() {
+                        const inputs = document.querySelectorAll("input");
+                        inputs.forEach(input => {
+                            input.addEventListener("input", () => this.updatePlot());
+                        });
+                    }
+                }
+                    
+                // Initialize the chart when the page loads
+                document.addEventListener("DOMContentLoaded", () => {
+                    const chart = new ReluGridChart("reluPlot");
+                });
+            </script>
+        ';
+    }
 }

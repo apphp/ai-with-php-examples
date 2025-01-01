@@ -3,10 +3,11 @@
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h2 class="h4">Simple Linear Layer</h2>
+    <h2 class="h4">ReLU Activation</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?= create_href('mathematics', 'linear-transformations', 'simple-linear-layer-code-run') ?>" class="btn btn-sm btn-outline-primary">&#9654; Run
+            <a href="<?= create_href('mathematics', 'linear-transformations', 'relu-activation-code-run') ?>" class="btn btn-sm btn-outline-primary">&#9654;
+                Run
                 Code</a>
         </div>
     </div>
@@ -14,8 +15,9 @@
 
 <div>
     <p>
-        In neural networks, linear transformations are represented as: $y = Wx + b$. Here, $W$ is a weight matrix, $x$ is the input, and $b$ is the bias vector.<br>
-        In PHP it can be written as a class <code>LinearTransformation</code> with implementation of linear transformation operations.
+        Linear transformations alone cannot solve complex, nonlinear problems.
+        Activation functions like ReLU or Sigmoid introduce nonlinearity to the network. <br>
+        The ReLU function is defined as: $ReLU(x) = max(0, x)$.
     </p>
 </div>
 

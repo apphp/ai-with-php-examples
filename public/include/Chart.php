@@ -1263,8 +1263,8 @@ class Chart {
                                 </div>
                             </div>';
 
-        if($bVectorTitle) {
-            $output .= '
+                            if($bVectorTitle) {
+                                $output .= '
                                     <b>' . $bVectorTitle . '</b>
                                     <div class="vector-inputs">
                                         <div>
@@ -1276,9 +1276,9 @@ class Chart {
                                             <input type="number" id="biasY" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$biasY.'" step="0.5">
                                         </div>
                                     </div>';
-        }
+                            }
 
-        $output .= '
+                            $output .= '
                         </div>
                     </div>
 

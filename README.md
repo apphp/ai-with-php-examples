@@ -62,6 +62,8 @@ To install these examples, follow these steps:
     - Linear Transformations
       - Scale Transformation
       - Simple Linear Layer
+      - Fully Connected Layer
+      - ReLU Activation
   - Data Fundamentals
     - Big Data Techniques in PHP
       - Chunked Processing

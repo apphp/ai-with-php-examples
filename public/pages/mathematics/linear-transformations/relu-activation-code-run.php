@@ -73,6 +73,8 @@ $memoryEnd = memory_get_usage();
                     iVectorTitle: 'Input Vector ($x$)',
                     oVectorTitle: 'Output Vector ($y = Wx + b$)',
                     bVectorTitle: 'Bias Vector ($b$)',
+                    min: -100,
+                    max: 100
                 );
             ?>
             <hr>

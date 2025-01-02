@@ -15,4 +15,4 @@ $linearResult = $transform->linearLayer($inputVector, $bias);
 $activated = $transform->relu($linearResult);
 
 echo "Original values: [<span id='output-vector'>" . implode(", ", $linearResult) . "</span>]\n";
-echo "ReLU Output: [" . implode(", ", $activated) . "]";
+echo "ReLU Output: [<span id='relu-vector'>" . implode(", ", $activated) . "</span>]";

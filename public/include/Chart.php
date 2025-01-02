@@ -878,6 +878,7 @@ class Chart {
                             this.mode === "linear" ? Math.abs(biasVector.y) : 0,
                             1
                         );
+
                         if (document.getElementById("output-vector")) {
                             document.getElementById("output-vector").textContent = outputVector.x + ", " + outputVector.y;
                         }
@@ -992,148 +993,6 @@ class Chart {
         ';
     }
 
-    public static function drawVectorControls(
-        array $vector = [],
-        array $matrix = [],
-        array $bias = [],
-        array $result = [],
-        string $matrixTitle = '',
-        string $iVectorTitle = '',
-        string $oVectorTitle = '',
-        string $bVectorTitle = '',
-    ): string {
-
-        $vectorX = $vector[0] ?? 0;
-        $vectorY = $vector[1] ?? 0;
-
-        $m11 = $matrix[0][0] ?? 0;
-        $m12 = $matrix[0][1] ?? 0;
-        $m21= $matrix[1][0] ?? 0;
-        $m22 = $matrix[1][1] ?? 0;
-
-        $biasX = $bias[0] ?? 0;
-        $biasY = $bias[1] ?? 0;
-
-        $resultX = $result[0] ?? 0;
-        $resultY = $result[1] ?? 0;
-
-        $output = '           
-            <div id="vectorControls" class="form-section me-1">
-                <form id="transformForm" onsubmit="return false;">
-                    <div class="row">
-                        <div class="col-6">
-                            <b>'.$matrixTitle.'</b>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label class="vector-component" for="m11">X Component:</label>
-                                </div>
-                                <div class="col-6">
-                                    <label class="vector-component" for="m12">Y Component:</label>
-                                </div>
-                            </div>
-                            <div class="matrix-grid">
-                                <input type="number" id="m11" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$m11.'" step="0.5" width="50px">
-                                <input type="number" id="m12" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$m12.'" step="0.5" width="50px">
-                                <input type="number" id="m21" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$m21.'" step="0.5" width="50px">
-                                <input type="number" id="m22" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$m22.'" step="0.5" width="50px">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <b>'.$iVectorTitle.'</b>
-                            <div class="vector-inputs">
-                                <div>
-                                    <label class="vector-component" for="vectorX">X Component:</label>
-                                    <input type="number" id="vectorX" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$vectorX.'" step="0.5">
-                                </div>
-                                <div>
-                                    <label class="vector-component" for="vectorY">Y Component:</label>
-                                    <input type="number" id="vectorY" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$vectorY.'" step="0.5">
-                                </div>
-                            </div>';
-
-                            if($bVectorTitle) {
-                                $output .= '
-                                    <b>' . $bVectorTitle . '</b>
-                                    <div class="vector-inputs">
-                                        <div>
-                                            <label class="vector-component" for="vectorX">X Component:</label>
-                                            <input type="number" id="biasX" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$biasX.'" step="0.5">
-                                        </div>
-                                        <div>
-                                            <label class="vector-component" for="vectorY">Y Component:</label>
-                                            <input type="number" id="biasY" min="-1000" max="1000" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="5" value="'.$biasY.'" step="0.5">
-                                        </div>
-                                    </div>';
-                            }
-
-                            $output .= '
-                        </div>
-                    </div>
-
-                    <b>'.$oVectorTitle.'</b>
-                    <div class="output-vector">
-                        <div class="vector-inputs">
-                            <div>
-                                <label class="vector-component">X Component:</label>
-                                <div id="outputX">'.$resultX.'</div>
-                            </div>
-                            <div>
-                                <label class="vector-component">Y Component:</label>
-                                <div id="outputY">'.$resultY.'</div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-            <style>
-                #vectorControls {
-                    padding: 0px;
-                    border-radius: 8px;
-                }
-                #vectorControls b {
-                    margin-bottom: 5px;
-                    display: inline-block;
-                }
-                #vectorControls .vector-component {
-                    font-size: 12px;
-                }
-                #vectorControls .matrix-grid {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 10px;
-                    margin-bottom: 20px;
-                }
-                #vectorControls .vector-inputs {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 20px;
-                    margin-bottom: 20px;
-                }
-                #vectorControls input[type="number"] {
-                    width: 100%;
-                    padding: 4px 6px;
-                    border: 1px solid #ccc;
-                    border-radius: 4px;
-                }
-                #vectorControls .output-vector {
-                    background: #f5f5f5;
-                    padding: 8px 10px;
-                    border-radius: .2rem;
-                }
-                #vectorControls .output-vector .vector-inputs {
-                    margin: 0px;
-                }
-                #vectorControls .chart-container {
-                    min-height: 450px;
-                    padding: 0px;
-                }
-            </style>
-        ';
-
-        return $output;
-    }
-
     public static function drawReLU(
         array $vector = [],
         array $matrix = [],
@@ -1206,10 +1065,6 @@ class Chart {
                     }
                     
                     updatePlot() {                    
-                        // Generate points for ReLU function line
-                        const x = Array.from({length: 201}, (_, i) => -10 + i * 0.1);
-                        const y = x.map(val => Math.max(0, val));
-                        
                         let result = this.calculateLinearLayer();
                         const { inputVector, outputVector } = result; 
                         
@@ -1218,6 +1073,42 @@ class Chart {
                         // Example points from the image
                         const exampleX = [outputVector.x, outputVector.y];
                         const exampleY = [reluResult[0], reluResult[1]];
+                        
+                        const maxVal = Math.max(
+                            Math.abs(inputVector.x),
+                            Math.abs(inputVector.y),
+                            Math.abs(outputVector.x),
+                            Math.abs(outputVector.y),
+                            1
+                        );
+
+                        // Generate points for ReLU function line
+                        const x = Array.from({length: (maxVal * 20) + 10}, (_, i) => -maxVal + i * 0.1);
+                        const y = x.map(val => Math.max(0, val));
+                        
+                        // Calculate tick interval to show 5 ticks
+                        let xdticks = 5;
+                        let ydticks = 2;
+                        if (maxVal > 10){
+                            // Round maxVal up to the nearest multiple of 5
+                            const roundedXMax = Math.ceil(maxVal / 5) * 5;
+                            // Calculate the step size and adjust to the nearest multiple of 5
+                            xdticks = Math.ceil(roundedXMax / 10);
+                            xdticks = Math.ceil(xdticks / 5) * 5;
+                            
+                            // Round maxVal up to the nearest multiple of 5
+                            const roundedYMax = Math.ceil(maxVal / 2) * 2;
+                            ydticks = Math.ceil(roundedYMax / 10);
+                            ydticks = Math.ceil(ydticks / 2) * 2;      
+                        }
+                                                
+                        if (document.getElementById("output-vector")) {
+                            document.getElementById("output-vector").textContent = outputVector.x + ", " + outputVector.y;
+                        }
+                                               
+                        if (document.getElementById("relu-vector")) {
+                            document.getElementById("relu-vector").textContent = reluResult[0] + ", " + reluResult[1];
+                        }
         
                         // Create the line trace for ReLU function
                         const reluTrace = {
@@ -1251,16 +1142,25 @@ class Chart {
                                     size: 24
                                 }
                             },
+                            legend: {
+                                orientation: "h",
+                                y: -0.2,
+                                x: 0.5,
+                                xanchor: "center",
+                                yanchor: "top"
+                            },
                             xaxis: {
-                                title: "Input (x)",
-                                range: [-10, 10],
+                                _title: "Input (x)",
+                                range: [-maxVal - 1, maxVal + 1],
+                                dtick: xdticks,
                                 gridcolor: "#E2E2E2",
                                 zerolinecolor: "#969696",
                                 zerolinewidth: 1
                             },
                             yaxis: {
-                                title: "Output ReLU(x)",
-                                range: [-1, 10],
+                                _title: "Output ReLU(x)",
+                                range: [-1, maxVal + 1],
+                                dtick: ydticks,
                                 gridcolor: "#E2E2E2",
                                 zerolinecolor: "#969696",
                                 zerolinewidth: 1
@@ -1268,15 +1168,11 @@ class Chart {
                             plot_bgcolor: "white",
                             paper_bgcolor: "white",
                             showlegend: true,
-                            legend: {
-                                x: 0.02,
-                                y: 1.05
-                            },
                             margin: {
-                                t: 5,   // top margin
-                                b: 100, // bottom margin
-                                l: 60,  // left margin
-                                r: 25   // right margin
+                                t: 10,  // top margin
+                                b: 50,  // bottom margin
+                                l: 20,  // left margin
+                                r: 20   // right margin
                             }
                         };
                               
@@ -1301,5 +1197,152 @@ class Chart {
                 });
             </script>
         ';
+    }
+
+    public static function drawVectorControls(
+        array $vector = [],
+        array $matrix = [],
+        array $bias = [],
+        array $result = [],
+        string $matrixTitle = '',
+        string $iVectorTitle = '',
+        string $oVectorTitle = '',
+        string $bVectorTitle = '',
+        int $min = -1000,
+        int $max = 1000,
+    ): string {
+
+        $vectorX = $vector[0] ?? 0;
+        $vectorY = $vector[1] ?? 0;
+
+        $m11 = $matrix[0][0] ?? 0;
+        $m12 = $matrix[0][1] ?? 0;
+        $m21= $matrix[1][0] ?? 0;
+        $m22 = $matrix[1][1] ?? 0;
+
+        $biasX = $bias[0] ?? 0;
+        $biasY = $bias[1] ?? 0;
+
+        $resultX = $result[0] ?? 0;
+        $resultY = $result[1] ?? 0;
+
+        $maxlength = strlen((string)$max);
+        $maxlength++;
+
+        $output = '           
+            <div id="vectorControls" class="form-section me-1">
+                <form id="transformForm" onsubmit="return false;">
+                    <div class="row">
+                        <div class="col-6">
+                            <b>'.$matrixTitle.'</b>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="vector-component" for="m11">X Component:</label>
+                                </div>
+                                <div class="col-6">
+                                    <label class="vector-component" for="m12">Y Component:</label>
+                                </div>
+                            </div>
+                            <div class="matrix-grid">
+                                <input type="number" id="m11" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$m11.'" step="0.5" width="50px">
+                                <input type="number" id="m12" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$m12.'" step="0.5" width="50px">
+                                <input type="number" id="m21" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$m21.'" step="0.5" width="50px">
+                                <input type="number" id="m22" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$m22.'" step="0.5" width="50px">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <b>'.$iVectorTitle.'</b>
+                            <div class="vector-inputs">
+                                <div>
+                                    <label class="vector-component" for="vectorX">X Component:</label>
+                                    <input type="number" id="vectorX" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$vectorX.'" step="0.5">
+                                </div>
+                                <div>
+                                    <label class="vector-component" for="vectorY">Y Component:</label>
+                                    <input type="number" id="vectorY" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$vectorY.'" step="0.5">
+                                </div>
+                            </div>';
+
+        if($bVectorTitle) {
+            $output .= '
+                                    <b>' . $bVectorTitle . '</b>
+                                    <div class="vector-inputs">
+                                        <div>
+                                            <label class="vector-component" for="vectorX">X Component:</label>
+                                            <input type="number" id="biasX" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$biasX.'" step="0.5">
+                                        </div>
+                                        <div>
+                                            <label class="vector-component" for="vectorY">Y Component:</label>
+                                            <input type="number" id="biasY" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$biasY.'" step="0.5">
+                                        </div>
+                                    </div>';
+        }
+
+        $output .= '
+                        </div>
+                    </div>
+
+                    <b>'.$oVectorTitle.'</b>
+                    <div class="output-vector">
+                        <div class="vector-inputs">
+                            <div>
+                                <label class="vector-component">X Component:</label>
+                                <div id="outputX">'.$resultX.'</div>
+                            </div>
+                            <div>
+                                <label class="vector-component">Y Component:</label>
+                                <div id="outputY">'.$resultY.'</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <style>
+                #vectorControls {
+                    padding: 0px;
+                    border-radius: 8px;
+                }
+                #vectorControls b {
+                    margin-bottom: 5px;
+                    display: inline-block;
+                }
+                #vectorControls .vector-component {
+                    font-size: 12px;
+                }
+                #vectorControls .matrix-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                }
+                #vectorControls .vector-inputs {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 20px;
+                    margin-bottom: 20px;
+                }
+                #vectorControls input[type="number"] {
+                    width: 100%;
+                    padding: 4px 6px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
+                #vectorControls .output-vector {
+                    background: #f5f5f5;
+                    padding: 8px 10px;
+                    border-radius: .2rem;
+                }
+                #vectorControls .output-vector .vector-inputs {
+                    margin: 0px;
+                }
+                #vectorControls .chart-container {
+                    min-height: 450px;
+                    padding: 0px;
+                }
+            </style>
+        ';
+
+        return $output;
     }
 }

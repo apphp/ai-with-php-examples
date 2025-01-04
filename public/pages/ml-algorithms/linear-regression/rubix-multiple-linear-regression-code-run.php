@@ -33,7 +33,9 @@ verify_fields($features, ['0', '1', '2'], ['0', '1']);
 <div>
     <p>
         Involves two or more independent variables. For example, predicting house prices based on
-        factors like size, number of rooms, and location (distance to city center).
+        factors like size, number of rooms, and location.
+        This involves more than one independent variable and one dependent variable. The equation for multiple linear regression is:
+        $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_n x_n$
     </p>
 </div>
 

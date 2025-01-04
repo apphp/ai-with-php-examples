@@ -81,6 +81,7 @@ To install these examples, follow these steps:
     - Linear Regression
       - Simple Linear Regression
       - Multiple Linear Regression
+      - Polynomial Regression
 - Neural Networks
   - Types of NN
     - Basic Neural Network

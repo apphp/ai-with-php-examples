@@ -31,6 +31,8 @@ $memoryEnd = memory_get_usage();
     <p>
         Used when there is only one independent variable.
         For this example, let’s use a small dataset with square footage and price.
+        This is the simplest form of linear regression, and it involves only one independent variable and one dependent variable. The equation for simple linear regression is:
+        $y=\beta_{0} +\beta _{1} * x$
     </p>
 </div>
 

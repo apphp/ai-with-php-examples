@@ -14,6 +14,7 @@
     <ui class="list">
         <li><a href="<?= create_href('ml-algorithms', 'linear-regression', 'rubix-simple-linear-regression') ?>">Simple Linear Regression</a></li>
         <li><a href="<?= create_href('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression') ?>">Multiple Linear Regression</a></li>
+        <li><a href="<?= create_href('ml-algorithms', 'linear-regression', 'rubix-polynomial-regression') ?>">Polynomial Regression</a></li>
     </ui>
 
     <br>

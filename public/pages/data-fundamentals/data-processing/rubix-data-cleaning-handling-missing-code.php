@@ -18,6 +18,7 @@ $imputer = new MissingDataImputer(new Percentile(0.55), new Prior());
 $dataset->apply($imputer);
 
 echo "\nAfter Imputation:\n";
+echo "---------------\n";
 foreach ($dataset->samples() as $i => $sample) {
     echo implode(',', $sample) . "\n";
 }

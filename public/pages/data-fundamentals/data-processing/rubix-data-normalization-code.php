@@ -26,4 +26,5 @@ $dataset->apply($normalizer);
 
 // Print the normalized values
 echo "Normalized Dataset:\n";
+echo "---------------\n";
 print_r($dataset->samples());

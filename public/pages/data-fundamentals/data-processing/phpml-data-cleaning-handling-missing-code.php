@@ -35,6 +35,7 @@ function imputeMissingValues($dataset) {
 $samples = imputeMissingValues($dataset);
 
 echo "\nAfter Imputation:\n";
+echo "---------------\n";
 foreach ($samples as $i => $sample) {
     echo implode(',', $sample) . "\n";
 }

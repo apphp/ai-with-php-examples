@@ -35,4 +35,5 @@ $samples = normalize($samples);
 
 // Print the normalized values
 echo "Normalized Dataset:\n";
+echo "---------------\n";
 print_r($samples);

@@ -24,4 +24,5 @@ $standardizer = new ZScaleStandardizer();
 $dataset->apply($standardizer);
 
 echo "After Standardization: \n";
+echo "---------------\n";
 print_r($dataset->samples());

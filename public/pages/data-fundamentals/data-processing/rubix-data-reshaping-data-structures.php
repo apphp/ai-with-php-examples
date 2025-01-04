@@ -2,7 +2,7 @@
     <h1 class="h2">Data Transformation with PHP</h1>
 </div>
 
-<?= create_run_code_button('Reshaping Data Structures', 'data-fundamentals', 'data-processing', 'rubix-data-reshaping-data-structures'); ?>
+<?= create_run_code_button('Reshaping Data Structures with Rubix', 'data-fundamentals', 'data-processing', 'rubix-data-reshaping-data-structures-code-run'); ?>
 
 <div>
     <p>
@@ -12,7 +12,7 @@
 </div>
 
 <div>
-    <?= create_dataset_and_test_data_links(__DIR__ . '/data/time-series.csv', fullWidth: true); ?>
+    <?= create_dataset_and_test_data_links(__DIR__ . '/data/time_series.csv', fullWidth: true); ?>
 </div>
 
 <div>

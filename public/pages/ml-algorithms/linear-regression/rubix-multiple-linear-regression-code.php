@@ -6,12 +6,13 @@ use Rubix\ML\Datasets\Labeled;
 use Rubix\ML\Datasets\Unlabeled;
 use Rubix\ML\Extractors\CSV;
 use Rubix\ML\Regressors\Ridge;
+use Rubix\ML\CrossValidation\Metrics\MeanAbsoluteError;
 use Rubix\ML\CrossValidation\Metrics\MeanSquaredError;
 use Rubix\ML\Transformers\MissingDataImputer;
 use Rubix\ML\Transformers\NumericStringConverter;
 
 // Load the raw data from CSV
-$dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/houses2.csv', true));
+$dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/houses2.csv', true));
 
 // Convert samples and labels to their equivalent integer and floating point types
 $dataset->apply(new NumericStringConverter())
@@ -38,6 +39,7 @@ $predictions = $estimator->predict($newDataset);
 
 // Print predictions
 echo "Predictions for new houses:\n";
+echo "--------------------------\n";
 foreach ($predictions as $index => $prediction) {
     echo sprintf(
         "House %d: $%s\n",
@@ -46,8 +48,16 @@ foreach ($predictions as $index => $prediction) {
     );
 }
 
-// Optional: Calculate error metrics if you have actual values
-$actualValues = [450000, 280000]; // Example actual values
-$metric = new MeanSquaredError();
-$score = $metric->score($predictions, $actualValues);
-echo "\nMean Squared Error: " . number_format($score, 2);
+// Calculate error metrics for actual values
+$actualValues = [450000, 280000];
+
+echo "\n\nMetrics:";
+echo "\n-------";
+$mseMetric = new MeanSquaredError();
+$score = $mseMetric->score($predictions, $actualValues);
+echo "\nMean Squared Error: $" . number_format(abs($score), 2);
+echo "\nRoot Mean Squared Error: $" . number_format(sqrt(abs($score)), 2);
+
+$maeMetric = new MeanAbsoluteError();
+$score = $maeMetric->score($predictions, $actualValues);
+echo "\nMean Absolute Error: $" . number_format(abs($score), 2);

@@ -44,7 +44,7 @@ verify_fields($features, ['0', '1', '2'], ['0', '1']);
             '4,1800,3,  // First house',
             '2,1200,8   // Second house'
         ];
-        echo create_dataset_and_test_data_links(__DIR__ . '/houses2.csv', $testData);
+        echo create_dataset_and_test_data_links(__DIR__ . '/data/houses2.csv', $testData);
     ?>
 </div>
 

@@ -12,7 +12,7 @@ use Rubix\ML\Transformers\NumericStringConverter;
 
 
 // Load the raw data from CSV
-$dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/houses1.csv', true));
+$dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/houses1.csv', true));
 
 // Convert samples and labels to their equivalent integer and floating point types
 $dataset->apply(new NumericStringConverter())

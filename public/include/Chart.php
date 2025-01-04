@@ -496,17 +496,27 @@ class Chart {
                             eye: {
                                 x: 0.9,
                                 y: 2.1,
-                                z: 0.7
+                                z: 0.4
                             }
                         }
                     },
+                    legend: {
+                        orientation: 'h',
+                        y: -0.02,
+                        x: 0.5,
+                        xanchor: 'center',
+                        yanchor: 'top'
+                    },
                     margin: {
-                        l: 100, r: 0, b: 0, t: 0
+                        l: 0, r: 0, b: 0, t: 0
                     }, 
                 };
 
                 // Render the plot in the specified div
-                Plotly.newPlot('my3DScatterChart', scatterData, layout);
+                Plotly.newPlot('my3DScatterChart', scatterData, layout, {
+                    responsive: true,
+                    displayModeBar: false
+                });
             </script>";
 
         return $return;

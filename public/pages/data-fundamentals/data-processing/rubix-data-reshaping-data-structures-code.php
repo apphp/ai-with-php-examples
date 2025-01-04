@@ -31,4 +31,13 @@ $windowedDataset = new Unlabeled($reshapedData);
 
 echo "After Reshaping: \n";
 echo "---------------\n";
-print_r($reshapedData);
+// Format output
+$reshapedDataCount = count($reshapedData);
+echo '[';
+foreach ($reshapedData as $i => $window) {
+    echo '[' . implode(', ', $window) . ']';
+    if ($i < $reshapedDataCount - 1) {
+        echo ', ';
+    }
+}
+echo "]\n";

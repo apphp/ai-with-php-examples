@@ -15,6 +15,7 @@ $samples = $dataset->samples();
 $encoder->transform($samples);
 
 echo "\nAfter Encoding:\n";
+echo "--------------\n";
 foreach ($samples as $sample) {
     echo implode('', $sample) . "\n";
 }

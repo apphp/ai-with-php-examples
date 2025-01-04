@@ -2,11 +2,11 @@
     <h1 class="h2">Data Transformation with PHP</h1>
 </div>
 
-<?= create_run_code_button('Normalizing and Scaling Numerical Features with Rubix', 'data-fundamentals', 'data-processing', 'rubix-data-encoding-normalizing-numerical-features-code-run'); ?>
+<?= create_run_code_button('Normalizing and Scaling Numerical Features with Rubix', 'data-fundamentals', 'data-processing', 'rubix-data-normalizing-numerical-features-code-run'); ?>
 
 <div>
     <p>
-        Normalization adjusts numerical data to a standard range (often [0, 1]),
+        Normalization adjusts numerical data to a standard range (often $[0, 1]$),
         which helps with model performance when features are on different scales.
     </p>
 </div>
@@ -16,5 +16,5 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/rubix-data-encoding-normalizing-numerical-features-code.php', opened: true); ?>
+    <?= create_example_of_use_links(__DIR__ . '/rubix-data-normalizing-numerical-features-code.php', opened: true); ?>
 </div>

@@ -76,6 +76,7 @@ To install these examples, follow these steps:
     - Data Transformation
       - Encoding Categorical Variables
       - Normalizing and Scaling Numerical Features
+      - Reshaping Data Structures
   - ML Algorithms
     - Linear Regression
       - Simple Linear Regression

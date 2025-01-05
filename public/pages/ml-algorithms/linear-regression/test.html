@@ -14,22 +14,22 @@
 <script>
     // Data points
     const rawData = [
-        {x: 6.575, y: 24.0}, {x: 6.421, y: 21.6}, {x: 7.185, y: 34.7},
+        {x: 6.575, y: 25.0}, {x: 6.421, y: 22.6}, {x: 7.185, y: 34.7},
         {x: 6.998, y: 33.4}, {x: 7.147, y: 36.2}, {x: 6.430, y: 28.7},
-        {x: 6.012, y: 22.9}, {x: 6.172, y: 25.9}, {x: 5.631, y: 16.5},
-        {x: 6.004, y: 18.9}, {x: 6.377, y: 16.6}, {x: 6.009, y: 18.9},
-        {x: 5.889, y: 21.7}, {x: 5.949, y: 20.4}, {x: 6.096, y: 18.2},
-        {x: 5.834, y: 19.9}, {x: 5.989, y: 23.2}, {x: 8.259, y: 38.8},
-        {x: 8.183, y: 37.3}, {x: 7.853, y: 40.2}, {x: 7.255, y: 37.9},
-        {x: 6.383, y: 28.1}, {x: 6.816, y: 31.6}, {x: 7.420, y: 38.7},
-        {x: 7.685, y: 36.9}
+        {x: 6.012, y: 20.6}, {x: 6.172, y: 22.9}, {x: 5.631, y: 16.9},
+        {x: 6.004, y: 18.9}, {x: 6.377, y: 21.6}, {x: 6.009, y: 18.9},
+        {x: 5.889, y: 21.7}, {x: 5.949, y: 20.4}, {x: 6.096, y: 21.2},
+        {x: 5.834, y: 19.9}, {x: 5.989, y: 22.2}, {x: 8.259, y: 37.7},
+        {x: 8.183, y: 37.3}, {x: 7.853, y: 40.1}, {x: 7.255, y: 37.2},
+        {x: 6.383, y: 25.7}, {x: 6.816, y: 31.6}, {x: 7.420, y: 38.7},
+        {x: 7.685, y: 38.1}
     ];
 
     // Convert data for regression calculation
     const regressionData = rawData.map(point => [point.x, point.y]);
 
     // Calculate polynomial regression (degree 2)
-    const result = regression.polynomial(regressionData, { order: 3 });
+    const result = regression.polynomial(regressionData, { order:3 });
     const formula = result.string;
     const r2 = result.r2;
 

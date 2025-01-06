@@ -110,7 +110,7 @@ class Chart {
                             padding: {
                                 left: 10,
                                 right: 10,
-                                top: -100,    // Reduced top padding
+                                top: -100,    
                                 bottom: 10
                             }
                         },
@@ -259,7 +259,7 @@ class Chart {
                 const regression = calculateRegression(data);
                 const regressionLine = generateRegressionLine(data, regression);
 
-                new Chart(ctx, {
+                const chart = new Chart(ctx, {
                     type: 'scatter',
                     data: {
                         datasets: [
@@ -518,6 +518,155 @@ class Chart {
                     displayModeBar: false
                 });
             </script>";
+
+        return $return;
+    }
+
+    public static function drawPolynomialRegression(
+        array $samples,
+        array $labels,
+        string $datasetLabel = '',
+        string $regressionLabel = '',
+        string $xLabel = '',
+        string $yLabel = '',
+        int $polynomialOrder = 3,
+        string $title = '',
+    ): string{
+        $return = "
+            <div style='min-height:500px;'>
+            <canvas id='scatterChart'></canvas>
+            </div>
+            
+            <script>
+                // Data points
+                const rawData = [";
+                    for ($i=0; $i < count($samples); $i++) {
+                        $return .= "{x: ".$samples[$i][0].", y: ".($labels[$i] ?? 0)."},";
+                    }
+                $return .= "];
+            
+                // Convert data for regression calculation
+                const regressionData = rawData.map(point => [point.x, point.y]);
+            
+                // Calculate polynomial regression (degree 2)
+                const result = regression.polynomial(regressionData, { order:".(int)$polynomialOrder." });
+                const formula = result.string;
+                const r2 = result.r2;
+            
+                // Generate points for the polynomial curve
+                const minX = Math.min(...rawData.map(p => p.x));
+                const maxX = Math.max(...rawData.map(p => p.x));
+                const curvePoints = [];
+            
+                for(let x = minX; x <= maxX; x += 0.1) {
+                    curvePoints.push({
+                        x: x,
+                        y: result.predict(x)[1]
+                    });
+                }
+            
+                // Create the scatter chart
+                const ctx = document.getElementById('scatterChart').getContext('2d');
+                const chart = new Chart(ctx, {
+                    data: {
+                        datasets: [{
+                            type: 'scatter',
+                            label: '".$datasetLabel."',
+                            data: rawData,
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1,
+                            pointRadius: 5,
+                            pointHoverRadius: 8
+                        },
+                        {
+                            type: 'line',
+                            label: '".$regressionLabel."',
+                            data: curvePoints,
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        layout: {
+                            padding: {
+                                left: 10,
+                                right: 10,
+                                top: -10,   
+                                bottom: 10
+                            }
+                        },
+                        plugins: {
+                             legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: {
+                                        size: 14
+                                    }
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: [
+                                    '".$title."',
+                                    `R² = \${r2.toFixed(4)}`,
+                                    `Polynomial: \${formula}`
+                                ],
+                                font: {
+                                    size: 16
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        if (context.dataset.type === 'scatter') {
+                                            return `Rooms: \${context.parsed.x}, Price: $\${context.parsed.y}k`;
+                                        }
+                                        return `Predicted Price: $\${context.parsed.y.toFixed(1)}k`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: '".$xLabel."'
+                                },
+                                grid: {
+                                    display: true,
+                                    drawBorder: true,
+                                    drawOnChartArea: true
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: '".$yLabel."'
+                                },
+                                grid: {
+                                    display: true,
+                                    drawBorder: true,
+                                    drawOnChartArea: true
+                                }
+                            }
+                        }
+                    }
+                });
+            </script>
+            <style>
+                .form-inline-number[type='number'] {
+                    padding: 4px 6px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
+            </style>
+        ";
 
         return $return;
     }

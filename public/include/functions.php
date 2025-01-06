@@ -192,12 +192,17 @@ function create_form_fields(string $section, string $subsection, string $page): 
 function create_form_features(array $features = [], array $data = [], string $fieldName = 'features', string $type = 'checkbox') {
     $output = '';
     $ind = 0;
-    $type = $type === 'radio' ? 'radio' : 'checkbox';
+    $type = in_array($type, ['radio', 'checkbox', 'number']) ? $type : 'checkbox';
 
     foreach ($features as $name => $feature) {
         $ind++;
 
-        if ($type === 'radio') {
+        if ($type === 'number') {
+            $output .= '<div class="form-check-inline mt-2 ml-0 pl-0">
+            <input class="form-inline-number" type="number" id="inlineNumber' . $ind . '" name="' . $fieldName . '" min="1" max="100" oninput="javascript:if (this.value.length > this.maxLength || this.value > 100) this.value = 1;" maxlength="3" value="' . (in_array($data[0], $feature) ? $data[0] : '1') . '"" step="1">
+            <label class="form-check-label" for="inlineNumber' . $ind . '">&nbsp;' . $name . '</label>
+            </div>';
+        } elseif ($type === 'radio') {
             $output .= '<div class="form-check form-check-inline mt-2">
             <input class="form-check-input" type="radio" id="inlineRadio' . $ind . '" name="' . $fieldName . '" value="' . $feature . '"' . (in_array($feature, $data) ? ' checked' : '') . '>
             <label class="form-check-label" for="inlineRadio' . $ind . '">' . $name . '</label>

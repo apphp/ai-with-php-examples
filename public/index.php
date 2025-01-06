@@ -39,6 +39,7 @@
 
     <script src="<?=APP_URL?>assets/global.js"></script>
     <script src="<?=APP_URL?>assets/dist/js/chart.js"></script>
+    <script src="<?=APP_URL?>assets/dist/js/regression.min.js"></script>
     <script src="<?=APP_URL?>assets/dist/js/plotly-latest.min.js"></script>
     <script src="<?=APP_URL?>assets/dist/js/mermaid.min.js"></script>
     <script>

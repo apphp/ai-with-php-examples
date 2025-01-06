@@ -12,6 +12,9 @@ $result = ob_get_clean();
 $microtimeEnd = microtime(true);
 $memoryEnd = memory_get_usage();
 
+$features = $_GET['features'] ?? '';
+verify_fields($features, ['1', '2', '3', '4', '5'], '1');
+
 ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -41,11 +44,7 @@ $memoryEnd = memory_get_usage();
 
 <div>
     <?php
-        $testData = [
-//            'size',
-//            '2250    // New house: 2250 sq ft'
-        ];
-        echo create_dataset_and_test_data_links(__DIR__ . '/data/boston_housing.csv', $testData);
+        echo create_dataset_and_test_data_links(__DIR__ . '/data/boston_housing.csv');
     ?>
 </div>
 
@@ -54,19 +53,34 @@ $memoryEnd = memory_get_usage();
         <div class="col-md-12 col-lg-7 px-1 pe-4">
             <p><b>Chart:</b></p>
             <?php
-//                echo Chart::drawLinearRegression(
-//                    samples:  $dataset->samples(),
-//                    labels: $dataset->labels(),
-//                    xLabel: 'Square Footage (sq.ft)',
-//                    yLabel: 'Price ($)',
-//                    datasetLabel: 'House Prices',
-//                    regressionLabel: 'Regression Line',
-//                    predictionPoint: [$newSample[0], round($prediction[0])],
-//                    minY: 100_000,
-//                );
+                echo Chart::drawPolynomialRegression(
+                    samples:  $samples,
+                    labels: $targets,
+                    datasetLabel: 'House Prices',
+                    regressionLabel: 'Polynomial Regression',
+                    xLabel: 'Number of Rooms',
+                    yLabel: 'Price ($1000s)',
+                    polynomialOrder: 3,
+                    title: "Boston Housing: Price vs Room Count",
+                );
             ?>
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
+            <div>
+                <div class="mt-1">
+                    <b>Features:</b>
+                </div>
+                <form action="<?= APP_SEO_LINKS ? create_href('ml-algorithms', 'linear-regression', 'rubix-polynomial-regression-code-run') : 'index.php'; ?>" type="GET">
+                    <?= !APP_SEO_LINKS ? create_form_fields('ml-algorithms', 'linear-regression', 'rubix-polynomial-regression-code-run') : '';?>
+                    <?=create_form_features(['Regression Order' => [1, 2, 3, 4, 5]], [$features], type: 'number');?>
+                    <div class="form-check form-check-inline float-end p-0 m-0 me-1">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
+                    </div>
+                </form>
+            </div>
+
+            <hr>
+
             <div class="mb-1">
                 <b>Result:</b>
                 <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>

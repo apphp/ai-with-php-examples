@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
     collapseElementDataset.addEventListener('hidden.bs.collapse', function () {
       toggleIconDataset.classList.remove('fa-square-minus');
       toggleIconDataset.classList.add('fa-square-plus');
-      toggleText.title = 'Click to expand';
+      toggleTextDataset.title = 'Click to expand';
     });
   }
 

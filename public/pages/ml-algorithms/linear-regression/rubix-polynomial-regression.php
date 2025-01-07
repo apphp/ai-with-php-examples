@@ -9,10 +9,11 @@
         An extension where the relationship between variables is non-linear.
         Polynomial regression transforms input variables to higher powers (e.g., $x2,x3x^2, x^3x2,x3$) but remains a
         linear model concerning the parameters, making it suitable for more complex patterns.
-        <br><br>
         In polynomial regression, we aim to model a non-linear relationship by transforming the input variable $x$ to
         include higher powers. The model equation for a polynomial regression of degree is:
         $y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \dots + \beta_d x^d + \epsilon$
+        <br><br>
+        In this example we compare RM: average number of rooms per dwelling vs PRICE.
     </p>
 </div>
 

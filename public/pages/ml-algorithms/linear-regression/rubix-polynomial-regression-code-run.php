@@ -2,6 +2,10 @@
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
+
+$regressionOrder = $_GET['regression_order'] ?? '';
+verify_fields($regressionOrder, ['1', '2', '3', '4', '5'], '3');
+
 ob_start();
 //////////////////////////////
 
@@ -11,9 +15,6 @@ include('rubix-polynomial-regression-code.php');
 $result = ob_get_clean();
 $microtimeEnd = microtime(true);
 $memoryEnd = memory_get_usage();
-
-$features = $_GET['features'] ?? '';
-verify_fields($features, ['1', '2', '3', '4', '5'], '1');
 
 ?>
 
@@ -35,16 +36,17 @@ verify_fields($features, ['1', '2', '3', '4', '5'], '1');
         An extension where the relationship between variables is non-linear.
         Polynomial regression transforms input variables to higher powers (e.g., $x2,x3x^2, x^3x2,x3$) but remains a
         linear model concerning the parameters, making it suitable for more complex patterns.
-        <br><br>
         In polynomial regression, we aim to model a non-linear relationship by transforming the input variable $x$ to
         include higher powers. The model equation for a polynomial regression of degree is:
         $y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \dots + \beta_d x^d + \epsilon$
+        <br><br>
+        In this example we compare RM: average number of rooms per dwelling vs PRICE.
     </p>
 </div>
 
 <div>
     <?php
-        echo create_dataset_and_test_data_links(__DIR__ . '/data/boston_housing.csv');
+        echo create_dataset_and_test_data_links(__DIR__ . '/data/boston_housing.csv', array_flatten($testSamples));
     ?>
 </div>
 
@@ -60,7 +62,7 @@ verify_fields($features, ['1', '2', '3', '4', '5'], '1');
                     regressionLabel: 'Polynomial Regression',
                     xLabel: 'Number of Rooms',
                     yLabel: 'Price ($1000s)',
-                    polynomialOrder: 3,
+                    polynomialOrder: $regressionOrder,
                     title: "Boston Housing: Price vs Room Count",
                 );
             ?>
@@ -68,11 +70,11 @@ verify_fields($features, ['1', '2', '3', '4', '5'], '1');
         <div class="col-md-12 col-lg-5 p-0 m-0">
             <div>
                 <div class="mt-1">
-                    <b>Features:</b>
+                    <b>Regression:</b>
                 </div>
                 <form action="<?= APP_SEO_LINKS ? create_href('ml-algorithms', 'linear-regression', 'rubix-polynomial-regression-code-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('ml-algorithms', 'linear-regression', 'rubix-polynomial-regression-code-run') : '';?>
-                    <?=create_form_features(['Regression Order' => [1, 2, 3, 4, 5]], [$features], type: 'number');?>
+                    <?=create_form_features(['Order' => [1, 2, 3, 4, 5]], [$regressionOrder], fieldName: 'regression_order', type: 'number');?>
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
                     </div>

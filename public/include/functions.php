@@ -24,6 +24,12 @@ function ddd($data = []): void {
     dd($data, true);
 }
 
+function array_flatten(array $array = []): array {
+    $return = [];
+    array_walk_recursive($array, function($a) use (&$return) { $return[] = $a; });
+    return $return;
+}
+
 function verify_fields(array|string &$features, array $verificationData, array|string $defaultData): void {
     if (empty($features)) {
         $features = $defaultData;
@@ -198,8 +204,11 @@ function create_form_features(array $features = [], array $data = [], string $fi
         $ind++;
 
         if ($type === 'number') {
+            $min = min($feature);
+            $max = max($feature);
+            $maxLength = strlen((string)$max);
             $output .= '<div class="form-check-inline mt-2 ml-0 pl-0">
-            <input class="form-inline-number" type="number" id="inlineNumber' . $ind . '" name="' . $fieldName . '" min="1" max="100" oninput="javascript:if (this.value.length > this.maxLength || this.value > 100) this.value = 1;" maxlength="3" value="' . (in_array($data[0], $feature) ? $data[0] : '1') . '"" step="1">
+            <input class="form-inline-number" type="number" id="inlineNumber' . $ind . '" name="' . $fieldName . '" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value=' . $min . ';" maxlength="' . $maxLength . '" value="' . (in_array($data[0], $feature) ? $data[0] : '1') . '" step="1" style="min-width:50px">
             <label class="form-check-label" for="inlineNumber' . $ind . '">&nbsp;' . $name . '</label>
             </div>';
         } elseif ($type === 'radio') {

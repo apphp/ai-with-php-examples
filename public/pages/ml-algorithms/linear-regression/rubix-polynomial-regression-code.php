@@ -12,11 +12,11 @@ try {
     // Initialize components
     $regression = new LeastSquares();
     $normalizer = new Normalizer();
-    $transformer = new PolynomialExpander(3); // Using degree 3 for polynomial expansion
-    $isModelTrained = false;
+    // Using default degree 3 for polynomial expansion
+    $transformer = new PolynomialExpander(isset($regressionOrder) && $regressionOrder > 1 ? $regressionOrder : 3);
 
     // Load and prepare the dataset
-    $dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/boston_housing.csv', true));
+    $dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/boston_housing.csv', header: true));
     $samples = $dataset->samples();
 
     // Get the 6th column (index 5 since arrays are zero-based)
@@ -36,7 +36,8 @@ try {
     ];
 
     // Display dataset statistics
-    echo "\nDataset Statistics:\n";
+    echo "\nDataset Statistics:";
+    echo "\n-----------------\n";
     printf("Number of samples: %d\n", $stats['sample_count']);
     printf("Average rooms: %.2f\n", $stats['avg_rooms']);
     printf("Room range: %.1f - %.1f\n", $stats['min_rooms'], $stats['max_rooms']);
@@ -61,23 +62,18 @@ try {
 
     // Train the model
     $regression->train($samplesTransformed, $targets);
-    $isModelTrained = true;
+
+    // Make predictions
+    echo "\nPredicting house prices...\n";
 
     // Prepare test samples
     $testSamples = [
-        [4.0],  // Small house
+        [5.5],  // Small house
         [6.0],  // Medium house
         [8.0],  // Large house
         [$stats['min_rooms']], // Smallest in dataset
         [$stats['max_rooms']]  // Largest in dataset
     ];
-
-    // Make predictions
-    echo "\nPredicting house prices...\n";
-
-    if (!$isModelTrained) {
-        throw new RuntimeException("Model must be trained before making predictions");
-    }
 
     // Transform test data
     $testSamplesTransformed = $testSamples;
@@ -90,7 +86,8 @@ try {
     $predictions = $regression->predict($testSamplesTransformed);
 
     // Display results
-    echo "\nPrice Predictions:\n";
+    echo "\nPrice Predictions:";
+    echo "\n-----------------\n";
     foreach (array_map(null, $testSamples, $predictions) as [$rooms, $price]) {
         printf(
             "A house with %.1f rooms is predicted to cost $%s\n",

@@ -46,7 +46,7 @@ try {
     echo "\nTraining model...\n";
 
     if (empty($samples) || empty($targets)) {
-        throw new InvalidArgumentException("Empty training data provided");
+        throw new InvalidArgumentException('Empty training data provided');
     }
 
     if (count($samples) !== count($targets)) {

@@ -48,13 +48,13 @@ class Chart {
                     $return .= "];" . PHP_EOL;
                 }
 
-                $return .= "
+                $return .= '
                 // Generate separation line points
                 const separationLineData = [];
-                for (let x = 0; x <= ".$totalSamples."; x += 0.5) {
+                for (let x = 0; x <= ' .$totalSamples. '; x += 0.5) {
                     separationLineData.push({
                         x: x,
-                        y: -5 * x + ".$separationBorder."
+                        y: -5 * x + ' .$separationBorder."
                     });
                 }
     
@@ -287,7 +287,7 @@ class Chart {
                                 label: '".htmlspecialchars($regressionLabel)."',
                                 data: regressionLine,
                                 type: 'line',
-                                borderColor: '".($darkSwitch === 'dark' ? 'rgba(225, 225, 225, 0.4)' : 'rgba(225, 225, 225, 1)')."',
+                                borderColor: '".($darkSwitch === 'dark' ? 'rgba(215, 215, 215, 0.4)' : 'rgba(215, 215, 215, 1)')."',
                                 backgroundColor: '".($darkSwitch === 'dark' ? 'rgba(245, 245, 245, 0.9)' : 'rgba(245, 245, 245, 1)')."',
                                 borderWidth: 2,
                                 pointRadius: 0,
@@ -525,6 +525,8 @@ class Chart {
     public static function drawPolynomialRegression(
         array $samples,
         array $labels,
+        array $testSamples = [],
+        array $testLabels = [],
         string $datasetLabel = '',
         string $regressionLabel = '',
         string $xLabel = '',
@@ -543,19 +545,26 @@ class Chart {
                     for ($i=0; $i < count($samples); $i++) {
                         $return .= "{x: ".$samples[$i][0].", y: ".($labels[$i] ?? 0)."},";
                     }
-                $return .= "];
+                $return .= '];
+                
+                // Test data points
+                const testData = [';
+                for ($i=0; $i < count($testSamples); $i++) {
+                    $return .= "{x: ".$testSamples[$i][0].", y: ".($testLabels[$i] ?? 0)."},";
+                }
+                $return .= '];
             
                 // Convert data for regression calculation
                 const regressionData = rawData.map(point => [point.x, point.y]);
             
-                // Calculate polynomial regression (degree 2)
-                const result = regression.polynomial(regressionData, { order:".(int)$polynomialOrder." });
+                // Calculate polynomial regression (degree)
+                const result = regression.polynomial(regressionData, { order:' .(int)$polynomialOrder." });
                 const formula = result.string;
                 const r2 = result.r2;
             
                 // Generate points for the polynomial curve
-                const minX = Math.min(...rawData.map(p => p.x));
-                const maxX = Math.max(...rawData.map(p => p.x));
+                const minX = Math.min(...rawData.map(p => p.x), ...testData.map(p => p.x));
+                const maxX = Math.max(...rawData.map(p => p.x), ...testData.map(p => p.x));
                 const curvePoints = [];
             
                 for(let x = minX; x <= maxX; x += 0.1) {
@@ -571,7 +580,7 @@ class Chart {
                     data: {
                         datasets: [{
                             type: 'scatter',
-                            label: '".$datasetLabel."',
+                            label: '".$datasetLabel." (Training)',
                             data: rawData,
                             backgroundColor: 'rgba(54, 162, 235, 0.6)',
                             borderColor: 'rgba(54, 162, 235, 1)',
@@ -580,11 +589,21 @@ class Chart {
                             pointHoverRadius: 8
                         },
                         {
+                            type: 'scatter',
+                            label: '".$datasetLabel." (Test)',
+                            data: testData,
+                            backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1,
+                            pointRadius: 5,
+                            pointHoverRadius: 8
+                        },
+                        {
                             type: 'line',
                             label: '".$regressionLabel."',
                             data: curvePoints,
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                            borderColor: 'rgba(215, 215, 215, 1)',
+                            backgroundColor: 'rgba(245, 245, 245, 1)',
                             borderWidth: 2,
                             pointRadius: 0,
                             fill: false

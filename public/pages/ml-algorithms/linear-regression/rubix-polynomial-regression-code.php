@@ -71,6 +71,7 @@ try {
         [5.5],  // Small house
         [6.0],  // Medium house
         [8.0],  // Large house
+        [$stats['min_rooms'] + ($stats['max_rooms'] - $stats['min_rooms']) / 2],  // Middle
         [$stats['min_rooms']], // Smallest in dataset
         [$stats['max_rooms']]  // Largest in dataset
     ];

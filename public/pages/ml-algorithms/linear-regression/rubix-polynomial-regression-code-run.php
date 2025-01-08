@@ -58,6 +58,8 @@ $memoryEnd = memory_get_usage();
                 echo Chart::drawPolynomialRegression(
                     samples:  $samples,
                     labels: $targets,
+                    testSamples:  $testSamples,
+                    testLabels:  $predictions,
                     datasetLabel: 'House Prices',
                     regressionLabel: 'Polynomial Regression',
                     xLabel: 'Number of Rooms',

@@ -11,7 +11,7 @@
 </div>
 
 <div>
-    <?= create_dataset_and_test_data_links(__DIR__ . '/exams.csv', fullWidth: true); ?>
+    <?= create_dataset_and_test_data_links(__DIR__ . '/data/exams.csv', fullWidth: true); ?>
 </div>
 
 <div>

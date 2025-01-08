@@ -7,7 +7,7 @@ use Phpml\Dataset\CsvDataset;
 use Phpml\NeuralNetwork\ActivationFunction\HyperbolicTangent;
 
 // Step 1: Prepare the Dataset, Load the raw data from CSV
-$dataset = new CsvDataset(dirname(__FILE__) . '/exams.csv', 2, true);
+$dataset = new CsvDataset(dirname(__FILE__) . '/data/exams.csv', 2, true);
 
 $rawSamples = $dataset->getSamples();
 // Convert all values in samples to floats

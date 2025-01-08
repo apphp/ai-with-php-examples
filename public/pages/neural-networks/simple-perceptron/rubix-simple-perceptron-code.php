@@ -17,7 +17,7 @@ use Rubix\ML\Transformers\NumericStringConverter;
 // Example: Predict if a student will pass (1) or fail (0) based on study hours and previous test score
 
 // Load the raw data from CSV
-$dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/exams.csv', true));
+$dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/exams.csv', true));
 
 // Convert all numeric strings to their proper numeric types
 $dataset->apply(new NumericStringConverter());

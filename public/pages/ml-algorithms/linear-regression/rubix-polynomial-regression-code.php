@@ -13,7 +13,7 @@ try {
     $regression = new LeastSquares();
     $normalizer = new Normalizer();
     // Using default degree 3 for polynomial expansion
-    $transformer = new PolynomialExpander(isset($regressionOrder) && $regressionOrder > 1 ? $regressionOrder : 3);
+    $expander = new PolynomialExpander(isset($regressionOrder) && $regressionOrder > 1 ? $regressionOrder : 3);
 
     // Load and prepare the dataset
     $dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/boston_housing.csv', header: true));
@@ -55,7 +55,7 @@ try {
 
     // Transform features using PolynomialExpander
     $samplesTransformed = $samples;
-    $transformer->transform($samplesTransformed);
+    $expander->transform($samplesTransformed);
 
     // Normalize features
     $normalizer->transform($samplesTransformed);
@@ -78,7 +78,7 @@ try {
 
     // Transform test data
     $testSamplesTransformed = $testSamples;
-    $transformer->transform($testSamplesTransformed);
+    $expander->transform($testSamplesTransformed);
 
     // Normalize test features
     $normalizer->transform($testSamplesTransformed);

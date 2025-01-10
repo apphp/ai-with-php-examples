@@ -2,29 +2,29 @@
 
 require APP_PATH . 'vendor/autoload.php';
 
-use Phpml\Preprocessing\Normalizer;
-use Phpml\Regression\LeastSquares;
 use Rubix\ML\Datasets\Labeled;
+use Rubix\ML\Datasets\Unlabeled;
 use Rubix\ML\Extractors\CSV;
 use Rubix\ML\Transformers\PolynomialExpander;
+use Rubix\ML\Regressors\Ridge;
 
 try {
     // Initialize components
-    $regression = new LeastSquares();
-    $normalizer = new Normalizer();
-    // Using default degree 3 for polynomial expansion
-    $expander = new PolynomialExpander(isset($regressionOrder) && $regressionOrder > 1 ? $regressionOrder : 3);
+    $regression = new Ridge(0.001);
+    $expander = new PolynomialExpander($regressionOrder ?? 3);
 
     // Load and prepare the dataset
-    $dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/boston_housing.csv', header: true));
-    $samples = $dataset->samples();
+    $dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/boston_housing.csv', true));
 
     // Get the 6th column (index 5 since arrays are zero-based)
     $samples = array_map(function($row) {
         return [(float)$row[5]];
-    }, $samples);
+    }, $dataset->samples());
 
-    $targets = $dataset->labels();
+    // Convert targets to float values (prices in thousands)
+    $targets = array_map(function($target) {
+        return (float)$target;
+    }, $dataset->labels());
 
     // Calculate dataset statistics
     $rooms = array_column($samples, 0);
@@ -42,9 +42,7 @@ try {
     printf("Average rooms: %.2f\n", $stats['avg_rooms']);
     printf("Room range: %.1f - %.1f\n", $stats['min_rooms'], $stats['max_rooms']);
 
-    // Train the model
-    echo "\nTraining model...\n";
-
+    // Validation checks
     if (empty($samples) || empty($targets)) {
         throw new InvalidArgumentException('Empty training data provided');
     }
@@ -53,15 +51,16 @@ try {
         throw new InvalidArgumentException("Number of samples doesn't match number of targets");
     }
 
-    // Transform features using PolynomialExpander
+    // Transform features
     $samplesTransformed = $samples;
     $expander->transform($samplesTransformed);
 
-    // Normalize features
-    $normalizer->transform($samplesTransformed);
+    // Create new dataset with transformed samples and float targets
+    $transformedDataset = new Labeled($samplesTransformed, $targets);
 
     // Train the model
-    $regression->train($samplesTransformed, $targets);
+    echo "\nTraining model...\n";
+    $regression->train($transformedDataset);
 
     // Make predictions
     echo "\nPredicting house prices...\n";
@@ -76,15 +75,15 @@ try {
         [$stats['max_rooms']]  // Largest in dataset
     ];
 
-    // Transform test data
-    $testSamplesTransformed = $testSamples;
-    $expander->transform($testSamplesTransformed);
+    // Transform test samples
+    $samplesTransformed = $testSamples;
+    $expander->transform($samplesTransformed);
 
-    // Normalize test features
-    $normalizer->transform($testSamplesTransformed);
+    // Create unlabeled dataset for prediction
+    $testDataset = new Unlabeled($samplesTransformed);
 
     // Make predictions
-    $predictions = $regression->predict($testSamplesTransformed);
+    $predictions = $regression->predict($testDataset);
 
     // Display results
     echo "\nPrice Predictions:";

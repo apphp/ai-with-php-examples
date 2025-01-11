@@ -9,10 +9,6 @@ use Rubix\ML\Transformers\PolynomialExpander;
 use Rubix\ML\Regressors\Ridge;
 
 try {
-    // Initialize components
-    $regression = new Ridge(0.001);
-    $expander = new PolynomialExpander($regressionOrder ?? 3);
-
     // Load and prepare the dataset
     $dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/boston_housing.csv', true));
 
@@ -50,6 +46,10 @@ try {
     if (count($samples) !== count($targets)) {
         throw new InvalidArgumentException("Number of samples doesn't match number of targets");
     }
+
+    // Initialize components
+    $regression = new Ridge(0.00001);
+    $expander = new PolynomialExpander($regressionOrder ?? 3);
 
     // Transform features
     $samplesTransformed = $samples;

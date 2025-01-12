@@ -50,11 +50,12 @@ try {
     // Create regression model
     $regression = new LeastSquares();
 
-    // Transform features to include squared term using Matrix operations
+    // Polynomial expander - transform features to include squared and cubed terms
     $samplesTransformed = array_map(function($sample) {
         return [
             $sample[0],           // original feature
-            pow($sample[0], 2)    // squared feature
+            pow($sample[0], 2),   // squared feature
+            pow($sample[0], 3)    // cubed feature
         ];
     }, $samples);
 
@@ -77,10 +78,12 @@ try {
         [$stats['max_rooms']]  // Largest in dataset
     ];
 
+    // Polynomial expander - transform features to include squared and cubed terms
     $samplesTransformed = array_map(function($sample) {
         return [
             $sample[0],           // original feature
-            pow($sample[0], 2)    // squared feature
+            pow($sample[0], 2),   // squared feature
+            pow($sample[0], 3)    // cubed feature
         ];
     }, $testSamples);
 

@@ -2,80 +2,102 @@
 
 require APP_PATH . 'vendor/autoload.php';
 
+use Phpml\Dataset\CsvDataset;
 use Phpml\Regression\LeastSquares;
 use Phpml\Metric\Regression;
 use Phpml\Preprocessing\Normalizer;
 use Phpml\Math\Matrix;
 
-// Training data
-$samples = [[1], [2], [3], [4], [5], [6]];
-$targets = [2.1, 7.8, 13.5, 26.1, 42.8, 61.2];
+try {
+    // Load the raw data from CSV
+    $dataset = new CsvDataset(dirname(__FILE__) . '/data/boston_housing.csv', 13, true);
 
-// Create regression model
-$regression = new LeastSquares();
+    // Get the 6th column (index 5 since arrays are zero-based)
+    $samples = array_map(function($row) {
+        return [(float)$row[5]];
+    }, $dataset->getSamples());
 
-// Transform features to include squared term using Matrix operations
-$matrix = new Matrix($samples);
-$squaredFeatures = array_map(function($sample) {
-    return [
-        $sample[0],           // original feature
-        pow($sample[0], 2)    // squared feature
+    // Convert targets to float values (prices in thousands)
+    $targets = array_map(function($target) {
+        return (float)$target;
+    }, $dataset->getTargets());
+
+    // Calculate dataset statistics
+    $rooms = array_column($samples, 0);
+    $stats = [
+        'min_rooms' => min($rooms),
+        'max_rooms' => max($rooms),
+        'avg_rooms' => array_sum($rooms) / count($rooms),
+        'sample_count' => count($rooms)
     ];
-}, $samples);
 
-// Train the model with original and squared features
-$regression->train($squaredFeatures, $targets);
+    // Display dataset statistics
+    echo "\nDataset Statistics:";
+    echo "\n-----------------\n";
+    printf("Number of samples: %d\n", $stats['sample_count']);
+    printf("Average rooms: %.2f\n", $stats['avg_rooms']);
+    printf("Room range: %.1f - %.1f\n", $stats['min_rooms'], $stats['max_rooms']);
 
-// Make predictions for new values
-$testSamples = [[7], [8], [9]];
-$newSquaredFeatures = array_map(function($sample) {
-    return [
-        $sample[0],           // original feature
-        pow($sample[0], 2)    // squared feature
+    // Validation checks
+    if (empty($samples) || empty($targets)) {
+        throw new InvalidArgumentException('Empty training data provided');
+    }
+
+    if (count($samples) !== count($targets)) {
+        throw new InvalidArgumentException("Number of samples doesn't match number of targets");
+    }
+
+    // Create regression model
+    $regression = new LeastSquares();
+
+    // Transform features to include squared term using Matrix operations
+    $samplesTransformed = array_map(function($sample) {
+        return [
+            $sample[0],           // original feature
+            pow($sample[0], 2)    // squared feature
+        ];
+    }, $samples);
+
+    // Train the model
+    echo "\nTraining model...\n";
+
+    // Train the model with original and squared features
+    $regression->train($samplesTransformed, $targets);
+
+    // Make predictions
+    echo "\nPredicting house prices...\n";
+
+    // Prepare test samples
+    $testSamples = [
+        [5.5],  // Small house
+        [6.0],  // Medium house
+        [8.0],  // Large house
+        [$stats['min_rooms'] + ($stats['max_rooms'] - $stats['min_rooms']) / 2],  // Middle
+        [$stats['min_rooms']], // Smallest in dataset
+        [$stats['max_rooms']]  // Largest in dataset
     ];
-}, $testSamples);
 
-$predictions = $regression->predict($newSquaredFeatures);
+    $samplesTransformed = array_map(function($sample) {
+        return [
+            $sample[0],           // original feature
+            pow($sample[0], 2)    // squared feature
+        ];
+    }, $testSamples);
 
-// Print predictions
-echo "Predictions for new samples:\n";
-foreach ($testSamples as $index => $sample) {
-    echo sprintf(
-        "Input: x = %d, Predicted y = %.2f\n",
-        $sample[0],
-        $predictions[$index]
-    );
+    $predictions = $regression->predict($samplesTransformed);
+
+    // Display results
+    echo "\nPrice Predictions:";
+    echo "\n-----------------\n";
+    foreach (array_map(null, $testSamples, $predictions) as [$rooms, $price]) {
+        printf(
+            "A house with %.1f rooms is predicted to cost $%s\n",
+            $rooms[0],
+            number_format($price * 1000, 2)
+        );
+    }
+
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage() . "\n";
+    exit(1);
 }
-
-////////////////////////////////////////////////
-
-// Get and print model parameters
-$coefficients = $regression->getCoefficients();
-$intercept = $regression->getIntercept();
-
-echo "\nModel parameters:\n";
-echo sprintf("Intercept: %.4f\n", $intercept);
-echo sprintf("Coefficient for x: %.4f\n", $coefficients[0]);
-echo sprintf("Coefficient for x^2: %.4f\n", $coefficients[1]);
-
-// Calculate predictions for training data
-$trainPredictions = $regression->predict($squaredFeatures);
-
-// Use PHP-ML's built-in metrics
-$r2score = Regression::r2Score($targets, $trainPredictions);
-$mse = Regression::meanSquaredError($targets, $trainPredictions);
-$rmse = sqrt($mse);
-
-echo sprintf("\nMetrics using PHP-ML:\n");
-echo sprintf("R-squared: %.4f\n", $r2score);
-echo sprintf("MSE: %.4f\n", $mse);
-echo sprintf("RMSE: %.4f\n", $rmse);
-
-// Optional: Use Normalizer if needed
-$normalizer = new Normalizer();
-$normalizer->transform($squaredFeatures);
-$normalizedFeatures = $squaredFeatures;
-
-// Example of using normalized features
-$normalizedRegression = new LeastSquares();
-$normalizedRegression->train($normalizedFeatures, $targets);

@@ -97,7 +97,7 @@ echo "\nTesting the perceptron:\n";
 foreach ($testCases as $index => $test) {
     echo "Test case " . ($index + 1) . ":\n";
     displayDigit($test);
-    $result = $perceptron->predict($test);
+    $result = $perceptron->predict($test) ? 'Yes' : 'No';
     echo "Prediction: " . $result . "\n\n";
 }
 

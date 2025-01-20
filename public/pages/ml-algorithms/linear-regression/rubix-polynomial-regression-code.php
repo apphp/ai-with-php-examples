@@ -76,11 +76,11 @@ try {
     ];
 
     // Transform test samples
-    $samplesTransformed = $testSamples;
-    $expander->transform($samplesTransformed);
+    $testSamplesTransformed = $testSamples;
+    $expander->transform($testSamplesTransformed);
 
     // Create unlabeled dataset for prediction
-    $testDataset = new Unlabeled($samplesTransformed);
+    $testDataset = new Unlabeled($testSamplesTransformed);
 
     // Make predictions
     $predictions = $regression->predict($testDataset);

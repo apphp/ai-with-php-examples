@@ -9,7 +9,7 @@
     <br>
     Official repository: <a href="https://github.com/apphp/ai-with-php-examples" target="_blank" rel="nofollow noopener">GitHub Repository</a>
     <br><br>
-    <p>All code examples are written in PHP8.3</p>
+    <p>All code examples are written in PHP8.2</p>
 </div>
 
 <hr>

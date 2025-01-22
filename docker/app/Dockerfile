@@ -1,6 +1,8 @@
-FROM php:8.3-fpm
+FROM php:8.2-fpm
 
+# ------------------------------
 # Install system dependencies
+# ------------------------------
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip \
@@ -15,7 +17,35 @@ RUN apt-get update && apt-get install -y \
 # Install PHP extensions
 RUN docker-php-ext-install zip pdo_mysql bcmath xml mbstring curl gd
 
+# ------------------------------
+# Install dependencies for Tensor
+# ------------------------------
+RUN apt-get update && \
+    apt-get install -y \
+    libopenblas-dev \
+    libblas-dev \
+    liblapack-dev \
+    liblapacke-dev \
+    libatlas-base-dev \
+    gfortran \
+    gcc \
+    g++ \
+    make \
+    autoconf && \
+    ln -s /usr/include/x86_64-linux-gnu/cblas.h /usr/include/cblas.h
+
+# Set BLAS environment variables
+ENV OPENBLAS_NUM_THREADS=1
+ENV GOTO_NUM_THREADS=1
+ENV OMP_NUM_THREADS=1
+
+# Install the Tensor extension
+RUN pecl install tensor && \
+    docker-php-ext-enable tensor
+
+# ------------------------------
 # Install Composer
+# ------------------------------
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory

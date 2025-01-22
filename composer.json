@@ -5,7 +5,7 @@
     "license": "MIT",
     "version": "0.3.0",
     "require": {
-        "php": "~8.3.0",
+        "php": "~8.2.0",
         "php-ai/php-ml": "^0.10.0",
         "rubix/ml": "^2.5.1"
     },

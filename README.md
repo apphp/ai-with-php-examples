@@ -64,6 +64,7 @@ To install these examples, follow these steps:
       - Simple Linear Layer
       - Fully Connected Layer
       - ReLU Activation
+    - Eigenvalues and Eigenvectors
   - Data Fundamentals
     - Big Data Techniques in PHP
       - Chunked Processing

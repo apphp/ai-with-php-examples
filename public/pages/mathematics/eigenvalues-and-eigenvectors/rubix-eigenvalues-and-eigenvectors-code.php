@@ -25,7 +25,8 @@ try {
     $eigenvalues = $eig->eigenvalues();
     $eigenvectors = $eig->eigenvectors()->asArray();
 
-    ddd($eigenvectors);
+    print_r($eigenvalues);
+    print_r($eigenvectors);
 
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage() . PHP_EOL;

@@ -84,7 +84,9 @@ function create_example_of_use_links(string $datasetFile = '', string $title = '
             Copy
             </button>&nbsp;
         </div>
-        <code id="code">' . highlight_file($datasetFile, true) . '</code>';
+        <div class="code-wrapper">
+            <code id="code">' . highlight_file($datasetFile, true) . '</code>
+        </div>';
     } else {
         $output = '
         <p class="btn btn-link px-0 py-0" id="toggleExampleOfUse" data-bs-toggle="collapse" href="#collapseExampleOfUse" role="button" aria-expanded="false" aria-controls="collapseExampleOfUse" title="Click to expand">
@@ -94,7 +96,9 @@ function create_example_of_use_links(string $datasetFile = '', string $title = '
             <div class="bd-clipboard">
                 <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>&nbsp;
             </div>
-            <code id="code">' . highlight_file($datasetFile, true) . '</code>
+            <div class="code-wrapper">
+                <code id="code">' . highlight_file($datasetFile, true) . '</code>
+            </div>
         </div>';
     }
 

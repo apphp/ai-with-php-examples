@@ -178,6 +178,16 @@ ui.list li {
 /***********************
  * CODE
  ***********************/
+.code-wrapper {
+  background-color: #f8f9fa;
+  padding: 8px 10px;
+  border-radius: .2rem;
+  border: 1px solid #f2f3f4;
+  line-height: 1.15;
+}
+.code-wrapper span {
+  background-color: #f8f9fa;
+}
 code pre {
   background-color: #f8f9fa;
   padding: 10px;

@@ -49,9 +49,11 @@ $memoryEnd = memory_get_usage();
             </button>
             &nbsp;
         </div>
-        <code id="code">
-            <?= highlight_file(dirname(__FILE__) . '/bidirectional-search-code-usage.php', true); ?>
-        </code>
+        <div class="code-wrapper">
+            <code id="code">
+                <?= highlight_file(dirname(__FILE__) . '/bidirectional-search-code-usage.php', true); ?>
+            </code>
+        </div>
     </div>
 </div>
 

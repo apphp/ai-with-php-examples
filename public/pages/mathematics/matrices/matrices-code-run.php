@@ -41,9 +41,11 @@ $memoryEnd = memory_get_usage();
             </button>
             &nbsp;
         </div>
-        <code id="code">
+        <div class="code-wrapper">
+            <code id="code">
             <?= highlight_file(dirname(__FILE__) . '/matrices-code-usage.php', true); ?>
-        </code>
+            </code>
+        </div>
     </div>
 </div>
 

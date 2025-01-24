@@ -38,10 +38,10 @@
     <link href="<?=APP_URL?>assets/dist/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
 
     <script src="<?=APP_URL?>assets/global.js"></script>
-    <script src="<?=APP_URL?>assets/dist/js/chart.js"></script>
-    <script src="<?=APP_URL?>assets/dist/js/regression.min.js"></script>
-    <script src="<?=APP_URL?>assets/dist/js/plotly-latest.min.js"></script>
-    <script src="<?=APP_URL?>assets/dist/js/mermaid.min.js"></script>
+    <script src="<?=APP_URL?>assets/dist/js//chartjs/chart.js"></script>
+    <script src="<?=APP_URL?>assets/dist/js/chartjs/regression.min.js"></script>
+    <script src="<?=APP_URL?>assets/dist/js/plotly/plotly-latest.min.js"></script>
+    <script src="<?=APP_URL?>assets/dist/js/mermaid/mermaid.min.js"></script>
     <script>
         window.MathJax = {
             tex: {
@@ -50,13 +50,13 @@
             }
         };
     </script>
-    <script type="text/javascript" id="MathJax-script" src="<?=APP_URL?>assets/dist/js/tex-mml-chtml.js"></script>
+    <script type="text/javascript" id="MathJax-script" src="<?=APP_URL?>assets/dist/js/mathjax/tex-mml-chtml.js"></script>
 
-    <!-- Include React and ReactDOM -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-    <!-- Include Babel for JSX transformation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <!-- Include React and ReactDOM v18.2.0 -->
+    <script src="<?=APP_URL?>assets/dist/js/react/react.production.min.js"></script>
+    <script src="<?=APP_URL?>assets/dist/js/react/react-dom.production.min.js"></script>
+    <!-- Include Babel for JSX transformation v7.23.5 -->
+    <script src="<?=APP_URL?>assets/dist/js/babel/babel.min.js"></script>
 
 </head>
 <body<?=$dataTheme;?>>
@@ -91,8 +91,8 @@
     </div>
 </div>
 
-<script src="<?=APP_URL?>assets/dist/js/bootstrap.bundle.min.js"></script>
-<script src="<?=APP_URL?>assets/dist/js/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+<script src="<?=APP_URL?>assets/dist/js/bootstrap/bootstrap.bundle.min.js"></script>
+<!-- ??? <script src="--><?php //=APP_URL?><!--assets/dist/js/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>-->
 <script src="<?=APP_URL?>assets/dashboard.js"></script>
 <script src="<?=APP_URL?>assets/dist/js/dark-mode-switch.js"></script>
 

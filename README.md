@@ -35,7 +35,7 @@ To install these examples, follow these steps:
   - Plotly.js [https://plotly.com/javascript/](https://plotly.com/javascript/)
   - Mermaid.js [https://mermaid.js.org/](https://mermaid.js.org/)
   - MathJax [https://www.mathjax.org/](https://www.mathjax.org/)
-  - Regression-js [https://tom-alexander.github.io/regression-js/]
+  - Regression-js [https://tom-alexander.github.io/regression-js/](https://tom-alexander.github.io/regression-js/)
 
 ## The Following Examples are Available:
 - Artificial Intelligence

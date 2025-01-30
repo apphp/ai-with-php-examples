@@ -14,10 +14,11 @@ $menu = [
                     'index',
                     'breadth-first-search', 'breadth-first-search-code-run',
                     'depth-first-search', 'depth-first-search-code-run',
-                    'depth-limited-search', 'depth-limited-search-code-run',
                     'iterative-deepening-depth-first-search', 'iterative-deepening-depth-first-search-code-run',
                     'uniform-cost-search', 'uniform-cost-search-code-run',
                     'bidirectional-search', 'bidirectional-search-code-run',
+                    'depth-limited-search', 'depth-limited-search-code-run',
+                    'random-walk-search', 'random-walk-search-code-run',
                 ]],
                 ['section' => 'search-algorithms', 'subSection' => 'informed-search', 'page' => 'index', 'title' => 'Informed Search', 'permissions' => [
                     'index',

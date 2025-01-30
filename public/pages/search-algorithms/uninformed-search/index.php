@@ -11,14 +11,21 @@
         possible state until the goal is found.
     </p>
 
-
+    <h3 class="h5">Global Search</h3>
     <ui class="list">
         <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'breadth-first-search') ?>">Breadth-First Search (BFS)</a></li>
         <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'depth-first-search') ?>">Depth-First Search (DFS)</a></li>
-        <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'depth-limited-search') ?>">Depth-Limited Search (DLS)</a></li>
-        <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'iterative-deepening-depth-first-search') ?>">Iterative Deepening Depth-First Search (IDDFS)</a></li>
         <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'uniform-cost-search') ?>">Uniform Cost Search (UCS)</a></li>
+        <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'iterative-deepening-depth-first-search') ?>">Iterative Deepening Depth-First Search (IDDFS)</a></li>
         <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'bidirectional-search') ?>">Bidirectional Search (BDS)</a></li>
+    </ui>
+    <br>
+    <br>
+
+    <h3 class="h5">Local Search</h3>
+    <ui class="list">
+        <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'depth-limited-search') ?>">Depth-Limited Search (DLS)</a></li>
+        <li><a href="<?= create_href('search-algorithms', 'uninformed-search', 'random-walk-search') ?>">Random Walk Search (RWS)</a></li>
     </ui>
 </div>
 

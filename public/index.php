@@ -58,6 +58,18 @@
     <!-- Include Babel for JSX transformation v7.23.5 -->
     <script src="<?=APP_URL?>assets/dist/js/babel/babel.min.js"></script>
 
+    <?php if(defined('GOOGLE_CID') && GOOGLE_CID): ?>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?=GOOGLE_CID?>"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '<?=GOOGLE_CID?>');
+        </script>
+    <?php endif; ?>
+
 </head>
 <body<?=$dataTheme;?>>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">

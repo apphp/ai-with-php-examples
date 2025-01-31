@@ -39,7 +39,8 @@ To install these examples, follow these steps:
 
 ## The Following Examples are Available:
 - Artificial Intelligence
-  - Search Algoritms
+
+  - Search Algorithms
     - Uninformed (Blind) Search
       - Breadth-First Search (BFS)
       - Depth-First Search (DFS)

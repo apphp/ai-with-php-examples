@@ -7,7 +7,7 @@ $menu = [
     ],
     '<i class="fas fa-brain me-1"></i> Artificial Intelligence' => [
         [
-            'title' => 'Search Algoritms',
+            'title' => 'Search Algorithms',
             'subMenu' => [
                 ['section' => 'search-algorithms', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
                 ['section' => 'search-algorithms', 'subSection' => 'uninformed-search', 'page' => 'index', 'title' => 'Uninformed Search', 'permissions' => [

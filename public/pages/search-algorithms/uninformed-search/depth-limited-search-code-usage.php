@@ -36,14 +36,14 @@ echo "--------------------------------------\n";
 
 foreach ($depths as $maxDepth) {
     echo "\nTrying DLS with max depth = $maxDepth to find node 'J':\n";
-    $result = $graph->dls('S', $maxDepth, 'J');
+    $searchResult = $graph->dls('S', $maxDepth, 'J');
 
-    echo $result['found']
+    echo $searchResult['found']
         ? "✓ Target 'J' found within depth limit!\n"
-        : "✗ Target 'J' not found within depth limit of {$result['maxDepth']}\n";
+        : "✗ Target 'J' not found within depth limit of {$searchResult['maxDepth']}\n";
 
     echo "Path explored:\n";
-    foreach ($result['path'] as $node) {
+    foreach ($searchResult['path'] as $node) {
         echo sprintf("  Node: %s (Level %d, Search Depth %d)\n",
             $node['vertex'],
             $node['level'],

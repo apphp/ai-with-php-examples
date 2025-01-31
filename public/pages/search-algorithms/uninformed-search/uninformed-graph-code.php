@@ -347,6 +347,66 @@ class UninformedSearchGraph {
         ];
     }
 
+    public function rws(string $startVertex, string $targetVertex = null, int $maxSteps = 1000): array {
+        if (!isset($this->adjacencyList[$startVertex])) {
+            throw new InvalidArgumentException("Start vertex does not exist in the graph.");
+        }
+
+        $path = [];
+        $visited = [];
+        $currentVertex = $startVertex;
+        $steps = 0;
+        $found = false;
+
+        // Add start vertex to path
+        $path[] = [
+            'vertex' => $currentVertex,
+            'level' => $this->levels[$currentVertex],
+            'step' => $steps
+        ];
+
+        while ($steps < $maxSteps) {
+            // Check if we've found the target
+            if ($targetVertex !== null && $currentVertex === $targetVertex) {
+                $found = true;
+                break;
+            }
+
+            // Get neighbors of current vertex
+            $neighbors = $this->adjacencyList[$currentVertex];
+
+            // If no neighbors, break
+            if (empty($neighbors)) {
+                break;
+            }
+
+            // Randomly select next vertex
+            $nextVertex = $neighbors[array_rand($neighbors)];
+            $steps++;
+
+            // Track visited nodes (optional, can be removed if you want pure random walk)
+            $visited[$currentVertex] = ($visited[$currentVertex] ?? 0) + 1;
+
+            // Add to path
+            $path[] = [
+                'vertex' => $nextVertex,
+                'level' => $this->levels[$nextVertex],
+                'step' => $steps,
+                'visits' => $visited[$nextVertex] ?? 0
+            ];
+
+            $currentVertex = $nextVertex;
+        }
+
+        return [
+            'success' => $found,
+            'path' => $path,
+            'steps' => $steps,
+            'maxSteps' => $maxSteps,
+            'visited' => $visited
+        ];
+    }
+
     private function processBdsQueue(
         SplQueue $queue,
         array &$currentVisited,
@@ -500,6 +560,33 @@ class UninformedSearchGraph {
         echo sprintf("Total Cost: %.2f\n", $result['cost']);
     }
 
+    // Add a helper method to print random search results
+    public function printRwsPath(array $result): void {
+        echo sprintf("\nRandom Search %s\n",
+            $result['success'] ? "found target!" : "did not find target."
+        );
+
+        echo sprintf("Total steps taken: %d/%d\n",
+            $result['steps'],
+            $result['maxSteps']
+        );
+
+        echo "\nPath taken:\n";
+        foreach ($result['path'] as $node) {
+            echo sprintf("Step %d: Node %s (Level %d, Visits: %d)\n",
+                $node['step'],
+                $node['vertex'],
+                $node['level'],
+                $node['visits'] ?? 0
+            );
+        }
+
+        echo "\nVisit counts:\n";
+        foreach ($result['visited'] as $vertex => $count) {
+            echo sprintf("Node %s: visited %d times\n", $vertex, $count);
+        }
+    }
+
     // Helper method to print the adjacency list (for debugging)
     public function printGraph(): void {
         foreach ($this->adjacencyList as $vertex => $neighbors) {
@@ -509,5 +596,121 @@ class UninformedSearchGraph {
                 implode(', ', $neighbors)
             );
         }
+    }
+}
+
+class SearchVisualizer {
+    private array $allNodes;
+    private array $allEdges;
+    private array $visitedEdges;
+    private array $nodeLevels;
+    private UninformedSearchGraph $graph;
+
+    public function __construct(UninformedSearchGraph $graph) {
+        $this->graph = $graph;
+        $this->allNodes = [];
+        $this->allEdges = [];
+        $this->visitedEdges = [];
+        $this->nodeLevels = [];
+
+        // Get graph structure from UninformedSearchGraph
+        $this->initializeGraphStructure();
+    }
+
+    private function initializeGraphStructure(): void {
+        // Get adjacency list from the graph
+        $adjacencyList = $this->graph->getAdjacencyList();
+
+        // Build nodes and edges from adjacency list
+        foreach ($adjacencyList as $vertex => $neighbors) {
+            if (!in_array($vertex, $this->allNodes)) {
+                $this->allNodes[] = $vertex;
+            }
+
+            foreach ($neighbors as $neighbor) {
+                if (!in_array($neighbor, $this->allNodes)) {
+                    $this->allNodes[] = $neighbor;
+                }
+
+                // Add edge in both directions since it's undirected
+                $edge = "$vertex-$neighbor";
+                $reverseEdge = "$neighbor-$vertex";
+
+                if (!in_array($edge, $this->allEdges) && !in_array($reverseEdge, $this->allEdges)) {
+                    $this->allEdges[] = $edge;
+                }
+            }
+        }
+    }
+
+    public function generateVisualization(array $searchResult): array {
+        // Reset state
+        $this->visitedEdges = [];
+
+        // Extract path information
+        $path = $searchResult['path'];
+
+        // Generate steps array
+        $steps = [];
+        $prevNode = null;
+
+        foreach ($path as $node) {
+            $currentNode = $node['vertex'];
+            $level = $node['level'];
+
+            // Store node level
+            $this->nodeLevels[$currentNode] = $level;
+
+            // Add to all nodes if not exists
+            if (!in_array($currentNode, $this->allNodes)) {
+                $this->allNodes[] = $currentNode;
+            }
+
+            // Create edge if we have a previous node
+            if ($prevNode !== null) {
+                $edge = "$prevNode-$currentNode";
+                if (!in_array($edge, $this->allEdges)) {
+                    $this->allEdges[] = $edge;
+                }
+                $this->visitedEdges[] = $edge;
+            }
+
+            // Create step info
+            $levelNames = ['root', 'first level', 'second level', 'third level', 'fourth level'];
+            $info = $currentNode === end($path)['vertex']
+                ? "Visiting {$levelNames[$level]} node $currentNode - Search complete!"
+                : "Visiting {$levelNames[$level]} node $currentNode";
+
+            $steps[] = [
+                'visit' => $currentNode,
+                'info' => $info,
+                'edge' => $prevNode !== null ? "$prevNode-$currentNode" : null
+            ];
+
+            $prevNode = $currentNode;
+        }
+
+        // Generate Mermaid graph
+        $graph = $this->generateMermaidGraph();
+
+        return [
+            'graph' => $graph,
+            'steps' => json_encode($steps),
+            'defaultMessage' => 'Starting RWS traversal...',
+            'startNode' => $path[0]['vertex'],
+            'endNode' => end($path)['vertex']
+        ];
+    }
+
+    private function generateMermaidGraph(): string {
+        $graphLines = ['graph TB'];
+
+        // Add all edges to maintain complete graph structure
+        foreach ($this->allEdges as $edge) {
+            list($from, $to) = explode('-', $edge);
+            $graphLines[] = "    $from(($from))-->$to(($to))";
+        }
+
+        return implode("\n", $graphLines);
     }
 }

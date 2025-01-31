@@ -43,10 +43,11 @@ To install these examples, follow these steps:
     - Uninformed (Blind) Search
       - Breadth-First Search (BFS)
       - Depth-First Search (DFS)
-      - Depth-Limited Search (DLS)
       - Iterative Deepening Depth-First Search (IDDFS)
       - Uniform Cost Search (UCS)
       - Bidirectional Search (BDS)
+      - Depth-Limited Search (DLS)
+      - Random Walk Search (RWS)
     - Informed (Heuristic) Search
       - Greedy Search
       - A* Tree Search

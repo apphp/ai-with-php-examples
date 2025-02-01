@@ -35,4 +35,4 @@ $searchResult = $graph->bfs('S');
 echo "BFS traversal starting from vertex 'S':\n";
 echo "--------------------------------------\n\n";
 
-$graph->printPath($searchResult['path']);
+$graph->printPath($searchResult);

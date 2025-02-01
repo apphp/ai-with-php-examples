@@ -643,7 +643,10 @@ class SearchVisualizer {
         }
     }
 
-    public function generateVisualization(array $searchResult): array {
+    public function generateVisualization(array $searchResult, bool $showOriginalGraph = false): array {
+        // First, generate the original graph visualization if requested
+        $originalGraph = $showOriginalGraph ? $this->generateMermaidGraph() : null;
+
         // Reset state
         $this->visitedEdges = [];
 
@@ -695,8 +698,8 @@ class SearchVisualizer {
 
         return [
             'graph' => $graph,
+            'originalGraph' => $originalGraph,
             'steps' => json_encode($steps),
-            'defaultMessage' => 'Starting RWS traversal...',
             'startNode' => $path[0]['vertex'],
             'endNode' => end($path)['vertex']
         ];
@@ -705,10 +708,52 @@ class SearchVisualizer {
     private function generateMermaidGraph(): string {
         $graphLines = ['graph TB'];
 
-        // Add all edges to maintain complete graph structure
+        // Track visited nodes and their sequence
+        $visitedNodesSequence = [];
+        foreach ($this->visitedEdges as $edge) {
+            list($from, $to) = explode('-', $edge);
+            $visitedNodesSequence[] = $from;
+            $visitedNodesSequence[] = $to;
+        }
+
+        // Function to check if an edge represents backward traversal
+        $isBackwardEdge = function($from, $to) use ($visitedNodesSequence) {
+            // Get the first occurrence of both nodes
+            $fromIndex = array_search($from, $visitedNodesSequence);
+            $toIndex = array_search($to, $visitedNodesSequence);
+
+            // If we're going to a node we've seen before and it's earlier in the sequence,
+            // it's a backward edge
+            return $toIndex !== false && $fromIndex !== false && $toIndex < $fromIndex;
+        };
+
+        // Keep track of edge index for styling
+        $edgeIndex = 0;
+        $backwardEdgeIndices = [];
+
+        // Add edges with appropriate styling
         foreach ($this->allEdges as $edge) {
             list($from, $to) = explode('-', $edge);
-            $graphLines[] = "    $from(($from))-->$to(($to))";
+
+            if (in_array($edge, $this->visitedEdges)) {
+                // Check if this is a backward edge
+                if ($isBackwardEdge($from, $to)) {
+                    $backwardEdgeIndices[] = $edgeIndex;
+                }
+            }
+
+            // Add edge without special styling - we'll style it later
+            $graphLines[] = "    $from(($from)) --> $to(($to))";
+            $edgeIndex++;
+        }
+
+        // Add style definitions
+        $graphLines[] = "    classDef default fill:#fff,stroke:#333,stroke-width:2px";
+        $graphLines[] = "    linkStyle default stroke:#333,stroke-width:2px";
+
+        // Style backward edges with dotted lines
+        if (!empty($backwardEdgeIndices)) {
+            $graphLines[] = "    linkStyle " . implode(',', $backwardEdgeIndices) . " stroke:#666,stroke-width:1px,stroke-dasharray: 5";
         }
 
         return implode("\n", $graphLines);

@@ -29,10 +29,10 @@ $graph->addEdge('B', 'H');
 $graph->addEdge('G', 'I');
 
 // Perform DFS starting from 'S' to find 'K'
-$bfsResult = $graph->bfs('S');
+$searchResult = $graph->bfs('S');
 
 // Output the BFS traversal
 echo "BFS traversal starting from vertex 'S':\n";
 echo "--------------------------------------\n\n";
 
-$graph->printPath($bfsResult);
+$graph->printPath($searchResult);

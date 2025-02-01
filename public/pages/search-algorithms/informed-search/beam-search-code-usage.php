@@ -47,10 +47,10 @@ foreach ($beamWidths as $width) {
 
     echo "Beam Search (width = $width):\n";
     echo "=========================\n";
-    $path = $graph->beamSearch('A', 'G', $width);
+    $searchResult = $graph->beamSearch('A', 'G', $width);
 
-    if ($path) {
-        $graph->printPath($path);
+    if ($searchResult) {
+        $graph->printPath($searchResult);
     } else {
         echo "No path found!\n";
     }

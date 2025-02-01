@@ -28,9 +28,9 @@ $graph->addEdge('C', 'G', 4.0);
 echo "Performing A* Tree Search from S to G:\n";
 echo "-------------------------------------\n\n";
 
-$path = $graph->aStarTreeSearch('S', 'G');
-if ($path !== null) {
-    $graph->printPath($path);
+$searchResult = $graph->aStarTreeSearch('S', 'G');
+if ($searchResult !== null) {
+    $graph->printPath($searchResult);
 } else {
     echo "No path found!\n";
 }

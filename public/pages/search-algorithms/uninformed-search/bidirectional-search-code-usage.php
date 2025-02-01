@@ -43,19 +43,19 @@ $graph->addEdge('K', 'O');
 // Perform bidirectional search from A to O
 echo "Bidirectional Search from A to O:\n";
 echo "--------------------------------\n";
-$result = $graph->bds('A', 'O');
+$searchResult = $graph->bds('A', 'O');
 
 // Print detailed search results
-$graph->printBdsPath($result);
+$graph->printBdsPath($searchResult);
 
 // Let's analyze the intersection at node H
-if ($result['success'] && $result['intersectionVertex'] === 'H') {
+if ($searchResult['success'] && $searchResult['intersectionVertex'] === 'H') {
     echo "\nSearch Analysis:\n";
     echo "----------------\n";
 
     // Forward search path to H
     echo "Forward search path (A → H):\n";
-    foreach ($result['forwardExplored'] as $node) {
+    foreach ($searchResult['forwardExplored'] as $node) {
         if ($node['vertex'] === 'H') {
             echo "→ Reached intersection node H\n";
             break;
@@ -65,7 +65,7 @@ if ($result['success'] && $result['intersectionVertex'] === 'H') {
 
     // Backward search path to H
     echo "\nBackward search path (O → H):\n";
-    foreach ($result['backwardExplored'] as $node) {
+    foreach ($searchResult['backwardExplored'] as $node) {
         if ($node['vertex'] === 'H') {
             echo "→ Reached intersection node H\n";
             break;
@@ -75,7 +75,7 @@ if ($result['success'] && $result['intersectionVertex'] === 'H') {
 
     // Complete path
     echo "\nComplete path found (A → O through H):\n";
-    foreach ($result['path'] as $node) {
+    foreach ($searchResult['path'] as $node) {
         echo "→ {$node['vertex']} (Level {$node['level']})";
         if ($node['vertex'] === 'H') {
             echo " [INTERSECTION]";
@@ -87,10 +87,10 @@ if ($result['success'] && $result['intersectionVertex'] === 'H') {
 // Verify we have a valid path through H
 echo "\nPath verification:\n";
 echo "-----------------\n";
-if ($result['success']) {
+if ($searchResult['success']) {
     echo "✓ Path successfully found\n";
     echo "✓ Intersection occurred at node H\n";
-    echo "✓ Total nodes in path: " . count($result['path']) . "\n";
+    echo "✓ Total nodes in path: " . count($searchResult['path']) . "\n";
 } else {
     echo "✗ No valid path found\n";
 }

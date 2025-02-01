@@ -27,11 +27,11 @@ $graph->addEdge('E', 'G', 5);
 // Perform UCS from S to G
 echo "UCS traversal starting from vertex 'S':\n";
 echo "--------------------------------------\n";
-$result = $graph->ucs('S', 'G');
+$searchResult = $graph->ucs('S', 'G');
 
 // Print the result
 echo "\nUCS Path Result:\n";
-$graph->printUcsPath($result);
+$graph->printUcsPath($searchResult);
 
 echo "\nThe output should show S -> A -> D -> G as the optimal path";
 echo "\nwith a total cost of 1 + 2 + 3 = 6";

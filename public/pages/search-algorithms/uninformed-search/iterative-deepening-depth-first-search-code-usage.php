@@ -32,15 +32,15 @@ $graph->addEdge('E', 'J');
 echo "Performing IDDFS to find node 'F':\n";
 echo "---------------------------------\n";
 
-$result = $graph->iddfs('S', 'F');
+$searchResult = $graph->iddfs('S', 'F');
 
 // Output the DFS traversal
 echo "\nSearch Results:\n";
-echo "Target found: " . ($result['success'] ? "Yes" : "No") . "\n";
-echo "Final depth: " . $result['final_depth'] . "\n\n";
+echo "Target found: " . ($searchResult['success'] ? "Yes" : "No") . "\n";
+echo "Final depth: " . $searchResult['final_depth'] . "\n\n";
 
 // Print paths explored at each depth
-foreach ($result['paths'] as $depthResult) {
+foreach ($searchResult['paths'] as $depthResult) {
     echo "Depth " . $depthResult['depth_limit'] . ":\n";
     foreach ($depthResult['path'] as $node) {
         echo sprintf("  Node: %s (Level %d)\n",

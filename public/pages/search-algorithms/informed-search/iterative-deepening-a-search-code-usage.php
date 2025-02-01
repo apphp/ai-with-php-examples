@@ -23,9 +23,9 @@ $graph->addEdge('C', 'F', 3.0);
 echo "Performing IDA* Search from A to F:\n";
 echo "----------------------------------\n\n";
 
-$path = $graph->idaStarSearch('A', 'F');
-if ($path) {
-    $graph->printPath($path);
+$searchResult = $graph->idaStarSearch('A', 'F');
+if ($searchResult) {
+    $graph->printPath($searchResult);
 } else {
     echo "No path found!\n";
 }

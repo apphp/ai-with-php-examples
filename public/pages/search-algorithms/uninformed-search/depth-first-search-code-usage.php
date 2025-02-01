@@ -27,9 +27,9 @@ $graph->addEdge('H', 'I');
 $graph->addEdge('H', 'J');
 
 // Perform DFS starting from 'S' to find 'K'
-$dfsResult = $graph->dfs('S', 'K');
+$searchResult = $graph->dfs('S', 'K');
 
 // Output the DFS traversal
 echo "DFS traversal starting from vertex 'S':\n";
 echo "--------------------------------------\n\n";
-$graph->printPath($dfsResult);
+$graph->printPath($searchResult);

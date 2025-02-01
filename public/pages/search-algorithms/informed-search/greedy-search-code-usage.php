@@ -22,11 +22,11 @@ $graph->addEdge('E', 'G');  // E -> G
 echo "Performing Greedy search from S to G:\n";
 echo "------------------------------------\n\n";
 
-$path = $graph->greedySearch('S', 'G');
+$searchResult = $graph->greedySearch('S', 'G');
 
-if ($path !== null) {
+if ($searchResult !== null) {
     echo "Path found:\n";
-    $graph->printPath($path, showCost: false);
+    $graph->printPath($searchResult, showCost: false);
 } else {
     echo "No path found!\n";
 }

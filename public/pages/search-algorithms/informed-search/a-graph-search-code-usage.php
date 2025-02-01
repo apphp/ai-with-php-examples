@@ -29,9 +29,9 @@ $graph->addEdge('E', 'G', 3); // Path to third G (the one highlighted in orange)
 echo "Performing A* Group Search from S to G:\n";
 echo "---------------------------------------\n\n";
 
-$path = $graph->aStarGroupSearch('S', 'G');
-if ($path !== null) {
-    $graph->printPath($path);
+$searchResult = $graph->aStarGroupSearch('S', 'G');
+if ($searchResult !== null) {
+    $graph->printPath($searchResult);
 } else {
     echo "No path found!\n";
 }

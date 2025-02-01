@@ -37,20 +37,11 @@ $memoryEnd = memory_get_usage();
             <p><b>Graph:</b></p>
 
             <?php
-                $graph = '
-                    graph TB
-                        S((S))-->A((A))
-                        S-->B((B))
-                        A-->C((C))
-                        A-->D((D))
-                        C-->E((E))
-                        C-->F((F))
-                        E-->K((K))
-                        B-->G((G))
-                        B-->H((H))
-                        G-->I((I))                     
-                    ';
+                // Generate visualization
+                $visualizer = new SearchVisualizer($graph);
+                $visualization = $visualizer->generateVisualization($searchResult, showOriginalGraph: true );
 
+                $graph = $visualization['originalGraph'];
                 $steps = '[
                     { visit: "S", info: "Starting at root node S", edge: null },
                     { visit: "A", info: "Visiting first level node A", edge: "S-A" },
@@ -73,7 +64,6 @@ $memoryEnd = memory_get_usage();
                     endNode: 'K',
                 );
             ?>
-
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
             <div class="mb-1">

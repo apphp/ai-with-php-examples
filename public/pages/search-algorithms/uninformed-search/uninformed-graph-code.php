@@ -43,6 +43,7 @@ class UninformedSearchGraph {
         $visited = [];
         $queue = new SplQueue();
         $path = [];
+        $steps = 0;
 
         // Mark the starting vertex as visited and enqueue it
         $visited[$startVertex] = true;
@@ -50,11 +51,14 @@ class UninformedSearchGraph {
 
         while (!$queue->isEmpty()) {
             $currentVertex = $queue->dequeue();
+            $steps++;
 
             // Add vertex to path
             $path[] = [
                 'vertex' => $currentVertex,
-                'level' => $this->levels[$currentVertex]
+                'level' => $this->levels[$currentVertex],
+                'step' => $steps,
+                'visits' => $visited[$currentVertex] ?? 0
             ];
 
             // Get all adjacent vertices of the dequeued vertex
@@ -66,7 +70,13 @@ class UninformedSearchGraph {
             }
         }
 
-        return $path;
+        return [
+            'success' => true,
+            'path' => $path,
+            'steps' => $steps,
+            'maxSteps' => 100,
+            'visited' => $visited
+        ];
     }
 
     public function dfs(string $startVertex, string $target = null): array {

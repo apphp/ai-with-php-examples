@@ -56,7 +56,7 @@ $graph->addEdge('N', 'O', 2.5);
 $graph->addEdge('O', 'Q', 2.0);
 
 // Perform hill climbing search from S to G
-echo "Performing Hill Climbing search from S to G:\n";
+echo "Performing Hill Climbing Search from S to G:\n";
 echo "-------------------------------------------\n\n";
 
 $searchResult = $graph->hillClimbingSearch('S', 'G');
@@ -64,7 +64,7 @@ $searchResult = $graph->hillClimbingSearch('S', 'G');
 if ($searchResult === null) {
     echo "No path found!\n";
 } else {
-    echo "[!] Path found using Hill Climbing:\n";
+    echo "[!] Path found using Hill Climbing Search:\n";
     echo "\n\nSearch Analysis:\n";
     echo "---------------\n";
     $graph->searchAnalysis($searchResult);

@@ -11,7 +11,7 @@ $graph->addVertex('C', 1, 2);
 $graph->addVertex('D', 1, 3);
 $graph->addVertex('E', 2, 3);
 $graph->addVertex('F', 2, 1);
-$graph->addVertex('G', 3, 3);  // Goal node, h=0
+$graph->addVertex('G', 3, 0);  // Goal node, h=0
 
 // Add edges with their costs
 // From level 0 to level 1
@@ -39,21 +39,20 @@ echo "------------------------------------\n\n";
 $beam ??= 1;
 
 foreach ($beamWidths as $width) {
-
     // Show only specified width
     if ($width != $beam){
         continue;
     }
 
-    echo "Beam Search (width = $width):\n";
-    echo "=========================\n";
     $searchResult = $graph->beamSearch('A', 'G', $width);
 
-    if ($searchResult) {
-        $graph->printPath($searchResult);
-    } else {
+    if ($searchResult === null) {
         echo "No path found!\n";
+    } else {
+        echo "[!] Path found using Beam Search (width = $width):\n";
+        echo "\n\nSearch Analysis:\n";
+        echo "---------------\n";
+        $graph->searchAnalysis($searchResult);
     }
-    echo "\n";
 }
 

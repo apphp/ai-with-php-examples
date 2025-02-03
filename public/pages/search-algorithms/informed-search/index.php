@@ -24,10 +24,10 @@
 
     <h3 class="h5">Local Search</h3>
     <ui class="list">
-        <li><a _href="<?= create_href('search-algorithms', 'informed-search', 'hill-climbing-algorithm-search') ?>">Hill Climbing Algorithm</a></li>
-        <li><a _href="<?= create_href('search-algorithms', 'informed-search', 'simulated-annealing-search') ?>">Simulated Annealing</a></li>
+        <li><a href="<?= create_href('search-algorithms', 'informed-search', 'hill-climbing-search') ?>">Hill Climbing Search</a></li>
+        <li><a _href="<?= create_href('search-algorithms', 'informed-search', 'simulated-annealing-search') ?>">Simulated Annealing Search</a></li>
         <li><a _href="<?= create_href('search-algorithms', 'informed-search', 'local-beam-search') ?>">Local Beam Search</a></li>
-        <li><a _href="<?= create_href('search-algorithms', 'informed-search', 'genetic-algorithms-search') ?>">Genetic Algorithms</a></li>
+        <li><a _href="<?= create_href('search-algorithms', 'informed-search', 'genetic-algorithms-search') ?>">Genetic Algorithms Search</a></li>
         <li><a _href="<?= create_href('search-algorithms', 'informed-search', 'tabu-search') ?>">Tabu Search</a></li>
     </ui>
 </div>

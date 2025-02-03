@@ -27,6 +27,7 @@ $menu = [
                     'a-graph-search', 'a-graph-search-code-run',
                     'iterative-deepening-a-search', 'iterative-deepening-a-search-code-run',
                     'beam-search', 'beam-search-code-run',
+                    'hill-climbing-search', 'hill-climbing-search-code-run',
                 ]],
             ],
         ],

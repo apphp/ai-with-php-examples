@@ -395,6 +395,161 @@ class InformedSearchGraph {
         return $min;
     }
 
+    public function hillClimbingSearch(string $start, string $goal): ?array {
+        if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
+            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+        }
+
+        $currentVertex = $start;
+        $path = [[
+            'vertex' => $start,
+            'level' => $this->levels[$start],
+            'heuristic' => $this->heuristics[$start]
+        ]];
+
+        $visited = [$start => true];
+        $g_score = [$start => 0]; // Track accumulated cost to reach each node
+
+        while ($currentVertex !== $goal) {
+            $neighbors = $this->adjacencyList[$currentVertex];
+            if (empty($neighbors)) {
+                return null; // Dead end
+            }
+
+            // Find the best neighbor considering accumulated cost and heuristic
+            $bestNeighbor = null;
+            $bestEvaluation = PHP_FLOAT_MAX;
+
+            foreach ($neighbors as $neighbor) {
+                // Skip if already visited to avoid cycles
+                if (isset($visited[$neighbor])) {
+                    continue;
+                }
+
+                // Calculate accumulated cost to reach this neighbor
+                $tentative_g_score = $g_score[$currentVertex] + $this->getEdgeCost($currentVertex, $neighbor);
+
+                // Evaluate using f(n) = g(n) + h(n)
+                $evaluation = $tentative_g_score + $this->heuristics[$neighbor];
+
+                if ($evaluation < $bestEvaluation) {
+                    $bestEvaluation = $evaluation;
+                    $bestNeighbor = $neighbor;
+                    $g_score[$neighbor] = $tentative_g_score;
+                }
+            }
+
+            // If no better neighbor is found, we're stuck
+            if ($bestNeighbor === null) {
+                return null;
+            }
+
+            // Move to the best neighbor
+            $currentVertex = $bestNeighbor;
+            $visited[$currentVertex] = true;
+
+            // Add to path
+            $path[] = [
+                'vertex' => $currentVertex,
+                'level' => $this->levels[$currentVertex],
+                'heuristic' => $this->heuristics[$currentVertex]
+            ];
+        }
+
+        return $path;
+    }
+
+    public function debugHillClimbing($start, $goal) {
+        $currentVertex = $start;
+        $path = [];
+        $visited = [$start => true];
+
+        while ($currentVertex !== $goal) {
+            echo "\nAt vertex $currentVertex (h=" . $this->heuristics[$currentVertex] . "):\n";
+            $neighbors = $this->adjacencyList[$currentVertex];
+            $bestNeighbor = null;
+            $bestRatio = -1;
+
+            foreach ($neighbors as $neighbor) {
+                if (isset($visited[$neighbor])) continue;
+
+                $edgeCost = $this->getEdgeCost($currentVertex, $neighbor);
+                $improvement = $this->heuristics[$currentVertex] - $this->heuristics[$neighbor];
+                $ratio = $improvement / ($edgeCost + 0.1);
+
+                echo "  Evaluating $neighbor: ";
+                echo "h=" . $this->heuristics[$neighbor];
+                echo ", cost=$edgeCost";
+                echo ", improvement=$improvement";
+                echo ", ratio=$ratio\n";
+
+                if ($ratio > $bestRatio) {
+                    $bestRatio = $ratio;
+                    $bestNeighbor = $neighbor;
+                }
+            }
+
+            if ($bestNeighbor === null) return null;
+
+            echo "  Choosing: $bestNeighbor\n";
+            $currentVertex = $bestNeighbor;
+            $visited[$currentVertex] = true;
+            $path[] = $currentVertex;
+        }
+
+        return $path;
+    }
+
+    public function searchAnalysis($searchResult, bool $showCost = true): void {
+        if ($searchResult === null) {
+            echo "No path found!\n";
+            return;
+        }
+
+        $totalCost = 0;
+
+        echo "Path sequence: ";
+        $pathSequence = array_map(function ($node) {
+            return $node['vertex'];
+        }, $searchResult);
+        echo implode(" -> ", $pathSequence) . "\n";
+
+        echo "\nPath analysis:\n";
+        $lastIndex = 0;
+        $lastVertex = null;
+        foreach ($pathSequence as $index => $vertex) {
+            if ($index > 0) {
+                $prevVertex = $pathSequence[$index - 1];
+                $cost = $this->getEdgeCost($prevVertex, $vertex);
+                $totalCost += $cost;
+                echo sprintf("Step %d: %s (level %d, h=%.1f) -> %s (level %d, h=%.1f): cost: %.1f\n",
+                    $index,
+                    $prevVertex,
+                    $this->levels[$prevVertex],
+                    $this->heuristics[$prevVertex],
+                    $vertex,
+                    $this->levels[$vertex],
+                    $this->heuristics[$vertex],
+                    $cost,
+                    //$searchResult[$index]['heuristic']
+                );
+            }
+            $lastIndex++;
+            $lastVertex = $vertex;
+        }
+
+        echo sprintf("Step %d: %s (level %d, h=%.1f)\n",
+            $lastIndex,
+            $lastVertex,
+            $this->levels[$vertex],
+            $this->heuristics[$vertex]
+        );
+
+        if ($showCost) {
+            echo sprintf("\nTotal path cost: %.1f\n", $totalCost);
+        }
+    }
+
     public function printPath(array $path, bool $showCost = true): void {
         $totalCost = 0;
         $previousVertex = null;

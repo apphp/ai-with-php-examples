@@ -1,8 +1,12 @@
 <?php
+
+use app\public\include\classes\Chart;
+use app\public\include\classes\SearchVisualizer;
+
 include_once('informed-graph-code.php');
 
-$beam = isset($_GET['beam']) && is_string($_GET['beam']) ? $_GET['beam'] : '';
-verify_fields($beam, ['1', '2', '3'], '1');
+//$beam = isset($_GET['beam']) && is_string($_GET['beam']) ? $_GET['beam'] : '';
+//verify_fields($beam, ['1', '2', '3'], '1');
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
@@ -50,7 +54,7 @@ $memoryEnd = memory_get_usage();
             <p><b>Graph:</b></p>
 
             <?php
-            $graph = '
+            $chartGraph = '
                graph TD                    
                     S(("S<small class="sub-title">level=0<br>h=10</small>"))
                     A(("A<small class="sub-title">level=1<br>h=8</small>"))
@@ -99,20 +103,15 @@ $memoryEnd = memory_get_usage();
                     O -->|2| Q
                 ';
 
-                $steps = '[
-                    { visit: "S", info: "Starting at root node S", edge: null },
-                    { visit: "B", info: "Visiting first level node B", edge: "A-B" },
-                    { visit: "E", info: "Visiting second level node E", edge: "B-E" },
-                    { visit: "I", info: "Visiting third level node I", edge: "E-I" },
-                    { visit: "L", info: "Visiting forth level node L", edge: "I-L" },
-                    { visit: "P", info: "Visiting fifth level node P", edge: "L-P" },
-                    { visit: "G", info: "Visiting sixth level node G - Search complete!", edge: "P-G" }
-                ]';
+            // Generate visualization
+            $visualizer = new SearchVisualizer($graph);
+            $visualization = $visualizer->generateVisualization($searchResult);
+            $chartSteps = $visualization['steps'];
 
             echo Chart::drawTreeDiagram(
-                graph: $graph,
-                steps: $steps,
-                defaultMessage: 'Starting Beam traversal...',
+                graph: $chartGraph,
+                steps: $chartSteps,
+                defaultMessage: 'Starting Hill Climbing traversal...',
                 startNode: 'S',
                 endNode: 'G',
                 intersectionNode: '',

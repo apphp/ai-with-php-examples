@@ -6,8 +6,8 @@ $graph = new InformedSearchGraph();
 // Add all vertices with their heuristic values
 // First parameter is vertex name, second is level (optional), third is heuristic value
 $graph->addVertex('S', 0, 10.0);  // Start node
-$graph->addVertex('A', 1, 8.0);
-$graph->addVertex('B', 1, 8.5);
+$graph->addVertex('A', 1, 8.5);
+$graph->addVertex('B', 1, 8.0);
 $graph->addVertex('C', 1, 9.0);
 $graph->addVertex('D', 2, 7.0);
 $graph->addVertex('E', 2, 6.5);
@@ -26,8 +26,8 @@ $graph->addVertex('G', 6, 0.0);  // Goal node
 
 // Add all edges with their costs
 // Main paths
-$graph->addEdge('S', 'A', 2.1);
-$graph->addEdge('S', 'B', 1.5);
+$graph->addEdge('S', 'A', 1.5);
+$graph->addEdge('S', 'B', 2.1);
 $graph->addEdge('S', 'C', 1.1);
 $graph->addEdge('A', 'D', 2.5);
 $graph->addEdge('B', 'E', 2.0);
@@ -59,7 +59,7 @@ $graph->addEdge('O', 'Q', 2.0);
 echo "Performing Hill Climbing Search from S to G:\n";
 echo "-------------------------------------------\n\n";
 
-$searchResult = $graph->hillClimbingSearch('S', 'G');
+$searchResult = $graph->steepestAscentHillClimbing('S', 'G');
 
 if ($searchResult === null) {
     echo "No path found!\n";
@@ -72,10 +72,4 @@ if ($searchResult === null) {
 
 echo "\n\nVerifying Hill Climbing search decisions:\n";
 echo "----------------------------------------\n";
-$path = $graph->debugHillClimbing('S', 'G');
-
-if ($path !== null) {
-    echo "\nFinal path: S -> " . implode(" -> ", $path) . "\n";
-} else {
-    echo "\nNo path found!\n";
-}
+$path = $graph->debugSteepestAscentHillClimbing('S', 'G');

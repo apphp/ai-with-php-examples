@@ -1,7 +1,5 @@
 <?php
 
-require APP_PATH . 'vendor/autoload.php';
-
 // Create a sample dataset with some numerical features
 $samples = [
     [100, 500, 25],

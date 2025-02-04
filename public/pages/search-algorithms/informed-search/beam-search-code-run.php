@@ -1,4 +1,8 @@
 <?php
+
+use app\public\include\classes\Chart;
+use app\public\include\classes\SearchVisualizer;
+
 include_once('informed-graph-code.php');
 
 $beam = isset($_GET['beam']) && is_string($_GET['beam']) ? $_GET['beam'] : '';
@@ -98,8 +102,6 @@ $memoryEnd = memory_get_usage();
                 ]';
             }
 
-
-
             echo Chart::drawTreeDiagram(
                 graph: $graph,
                 steps: $steps,
@@ -108,7 +110,7 @@ $memoryEnd = memory_get_usage();
                 endNode: 'G',
                 intersectionNode: '',
             );
-            ?>
+           ?>
 
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">

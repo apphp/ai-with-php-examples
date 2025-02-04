@@ -1,4 +1,7 @@
 <?php
+
+use app\public\include\classes\Chart;
+
 include_once('linear-transformation-code.php');
 
 $memoryStart = memory_get_usage();

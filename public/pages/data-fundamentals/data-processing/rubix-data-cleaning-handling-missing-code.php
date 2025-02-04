@@ -1,7 +1,5 @@
 <?php
 
-require APP_PATH . 'vendor/autoload.php';
-
 use Rubix\ML\Datasets\Labeled;
 use Rubix\ML\Strategies\Percentile;
 use Rubix\ML\Transformers\MissingDataImputer;

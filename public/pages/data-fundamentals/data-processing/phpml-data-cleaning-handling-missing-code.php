@@ -1,7 +1,5 @@
 <?php
 
-require APP_PATH . 'vendor/autoload.php';
-
 use Phpml\Dataset\CsvDataset;
 
 // Load the dataset

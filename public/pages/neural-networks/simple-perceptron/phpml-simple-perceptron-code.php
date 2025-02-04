@@ -1,7 +1,5 @@
 <?php
 
-require APP_PATH . 'vendor/autoload.php';
-
 use Phpml\Classification\MLPClassifier;
 use Phpml\Dataset\CsvDataset;
 use Phpml\NeuralNetwork\ActivationFunction\HyperbolicTangent;

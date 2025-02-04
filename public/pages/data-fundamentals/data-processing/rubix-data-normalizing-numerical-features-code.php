@@ -1,7 +1,5 @@
 <?php
 
-require APP_PATH . 'vendor/autoload.php';
-
 use Rubix\ML\Datasets\Labeled;
 use Rubix\ML\Extractors\CSV;
 use Rubix\ML\Transformers\MinMaxNormalizer;

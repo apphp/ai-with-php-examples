@@ -1,7 +1,5 @@
 <?php
 
-require APP_PATH . 'vendor/autoload.php';
-
 use Phpml\Dataset\ArrayDataset;
 use Phpml\Dataset\CsvDataset;
 use Phpml\Metric\Regression;

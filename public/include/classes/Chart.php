@@ -1,17 +1,19 @@
 <?php
 
+namespace app\public\include\classes;
+
 class Chart {
 
     public static function drawLinearSeparation(
-        array $samples,
-        array $labels,
-        int $separationBorder = 75,
+        array  $samples,
+        array  $labels,
+        int    $separationBorder = 75,
         string $classOneValue = '',
         string $classTwoValue = '',
         string $classOneLabel = '',
         string $classTwoLabel = '',
         string $predictionLabel = '',
-        array $predictionSamples = [],
+        array  $predictionSamples = [],
     ): string {
         $totalSamples = count($samples);
 
@@ -21,40 +23,40 @@ class Chart {
             <script>
                 const ctx = document.getElementById('myLinearSeparationChart');" . PHP_EOL;
 
-                // Passed data
-                $return .= "const passData = [";
-                    for ($i = 0; $i < $totalSamples; $i++) {
-                        if ($labels[$i] === $classOneValue) {
-                            $return .= '{ x: ' . $samples[$i][0] . ', y: ' . $samples[$i][1] . ' },';
-                        }
-                    }
-                $return .= "];" . PHP_EOL;
+        // Passed data
+        $return .= "const passData = [";
+        for ($i = 0; $i < $totalSamples; $i++) {
+            if ($labels[$i] === $classOneValue) {
+                $return .= '{ x: ' . $samples[$i][0] . ', y: ' . $samples[$i][1] . ' },';
+            }
+        }
+        $return .= "];" . PHP_EOL;
 
-                // Failed data
-                $return .= "const failData = [";
-                    for ($i = 0; $i < $totalSamples; $i++) {
-                        if ($labels[$i] === $classTwoValue) {
-                            $return .= '{ x: ' . $samples[$i][0] . ', y: ' . $samples[$i][1] . ' },';
-                        }
-                    }
-                $return .= "];" . PHP_EOL;
+        // Failed data
+        $return .= "const failData = [";
+        for ($i = 0; $i < $totalSamples; $i++) {
+            if ($labels[$i] === $classTwoValue) {
+                $return .= '{ x: ' . $samples[$i][0] . ', y: ' . $samples[$i][1] . ' },';
+            }
+        }
+        $return .= "];" . PHP_EOL;
 
-                // Prediction data
-                if ($predictionSamples) {
-                    $return .= "const predictData = [";
-                    foreach ($predictionSamples as $sample) {
-                        $return .= '{ x: ' . $sample[0] . ', y: ' . $sample[1] . ' },';
-                    }
-                    $return .= "];" . PHP_EOL;
-                }
+        // Prediction data
+        if ($predictionSamples) {
+            $return .= "const predictData = [";
+            foreach ($predictionSamples as $sample) {
+                $return .= '{ x: ' . $sample[0] . ', y: ' . $sample[1] . ' },';
+            }
+            $return .= "];" . PHP_EOL;
+        }
 
-                $return .= '
+        $return .= '
                 // Generate separation line points
                 const separationLineData = [];
-                for (let x = 0; x <= ' .$totalSamples. '; x += 0.5) {
+                for (let x = 0; x <= ' . $totalSamples . '; x += 0.5) {
                     separationLineData.push({
                         x: x,
-                        y: -5 * x + ' .$separationBorder."
+                        y: -5 * x + ' . $separationBorder . "
                     });
                 }
     
@@ -62,7 +64,7 @@ class Chart {
                     type: 'scatter',
                     data: {
                         datasets: [{
-                            label: '".$classOneLabel."',
+                            label: '" . $classOneLabel . "',
                             data: passData,
                             backgroundColor: 'rgb(99, 190, 99)',
                             borderWidth: 1,
@@ -71,7 +73,7 @@ class Chart {
                             pointStyle: 'circle'
                         },
                         {
-                            label: '".$classTwoLabel."',
+                            label: '" . $classTwoLabel . "',
                             data: failData,
                             backgroundColor: 'rgb(99,190,255)',
                             borderWidth: function(context) {return context.raw.highlight ? 1 : 1;},
@@ -80,9 +82,9 @@ class Chart {
                             pointStyle: 'circle'
                         },";
 
-                        if ($predictionSamples) {
-                            $return .= "{
-                                label: '".$predictionLabel."',
+        if ($predictionSamples) {
+            $return .= "{
+                                label: '" . $predictionLabel . "',
                                 data: predictData,
                                 backgroundColor: 'rgb(255, 99, 132)',
                                 borderWidth: function(context) {return context.raw.highlight ? 1 : 1;},
@@ -90,9 +92,9 @@ class Chart {
                                 pointHoverRadius: 5,
                                 pointStyle: 'circle'
                             },";
-                        }
+        }
 
-                        $return .= "{
+        $return .= "{
                             label: 'Decision Boundary',
                             data: separationLineData,
                             type: 'line',
@@ -181,15 +183,15 @@ class Chart {
     }
 
     public static function drawLinearRegression(
-        array $samples,
-        array $labels,
+        array  $samples,
+        array  $labels,
         string $xLabel = '',
         string $yLabel = '',
         string $datasetLabel = '',
         string $regressionLabel = '',
-        array $predictionPoint = [],
-        int $minX = 0,
-        int $minY = 0,
+        array  $predictionPoint = [],
+        int    $minX = 0,
+        int    $minY = 0,
         string $darkSwitch = ''
     ): string {
 
@@ -212,16 +214,16 @@ class Chart {
                 // Data points
                 const data = [";
 
-                    // Print data combining samples and labels
-                    for ($i = 0; $i < count($samples); $i++) {
-                        $highlight = ($samples[$i][0] == $predictionX) ? ', highlight: true' : '';
-                        $return .= sprintf('{ x: %.0f, y: %.0f ' .$highlight."},\n",
-                            $samples[$i][0],  // Square footage from samples
-                            $labels[$i]       // Price from labels
-                        );
-                    }
+        // Print data combining samples and labels
+        for ($i = 0; $i < count($samples); $i++) {
+            $highlight = ($samples[$i][0] == $predictionX) ? ', highlight: true' : '';
+            $return .= sprintf('{ x: %.0f, y: %.0f ' . $highlight . "},\n",
+                $samples[$i][0],  // Square footage from samples
+                $labels[$i]       // Price from labels
+            );
+        }
 
-                    $return .= "
+        $return .= "
                 ];
 
                 // Calculate linear regression
@@ -264,7 +266,7 @@ class Chart {
                     data: {
                         datasets: [
                             {
-                                label: '".htmlspecialchars($datasetLabel)."',
+                                label: '" . htmlspecialchars($datasetLabel) . "',
                                 data: data,
                                 backgroundColor: function(context) {
                                     const point = context.raw;
@@ -284,11 +286,11 @@ class Chart {
                                 pointStyle: function(context) {return context.raw.highlight ? 'circle' : 'circle';}
                             },
                             {
-                                label: '".htmlspecialchars($regressionLabel)."',
+                                label: '" . htmlspecialchars($regressionLabel) . "',
                                 data: regressionLine,
                                 type: 'line',
-                                borderColor: '".($darkSwitch === 'dark' ? 'rgba(215, 215, 215, 0.4)' : 'rgba(215, 215, 215, 1)')."',
-                                backgroundColor: '".($darkSwitch === 'dark' ? 'rgba(245, 245, 245, 0.9)' : 'rgba(245, 245, 245, 1)')."',
+                                borderColor: '" . ($darkSwitch === 'dark' ? 'rgba(215, 215, 215, 0.4)' : 'rgba(215, 215, 215, 1)') . "',
+                                backgroundColor: '" . ($darkSwitch === 'dark' ? 'rgba(245, 245, 245, 0.9)' : 'rgba(245, 245, 245, 1)') . "',
                                 borderWidth: 2,
                                 pointRadius: 0,
                                 fill: false,
@@ -332,7 +334,7 @@ class Chart {
                                 position: 'bottom',
                                 title: {
                                     display: true,
-                                    text: '".htmlspecialchars($xLabel)."',
+                                    text: '" . htmlspecialchars($xLabel) . "',
                                     font: {
                                         size: 14
                                     }
@@ -353,10 +355,10 @@ class Chart {
                                 offset: true,
                             },
                             y: {
-                                " . ($minY != 0 ? 'beginAtZero: false, min: '.$minY.',' : 'beginAtZero: true,') . "
+                                " . ($minY != 0 ? 'beginAtZero: false, min: ' . $minY . ',' : 'beginAtZero: true,') . "
                                 title: {
                                     display: true,
-                                    text: '".htmlspecialchars($yLabel)."',
+                                    text: '" . htmlspecialchars($yLabel) . "',
                                     font: {
                                         size: 14
                                     }
@@ -382,15 +384,15 @@ class Chart {
     }
 
     public static function drawMultiLinearRegression(
-        array $samples,
-        array $labels,
-        array $features,
-        array $titles,
+        array  $samples,
+        array  $labels,
+        array  $features,
+        array  $titles,
         string $targetLabel = '',
         string $mainTraceLabel = '',
         string $customTraceLabel = '',
-        array $predictionSamples = [],
-        array $predictionResults = [],
+        array  $predictionSamples = [],
+        array  $predictionResults = [],
     ): string {
 
         $return = "
@@ -400,98 +402,98 @@ class Chart {
                 // Define data for the 3D scatter plot
                 const scatterData = [";
 
-                $useThirdArgument = count($features) === 3;
+        $useThirdArgument = count($features) === 3;
 
-                // ----------------------------------------
-                // DATASET
-                // ----------------------------------------
-                // Use 3rd argument
-                if ($useThirdArgument) {
-                    $maxSize = max(array_column($samples, 2));
-                    $ind = 0;
-                    foreach ($samples as $sample) {
-                        $return .= "{";
-                        $return .= 'x: [';
-                        $return .= $sample[0] . ',';
-                        $return .= '],' . "\n";
-                        $return .= 'y: [';
-                        $return .= $sample[1] . ',';
-                        $return .= '],' . "\n";
-                        $return .= 'z: [';
-                        $return .= $labels[$ind++] . ',';
-                        $return .= '],' . "\n";
-                        $return .= "mode: 'markers',\n";
-                        // Red color with high opacity
-                        $return .= "marker: {size: ". (int)(6 * $sample[2] / $maxSize ).",color: 'rgba(99,190,255)'},\n";
-                        $return .= "type: 'scatter3d',";
-                        $return .= "name: '".htmlspecialchars($mainTraceLabel).' '.$ind."'";
-                        $return .= "},";
-                    }
-                } else {
-                    $return .= "{";
+        // ----------------------------------------
+        // DATASET
+        // ----------------------------------------
+        // Use 3rd argument
+        if ($useThirdArgument) {
+            $maxSize = max(array_column($samples, 2));
+            $ind = 0;
+            foreach ($samples as $sample) {
+                $return .= "{";
+                $return .= 'x: [';
+                $return .= $sample[0] . ',';
+                $return .= '],' . "\n";
+                $return .= 'y: [';
+                $return .= $sample[1] . ',';
+                $return .= '],' . "\n";
+                $return .= 'z: [';
+                $return .= $labels[$ind++] . ',';
+                $return .= '],' . "\n";
+                $return .= "mode: 'markers',\n";
+                // Red color with high opacity
+                $return .= "marker: {size: " . (int)(6 * $sample[2] / $maxSize) . ",color: 'rgba(99,190,255)'},\n";
+                $return .= "type: 'scatter3d',";
+                $return .= "name: '" . htmlspecialchars($mainTraceLabel) . ' ' . $ind . "'";
+                $return .= "},";
+            }
+        } else {
+            $return .= "{";
 
-                    // Render x axis
-                    $return .= 'x: [';
-                    foreach ($samples as $sample) $return .= $sample[$features[0]] . ',';
-                    $return .= '],' . "\n";
+            // Render x axis
+            $return .= 'x: [';
+            foreach ($samples as $sample) $return .= $sample[$features[0]] . ',';
+            $return .= '],' . "\n";
 
-                    // Render y axis
-                    $return .= 'y: [';
-                    foreach ($samples as $sample) $return .= (isset($features[1]) ? $sample[$features[1]] : '0') . ',';
-                    $return .= '],' . "\n";
+            // Render y axis
+            $return .= 'y: [';
+            foreach ($samples as $sample) $return .= (isset($features[1]) ? $sample[$features[1]] : '0') . ',';
+            $return .= '],' . "\n";
 
-                    // Render z axis
-                    $return .= 'z: [';
-                    foreach ($labels as $label) $return .= $label . ',';
-                    $return .= '],' . "\n";
+            // Render z axis
+            $return .= 'z: [';
+            foreach ($labels as $label) $return .= $label . ',';
+            $return .= '],' . "\n";
 
-                    $return .= "
+            $return .= "
                     mode: 'markers', // Show as points
                     marker: {
                         size: 6,
                         color: 'rgba(99,190,255)' // Red color with opacity
                     },
                     type: 'scatter3d', // 3D scatter plot type
-                    name: '".htmlspecialchars($mainTraceLabel)."'";
+                    name: '" . htmlspecialchars($mainTraceLabel) . "'";
 
-                    $return .= "},";
-                }
+            $return .= "},";
+        }
 
-                // ----------------------------------------
-                // ADD ADDITIONAL POINTS IN RED
-                // ----------------------------------------
-                if (!empty($predictionSamples)) {
-                    $return .= "{";
-                    $return .= 'x: [';
-                    foreach ($predictionSamples as $point) $return .= $point[$features[0]] . ',';
-                    $return .= '],' . "\n";
-                    $return .= 'y: [';
-                    foreach ($predictionSamples as $point) $return .= (isset($features[1]) ? $point[$features[1]] : '0') . ',';
-                    $return .= '],' . "\n";
-                    $return .= 'z: [';
-                    foreach ($predictionResults as $point) $return .= $point . ',';
-                    $return .= '],' . "\n";
-                    $return .= "mode: 'markers',\n";
-                    // Red color with high opacity
-                    if ($useThirdArgument) {
-                        $return .= "marker: {size: ". (int)(6 * $sample[2] / $maxSize) . ", color: 'rgba(0,0,0,0.8)'},\n";
-                    } else {
-                        $return .= "marker: {size: 7, color: 'rgba(255,0,0,0.8)'},\n";
-                    }
-                    $return .= "type: 'scatter3d',";
-                    $return .= "name: '".htmlspecialchars($customTraceLabel)."'";
-                    $return .= "},";
-                }
+        // ----------------------------------------
+        // ADD ADDITIONAL POINTS IN RED
+        // ----------------------------------------
+        if (!empty($predictionSamples)) {
+            $return .= "{";
+            $return .= 'x: [';
+            foreach ($predictionSamples as $point) $return .= $point[$features[0]] . ',';
+            $return .= '],' . "\n";
+            $return .= 'y: [';
+            foreach ($predictionSamples as $point) $return .= (isset($features[1]) ? $point[$features[1]] : '0') . ',';
+            $return .= '],' . "\n";
+            $return .= 'z: [';
+            foreach ($predictionResults as $point) $return .= $point . ',';
+            $return .= '],' . "\n";
+            $return .= "mode: 'markers',\n";
+            // Red color with high opacity
+            if ($useThirdArgument) {
+                $return .= "marker: {size: " . (int)(6 * $sample[2] / $maxSize) . ", color: 'rgba(0,0,0,0.8)'},\n";
+            } else {
+                $return .= "marker: {size: 7, color: 'rgba(255,0,0,0.8)'},\n";
+            }
+            $return .= "type: 'scatter3d',";
+            $return .= "name: '" . htmlspecialchars($customTraceLabel) . "'";
+            $return .= "},";
+        }
 
-                $return .= "];
+        $return .= "];
 
                 // Define layout for the 3D scatter plot
                 const layout = {
                     __title: '3D Scatter Plot',
                     scene: {
-                        xaxis: { title: '".htmlspecialchars($titles[$features[0]])."' },
-                        yaxis: { title: '".(isset($features[1]) ? htmlspecialchars($titles[$features[1]]) : '')."' },
-                        zaxis: { title: '".htmlspecialchars($targetLabel)."' },
+                        xaxis: { title: '" . htmlspecialchars($titles[$features[0]]) . "' },
+                        yaxis: { title: '" . (isset($features[1]) ? htmlspecialchars($titles[$features[1]]) : '') . "' },
+                        zaxis: { title: '" . htmlspecialchars($targetLabel) . "' },
                         camera: {
                             eye: {
                                 x: 0.9,
@@ -523,17 +525,17 @@ class Chart {
     }
 
     public static function drawPolynomialRegression(
-        array $samples,
-        array $labels,
-        array $testSamples = [],
-        array $testLabels = [],
+        array  $samples,
+        array  $labels,
+        array  $testSamples = [],
+        array  $testLabels = [],
         string $datasetLabel = '',
         string $regressionLabel = '',
         string $xLabel = '',
         string $yLabel = '',
-        int $polynomialOrder = 3,
+        int    $polynomialOrder = 3,
         string $title = '',
-    ): string{
+    ): string {
         $return = "
             <div style='min-height:500px;'>
             <canvas id='scatterChart'></canvas>
@@ -542,23 +544,23 @@ class Chart {
             <script>
                 // Data points
                 const rawData = [";
-                    for ($i=0; $i < count($samples); $i++) {
-                        $return .= "{x: ".$samples[$i][0].", y: ".($labels[$i] ?? 0)."},";
-                    }
-                $return .= '];
+        for ($i = 0; $i < count($samples); $i++) {
+            $return .= "{x: " . $samples[$i][0] . ", y: " . ($labels[$i] ?? 0) . "},";
+        }
+        $return .= '];
                 
                 // Test data points
                 const testData = [';
-                for ($i=0; $i < count($testSamples); $i++) {
-                    $return .= "{x: ".$testSamples[$i][0].", y: ".($testLabels[$i] ?? 0)."},";
-                }
-                $return .= '];
+        for ($i = 0; $i < count($testSamples); $i++) {
+            $return .= "{x: " . $testSamples[$i][0] . ", y: " . ($testLabels[$i] ?? 0) . "},";
+        }
+        $return .= '];
             
                 // Convert data for regression calculation
                 const regressionData = rawData.map(point => [point.x, point.y]);
             
                 // Calculate polynomial regression (degree)
-                const result = regression.polynomial(regressionData, { order:' .(int)$polynomialOrder." });
+                const result = regression.polynomial(regressionData, { order:' . (int)$polynomialOrder . " });
                 const formula = result.string;
                 const r2 = result.r2;
             
@@ -580,7 +582,7 @@ class Chart {
                     data: {
                         datasets: [{
                             type: 'scatter',
-                            label: '".$datasetLabel." (Training)',
+                            label: '" . $datasetLabel . " (Training)',
                             data: rawData,
                             backgroundColor: 'rgba(54, 162, 235, 0.6)',
                             borderColor: 'rgba(54, 162, 235, 1)',
@@ -590,7 +592,7 @@ class Chart {
                         },
                         {
                             type: 'scatter',
-                            label: '".$datasetLabel." (Test)',
+                            label: '" . $datasetLabel . " (Test)',
                             data: testData,
                             backgroundColor: 'rgba(255, 99, 132, 0.8)',
                             borderColor: 'rgba(255, 99, 132, 1)',
@@ -600,7 +602,7 @@ class Chart {
                         },
                         {
                             type: 'line',
-                            label: '".$regressionLabel."',
+                            label: '" . $regressionLabel . "',
                             data: curvePoints,
                             borderColor: 'rgba(215, 215, 215, 1)',
                             backgroundColor: 'rgba(245, 245, 245, 1)',
@@ -632,7 +634,7 @@ class Chart {
                             title: {
                                 display: true,
                                 text: [
-                                    '".$title."',
+                                    '" . $title . "',
                                     `R² = \${r2.toFixed(4)}`,
                                     `Polynomial: \${formula}`
                                 ],
@@ -655,7 +657,7 @@ class Chart {
                             x: {
                                 title: {
                                     display: true,
-                                    text: '".$xLabel."'
+                                    text: '" . $xLabel . "'
                                 },
                                 grid: {
                                     display: true,
@@ -666,7 +668,7 @@ class Chart {
                             y: {
                                 title: {
                                     display: true,
-                                    text: '".$yLabel."'
+                                    text: '" . $yLabel . "'
                                 },
                                 grid: {
                                     display: true,
@@ -699,19 +701,19 @@ class Chart {
         string $endNode = 'K',
         string $intersectionNode = '',
     ): string {
-        if(!$style){
+        if (!$style) {
             $style = '
                 %% Apply styles
-                    class '.$startNode.' sNode
-                    class '.$endNode.' gNode
-                    '.($intersectionNode ? 'class '.$intersectionNode.' iNode' : '').'
+                    class ' . $startNode . ' sNode
+                    class ' . $endNode . ' gNode
+                    ' . ($intersectionNode ? 'class ' . $intersectionNode . ' iNode' : '') . '
                 
                 %% Styling
                     classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px;
                     linkStyle default stroke:#2ea723,stroke-width:2px;
                     classDef sNode fill:#a0eFeF,stroke:#333,stroke-width:1px          
-                    '.($intersectionNode ? 'classDef gNode fill:#a0eFeF,stroke:#333,stroke-width:1px' : 'classDef gNode fill:#FFB07A,stroke:#333,stroke-width:1px').'
-                    '.($intersectionNode ? 'classDef iNode fill:#FFB07A,stroke:#333,stroke-width:1px' : '').'
+                    ' . ($intersectionNode ? 'classDef gNode fill:#a0eFeF,stroke:#333,stroke-width:1px' : 'classDef gNode fill:#FFB07A,stroke:#333,stroke-width:1px') . '
+                    ' . ($intersectionNode ? 'classDef iNode fill:#FFB07A,stroke:#333,stroke-width:1px' : '') . '
                     
                     classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px
                     classDef visited fill:#ff9999,stroke:#ff0000,stroke-width:2px
@@ -727,7 +729,7 @@ class Chart {
         <div class="row pt-0" style="margin-top: -27px">
                 <div class="col pt-1">
                     <div id="step-info" class="step-info">
-                       '.$defaultMessage.'
+                       ' . $defaultMessage . '
                     </div>
                 </div>
                 <div class="col p-0">
@@ -743,7 +745,7 @@ class Chart {
             </div>
             
             <script>
-                let treeSteps = '.$steps.';
+                let treeSteps = ' . $steps . ';
                 let currentStep = -1;
                 let visitedNodes = [];
                 let visitedEdges = [];
@@ -765,11 +767,11 @@ class Chart {
                     });
             
                     return `
-                        '.$graph.'  
-                        '.$style.'
+                        ' . $graph . '  
+                        ' . $style . '
                         ${visitedNodes.slice(0, -1).map(node => `class ${node} visited`).join("\n")}
                         ${visitedNodes.length > 0 
-                            ? (visitedNodes[visitedNodes.length-1] == "'.($intersectionNode ?: $endNode).'") ? `class '.($intersectionNode ?: $endNode).' finish` 
+                            ? (visitedNodes[visitedNodes.length-1] == "' . ($intersectionNode ?: $endNode) . '") ? `class ' . ($intersectionNode ?: $endNode) . ' finish` 
                             : `class ${visitedNodes[visitedNodes.length-1]} current` : ""}
                     `;
                 }
@@ -858,7 +860,7 @@ class Chart {
                     
                     // Get the graph definition from the generateDiagram function
                     const graphDefinition = `
-                        '.$graph.'
+                        ' . $graph . '
                     `;
                 
                     // Dynamically create edge map
@@ -880,7 +882,7 @@ class Chart {
                     const currentSteps = treeSteps.slice(0, currentStep + 1);
                     container.innerHTML = `<div class="mermaid">${generateDiagram(currentSteps)}</div>`;
                 
-                    document.getElementById("step-info").textContent = currentStep >= 0 ? treeSteps[currentStep].info : "'.$defaultMessage.'";
+                    document.getElementById("step-info").textContent = currentStep >= 0 ? treeSteps[currentStep].info : "' . $defaultMessage . '";
                     document.getElementById("prevBtn").disabled = currentStep <= 0;
                     document.getElementById("nextBtn").disabled = currentStep >= treeSteps.length - 1;
                 
@@ -923,9 +925,9 @@ class Chart {
     }
 
     public static function drawVectors(
-        array $vector = [],
-        array $matrix = [],
-        array $bias = [],
+        array  $vector = [],
+        array  $matrix = [],
+        array  $bias = [],
         string $type = 'scale' /* scale|linear */
     ): string {
         $vectorX = $vector[0] ?? 0;
@@ -936,7 +938,7 @@ class Chart {
 
         $m11 = $matrix[0][0] ?? 0;
         $m12 = $matrix[0][1] ?? 0;
-        $m21= $matrix[1][0] ?? 0;
+        $m21 = $matrix[1][0] ?? 0;
         $m22 = $matrix[1][1] ?? 0;
 
         return '
@@ -944,7 +946,7 @@ class Chart {
             
             <script>
                 class VectorGridChart {
-                    constructor(containerId, mode = "'.$type.'") {
+                    constructor(containerId, mode = "' . $type . '") {
                         this.containerId = containerId;
                         this.mode = mode;
                         this.initPlot();
@@ -957,15 +959,15 @@ class Chart {
             
                     calculateTransformation() {
                         const matrix = {
-                            m11: parseFloat(document.getElementById("m11")?.value ? document.getElementById("m11").value : '.$m11.') || 0,
-                            m12: parseFloat(document.getElementById("m12")?.value ? document.getElementById("m12").value : '.$m12.') || 0,
-                            m21: parseFloat(document.getElementById("m21")?.value ? document.getElementById("m21").value : '.$m21.') || 0,
-                            m22: parseFloat(document.getElementById("m22")?.value ? document.getElementById("m22").value : '.$m22.') || 0,
+                            m11: parseFloat(document.getElementById("m11")?.value ? document.getElementById("m11").value : ' . $m11 . ') || 0,
+                            m12: parseFloat(document.getElementById("m12")?.value ? document.getElementById("m12").value : ' . $m12 . ') || 0,
+                            m21: parseFloat(document.getElementById("m21")?.value ? document.getElementById("m21").value : ' . $m21 . ') || 0,
+                            m22: parseFloat(document.getElementById("m22")?.value ? document.getElementById("m22").value : ' . $m22 . ') || 0,
                         };
             
                         const inputVector = {
-                            x: parseFloat(document.getElementById("vectorX")?.value ? document.getElementById("vectorX").value : '.$vectorX.') || 0,
-                            y: parseFloat(document.getElementById("vectorY")?.value ? document.getElementById("vectorY").value : '.$vectorY.') || 0
+                            x: parseFloat(document.getElementById("vectorX")?.value ? document.getElementById("vectorX").value : ' . $vectorX . ') || 0,
+                            y: parseFloat(document.getElementById("vectorY")?.value ? document.getElementById("vectorY").value : ' . $vectorY . ') || 0
                         };
                         
                         const outputVector = {
@@ -984,22 +986,22 @@ class Chart {
                     calculateLinearLayer() {
                         // Get matrix (weights) values
                         const matrix = {
-                            m11: parseFloat(document.getElementById("m11")?.value ? document.getElementById("m11").value : '.$m11.') || 0,
-                            m12: parseFloat(document.getElementById("m12")?.value ? document.getElementById("m12").value : '.$m12.') || 0,
-                            m21: parseFloat(document.getElementById("m21")?.value ? document.getElementById("m21").value : '.$m21.') || 0,
-                            m22: parseFloat(document.getElementById("m22")?.value ? document.getElementById("m22").value : '.$m22.') || 0,
+                            m11: parseFloat(document.getElementById("m11")?.value ? document.getElementById("m11").value : ' . $m11 . ') || 0,
+                            m12: parseFloat(document.getElementById("m12")?.value ? document.getElementById("m12").value : ' . $m12 . ') || 0,
+                            m21: parseFloat(document.getElementById("m21")?.value ? document.getElementById("m21").value : ' . $m21 . ') || 0,
+                            m22: parseFloat(document.getElementById("m22")?.value ? document.getElementById("m22").value : ' . $m22 . ') || 0,
                         };
                 
                         // Get input vector values
                         const inputVector = {
-                            x: parseFloat(document.getElementById("vectorX")?.value ? document.getElementById("vectorX").value : '.$vectorX.') || 0,
-                            y: parseFloat(document.getElementById("vectorY")?.value ? document.getElementById("vectorY").value : '.$vectorY.') || 0
+                            x: parseFloat(document.getElementById("vectorX")?.value ? document.getElementById("vectorX").value : ' . $vectorX . ') || 0,
+                            y: parseFloat(document.getElementById("vectorY")?.value ? document.getElementById("vectorY").value : ' . $vectorY . ') || 0
                         };
                 
                         // Get bias values
                         const bias = {
-                            x: parseFloat(document.getElementById("biasX")?.value ? document.getElementById("biasX").value : '.$biasX.') || 0,
-                            y: parseFloat(document.getElementById("biasY")?.value ? document.getElementById("biasY").value : '.$biasY.') || 0
+                            x: parseFloat(document.getElementById("biasX")?.value ? document.getElementById("biasX").value : ' . $biasX . ') || 0,
+                            y: parseFloat(document.getElementById("biasY")?.value ? document.getElementById("biasY").value : ' . $biasY . ') || 0
                         };
                                                 
                         // Calculate Wx + b
@@ -1175,7 +1177,7 @@ class Chart {
         array $vector = [],
         array $matrix = [],
         array $bias = [],
-    ): string{
+    ): string {
         $vectorX = $vector[0] ?? 0;
         $vectorY = $vector[1] ?? 0;
 
@@ -1184,7 +1186,7 @@ class Chart {
 
         $m11 = $matrix[0][0] ?? 0;
         $m12 = $matrix[0][1] ?? 0;
-        $m21= $matrix[1][0] ?? 0;
+        $m21 = $matrix[1][0] ?? 0;
         $m22 = $matrix[1][1] ?? 0;
 
         return '
@@ -1205,22 +1207,22 @@ class Chart {
                     calculateLinearLayer() {
                         // Get matrix (weights) values
                         const matrix = {
-                            m11: parseFloat(document.getElementById("m11")?.value ? document.getElementById("m11").value : '.$m11.') || 0,
-                            m12: parseFloat(document.getElementById("m12")?.value ? document.getElementById("m12").value : '.$m12.') || 0,
-                            m21: parseFloat(document.getElementById("m21")?.value ? document.getElementById("m21").value : '.$m21.') || 0,
-                            m22: parseFloat(document.getElementById("m22")?.value ? document.getElementById("m22").value : '.$m22.') || 0,
+                            m11: parseFloat(document.getElementById("m11")?.value ? document.getElementById("m11").value : ' . $m11 . ') || 0,
+                            m12: parseFloat(document.getElementById("m12")?.value ? document.getElementById("m12").value : ' . $m12 . ') || 0,
+                            m21: parseFloat(document.getElementById("m21")?.value ? document.getElementById("m21").value : ' . $m21 . ') || 0,
+                            m22: parseFloat(document.getElementById("m22")?.value ? document.getElementById("m22").value : ' . $m22 . ') || 0,
                         };
                 
                         // Get input vector values
                         const inputVector = {
-                            x: parseFloat(document.getElementById("vectorX")?.value ? document.getElementById("vectorX").value : '.$vectorX.') || 0,
-                            y: parseFloat(document.getElementById("vectorY")?.value ? document.getElementById("vectorY").value : '.$vectorY.') || 0
+                            x: parseFloat(document.getElementById("vectorX")?.value ? document.getElementById("vectorX").value : ' . $vectorX . ') || 0,
+                            y: parseFloat(document.getElementById("vectorY")?.value ? document.getElementById("vectorY").value : ' . $vectorY . ') || 0
                         };
                 
                         // Get bias values
                         const bias = {
-                            x: parseFloat(document.getElementById("biasX")?.value ? document.getElementById("biasX").value : '.$biasX.') || 0,
-                            y: parseFloat(document.getElementById("biasY")?.value ? document.getElementById("biasY").value : '.$biasY.') || 0
+                            x: parseFloat(document.getElementById("biasX")?.value ? document.getElementById("biasX").value : ' . $biasX . ') || 0,
+                            y: parseFloat(document.getElementById("biasY")?.value ? document.getElementById("biasY").value : ' . $biasY . ') || 0
                         };
                                                 
                         // Calculate Wx + b
@@ -1378,16 +1380,16 @@ class Chart {
     }
 
     public static function drawVectorControls(
-        array $vector = [],
-        array $matrix = [],
-        array $bias = [],
-        array $result = [],
+        array  $vector = [],
+        array  $matrix = [],
+        array  $bias = [],
+        array  $result = [],
         string $matrixTitle = '',
         string $iVectorTitle = '',
         string $oVectorTitle = '',
         string $bVectorTitle = '',
-        int $min = -1000,
-        int $max = 1000,
+        int    $min = -1000,
+        int    $max = 1000,
     ): string {
 
         $vectorX = $vector[0] ?? 0;
@@ -1395,7 +1397,7 @@ class Chart {
 
         $m11 = $matrix[0][0] ?? 0;
         $m12 = $matrix[0][1] ?? 0;
-        $m21= $matrix[1][0] ?? 0;
+        $m21 = $matrix[1][0] ?? 0;
         $m22 = $matrix[1][1] ?? 0;
 
         $biasX = $bias[0] ?? 0;
@@ -1412,7 +1414,7 @@ class Chart {
                 <form id="transformForm" onsubmit="return false;">
                     <div class="row">
                         <div class="col-6">
-                            <b>'.$matrixTitle.'</b>
+                            <b>' . $matrixTitle . '</b>
                             <div class="row">
                                 <div class="col-6">
                                     <label class="vector-component" for="m11">X Component:</label>
@@ -1422,54 +1424,54 @@ class Chart {
                                 </div>
                             </div>
                             <div class="matrix-grid">
-                                <input type="number" id="m11" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$m11.'" step="0.5" width="50px">
-                                <input type="number" id="m12" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$m12.'" step="0.5" width="50px">
-                                <input type="number" id="m21" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$m21.'" step="0.5" width="50px">
-                                <input type="number" id="m22" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$m22.'" step="0.5" width="50px">
+                                <input type="number" id="m11" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > ' . $max . ') this.value = ' . $max . ';" maxlength="' . $maxlength . '" value="' . $m11 . '" step="0.5" width="50px">
+                                <input type="number" id="m12" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > ' . $max . ') this.value = ' . $max . ';" maxlength="' . $maxlength . '" value="' . $m12 . '" step="0.5" width="50px">
+                                <input type="number" id="m21" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > ' . $max . ') this.value = ' . $max . ';" maxlength="' . $maxlength . '" value="' . $m21 . '" step="0.5" width="50px">
+                                <input type="number" id="m22" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > ' . $max . ') this.value = ' . $max . ';" maxlength="' . $maxlength . '" value="' . $m22 . '" step="0.5" width="50px">
                             </div>
                         </div>
                         <div class="col-6">
-                            <b>'.$iVectorTitle.'</b>
+                            <b>' . $iVectorTitle . '</b>
                             <div class="vector-inputs">
                                 <div>
                                     <label class="vector-component" for="vectorX">X Component:</label>
-                                    <input type="number" id="vectorX" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$vectorX.'" step="0.5">
+                                    <input type="number" id="vectorX" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > ' . $max . ') this.value = ' . $max . ';" maxlength="' . $maxlength . '" value="' . $vectorX . '" step="0.5">
                                 </div>
                                 <div>
                                     <label class="vector-component" for="vectorY">Y Component:</label>
-                                    <input type="number" id="vectorY" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$vectorY.'" step="0.5">
+                                    <input type="number" id="vectorY" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > ' . $max . ') this.value = ' . $max . ';" maxlength="' . $maxlength . '" value="' . $vectorY . '" step="0.5">
                                 </div>
                             </div>';
 
-                            if($bVectorTitle) {
-                                $output .= '
+        if ($bVectorTitle) {
+            $output .= '
                                     <b>' . $bVectorTitle . '</b>
                                     <div class="vector-inputs">
                                         <div>
                                             <label class="vector-component" for="vectorX">X Component:</label>
-                                            <input type="number" id="biasX" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$biasX.'" step="0.5">
+                                            <input type="number" id="biasX" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > ' . $max . ') this.value = ' . $max . ';" maxlength="' . $maxlength . '" value="' . $biasX . '" step="0.5">
                                         </div>
                                         <div>
                                             <label class="vector-component" for="vectorY">Y Component:</label>
-                                            <input type="number" id="biasY" min="'.$min.'" max="'.$max.'" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value = '.$max.';" maxlength="'.$maxlength.'" value="'.$biasY.'" step="0.5">
+                                            <input type="number" id="biasY" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > ' . $max . ') this.value = ' . $max . ';" maxlength="' . $maxlength . '" value="' . $biasY . '" step="0.5">
                                         </div>
                                     </div>';
-                            }
+        }
 
-                            $output .= '
+        $output .= '
                         </div>
                     </div>
 
-                    <b>'.$oVectorTitle.'</b>
+                    <b>' . $oVectorTitle . '</b>
                     <div class="output-vector">
                         <div class="vector-inputs">
                             <div>
                                 <label class="vector-component">X Component:</label>
-                                <div id="outputX">'.$resultX.'</div>
+                                <div id="outputX">' . $resultX . '</div>
                             </div>
                             <div>
                                 <label class="vector-component">Y Component:</label>
-                                <div id="outputY">'.$resultY.'</div>
+                                <div id="outputY">' . $resultY . '</div>
                             </div>
                         </div>
                     </div>

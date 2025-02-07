@@ -14,6 +14,7 @@
         <li><a href="<?=create_href('mathematics', 'matrices', 'index')?>">Matrices</a></li>
         <li><a href="<?=create_href('mathematics', 'tensors', 'index')?>">Tensors</a></li>
         <li><a href="<?=create_href('mathematics', 'linear-transformations', 'index')?>">Linear Transformations</a></li>
+        <li><a href="<?=create_href('mathematics', 'eigenvalues-and-eigenvectors', 'index')?>">Eigenvalues and Eigenvectors</a></li>
     </ui>
 </div>
 

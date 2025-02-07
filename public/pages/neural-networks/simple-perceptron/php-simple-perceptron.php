@@ -11,7 +11,7 @@
 </div>
 
 <div>
-    <?= create_dataset_and_test_data_links(__DIR__ . '/data/digit.php', fullWidth: true); ?>
+    <?= create_dataset_and_test_data_links(__DIR__ . '/data/digits.php', fullWidth: true); ?>
 </div>
 
 <div>

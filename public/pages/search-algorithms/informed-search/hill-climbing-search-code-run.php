@@ -3,10 +3,10 @@
 use app\public\include\classes\Chart;
 use app\public\include\classes\SearchVisualizer;
 
-include_once('informed-graph-code.php');
+$searchType = isset($_GET['searchType']) && is_string($_GET['searchType']) ? $_GET['searchType'] : '';
+verify_fields($searchType, ['simple', 'steepest', 'stochastic'], 'simple');
 
-//$beam = isset($_GET['beam']) && is_string($_GET['beam']) ? $_GET['beam'] : '';
-//verify_fields($beam, ['1', '2', '3'], '1');
+include('informed-graph-code.php');
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
@@ -52,7 +52,6 @@ $memoryEnd = memory_get_usage();
     <div class="row justify-content-start p-0">
         <div class="col-md-12 col-lg-7 px-1 pe-4">
             <p><b>Graph:</b></p>
-
             <?php
             $chartGraph = '
                graph TD                    
@@ -117,9 +116,23 @@ $memoryEnd = memory_get_usage();
                 intersectionNode: '',
             );
             ?>
-
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
+            <div>
+                <div class="mt-1">
+                    <b>Search Type:</b>
+                </div>
+                <form action="<?= APP_SEO_LINKS ? create_href('search-algorithms', 'informed-search', 'hill-climbing-search-code-run') : 'index.php'; ?>" type="GET">
+                    <?= !APP_SEO_LINKS ? create_form_fields('search-algorithms', 'informed-search', 'hill-climbing-search-code-run') : '';?>
+                    <?=create_form_features(['Simple' => 'simple', 'Steepest Ascent' => 'steepest', 'Stochastic' => 'stochastic'], [$searchType], fieldName: 'searchType', type: 'radio');?>
+                    <div class="form-check form-check-inline float-end p-0 m-0 me-1">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
+                    </div>
+                </form>
+            </div>
+
+            <hr>
+
             <div class="mb-1">
                 <b>Result:</b>
                 <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>

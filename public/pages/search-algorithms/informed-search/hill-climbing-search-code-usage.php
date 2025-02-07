@@ -59,7 +59,11 @@ $graph->addEdge('O', 'Q', 2.0);
 echo "Performing Hill Climbing Search from S to G:\n";
 echo "-------------------------------------------\n\n";
 
-$searchResult = $graph->steepestAscentHillClimbing('S', 'G');
+$searchResult = match ($searchType ?? 'simple') {
+    'stochastic' => $graph->stochasticHillClimbing('S', 'G'),
+    'steepest'   => $graph->steepestAscentHillClimbing('S', 'G'),
+    default      => $graph->simpleHillClimbing('S', 'G'),
+};
 
 if ($searchResult === null) {
     echo "No path found!\n";
@@ -72,4 +76,8 @@ if ($searchResult === null) {
 
 echo "\n\nVerifying Hill Climbing search decisions:\n";
 echo "----------------------------------------\n";
-$path = $graph->debugSteepestAscentHillClimbing('S', 'G');
+$path = match ($searchType ?? 'simple') {
+    'stochastic' => $graph->debugStochasticHillClimbing($searchResult, 'S', 'G'),
+    'steepest'   => $graph->debugSteepestAscentHillClimbing('S', 'G'),
+    default      => $graph->debugSimpleHillClimbing('S', 'G'),
+};

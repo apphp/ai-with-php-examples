@@ -588,48 +588,6 @@ class InformedSearchGraph {
         return $attempts < $maxAttempts ? $path : null;
     }
 
-    public function debugHillClimbing2_OLD($start, $goal) {
-        $currentVertex = $start;
-        $path = [];
-        $visited = [$start => true];
-
-        while ($currentVertex !== $goal) {
-            echo "\nAt vertex $currentVertex (h=" . $this->heuristics[$currentVertex] . "):\n";
-            $neighbors = $this->adjacencyList[$currentVertex];
-            $bestNeighbor = null;
-            $bestRatio = -1;
-
-            foreach ($neighbors as $neighbor) {
-                if (isset($visited[$neighbor])) continue;
-
-                $edgeCost = $this->getEdgeCost($currentVertex, $neighbor);
-                $improvement = $this->heuristics[$currentVertex] - $this->heuristics[$neighbor];
-                $ratio = $improvement / ($edgeCost + 0.1);
-
-                echo "  Evaluating $neighbor: ";
-                echo "h=" . $this->heuristics[$neighbor];
-                echo ", cost=$edgeCost";
-                echo ", improvement=$improvement";
-                echo ", ratio=$ratio\n";
-
-                if ($ratio > $bestRatio) {
-                    $bestRatio = $ratio;
-                    $bestNeighbor = $neighbor;
-                }
-            }
-
-            if ($bestNeighbor === null) return null;
-
-            echo "  Choosing: $bestNeighbor\n";
-            $currentVertex = $bestNeighbor;
-            $visited[$currentVertex] = true;
-            $path[] = $currentVertex;
-        }
-
-        return $path;
-    }
-
-
     /**
      * Debug the Simple Hill Climbing algorithm showing decision process
      */
@@ -806,140 +764,92 @@ class InformedSearchGraph {
     }
 
     /**
-     * Debug the Stochastic Hill Climbing algorithm showing probabilistic selection
+     * Debug output for Stochastic Hill Climbing showing the probabilistic decisions
+     * made during the search process
      */
-    public function debugStochasticHillClimbing(string $start, string $goal): ?array {
-        if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
-        }
-
-        echo "\n=== Stochastic Hill Climbing Debug ===\n";
-        echo "Starting from {$start} to reach {$goal}\n";
-
-        $currentVertex = $start;
-        $path = [[
-            'vertex' => $start,
-            'level' => $this->levels[$start],
-            'heuristic' => $this->heuristics[$start]
-        ]];
-
-        $visited = [$start => true];
-        $maxAttempts = 100;
-        $attempts = 0;
-        $totalCost = 0;
-
-        echo "\nInitial state:";
-        echo "\nVertex: {$start}";
-        echo "\nLevel: {$this->levels[$start]}";
-        echo "\nHeuristic: {$this->heuristics[$start]}\n";
-
-        while ($currentVertex !== $goal && $attempts < $maxAttempts) {
-            echo "\n----------------------------\n";
-            echo "Current path: " . implode(" -> ", array_column($path, 'vertex'));
-            echo "\nAt vertex: {$currentVertex} (h={$this->heuristics[$currentVertex]})";
-            echo "\nAttempt {$attempts} of {$maxAttempts}\n";
-
-            $neighbors = $this->adjacencyList[$currentVertex];
-            if (empty($neighbors)) {
-                echo "Dead end reached - no neighbors available\n";
-                return null;
-            }
-
-            $candidates = [];
-            $totalImprovement = 0;
-            $currentHeuristic = $this->heuristics[$currentVertex];
-
-            echo "\nEvaluating neighbors for candidacy:\n";
-            foreach ($neighbors as $neighbor) {
-                if (isset($visited[$neighbor])) {
-                    echo "  Skipping {$neighbor}: already visited\n";
-                    continue;
-                }
-
-                $neighborHeuristic = $this->heuristics[$neighbor];
-                $edgeCost = $this->getEdgeCost($currentVertex, $neighbor);
-                $improvement = $currentHeuristic - $neighborHeuristic;
-
-                echo "  {$neighbor}:";
-                echo "\n    Heuristic: {$neighborHeuristic}";
-                echo "\n    Edge cost: {$edgeCost}";
-                echo "\n    Improvement: {$improvement}\n";
-
-                if ($improvement > 0) {
-                    $candidates[] = [
-                        'vertex' => $neighbor,
-                        'improvement' => $improvement,
-                        'cost' => $edgeCost
-                    ];
-                    $totalImprovement += $improvement;
-                    echo "  → Added to candidate pool\n";
-                }
-            }
-
-            if (empty($candidates)) {
-                echo "\nLocal maximum reached - no improving neighbors found\n";
-                echo "Final path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
-                echo "Total cost: {$totalCost}\n";
-                return null;
-            }
-
-            echo "\nCandidate pool analysis:\n";
-            echo "Total improvement potential: {$totalImprovement}\n";
-
-            $random = mt_rand() / mt_getrandmax() * $totalImprovement;
-            echo "Random value generated: {$random}\n";
-
-            $sum = 0;
-            $selectedNeighbor = null;
-            $selectedCost = 0;
-
-            foreach ($candidates as $candidate) {
-                $sum += $candidate['improvement'];
-                $probability = $candidate['improvement'] / $totalImprovement;
-                echo "  {$candidate['vertex']}:";
-                echo "\n    Probability: " . number_format($probability * 100, 2) . "%";
-                echo "\n    Cumulative sum: {$sum}\n";
-
-                if ($sum >= $random && $selectedNeighbor === null) {
-                    $selectedNeighbor = $candidate['vertex'];
-                    $selectedCost = $candidate['cost'];
-                    echo "  → Selected!\n";
-                }
-            }
-
-            if ($selectedNeighbor === null) {
-                $lastCandidate = array_key_last($candidates);
-                $selectedNeighbor = $candidates[$lastCandidate]['vertex'];
-                $selectedCost = $candidates[$lastCandidate]['cost'];
-                echo "Defaulting to last candidate: {$selectedNeighbor}\n";
-            }
-
-            echo "\nMoving to: {$selectedNeighbor}";
-            echo "\nEdge cost: {$selectedCost}\n";
-
-            $totalCost += $selectedCost;
-            $currentVertex = $selectedNeighbor;
-            $visited[$currentVertex] = true;
-            $path[] = [
-                'vertex' => $currentVertex,
-                'level' => $this->levels[$currentVertex],
-                'heuristic' => $this->heuristics[$currentVertex]
-            ];
-
-            $attempts++;
-        }
-
-        if ($attempts >= $maxAttempts) {
-            echo "\nReached maximum attempts ({$maxAttempts}) - search terminated\n";
-            echo "Final path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
-            echo "Total cost: {$totalCost}\n";
+    public function debugStochasticHillClimbing(?array $searchResult, string $start, string $goal): ?array {
+        if ($searchResult === null) {
+            echo "\n=== Stochastic Hill Climbing Debug ===\n";
+            echo "No path found from {$start} to {$goal}!\n";
             return null;
         }
 
-        echo "\nGoal reached!\n";
-        echo "Final path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
-        echo "Total cost: {$totalCost}\n";
-        return $path;
+        echo "\n=== Stochastic Hill Climbing Debug ===\n";
+        echo "Path found from {$start} to {$goal}\n";
+
+        $totalCost = 0;
+        $pathLength = count($searchResult);
+
+        echo "\nPath sequence analysis:\n";
+        for ($i = 0; $i < $pathLength; $i++) {
+            $currentNode = $searchResult[$i];
+            $currentVertex = $currentNode['vertex'];
+
+            echo "\nStep {$i}:";
+            echo "\nCurrent vertex: {$currentVertex}";
+            echo "\nLevel: {$currentNode['level']}";
+            echo "\nHeuristic: {$currentNode['heuristic']}\n";
+
+            // If not the last node, analyze the transition to the next node
+            if ($i < $pathLength - 1) {
+                $nextNode = $searchResult[$i + 1];
+                $nextVertex = $nextNode['vertex'];
+
+                // Get all neighbors of current vertex
+                $neighbors = $this->adjacencyList[$currentVertex];
+
+                // Calculate improvements and probabilities for all valid neighbors
+                $candidates = [];
+                $totalImprovement = 0;
+
+                echo "\nNeighbor analysis:";
+                foreach ($neighbors as $neighbor) {
+                    $neighborHeuristic = $this->heuristics[$neighbor];
+                    $improvement = $this->heuristics[$currentVertex] - $neighborHeuristic;
+
+                    if ($improvement > 0) {
+                        $candidates[$neighbor] = $improvement;
+                        $totalImprovement += $improvement;
+                    }
+
+                    echo sprintf("\n  %s:", $neighbor);
+                    echo sprintf("\n    Heuristic: %.2f", $neighborHeuristic);
+                    echo sprintf("\n    Improvement: %.2f", $improvement);
+                    if ($improvement > 0) {
+                        echo "\n    → Eligible for selection";
+                    } else {
+                        echo "\n    → Not eligible (no improvement)";
+                    }
+                }
+
+                // Show selection probabilities
+                if (!empty($candidates)) {
+                    echo "\n\nSelection probabilities:";
+                    foreach ($candidates as $neighbor => $improvement) {
+                        $probability = ($improvement / $totalImprovement) * 100;
+                        echo sprintf("\n  %s: %.2f%%", $neighbor, $probability);
+                        if ($neighbor === $nextVertex) {
+                            echo " ← Selected";
+                        }
+                    }
+                }
+
+                // Show transition details
+                $edgeCost = $this->getEdgeCost($currentVertex, $nextVertex);
+                $totalCost += $edgeCost;
+
+                echo sprintf("\n\nTransition: %s -> %s", $currentVertex, $nextVertex);
+                echo sprintf("\nEdge cost: %.2f", $edgeCost);
+                echo sprintf("\nRunning total cost: %.2f", $totalCost);
+            }
+
+            echo "\n----------------------------";
+        }
+
+        echo sprintf("\n\nFinal path: %s", implode(" -> ", array_column($searchResult, 'vertex')));
+        echo sprintf("\nTotal path cost: %.2f\n", $totalCost);
+
+        return $searchResult;
     }
 
     public function searchAnalysis($searchResult, bool $showCost = true): void {

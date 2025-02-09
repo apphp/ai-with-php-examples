@@ -40,7 +40,7 @@ To install these examples, follow these steps:
 ## The Following Examples are Available:
 - Artificial Intelligence
 
-  - Search Algorithms
+  - Problem Solving
     - Uninformed (Blind) Search
       - Breadth-First Search (BFS)
       - Depth-First Search (DFS)
@@ -55,6 +55,8 @@ To install these examples, follow these steps:
       - A* Graph Search
       - Iterative Deepening A*
       - Beam Search
+  - Knowledge & Uncertainty in AI
+    - Knowledge-Based Agents
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

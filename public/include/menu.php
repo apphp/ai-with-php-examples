@@ -7,10 +7,10 @@ $menu = [
     ],
     '<i class="fas fa-brain me-1"></i> Artificial Intelligence' => [
         [
-            'title' => 'Search Algorithms',
+            'title' => 'Problem Solving',
             'subMenu' => [
-                ['section' => 'search-algorithms', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
-                ['section' => 'search-algorithms', 'subSection' => 'uninformed-search', 'page' => 'index', 'title' => 'Uninformed Search', 'permissions' => [
+                ['section' => 'problem-solving', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
+                ['section' => 'problem-solving', 'subSection' => 'uninformed-search', 'page' => 'index', 'title' => 'Uninformed Search', 'permissions' => [
                     'index',
                     'breadth-first-search', 'breadth-first-search-code-run',
                     'depth-first-search', 'depth-first-search-code-run',
@@ -20,7 +20,7 @@ $menu = [
                     'depth-limited-search', 'depth-limited-search-code-run',
                     'random-walk-search', 'random-walk-search-code-run',
                 ]],
-                ['section' => 'search-algorithms', 'subSection' => 'informed-search', 'page' => 'index', 'title' => 'Informed Search', 'permissions' => [
+                ['section' => 'problem-solving', 'subSection' => 'informed-search', 'page' => 'index', 'title' => 'Informed Search', 'permissions' => [
                     'index',
                     'greedy-search', 'greedy-search-code-run',
                     'a-tree-search', 'a-tree-search-code-run',
@@ -31,6 +31,13 @@ $menu = [
                 ]],
             ],
         ],
+        [
+            'title' => 'Knowledge & Uncertainty',
+            'subMenu' => [
+                ['section' => 'knowledge-and-uncertainty', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
+                ['section' => 'knowledge-and-uncertainty', 'subSection' => 'knowledge-based-agents', 'page' => 'index', 'title' => 'Knowledge-Based Agents', 'permissions' => ['index', 'knowledge-based-agents-code-run']],
+            ]
+        ]
     ],
     '<i class="fas fa-robot me-1"></i> Machine Learning' => [
         [

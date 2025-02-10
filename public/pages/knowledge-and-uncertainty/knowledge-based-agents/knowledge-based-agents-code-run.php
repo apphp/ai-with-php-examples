@@ -1,5 +1,4 @@
 <?php
-include_once('knowledge-based-agents-code.php');
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);

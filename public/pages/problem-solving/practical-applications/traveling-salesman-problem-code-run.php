@@ -51,7 +51,7 @@ $memoryEnd = memory_get_usage();
             $chartGraph = '
                 graph TD
                     %% Node definitions with levels and heuristics
-                    NY["NY<br>Level: 7<br>h: 3935.7"]
+                    NY["New York<br>Level: 7<br>h: 3935.7"]
                     LA["Los Angeles<br>Level: 0<br>h: 0.0"]
                     CH["Chicago<br>Level: 5<br>h: 2804.0"]
                     HO["Houston<br>Level: 4<br>h: 2206.3"]

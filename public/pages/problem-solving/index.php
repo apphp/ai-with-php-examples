@@ -11,6 +11,7 @@
     <ui class="list">
         <li><a href="<?= create_href('problem-solving', 'uninformed-search', 'index') ?>">Uninformed (Blind) Search</a></li>
         <li><a href="<?= create_href('problem-solving', 'informed-search', 'index') ?>">Informed (Heuristic) Search</a></li>
+        <li><a href="<?= create_href('problem-solving', 'practical-applications', 'index') ?>">Practical Applications</a></li>
     </ui>
 </div>
 

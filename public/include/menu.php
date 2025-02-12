@@ -29,6 +29,10 @@ $menu = [
                     'beam-search', 'beam-search-code-run',
                     'hill-climbing-search', 'hill-climbing-search-code-run',
                 ]],
+                ['section' => 'problem-solving', 'subSection' => 'practical-applications', 'page' => 'index', 'title' => 'Practical Applications', 'permissions' => [
+                    'index',
+                    'traveling-salesman-problem', 'traveling-salesman-problem-code-run',
+                ]],
             ],
         ],
         [

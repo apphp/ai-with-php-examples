@@ -75,7 +75,7 @@ function runAllSearches(InformedSearchGraph $graph, string $start, string $goal)
 }
 
 // Define start and goal cities
-$startCity = 'New York';
+$startCity = 'Philadelphia';
 $goalCity = 'Houston';
 
 // Create graph and run searches

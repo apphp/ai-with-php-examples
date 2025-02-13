@@ -130,7 +130,7 @@ $memoryEnd = memory_get_usage();
                 graph: $chartGraph,
                 steps: $steps,
                 defaultMessage: 'Starting traversal...',
-                startNode: 'NY',
+                startNode: 'PHL',
                 endNode: 'HO',
                 intersectionNode: '',
             );

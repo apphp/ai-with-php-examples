@@ -55,6 +55,7 @@ To install these examples, follow these steps:
       - A* Graph Search
       - Iterative Deepening A*
       - Beam Search
+    - Practical Applications
   - Knowledge & Uncertainty in AI
     - Knowledge-Based Agents
 - Machine Learning

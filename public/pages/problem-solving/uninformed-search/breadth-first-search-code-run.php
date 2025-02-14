@@ -2,8 +2,6 @@
 
 use app\public\include\classes\Chart;
 
-include_once('uninformed-graph-code.php');
-
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();
@@ -31,7 +29,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/breadth-first-search-code-usage.php'); ?>
+    <?= create_example_of_use_links(APP_PATH . '/public/include/classes/UninformedSearchGraph.php'); ?>
 </div>
 
 <div class="container-fluid px-2">
@@ -76,7 +74,6 @@ $memoryEnd = memory_get_usage();
                     endNode: 'K',
                 );
             ?>
-
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
             <div class="mb-1">

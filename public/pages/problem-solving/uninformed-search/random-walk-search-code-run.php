@@ -3,8 +3,6 @@
 use app\public\include\classes\Chart;
 use app\public\include\classes\SearchVisualizer;
 
-include_once('uninformed-graph-code.php');
-
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();

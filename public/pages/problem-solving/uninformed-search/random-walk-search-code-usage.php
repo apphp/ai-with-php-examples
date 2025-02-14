@@ -1,6 +1,8 @@
 <?php
 
 // Create new graph instance
+use app\public\include\classes\UninformedSearchGraph;
+
 $graph = new UninformedSearchGraph();
 
 // Add vertices with their levels

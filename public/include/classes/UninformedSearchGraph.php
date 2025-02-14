@@ -1,6 +1,10 @@
 <?php
 
-declare(strict_types=1);
+namespace app\public\include\classes;
+
+use InvalidArgumentException;
+use SplPriorityQueue;
+use SplQueue;
 
 class UninformedSearchGraph {
     private array $adjacencyList;

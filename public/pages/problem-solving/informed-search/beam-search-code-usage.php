@@ -1,5 +1,7 @@
 <?php
 
+use app\public\include\classes\InformedSearchGraph;
+
 // Create the graph and add vertices with their levels
 $graph = new InformedSearchGraph();
 

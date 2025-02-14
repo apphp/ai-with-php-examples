@@ -2,6 +2,8 @@
 
 namespace app\public\include\classes;
 
+use InvalidArgumentException;
+
 class InformedSearchGraph {
     private array $adjacencyList;
     private array $levels;
@@ -26,7 +28,7 @@ class InformedSearchGraph {
 
     public function addEdge(string $from, string $to, float $cost = 1.0): void {
         if (!isset($this->adjacencyList[$from]) || !isset($this->adjacencyList[$to])) {
-            throw new InvalidArgumentException("Both vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both vertices must exist in the graph.');
         }
 
         if (!isset($this->edgeCosts[$from])) {
@@ -48,7 +50,7 @@ class InformedSearchGraph {
 
     public function greedySearch(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         $path = [];
@@ -955,6 +957,3 @@ class InformedSearchGraph {
         }
     }
 }
-
-
-

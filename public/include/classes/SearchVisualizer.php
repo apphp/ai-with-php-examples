@@ -2,7 +2,7 @@
 
 namespace app\public\include\classes;
 
-use InformedSearchGraph;
+use app\public\include\classes\InformedSearchGraph;
 use UninformedSearchGraph;
 
 class SearchVisualizer {

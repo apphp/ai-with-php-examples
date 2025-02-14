@@ -6,8 +6,6 @@ use app\public\include\classes\SearchVisualizer;
 $searchType = isset($_GET['searchType']) && is_string($_GET['searchType']) ? $_GET['searchType'] : '';
 verify_fields($searchType, ['simple', 'steepest', 'stochastic'], 'simple');
 
-include('informed-graph-code.php');
-
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();

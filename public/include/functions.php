@@ -30,6 +30,18 @@ function array_flatten(array $array = []): array {
     return $return;
 }
 
+function array_format_matrix(array $matrix): string {
+    $result = [];
+
+    foreach ($matrix as $row) {
+        // Convert each row to a string with brackets
+        $result[] = '[' . implode(', ', $row) . ']';
+    }
+
+    // Join rows with newlines
+    return implode("\n", $result);
+}
+
 function verify_fields(array|string &$features, array $verificationData, array|string $defaultData): void {
     if (empty($features)) {
         $features = $defaultData;

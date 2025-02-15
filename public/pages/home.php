@@ -22,9 +22,10 @@
     </p>
 
     <p>
-        These examples have not been subjected to rigorous security testing and may contain vulnerabilities, inefficiencies, or other issues that
-        could pose security risks if used in production environments. We strongly advise readers to thoroughly test and secure any implementation of
-        the techniques demonstrated in this book before using them in real-world applications.
+        The demo code has not been subjected to rigorous security testing and may contain inaccuracies, vulnerabilities, inefficiencies, or other
+        issues that could pose security risks if used in production environments. As such, it may not be 100% accurate or reflect best practices. We
+        strongly advise readers to thoroughly review, test, and secure any implementation of the techniques demonstrated in this book before using
+        them in real-world applications.
     </p>
 
     <p>

@@ -8,19 +8,22 @@ use SplQueue;
 
 class UninformedSearchGraph {
     private array $adjacencyList;
+    private array $vertexLabels;
     private array $levels;
     // Store edge weights
     private array $weights;
 
     public function __construct() {
         $this->adjacencyList = [];
+        $this->vertexLabels = [];
         $this->levels = [];
         $this->weights = [];
     }
 
-    public function addVertex(string $vertex, int $level = -1): void {
+    public function addVertex(string $vertex, int $level = -1, float $heuristic = 0.0, string $label = ''): void {
         if (!isset($this->adjacencyList[$vertex])) {
             $this->adjacencyList[$vertex] = [];
+            $this->vertexLabels[$vertex] = $label;
             $this->levels[$vertex] = $level;
         }
     }
@@ -590,6 +593,53 @@ class UninformedSearchGraph {
         foreach ($result['visited'] as $vertex => $count) {
             echo sprintf("Node %s: visited %d times\n", $vertex, $count);
         }
+    }
+
+    public function searchAnalysis($searchResult): void {
+        if ($searchResult === null) {
+            echo "No path found!\n";
+            return;
+        }
+
+        $totalCost = 0;
+
+        echo "Path sequence:\n";
+        $pathSequenceNames = array_map(function ($node) {
+            $vertex = $node['vertex'] ?? $node;
+            return $this->vertexLabels[$vertex] ?? $vertex;
+        }, $searchResult);
+        echo implode(" -> ", $pathSequenceNames) . "\n";
+
+        echo "\nPath analysis:\n";
+        $lastIndex = 0;
+        $lastVertex = null;
+        $pathSequence = array_map(function ($node) {
+            $vertex = $node['vertex'] ?? $node;
+            return $node['vertex'] ?? $node;
+        }, $searchResult);
+
+        foreach ($pathSequence as $index => $vertex) {
+            if ($index > 0) {
+                $prevVertex = $pathSequence[$index - 1];
+                echo sprintf("Step %d: %s (level %d) -> %s (level %d)\n",
+                    $index,
+                    $prevVertex,
+                    $this->levels[$prevVertex],
+                    $vertex,
+                    $this->levels[$vertex],
+                );
+            }
+            $lastIndex++;
+            $lastVertex = $vertex;
+        }
+
+        echo sprintf("Step %d: %s (level %d)\n",
+            $lastIndex,
+            $lastVertex,
+            $this->levels[$vertex],
+        );
+
+        echo sprintf("\n");
     }
 
     // Helper method to print the adjacency list (for debugging)

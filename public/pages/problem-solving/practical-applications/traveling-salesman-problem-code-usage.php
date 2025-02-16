@@ -62,9 +62,7 @@ function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $sta
             }
 
             if ($searchResult !== null) {
-                if ($graph instanceof InformedSearchGraph){
-                    $graph->searchAnalysis($searchResult);
-                }
+                $graph->searchAnalysis($searchResult);
                 printf("Time taken: %.4f seconds\n", $endTime - $startTime);
             } else {
                 echo "No path found!\n";

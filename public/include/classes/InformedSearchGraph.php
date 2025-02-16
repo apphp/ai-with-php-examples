@@ -6,6 +6,7 @@ use InvalidArgumentException;
 
 class InformedSearchGraph {
     private array $adjacencyList;
+    private array $vertexLabels;
     private array $levels;
     private array $heuristics;
     private array $edgeCosts;
@@ -867,7 +868,7 @@ class InformedSearchGraph {
 
         $totalCost = 0;
 
-        echo "Path sequence: ";
+        echo "Path sequence:\n";
         $pathSequenceNames = array_map(function ($node) {
             $vertex = $node['vertex'] ?? $node;
             return $this->vertexLabels[$vertex] ?? $vertex;

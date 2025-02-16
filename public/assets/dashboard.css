@@ -30,6 +30,10 @@ code#code code {
   padding: 4px 8px;
 }
 
+.form-select.w-60 {
+  width: 60% !important;
+}
+
 
 /*
  * Sidebar

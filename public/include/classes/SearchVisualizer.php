@@ -89,7 +89,7 @@ class SearchVisualizer {
             $levelNames = ['root', 'first level', 'second level', 'third level', 'fourth level', 'fifth level', 'sixth level', 'seventh level'];
 
             $last = end($path)['vertex'] ?? end($path);
-            $currentNodeName = $this->graph->vertexLabels[$currentNode] ?? $currentNode;
+            $currentNodeName = $this->graph->getVertexLabel($currentNode);
             $info = $currentNode === $last
                 ? (isset($levelNames[$level]) ? "Visiting {$levelNames[$level]} node $currentNodeName - Search complete!" : "Visiting node $currentNodeName - Search complete!")
                 : (isset($levelNames[$level]) ? "Visiting {$levelNames[$level]} node $currentNodeName" : "Visiting node $currentNodeName");

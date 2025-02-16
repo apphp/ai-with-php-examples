@@ -19,9 +19,9 @@ function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $sta
         case 'breadth-first-search':
             $searches['Breadth First'] = fn() => $graph->bfs($start, $goal); break;
         case 'uniform-cost-search':
-            $searches['Uniform Cost Search'] = fn() => $graph->ucs($start, $goal); break;
+            $searches['Uniform Cost Search'] = fn() => $graph->ucs($start, $goal, pathOnly: true); break;
         case 'iterative-deepening-depth-first':
-            $searches['Iterative Deepening Depth-First Search'] = fn() => $graph->iddfs($start, $goal); break;
+            $searches['Iterative Deepening Depth-First Search'] = fn() => $graph->iddfs($start, $goal, pathOnly: true); break;
 
         case 'greedy-search':
             $searches['Greedy Search'] = fn() => $graph->greedySearch($start, $goal); break;
@@ -29,6 +29,8 @@ function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $sta
             $searches['A* Group Search'] = fn() => $graph->aStarGroupSearch($start, $goal); break;
         case 'beam-search-3':
             $searches['Beam Search (width = 3)'] = fn() => $graph->beamSearch($start, $goal, 3); break;
+        case 'beam-search-4':
+            $searches['Beam Search (width = 4)'] = fn() => $graph->beamSearch($start, $goal, 4); break;
         case 'ida-search':
             $searches['IDA* Search'] = fn() => $graph->idaStarSearch($start, $goal); break;
         case 'simple-hill-climbing':
@@ -59,6 +61,10 @@ function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $sta
                 $searchResult = $graph->debugSteepestAscentHillClimbing($start, $goal);
             } elseif ($name === 'Simple Hill Climbing') {
                 $searchResult = $graph->debugSimpleHillClimbing($start, $goal);
+            } elseif (!$searchResult && $name === 'Beam Search (width = 3)') {
+                $searchResult = $graph->debugBeamSearch($start, $goal, 3);
+            } elseif (!$searchResult && $name === 'Beam Search (width = 4)') {
+                $searchResult = $graph->debugBeamSearch($start, $goal, 4);
             }
 
             if ($searchResult !== null) {

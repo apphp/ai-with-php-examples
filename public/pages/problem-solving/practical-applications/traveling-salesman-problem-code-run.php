@@ -8,6 +8,7 @@ $informedSearch = [
     'A* Tree Search' => 'a-tree-search',
     'A* Group Search' => 'a-group-search',
     'Beam Search (width = 3)' => 'beam-search-3',
+    'Beam Search (width = 4)' => 'beam-search-4',
     'IDA* Search' => 'ida-search',
     'Simple Hill Climbing' => 'simple-hill-climbing',
     'Steepest Ascent Hill Climbing' => 'steepest-ascent-hill-climbing',
@@ -17,8 +18,8 @@ $informedSearch = [
 $uninformedSearch = [
     'Depth First' => 'depth-first-search',
     'Breadth First' => 'breadth-first-search',
-//    'Uniform Cost Search' => 'uniform-cost-search',
-//    'Iterative Deepening Depth-First Search' => 'iterative-deepening-depth-first',
+    'Uniform Cost Search' => 'uniform-cost-search',
+    'Iterative Deepening Depth-First Search' => 'iterative-deepening-depth-first',
 ];
 
 $groupedAlgorithms = [

@@ -29,6 +29,10 @@ class InformedSearchGraph {
         }
     }
 
+    public function getVertexLabel(string $vertex = ''): string {
+        return $this->vertexLabels[$vertex] ?? $vertex;
+    }
+
     public function addEdge(string $from, string $to, float $cost = 1.0): void {
         if (!isset($this->adjacencyList[$from]) || !isset($this->adjacencyList[$to])) {
             throw new InvalidArgumentException('Both vertices must exist in the graph.');
@@ -591,6 +595,118 @@ class InformedSearchGraph {
         }
 
         return $attempts < $maxAttempts ? $path : null;
+    }
+
+    /**
+     * Debug output for Beam Search showing the beam selection process
+     * and path finding decisions
+     */
+    public function debugBeamSearch(string $start, string $goal, int $beamWidth = 2): ?array {
+        if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
+            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+        }
+
+        echo "\n=== Beam Search Debug (Beam Width: {$beamWidth}) ===\n";
+        echo "Starting from {$start} to reach {$goal}\n";
+
+        // Initialize beam with start vertex
+        $beam = [[
+            'vertex' => $start,
+            'path' => [
+                [
+                    'vertex' => $start,
+                    'level' => $this->levels[$start],
+                    'heuristic' => $this->heuristics[$start]
+                ]
+            ]
+        ]];
+
+        $visited = [$start => true];
+        $iteration = 0;
+
+        while (!empty($beam)) {
+            $iteration++;
+            echo "\n=== Iteration {$iteration} ===\n";
+            echo "Current beam states:\n";
+            foreach ($beam as $index => $state) {
+                echo sprintf("  %d. %s (h=%.2f)\n",
+                    $index + 1,
+                    $state['vertex'],
+                    $this->heuristics[$state['vertex']]
+                );
+            }
+
+            $candidates = [];
+
+            // Generate all possible next states from current beam
+            foreach ($beam as $state) {
+                $currentVertex = $state['vertex'];
+                echo "\nExpanding vertex: {$currentVertex}\n";
+
+                // Check if we've reached the goal
+                if ($currentVertex === $goal) {
+                    echo "\nGoal state reached!\n";
+                    echo "Final path: " . implode(" -> ", array_column($state['path'], 'vertex')) . "\n";
+                    return $state['path'];
+                }
+
+                // Get all neighbors of current vertex
+                echo "Evaluating neighbors:\n";
+                foreach ($this->adjacencyList[$currentVertex] as $neighbor) {
+                    if (isset($visited[$neighbor])) {
+                        echo "  {$neighbor}: Skipped (already visited)\n";
+                        continue;
+                    }
+
+                    $newPath = $state['path'];
+                    $newPath[] = [
+                        'vertex' => $neighbor,
+                        'level' => $this->levels[$neighbor],
+                        'heuristic' => $this->heuristics[$neighbor]
+                    ];
+
+                    $candidates[] = [
+                        'vertex' => $neighbor,
+                        'path' => $newPath,
+                        'heuristic' => $this->heuristics[$neighbor]
+                    ];
+
+                    echo sprintf("  %s: Added as candidate (h=%.2f)\n",
+                        $neighbor,
+                        $this->heuristics[$neighbor]
+                    );
+
+                    $visited[$neighbor] = true;
+                }
+            }
+
+            if (empty($candidates)) {
+                echo "\nNo candidates available - search failed\n";
+                return null;
+            }
+
+            // Sort candidates by heuristic value (ascending)
+            usort($candidates, function($a, $b) {
+                return $a['heuristic'] <=> $b['heuristic'];
+            });
+
+            echo "\nCandidate ranking:\n";
+            foreach ($candidates as $index => $candidate) {
+                echo sprintf("  %d. %s (h=%.2f)%s\n",
+                    $index + 1,
+                    $candidate['vertex'],
+                    $candidate['heuristic'],
+                    $index < $beamWidth ? " ← Selected for beam" : ""
+                );
+            }
+
+            // Keep only the k best candidates (beam width)
+            $beam = array_slice($candidates, 0, $beamWidth);
+            echo "\nNew beam width: " . count($beam) . " states\n";
+        }
+
+        echo "\nSearch completed without finding goal\n";
+        return null;
     }
 
     /**

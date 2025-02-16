@@ -219,7 +219,7 @@ function create_form_features(array $features = [], array $data = [], string $fi
     $type = in_array($type, ['select', 'radio', 'checkbox', 'number']) ? $type : 'checkbox';
 
     if ($type === 'select') {
-        $output = '<select class="form-select float-start w-50" name="' . $fieldName . '">';//$output// . $output .
+        $output = '<select class="form-select float-start w-60" name="' . $fieldName . '">';//$output// . $output .
         foreach ($features as $name => $feature) {
             if (str_starts_with($name, 'group')){
                 $label = $feature['label'] ?? '';

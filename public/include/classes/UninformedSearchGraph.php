@@ -28,6 +28,10 @@ class UninformedSearchGraph {
         }
     }
 
+    public function getVertexLabel(string $vertex = ''): string {
+        return $this->vertexLabels[$vertex] ?? $vertex;
+    }
+
     public function addEdge(string $vertex1, string $vertex2, float $weight = 1.0): void {
         if (!isset($this->adjacencyList[$vertex1]) || !isset($this->adjacencyList[$vertex2])) {
             throw new InvalidArgumentException("Both vertices must exist in the graph.");
@@ -175,7 +179,7 @@ class UninformedSearchGraph {
         ];
     }
 
-    public function iddfs(string $startVertex, string $target = null, int $maxIterations = 100): array {
+    public function iddfs(string $startVertex, string $target = null, int $maxIterations = 100, bool $pathOnly = false): array {
         if (!isset($this->adjacencyList[$startVertex])) {
             throw new InvalidArgumentException("Start vertex does not exist in the graph.");
         }
@@ -194,6 +198,10 @@ class UninformedSearchGraph {
 
             // If target is found, return all paths explored
             if ($result['found']) {
+                if ($pathOnly) {
+                    return $allPaths[$depth]['path'];
+                }
+
                 return [
                     'success' => true,
                     'final_depth' => $depth,
@@ -212,7 +220,7 @@ class UninformedSearchGraph {
         ];
     }
 
-    public function ucs(string $startVertex, string $targetVertex = null): array {
+    public function ucs(string $startVertex, string $targetVertex = null, bool $pathOnly = false): array {
         if (!isset($this->adjacencyList[$startVertex])) {
             throw new InvalidArgumentException("Start vertex does not exist in the graph");
         }
@@ -270,6 +278,10 @@ class UninformedSearchGraph {
                 'cost' => $costs[$current]
             ];
             $current = $previous[$current];
+        }
+
+        if ($pathOnly){
+            return array_reverse($optimalPath);
         }
 
         return [

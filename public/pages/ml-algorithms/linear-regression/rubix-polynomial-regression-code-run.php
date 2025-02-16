@@ -5,8 +5,9 @@ use app\public\include\classes\Chart;
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 
+$regressionOrders = ['Order' => [1, 2, 3, 4, 5]];
 $regressionOrder = $_GET['regression_order'] ?? '';
-verify_fields($regressionOrder, ['1', '2', '3', '4', '5'], '3');
+verify_fields($regressionOrder, array_values($regressionOrders['Order']), '3');
 
 ob_start();
 //////////////////////////////
@@ -76,7 +77,7 @@ $memoryEnd = memory_get_usage();
                 </div>
                 <form action="<?= APP_SEO_LINKS ? create_href('ml-algorithms', 'linear-regression', 'rubix-polynomial-regression-code-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('ml-algorithms', 'linear-regression', 'rubix-polynomial-regression-code-run') : '';?>
-                    <?=create_form_features(['Order' => [1, 2, 3, 4, 5]], [$regressionOrder], fieldName: 'regression_order', type: 'number');?>
+                    <?=create_form_features($regressionOrders, [$regressionOrder], fieldName: 'regression_order', type: 'number');?>
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
                     </div>

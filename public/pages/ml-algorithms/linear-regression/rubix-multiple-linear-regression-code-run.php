@@ -4,6 +4,11 @@ use app\public\include\classes\Chart;
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
+
+$availableFeatures = ['Rooms' => 0, 'Size' => 1, 'Location' => 2];
+$features = isset($_GET['features']) && is_array($_GET['features']) ? $_GET['features'] : [];
+verify_fields($features, array_values($availableFeatures), ['0', '1']);
+
 ob_start();
 //////////////////////////////
 
@@ -13,9 +18,6 @@ include('rubix-multiple-linear-regression-code.php');
 $result = ob_get_clean();
 $microtimeEnd = microtime(true);
 $memoryEnd = memory_get_usage();
-
-$features = isset($_GET['features']) && is_array($_GET['features']) ? $_GET['features'] : [];
-verify_fields($features, ['0', '1', '2'], ['0', '1']);
 
 ?>
 
@@ -77,7 +79,7 @@ verify_fields($features, ['0', '1', '2'], ['0', '1']);
                 </div>
                 <form action="<?= APP_SEO_LINKS ? create_href('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression-code-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('ml-algorithms', 'linear-regression', 'rubix-multiple-linear-regression-code-run') : '';?>
-                    <?=create_form_features(['Rooms' => 0, 'Size' => 1, 'Location' => 2], $features);?>
+                    <?=create_form_features($availableFeatures, $features);?>
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
                     </div>

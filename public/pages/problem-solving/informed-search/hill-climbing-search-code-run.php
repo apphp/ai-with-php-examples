@@ -3,12 +3,13 @@
 use app\public\include\classes\Chart;
 use app\public\include\classes\SearchVisualizer;
 
+$memoryStart = memory_get_usage();
+$microtimeStart = microtime(true);
+
 $availableTypes = ['Simple' => 'simple', 'Steepest Ascent' => 'steepest', 'Stochastic' => 'stochastic'];
 $searchType = isset($_GET['searchType']) && is_string($_GET['searchType']) ? $_GET['searchType'] : '';
 verify_fields($searchType, array_values($availableTypes), reset($availableTypes));
 
-$memoryStart = memory_get_usage();
-$microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 include('hill-climbing-search-code-usage.php');
@@ -17,7 +18,6 @@ include('hill-climbing-search-code-usage.php');
 $result = ob_get_clean();
 $microtimeEnd = microtime(true);
 $memoryEnd = memory_get_usage();
-
 
 ?>
 

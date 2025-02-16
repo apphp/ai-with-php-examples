@@ -3,8 +3,9 @@
 use app\public\include\classes\Chart;
 use app\public\include\classes\SearchVisualizer;
 
+$availablerBeams = ['β=1' => 1, 'β=2' => 2, 'β=3' => 3];
 $beam = isset($_GET['beam']) && is_string($_GET['beam']) ? $_GET['beam'] : '';
-verify_fields($beam, ['1', '2', '3'], '1');
+verify_fields($beam, array_values($availablerBeams), reset($availablerBeams));
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
@@ -118,7 +119,7 @@ $memoryEnd = memory_get_usage();
                 </div>
                 <form action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'informed-search', 'beam-search-code-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'informed-search', 'beam-search-code-run') : '';?>
-                    <?=create_form_features(['β=1' => 1, 'β=2' => 2, 'β=3' => 3], [$beam], fieldName: 'beam', type: 'radio');?>
+                    <?=create_form_features($availablerBeams, [$beam], fieldName: 'beam', type: 'radio');?>
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
                     </div>

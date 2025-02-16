@@ -3,6 +3,39 @@
 use app\public\include\classes\Chart;
 use app\public\include\classes\SearchVisualizer;
 
+$informedSearch = [
+    //    'Greedy Search' => 'greedy-search',
+    'A* Tree Search' => 'a-tree-search',
+    'A* Group Search' => 'a-group-search',
+    'Beam Search (width = 3)' => 'beam-search-3',
+    'IDA* Search' => 'ida-search',
+    'Simple Hill Climbing' => 'simple-hill-climbing',
+    'Steepest Ascent Hill Climbing' => 'steepest-ascent-hill-climbing',
+    'Stochastic Hill Climbing' => 'stochastic-hill-climbing',
+];
+
+$uninformedSearch = [
+    'Depth First' => 'depth-first-search',
+    'Breadth First' => 'breadth-first-search',
+//    'Uniform Cost Search' => 'uniform-cost-search',
+//    'Iterative Deepening Depth-First Search' => 'iterative-deepening-depth-first',
+];
+
+$groupedAlgorithms = [
+    'group1' => [
+        'label' => 'Informed Search',
+        'options' => $informedSearch
+    ],
+    'group2' => [
+        'label' => 'Uninformed Search',
+        'options' => $uninformedSearch
+    ],
+];
+
+$availalbeAlgorithms = array_merge($informedSearch, $uninformedSearch);
+
+$searchAlgorithm = isset($_GET['searchAlgorithm']) && is_string($_GET['searchAlgorithm']) ? $_GET['searchAlgorithm'] : '';
+verify_fields($searchAlgorithm, array_values($availalbeAlgorithms), reset($availalbeAlgorithms));
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
@@ -14,7 +47,6 @@ include('traveling-salesman-problem-code-usage.php');
 $result = ob_get_clean();
 $microtimeEnd = microtime(true);
 $memoryEnd = memory_get_usage();
-
 
 ?>
 
@@ -51,16 +83,16 @@ $memoryEnd = memory_get_usage();
             $chartGraph = '
                 graph TD
                     %% Node definitions with levels and heuristics
-                    NY["New York<br>Level: 7<br>h: 3935.7"]
-                    LA["Los Angeles<br>Level: 0<br>h: 0.0"]
-                    CH["Chicago<br>Level: 5<br>h: 2804.0"]
-                    HO["Houston<br>Level: 4<br>h: 2206.3"]
-                    PH["Phoenix<br>Level: 1<br>h: 574.3"]
-                    PHL["Philadelphia<br>Level: 7<br>h: 3843.5"]
-                    SA["San Antonio<br>Level: 3<br>h: 1933.8"]
-                    SD["San Diego<br>Level: 0<br>h: 179.4"]
+                    PHL["Philadelphia<br>Level: 0<br>h: 3843.5"]
+                    NY["New York<br>Level: 1<br>h: 3835.7"]
+                    MI["Miami<br>Level: 2<br>h: 3758.8"]
+                    CH["Chicago<br>Level: 2<br>h: 2804.0"]
+                    LA["Los Angeles<br>Level: 2<br>h: 1234.3"]
                     DA["Dallas<br>Level: 3<br>h: 1992.0"]
-                    MI["Miami<br>Level: 7<br>h: 3758.8"]
+                    HO["Houston<br>Level: 3<br>h: 2206.3"]
+                    PH["Phoenix<br>Level: 3<br>h: 574.3"]
+                    SD["San Diego<br>Level: 3<br>h: 179.4"]
+                    SA["San Antonio<br>Level: 4<br>h: 1933.8"]
                 
                     %% Style definitions for regions
                     classDef westCoast fill:#ffdddd,stroke:#333
@@ -119,16 +151,24 @@ $memoryEnd = memory_get_usage();
 
                 ';
 
-            $steps = '[
-                    { visit: "NY", info: "", edge: null },
-                    { visit: "CH", info: "", edge: "NY-CH" },
-                    { visit: "DA", info: "", edge: "CH-DA" },
-                    { visit: "HO", info: "Search complete!", edge: "DA-HO" },
+            // Generate visualization
+            if ($searchResult) {
+                $visualizer = new SearchVisualizer($graph);
+                $visualization = $visualizer->generateVisualization($searchResult);
+                $chartSteps = $visualization['steps'];
+            } else {
+                $chartSteps = '[
+
                 ]';
+//                { visit: "NY", info: "", edge: null },
+//                { visit: "CH", info: "", edge: "NY-CH" },
+//                { visit: "DA", info: "", edge: "CH-DA" },
+//                { visit: "HO", info: "Search complete!", edge: "DA-HO" },
+            }
 
             echo Chart::drawTreeDiagram(
                 graph: $chartGraph,
-                steps: $steps,
+                steps: $chartSteps,
                 defaultMessage: 'Starting traversal...',
                 startNode: 'PHL',
                 endNode: 'HO',
@@ -137,6 +177,21 @@ $memoryEnd = memory_get_usage();
             ?>
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
+            <div>
+                <div class="mt-1">
+                    <b>Search Type:</b>
+                </div>
+                <form class="mt-2" action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run') : 'index.php'; ?>" type="GET">
+                    <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run') : '';?>
+                    <?=create_form_features($groupedAlgorithms, [$searchAlgorithm], fieldName: 'searchAlgorithm', type: 'select');?>
+                    <div class="form-check form-check-inline float-end p-0 m-0 me-1">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
+                    </div>
+                    <div class=" clearfix "></div>
+                </form>
+            </div>
+
+            <hr>
 
             <div class="mb-1">
                 <b>Result:</b>

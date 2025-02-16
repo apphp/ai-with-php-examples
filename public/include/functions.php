@@ -26,7 +26,9 @@ function ddd($data = []): void {
 
 function array_flatten(array $array = []): array {
     $return = [];
-    array_walk_recursive($array, function($a) use (&$return) { $return[] = $a; });
+    array_walk_recursive($array, function ($a) use (&$return) {
+        $return[] = $a;
+    });
     return $return;
 }
 
@@ -214,31 +216,50 @@ function create_form_fields(string $section, string $subsection, string $page): 
 function create_form_features(array $features = [], array $data = [], string $fieldName = 'features', string $type = 'checkbox') {
     $output = '';
     $ind = 0;
-    $type = in_array($type, ['radio', 'checkbox', 'number']) ? $type : 'checkbox';
+    $type = in_array($type, ['select', 'radio', 'checkbox', 'number']) ? $type : 'checkbox';
 
-    foreach ($features as $name => $feature) {
-        $ind++;
+    if ($type === 'select') {
+        $output = '<select class="form-select float-start w-50" name="' . $fieldName . '">';//$output// . $output .
+        foreach ($features as $name => $feature) {
+            if (str_starts_with($name, 'group')){
+                $label = $feature['label'] ?? '';
+                $options = $feature['options'] ?? [];
+                $output .= '<optgroup label="[ '.$label.' ]">';
+                foreach ($options as $optionName => $optionValue) {
+                    $output .= '<option value="' . $optionValue . '"' . (in_array($optionValue, $data) ? ' selected' : '') . '>' . $optionName . '</option>';
+                }
+                $output .= '</optgroup>';
+            } else {
+                $output .= '<option value="' . $feature . '"' . (in_array($feature, $data) ? ' selected' : '') . '>' . $name . '</option>';
+            }
+        }
+        $output .= '</select>';
+    } else {
+        foreach ($features as $name => $feature) {
+            $ind++;
 
-        if ($type === 'number') {
-            $min = min($feature);
-            $max = max($feature);
-            $maxLength = strlen((string)$max);
-            $output .= '<div class="form-check-inline mt-2 ml-0 pl-0">
-            <input class="form-inline-number" type="number" id="inlineNumber' . $ind . '" name="' . $fieldName . '" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > '.$max.') this.value=' . $min . ';" maxlength="' . $maxLength . '" value="' . (in_array($data[0], $feature) ? $data[0] : '1') . '" step="1" style="min-width:50px">
-            <label class="form-check-label" for="inlineNumber' . $ind . '">&nbsp;' . $name . '</label>
-            </div>';
-        } elseif ($type === 'radio') {
-            $output .= '<div class="form-check form-check-inline mt-2">
-            <input class="form-check-input" type="radio" id="inlineRadio' . $ind . '" name="' . $fieldName . '" value="' . $feature . '"' . (in_array($feature, $data) ? ' checked' : '') . '>
-            <label class="form-check-label" for="inlineRadio' . $ind . '">' . $name . '</label>
-            </div>';
-        } else {
-            $output .= '<div class="form-check form-check-inline mt-2">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox' . $ind . '" name="' . $fieldName . '[]" value="' . $feature . '"' . (in_array($feature, $data) ? ' checked' : '') . '>
-            <label class="form-check-label" for="inlineCheckbox' . $ind . '">' . $name . '</label>
-            </div>';
+            if ($type === 'number') {
+                $min = min($feature);
+                $max = max($feature);
+                $maxLength = strlen((string)$max);
+                $output .= '<div class="form-check-inline mt-2 ml-0 pl-0">
+                    <input class="form-inline-number" type="number" id="inlineNumber' . $ind . '" name="' . $fieldName . '" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > ' . $max . ') this.value=' . $min . ';" maxlength="' . $maxLength . '" value="' . (in_array($data[0], $feature) ? $data[0] : '1') . '" step="1" style="min-width:50px">
+                    <label class="form-check-label" for="inlineNumber' . $ind . '">&nbsp;' . $name . '</label>
+                    </div>';
+            } elseif ($type === 'radio') {
+                $output .= '<div class="form-check form-check-inline mt-2">
+                    <input class="form-check-input" type="radio" id="inlineRadio' . $ind . '" name="' . $fieldName . '" value="' . $feature . '"' . (in_array($feature, $data) ? ' checked' : '') . '>
+                    <label class="form-check-label" for="inlineRadio' . $ind . '">' . $name . '</label>
+                    </div>';
+            } else {
+                $output .= '<div class="form-check form-check-inline mt-2">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox' . $ind . '" name="' . $fieldName . '[]" value="' . $feature . '"' . (in_array($feature, $data) ? ' checked' : '') . '>
+                    <label class="form-check-label" for="inlineCheckbox' . $ind . '">' . $name . '</label>
+                    </div>';
+            }
         }
     }
+
     return $output;
 }
 

@@ -63,11 +63,13 @@ class SearchVisualizer {
         $prevNode = null;
 
         foreach ($path as $node) {
-            $currentNode = $node['vertex'];
-            $level = $node['level'];
+            $currentNode = $node['vertex'] ?? $node;
+            $level = $node['level'] ?? $node;
 
             // Store node level
-            $this->nodeLevels[$currentNode] = $level;
+            if(!empty($this->nodeLevels)){
+                $this->nodeLevels[$currentNode] = $level;
+            }
 
             // Add to all nodes if not exists
             if (!in_array($currentNode, $this->allNodes)) {
@@ -84,10 +86,13 @@ class SearchVisualizer {
             }
 
             // Create step info
-            $levelNames = ['root', 'first level', 'second level', 'third level', 'fourth level', 'fifth level', 'sixth level'];
-            $info = $currentNode === end($path)['vertex']
-                ? "Visiting {$levelNames[$level]} node $currentNode - Search complete!"
-                : "Visiting {$levelNames[$level]} node $currentNode";
+            $levelNames = ['root', 'first level', 'second level', 'third level', 'fourth level', 'fifth level', 'sixth level', 'seventh level'];
+
+            $last = end($path)['vertex'] ?? end($path);
+            $currentNodeName = $this->graph->vertexLabels[$currentNode] ?? $currentNode;
+            $info = $currentNode === $last
+                ? (isset($levelNames[$level]) ? "Visiting {$levelNames[$level]} node $currentNodeName - Search complete!" : "Visiting node $currentNodeName - Search complete!")
+                : (isset($levelNames[$level]) ? "Visiting {$levelNames[$level]} node $currentNodeName" : "Visiting node $currentNodeName");
 
             $steps[] = [
                 'visit' => $currentNode,
@@ -105,8 +110,8 @@ class SearchVisualizer {
             'graph' => $graph,
             'originalGraph' => $originalGraph,
             'steps' => json_encode($steps),
-            'startNode' => $path[0]['vertex'],
-            'endNode' => end($path)['vertex']
+            'startNode' => $path[0]['vertex'] ?? $path[0],
+            'endNode' => end($path)['vertex'] ?? end($path)
         ];
     }
 

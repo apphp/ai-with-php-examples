@@ -12,14 +12,16 @@ class InformedSearchGraph {
 
     public function __construct() {
         $this->adjacencyList = [];
+        $this->vertexLabels = [];
         $this->levels = [];
         $this->heuristics = [];
         $this->edgeCosts = [];
     }
 
-    public function addVertex(string $vertex, int $level = -1, float $heuristic = 0.0): void {
+    public function addVertex(string $vertex, int $level = -1, float $heuristic = 0.0, string $label = ''): void {
         if (!isset($this->adjacencyList[$vertex])) {
             $this->adjacencyList[$vertex] = [];
+            $this->vertexLabels[$vertex] = $label;
             $this->levels[$vertex] = $level;
             $this->heuristics[$vertex] = $heuristic;
             $this->edgeCosts[$vertex] = [];
@@ -770,6 +772,9 @@ class InformedSearchGraph {
      * made during the search process
      */
     public function debugStochasticHillClimbing(?array $searchResult, string $start, string $goal): ?array {
+        $start = $this->vertexLabels[$start] ?? $start;
+        $goal = $this->vertexLabels[$goal] ?? $goal;
+
         if ($searchResult === null) {
             echo "\n=== Stochastic Hill Climbing Debug ===\n";
             echo "No path found from {$start} to {$goal}!\n";
@@ -863,14 +868,20 @@ class InformedSearchGraph {
         $totalCost = 0;
 
         echo "Path sequence: ";
-        $pathSequence = array_map(function ($node) {
-            return $node['vertex'] ?? $node;
+        $pathSequenceNames = array_map(function ($node) {
+            $vertex = $node['vertex'] ?? $node;
+            return $this->vertexLabels[$vertex] ?? $vertex;
         }, $searchResult);
-        echo implode(" -> ", $pathSequence) . "\n";
+        echo implode(" -> ", $pathSequenceNames) . "\n";
 
         echo "\nPath analysis:\n";
         $lastIndex = 0;
         $lastVertex = null;
+        $pathSequence = array_map(function ($node) {
+            $vertex = $node['vertex'] ?? $node;
+            return $node['vertex'] ?? $node;
+        }, $searchResult);
+
         foreach ($pathSequence as $index => $vertex) {
             if ($index > 0) {
                 $prevVertex = $pathSequence[$index - 1];
@@ -949,7 +960,7 @@ class InformedSearchGraph {
             }, $neighbors);
 
             echo sprintf("%s (Level %d, h=%.1f) -> %s\n",
-                $vertex,
+                $this->vertexLabels[$vertex] ?? $vertex,
                 $this->levels[$vertex],
                 $this->heuristics[$vertex],
                 implode(', ', $costs)

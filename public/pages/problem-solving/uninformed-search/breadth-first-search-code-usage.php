@@ -30,7 +30,7 @@ $graph->addEdge('B', 'G');
 $graph->addEdge('B', 'H');
 $graph->addEdge('G', 'I');
 
-// Perform DFS starting from 'S' to find 'K'
+// Perform BFS starting from 'S' to find 'K'
 $searchResult = $graph->bfs('S');
 
 // Output the BFS traversal

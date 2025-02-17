@@ -5,7 +5,7 @@ use app\public\include\classes\UninformedSearchGraph;
 
 
 // Function to run and analyze all search algorithms
-function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $start, string $goal, string $searchAlgorithm = 'a-tree-search') {
+function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $start, string $goal, string $searchAlgorithm = 'a-tree-search', string $algorithmDebug = '') {
 //    echo "\nInitial graph structure:\n";
 //    echo "------------------------\n";
 //    $graph->printGraph();
@@ -55,16 +55,18 @@ function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $sta
             $searchResult = $searchFn();
             $endTime = microtime(true);
 
-            if ($name === 'Stochastic Hill Climbing') {
-                $searchResult = $graph->debugStochasticHillClimbing($searchResult, $start, $goal);
-            } elseif ($name === 'Steepest Ascent Hill Climbing') {
-                $searchResult = $graph->debugSteepestAscentHillClimbing($start, $goal);
-            } elseif ($name === 'Simple Hill Climbing') {
-                $searchResult = $graph->debugSimpleHillClimbing($start, $goal);
-            } elseif (!$searchResult && $name === 'Beam Search (width = 3)') {
-                $searchResult = $graph->debugBeamSearch($start, $goal, 3);
-            } elseif (!$searchResult && $name === 'Beam Search (width = 4)') {
-                $searchResult = $graph->debugBeamSearch($start, $goal, 4);
+            if ($algorithmDebug) {
+                if ($name === 'Stochastic Hill Climbing') {
+                    $searchResult = $graph->debugStochasticHillClimbing($searchResult, $start, $goal);
+                } elseif ($name === 'Steepest Ascent Hill Climbing') {
+                    $searchResult = $graph->debugSteepestAscentHillClimbing($start, $goal);
+                } elseif ($name === 'Simple Hill Climbing') {
+                    $searchResult = $graph->debugSimpleHillClimbing($start, $goal);
+                } elseif (!$searchResult && $name === 'Beam Search (width = 3)') {
+                    $searchResult = $graph->debugBeamSearch($start, $goal, 3);
+                } elseif (!$searchResult && $name === 'Beam Search (width = 4)') {
+                    $searchResult = $graph->debugBeamSearch($start, $goal, 4);
+                }
             }
 
             if ($searchResult !== null) {
@@ -148,7 +150,7 @@ $graph->addEdge('NY', 'LA', 3935.7);
 
 $graph->addEdge('PHL', 'NY', 129.6);
 
-$searchResult = runSearch($graph, $startCity, $goalCity, $searchAlgorithm);
+$searchResult = runSearch($graph, $startCity, $goalCity, $searchAlgorithm, $algorithmDebug);
 
 
 

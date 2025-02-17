@@ -34,9 +34,12 @@ $groupedAlgorithms = [
 ];
 
 $availalbeAlgorithms = array_merge($informedSearch, $uninformedSearch);
+$algorithmDebugOptions = ['Show Debug' => '1'];
 
 $searchAlgorithm = isset($_GET['searchAlgorithm']) && is_string($_GET['searchAlgorithm']) ? $_GET['searchAlgorithm'] : '';
 verify_fields($searchAlgorithm, array_values($availalbeAlgorithms), reset($availalbeAlgorithms));
+$algorithmDebug = isset($_GET['algorithmDebug']) && is_string($_GET['algorithmDebug']) ? $_GET['algorithmDebug'] : '';
+verify_fields($algorithmDebug, array_values($algorithmDebugOptions), '');
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
@@ -184,7 +187,8 @@ $memoryEnd = memory_get_usage();
                 </div>
                 <form class="mt-2" action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run') : '';?>
-                    <?=create_form_features($groupedAlgorithms, [$searchAlgorithm], fieldName: 'searchAlgorithm', type: 'select');?>
+                    <?=create_form_features($groupedAlgorithms, [$searchAlgorithm], fieldName: 'searchAlgorithm', type: 'select', class: 'w-50');?>
+                    <?=create_form_features($algorithmDebugOptions, [$algorithmDebug], fieldName: 'algorithmDebug', type: 'single-checkbox', class: 'ms-3');?>
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
                     </div>

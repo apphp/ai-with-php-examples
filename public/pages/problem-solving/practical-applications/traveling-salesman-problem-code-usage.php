@@ -56,16 +56,24 @@ function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $sta
             $endTime = microtime(true);
 
             if ($algorithmDebug) {
-                if ($name === 'Stochastic Hill Climbing') {
-                    $searchResult = $graph->debugStochasticHillClimbing($searchResult, $start, $goal);
-                } elseif ($name === 'Steepest Ascent Hill Climbing') {
-                    $searchResult = $graph->debugSteepestAscentHillClimbing($start, $goal);
+                if ($name === 'Greedy Search') {
+                    $searchResult = $graph->debugGreedySearch($start, $goal);
+                } elseif ($name === 'A* Tree Search') {
+                    $searchResult = $graph->debugAStarTreeSearch($start, $goal);
+                } elseif ($name === 'A* Group Search') {
+                    $searchResult = $graph->debugAStarGroupSearch($start, $goal);
+                } elseif ($name === 'Beam Search (width = 3)') {
+                    $searchResult = $graph->debugBeamSearch($start, $goal, 3);
+                } elseif ($name === 'Beam Search (width = 4)') {
+                    $searchResult = $graph->debugBeamSearch($start, $goal, 4);
+                } elseif ($name === 'IDA* Search') {
+                    $searchResult = $graph->debugIdaStarSearch($start, $goal);
                 } elseif ($name === 'Simple Hill Climbing') {
                     $searchResult = $graph->debugSimpleHillClimbing($start, $goal);
-                } elseif (!$searchResult && $name === 'Beam Search (width = 3)') {
-                    $searchResult = $graph->debugBeamSearch($start, $goal, 3);
-                } elseif (!$searchResult && $name === 'Beam Search (width = 4)') {
-                    $searchResult = $graph->debugBeamSearch($start, $goal, 4);
+                } elseif ($name === 'Steepest Ascent Hill Climbing') {
+                    $searchResult = $graph->debugSteepestAscentHillClimbing($start, $goal);
+                } elseif ($name === 'Stochastic Hill Climbing') {
+                    $searchResult = $graph->debugStochasticHillClimbing($searchResult, $start, $goal);
                 }
             }
 

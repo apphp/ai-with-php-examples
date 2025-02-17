@@ -597,6 +597,12 @@ class InformedSearchGraph {
         return $attempts < $maxAttempts ? $path : null;
     }
 
+    /*
+     | ----------------------------------------------------------------------
+     | DEBUG methods
+     | ----------------------------------------------------------------------
+     */
+
     /**
      * Debug output for Beam Search showing the beam selection process
      * and path finding decisions
@@ -646,7 +652,7 @@ class InformedSearchGraph {
                 // Check if we've reached the goal
                 if ($currentVertex === $goal) {
                     echo "\nGoal state reached!\n";
-                    echo "Final path: " . implode(" -> ", array_column($state['path'], 'vertex')) . "\n";
+                    echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($state['path'], 'vertex'))) . "\n\n";
                     return $state['path'];
                 }
 
@@ -707,6 +713,358 @@ class InformedSearchGraph {
 
         echo "\nSearch completed without finding goal\n";
         return null;
+    }
+
+    /**
+     * Debug output for A* Tree Search showing the search process
+     * and decision making at each step
+     */
+    public function debugAStarTreeSearch(string $start, string $goal): ?array {
+        if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
+            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+        }
+
+        echo "\n=== A* Tree Search Debug ===\n";
+        echo "Starting from {$start} to reach {$goal}\n";
+
+        // Priority queue implemented as array with state information
+        $openSet = [[
+            'vertex' => $start,
+            'gScore' => 0.0,
+            'fScore' => $this->heuristics[$start],
+            'path' => [
+                [
+                    'vertex' => $start,
+                    'level' => $this->levels[$start],
+                    'heuristic' => $this->heuristics[$start]
+                ]
+            ]
+        ]];
+
+        $iteration = 0;
+        $totalCost = 0;
+
+        while (!empty($openSet)) {
+            $iteration++;
+            echo "\n=== Iteration {$iteration} ===\n";
+
+            // Find node in openSet with lowest fScore
+            $currentIndex = 0;
+            $currentFScore = $openSet[0]['fScore'];
+
+            echo "Current open set states:\n";
+            foreach ($openSet as $index => $state) {
+                echo sprintf("  %d. %s (g=%.2f, f=%.2f)\n",
+                    $index + 1,
+                    $state['vertex'],
+                    $state['gScore'],
+                    $state['fScore']
+                );
+                if ($state['fScore'] < $currentFScore) {
+                    $currentIndex = $index;
+                    $currentFScore = $state['fScore'];
+                }
+            }
+
+            $current = $openSet[$currentIndex];
+            $currentVertex = $current['vertex'];
+
+            echo "\nSelected node {$currentVertex} with lowest f-score: {$currentFScore}\n";
+            echo "Current path: " . implode(" -> ", array_column($current['path'], 'vertex')) . "\n";
+
+            // Check if we've reached the goal
+            if ($currentVertex === $goal) {
+                echo "\nGoal reached!\n";
+                echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($current['path'], 'vertex'))) . "\n";
+                echo "Total cost: {$current['gScore']}\n\n";
+                return $current['path'];
+            }
+
+            // Remove current from openSet
+            array_splice($openSet, $currentIndex, 1);
+            echo "\nExploring neighbors of {$currentVertex}:\n";
+
+            // Explore all neighbors
+            foreach ($this->adjacencyList[$currentVertex] as $neighbor) {
+                // Calculate g score for this path
+                $tentativeGScore = $current['gScore'] + $this->getEdgeCost($currentVertex, $neighbor);
+
+                // Calculate f score (g score + heuristic)
+                $fScore = $tentativeGScore + $this->heuristics[$neighbor];
+
+                echo sprintf("  %s: g=%.2f, h=%.2f, f=%.2f\n",
+                    $neighbor,
+                    $tentativeGScore,
+                    $this->heuristics[$neighbor],
+                    $fScore
+                );
+
+                // Create new path
+                $newPath = $current['path'];
+                $newPath[] = [
+                    'vertex' => $neighbor,
+                    'level' => $this->levels[$neighbor],
+                    'heuristic' => $this->heuristics[$neighbor]
+                ];
+
+                // Add new state to openSet
+                $openSet[] = [
+                    'vertex' => $neighbor,
+                    'gScore' => $tentativeGScore,
+                    'fScore' => $fScore,
+                    'path' => $newPath
+                ];
+
+                echo "  → Added to open set\n";
+            }
+        }
+
+        echo "\nNo path found to goal\n";
+        return null;
+    }
+
+    /**
+     * Debug output for A* Group Search showing the search process
+     * and decision making at each step
+     */
+    public function debugAStarGroupSearch(string $start, string $goal): ?array {
+        if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
+            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+        }
+
+        echo "\n=== A* Group Search Debug ===\n";
+        echo "Starting from {$start} to reach {$goal}\n";
+
+        $openSet = [$start];
+        $cameFrom = [];
+        $gScore = [$start => 0.0];
+        $fScore = [$start => $this->heuristics[$start]];
+        $iteration = 0;
+
+        echo "\nInitial state:";
+        echo "\nVertex: {$start}";
+        echo "\nLevel: {$this->levels[$start]}";
+        echo "\nHeuristic: {$this->heuristics[$start]}\n";
+
+        while (!empty($openSet)) {
+            $iteration++;
+            echo "\n=== Iteration {$iteration} ===\n";
+
+            // Find node in openSet with lowest fScore
+            $current = $openSet[0];
+            $currentFScore = $fScore[$current];
+
+            echo "Current open set:\n";
+            foreach ($openSet as $vertex) {
+                echo sprintf("  %s (g=%.2f, f=%.2f)\n",
+                    $vertex,
+                    $gScore[$vertex],
+                    $fScore[$vertex]
+                );
+                if ($fScore[$vertex] < $currentFScore) {
+                    $current = $vertex;
+                    $currentFScore = $fScore[$vertex];
+                }
+            }
+
+            echo "\nSelected vertex {$current} with lowest f-score: {$currentFScore}\n";
+
+            if ($current === $goal) {
+                // Reconstruct path
+                $path = [$current];
+                $totalCost = $gScore[$current];
+
+                while (isset($cameFrom[$current])) {
+                    $current = $cameFrom[$current];
+                    array_unshift($path, $current);
+                }
+
+                echo "\nGoal reached!\n";
+                echo "Final path: \n" . implode(" -> ", $this->getSequenceNames($path)) . "\n";
+                echo "Total cost: {$totalCost}\n\n";
+                return $path;
+            }
+
+            // Remove current from openSet
+            $openSet = array_values(array_diff($openSet, [$current]));
+            echo "\nExploring neighbors of {$current}:\n";
+
+            // Explore neighbors
+            foreach ($this->adjacencyList[$current] as $neighbor) {
+                $tentativeGScore = $gScore[$current] + $this->getEdgeCost($current, $neighbor);
+                $neighborFScore = $tentativeGScore + $this->heuristics[$neighbor];
+
+                echo sprintf("  %s: g=%.2f, h=%.2f, f=%.2f",
+                    $neighbor,
+                    $tentativeGScore,
+                    $this->heuristics[$neighbor],
+                    $neighborFScore
+                );
+
+                if (!isset($gScore[$neighbor]) || $tentativeGScore < $gScore[$neighbor]) {
+                    echo " → Better path found!\n";
+                    $cameFrom[$neighbor] = $current;
+                    $gScore[$neighbor] = $tentativeGScore;
+                    $fScore[$neighbor] = $neighborFScore;
+
+                    if (!in_array($neighbor, $openSet)) {
+                        $openSet[] = $neighbor;
+                        echo "    Added to open set\n";
+                    }
+                } else {
+                    echo " → Not better than existing path\n";
+                }
+            }
+        }
+
+        echo "\nNo path found to goal\n";
+        return null;
+    }
+
+    /**
+     * Debug output for IDA* Search showing iterative deepening process
+     * and the search decisions at each step
+     */
+    public function debugIdaStarSearch(string $start, string $goal): ?array {
+        if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
+            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+        }
+
+        echo "\n=== IDA* Search Debug ===\n";
+        echo "Starting from {$start} to reach {$goal}\n";
+
+        // Initialize the bound as the heuristic value of the start node
+        $bound = $this->heuristics[$start];
+        $iteration = 0;
+
+        echo "\nInitial state:";
+        echo "\nVertex: {$start}";
+        echo "\nLevel: {$this->levels[$start]}";
+        echo "\nHeuristic: {$this->heuristics[$start]}";
+        echo "\nInitial bound: {$bound}\n";
+
+        // Initial path contains only the start node
+        $path = [
+            [
+                'vertex' => $start,
+                'level' => $this->levels[$start],
+                'heuristic' => $this->heuristics[$start]
+            ]
+        ];
+
+        while (true) {
+            $iteration++;
+            echo "\n=== Iteration {$iteration} ===\n";
+            echo "Current bound: {$bound}\n";
+
+            // Search with current bound
+            $result = $this->debugIdaStarRecursive($path, 0, $bound, $goal, 1);
+
+            if (is_array($result)) {
+                echo "\nGoal reached!\n";
+                echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($result, 'vertex'))) . "\n\n";
+                return $result;
+            }
+
+            if ($result === PHP_FLOAT_MAX) {
+                echo "\nNo path exists to goal\n";
+                return null;
+            }
+
+            echo "\nMinimum f-value exceeding current bound: {$result}\n";
+            echo "Increasing bound for next iteration\n";
+
+            // Update bound to the minimum f-value that exceeded current bound
+            $bound = $result;
+        }
+    }
+
+    /**
+     * Debug recursive helper function for IDA* search
+     */
+    private function debugIdaStarRecursive(array $path, float $g, float $bound, string $goal, int $depth): array|float {
+        $current = $path[count($path) - 1]['vertex'];
+        $f = $g + $this->heuristics[$current];
+
+        $indent = str_repeat("  ", $depth);
+        echo "{$indent}Examining vertex: {$current}\n";
+        echo "{$indent}g-value: {$g}, h-value: {$this->heuristics[$current]}, f-value: {$f}\n";
+        echo "{$indent}Current path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
+
+        // If f exceeds bound, return f as the new minimum bound
+        if ($f > $bound) {
+            echo "{$indent}f-value {$f} exceeds bound {$bound}, backtracking\n";
+            return $f;
+        }
+
+        // If goal is reached, return the path
+        if ($current === $goal) {
+            echo "{$indent}Goal reached!\n";
+            return $path;
+        }
+
+        $min = PHP_FLOAT_MAX;
+        echo "{$indent}Exploring neighbors:\n";
+
+        // Explore all neighbors
+        foreach ($this->adjacencyList[$current] as $neighbor) {
+            // Check if neighbor is already in path (avoid cycles)
+            $inPath = false;
+            foreach ($path as $node) {
+                if ($node['vertex'] === $neighbor) {
+                    $inPath = true;
+                    break;
+                }
+            }
+
+            if ($inPath) {
+                echo "{$indent}  {$neighbor}: Skipped (already in path)\n";
+                continue;
+            }
+
+            echo "{$indent}  {$neighbor}:\n";
+            echo "{$indent}    Edge cost: {$this->getEdgeCost($current, $neighbor)}\n";
+            echo "{$indent}    Heuristic: {$this->heuristics[$neighbor]}\n";
+
+            // Add neighbor to path
+            $path[] = [
+                'vertex' => $neighbor,
+                'level' => $this->levels[$neighbor],
+                'heuristic' => $this->heuristics[$neighbor]
+            ];
+
+            // Recursively search from neighbor
+            $result = $this->debugIdaStarRecursive(
+                $path,
+                $g + $this->getEdgeCost($current, $neighbor),
+                $bound,
+                $goal,
+                $depth + 1
+            );
+
+            // Remove neighbor from path (backtrack)
+            array_pop($path);
+
+            // Process result
+            if (is_array($result)) {
+                // Path to goal found
+                return $result;
+            }
+
+            // Update minimum bound if needed
+            if ($result < $min) {
+                $min = $result;
+                echo "{$indent}  New minimum f-value found: {$min}\n";
+            }
+        }
+
+        if ($min === PHP_FLOAT_MAX) {
+            echo "{$indent}No valid neighbors found, backtracking\n";
+        } else {
+            echo "{$indent}All neighbors explored, minimum f-value: {$min}\n";
+        }
+
+        return $min;
     }
 
     /**
@@ -780,15 +1138,15 @@ class InformedSearchGraph {
 
             if (!$betterFound) {
                 echo "\nLocal maximum reached - no improving neighbors found\n";
-                echo "Final path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
-                echo "Total cost: {$totalCost}\n";
+                echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($path, 'vertex'))) . "\n";
+                echo "Total cost: {$totalCost}\n\n";
                 return null;
             }
         }
 
         echo "\nGoal reached!\n";
-        echo "Final path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
-        echo "Total cost: {$totalCost}\n";
+        echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($path, 'vertex'))) . "\n";
+        echo "Total cost: {$totalCost}\n\n";
         return $path;
     }
 
@@ -859,8 +1217,8 @@ class InformedSearchGraph {
 
             if ($bestNeighbor === null) {
                 echo "\nLocal maximum reached - no improving neighbors found\n";
-                echo "Final path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
-                echo "Total cost: {$totalCost}\n";
+                echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($path, 'vertex'))) . "\n";
+                echo "Total cost: {$totalCost}\n\n";
                 return null;
             }
 
@@ -879,8 +1237,8 @@ class InformedSearchGraph {
         }
 
         echo "\nGoal reached!\n";
-        echo "Final path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
-        echo "Total cost: {$totalCost}\n";
+        echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($path, 'vertex'))) . "\n";
+        echo "Total cost: {$totalCost}\n\n";
         return $path;
     }
 
@@ -970,10 +1328,109 @@ class InformedSearchGraph {
             echo "\n----------------------------";
         }
 
-        echo sprintf("\n\nFinal path: %s", implode(" -> ", array_column($searchResult, 'vertex')));
-        echo sprintf("\nTotal path cost: %.2f\n", $totalCost);
+        echo sprintf("\n\nFinal path: \n%s", implode(" -> ", $this->getSequenceNames(array_column($searchResult, 'vertex'))));
+        echo sprintf("\nTotal path cost: %.2f\n\n", $totalCost);
 
         return $searchResult;
+    }
+
+    /**
+     * Debug output for Greedy Search showing decision process
+     * and neighbor evaluations at each step
+     */
+    public function debugGreedySearch(string $start, string $goal): ?array {
+        if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
+        }
+
+        echo "\n=== Greedy Search Debug ===\n";
+        echo "Starting from {$start} to reach {$goal}\n";
+
+        $path = [];
+        $currentVertex = $start;
+        $totalCost = 0;
+        $iteration = 0;
+
+        echo "\nInitial state:";
+        echo "\nVertex: {$start}";
+        echo "\nLevel: {$this->levels[$start]}";
+        echo "\nHeuristic: {$this->heuristics[$start]}\n";
+
+        // Keep going until we reach the goal
+        while ($currentVertex !== $goal) {
+            $iteration++;
+            echo "\n=== Iteration {$iteration} ===\n";
+
+            // Add current vertex to path
+            $path[] = [
+                'vertex' => $currentVertex,
+                'level' => $this->levels[$currentVertex],
+                'heuristic' => $this->heuristics[$currentVertex]
+            ];
+
+            echo "Current path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
+            echo "At vertex: {$currentVertex} (h={$this->heuristics[$currentVertex]})\n";
+
+            // Get all neighbors of current vertex
+            $neighbors = $this->adjacencyList[$currentVertex];
+
+            if (empty($neighbors)) {
+                echo "Dead end reached - no neighbors available\n";
+                return null;
+            }
+
+            echo "\nEvaluating neighbors:\n";
+
+            // Find neighbor with lowest heuristic value
+            $bestNeighbor = null;
+            $bestHeuristic = PHP_FLOAT_MAX;
+            $bestEdgeCost = 0;
+
+            foreach ($neighbors as $neighbor) {
+                $h = $this->heuristics[$neighbor];
+                $edgeCost = $this->getEdgeCost($currentVertex, $neighbor);
+
+                echo sprintf("  %s:\n", $neighbor);
+                echo sprintf("    Heuristic: %.2f\n", $h);
+                echo sprintf("    Edge cost: %.2f\n", $edgeCost);
+
+                if ($h < $bestHeuristic) {
+                    $bestHeuristic = $h;
+                    $bestNeighbor = $neighbor;
+                    $bestEdgeCost = $edgeCost;
+                    echo "    → New best neighbor!\n";
+                } else {
+                    echo "    → Not better than current best\n";
+                }
+            }
+
+            // If we can't find a better neighbor, we're stuck
+            if ($bestNeighbor === null) {
+                echo "\nNo improving neighbor found - search failed\n";
+                return null;
+            }
+
+            echo "\nSelected best neighbor: {$bestNeighbor}";
+            echo "\nHeuristic value: {$bestHeuristic}";
+            echo "\nEdge cost: {$bestEdgeCost}\n";
+
+            // Move to the best neighbor
+            $totalCost += $bestEdgeCost;
+            $currentVertex = $bestNeighbor;
+        }
+
+        // Add the goal vertex to complete the path
+        $path[] = [
+            'vertex' => $goal,
+            'level' => $this->levels[$goal],
+            'heuristic' => $this->heuristics[$goal]
+        ];
+
+        echo "\nGoal reached!\n";
+        echo "Final path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
+        echo "Total cost: {$totalCost}\n";
+
+        return $path;
     }
 
     public function searchAnalysis($searchResult, bool $showCost = true): void {
@@ -1083,5 +1540,18 @@ class InformedSearchGraph {
                 implode(', ', $costs)
             );
         }
+    }
+
+    /**
+     * @param array $path
+     * @return array
+     */
+    protected function getSequenceNames(array $path): array {
+        $pathSequenceNames = array_map(function ($node) {
+            $vertex = $node['vertex'] ?? $node;
+            return $this->vertexLabels[$vertex] ?? $vertex;
+        }, $path);
+
+        return $pathSequenceNames;
     }
 }

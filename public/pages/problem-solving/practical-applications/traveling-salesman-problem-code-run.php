@@ -4,7 +4,7 @@ use app\public\include\classes\Chart;
 use app\public\include\classes\SearchVisualizer;
 
 $informedSearch = [
-    //    'Greedy Search' => 'greedy-search',
+    'Greedy Search' => 'greedy-search',
     'A* Tree Search' => 'a-tree-search',
     'A* Group Search' => 'a-group-search',
     'Beam Search (width = 3)' => 'beam-search-3',
@@ -20,6 +20,9 @@ $uninformedSearch = [
     'Breadth First' => 'breadth-first-search',
     'Uniform Cost Search' => 'uniform-cost-search',
     'Iterative Deepening Depth-First Search' => 'iterative-deepening-depth-first',
+    'Bidirectional Search' => 'bidirectional-first',
+//    'Depth-Limited Search' => 'depth-limited-search',
+//    'Random Walk Search' => 'random-walk-search',
 ];
 
 $groupedAlgorithms = [

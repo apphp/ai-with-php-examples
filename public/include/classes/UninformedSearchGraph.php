@@ -292,7 +292,7 @@ class UninformedSearchGraph {
         ];
     }
 
-    public function bds(string $startVertex, string $targetVertex): array {
+    public function bds(string $startVertex, string $targetVertex, bool $pathOnly = false): array {
         if (!isset($this->adjacencyList[$startVertex]) || !isset($this->adjacencyList[$targetVertex])) {
             throw new InvalidArgumentException("Both start and target vertices must exist in the graph.");
         }
@@ -328,7 +328,11 @@ class UninformedSearchGraph {
             );
 
             if ($intersectionVertex !== null) {
-                return $this->constructBdsPath(
+                if ($pathOnly) {
+                    return [...$forwardPath, ...$backwardPath];
+                }
+
+                $result = $this->constructBdsPath(
                     $intersectionVertex,
                     $forwardParent,
                     $backwardParent,
@@ -348,6 +352,10 @@ class UninformedSearchGraph {
             );
 
             if ($intersectionVertex !== null) {
+                if ($pathOnly) {
+                    return [...$forwardPath, ...$backwardPath];
+                }
+
                 return $this->constructBdsPath(
                     $intersectionVertex,
                     $forwardParent,

@@ -55,7 +55,7 @@ class InformedSearchGraph {
         return $this->edgeCosts[$from][$to];
     }
 
-    public function greedySearch(string $start, string $goal): ?array {
+    public function greedySearch(string $start, string $goal, $maxSteps = 100): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
             throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
@@ -64,7 +64,8 @@ class InformedSearchGraph {
         $currentVertex = $start;
 
         // Keep going until we reach the goal
-        while ($currentVertex !== $goal) {
+        $count = 0;
+        while ($currentVertex !== $goal && $count < $maxSteps) {
             // Add current vertex to path
             $path[] = [
                 'vertex' => $currentVertex,
@@ -98,6 +99,12 @@ class InformedSearchGraph {
 
             // Move to the best neighbor
             $currentVertex = $bestNeighbor;
+            $count++;
+        }
+
+        // No path found within reasonable time
+        if ($count >= $maxSteps) {
+            return null;
         }
 
         // Add the goal vertex to complete the path
@@ -1338,7 +1345,7 @@ class InformedSearchGraph {
      * Debug output for Greedy Search showing decision process
      * and neighbor evaluations at each step
      */
-    public function debugGreedySearch(string $start, string $goal): ?array {
+    public function debugGreedySearch(string $start, string $goal, $maxSteps = 100): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
             throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
@@ -1357,7 +1364,8 @@ class InformedSearchGraph {
         echo "\nHeuristic: {$this->heuristics[$start]}\n";
 
         // Keep going until we reach the goal
-        while ($currentVertex !== $goal) {
+        $count = 0;
+        while ($currentVertex !== $goal && $count < $maxSteps) {
             $iteration++;
             echo "\n=== Iteration {$iteration} ===\n";
 
@@ -1417,6 +1425,12 @@ class InformedSearchGraph {
             // Move to the best neighbor
             $totalCost += $bestEdgeCost;
             $currentVertex = $bestNeighbor;
+            $count++;
+        }
+
+        // No path found within reasonable time
+        if ($count >= $maxSteps) {
+            return null;
         }
 
         // Add the goal vertex to complete the path

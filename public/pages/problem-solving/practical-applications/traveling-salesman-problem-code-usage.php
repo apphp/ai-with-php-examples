@@ -14,6 +14,7 @@ function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $sta
     $searches = [];
 
     switch ($searchAlgorithm) {
+        // Uninformed Search
         case 'depth-first-search':
             $searches['Depth First'] = fn() => $graph->dfs($start, $goal); break;
         case 'breadth-first-search':
@@ -22,9 +23,16 @@ function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $sta
             $searches['Uniform Cost Search'] = fn() => $graph->ucs($start, $goal, pathOnly: true); break;
         case 'iterative-deepening-depth-first':
             $searches['Iterative Deepening Depth-First Search'] = fn() => $graph->iddfs($start, $goal, pathOnly: true); break;
+        case 'bidirectional-first':
+            $searches['Bidirectional Search'] = fn() => $graph->bds($start, $goal, pathOnly: true); break;
+        case 'depth-limited-search':
+            $searches['Depth-Limited Search'] = fn() => $graph->dls($start, 2, $goal); break;
+        case 'random-walk-search':
+            $searches['Random Walk Search'] = fn() => $graph->rws($start, $goal); break;
 
+        // Informed Search
         case 'greedy-search':
-            $searches['Greedy Search'] = fn() => $graph->greedySearch($start, $goal); break;
+            $searches['Greedy Search'] = fn() => $graph->greedySearch($start, $goal, 10); break;
         case 'a-group-search':
             $searches['A* Group Search'] = fn() => $graph->aStarGroupSearch($start, $goal); break;
         case 'beam-search-3':
@@ -57,7 +65,7 @@ function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $sta
 
             if ($algorithmDebug) {
                 if ($name === 'Greedy Search') {
-                    $searchResult = $graph->debugGreedySearch($start, $goal);
+                    $searchResult = $graph->debugGreedySearch($start, $goal, 10);
                 } elseif ($name === 'A* Tree Search') {
                     $searchResult = $graph->debugAStarTreeSearch($start, $goal);
                 } elseif ($name === 'A* Group Search') {
@@ -92,8 +100,13 @@ function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $sta
 }
 
 // Define start and goal cities
-$startCity = 'PHL';
-$goalCity = 'HO';
+if ($searchAlgorithm === 'bidirectional-first') {
+    $startCity = 'PHL';
+    $goalCity = 'SA';
+} else {
+    $startCity = 'PHL';
+    $goalCity = 'HO';
+}
 
 // Create graph and run searches
 echo "Creating city graph and running all search algorithms...\n";
@@ -103,7 +116,7 @@ echo "Distance calculations are in kilometers\n";
 //$graph = createCityGraph($cities, $goalCity);
 
 // Create the graph and add vertices with their levels
-if (in_array($searchAlgorithm, ['depth-first-search', 'breadth-first-search', 'uniform-cost-search', 'iterative-deepening-depth-first'])){
+if (in_array($searchAlgorithm, ['depth-first-search', 'breadth-first-search', 'uniform-cost-search', 'iterative-deepening-depth-first', 'bidirectional-first', 'depth-limited-search', 'random-walk-search'])){
     $graph = new UninformedSearchGraph();
 } else {
 

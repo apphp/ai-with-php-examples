@@ -1460,7 +1460,7 @@ class InformedSearchGraph {
             $vertex = $node['vertex'] ?? $node;
             return $this->vertexLabels[$vertex] ?? $vertex;
         }, $searchResult);
-        echo implode(" -> ", $pathSequenceNames) . "\n";
+        echo " -> " . implode("\n -> ", $pathSequenceNames) . "\n";
 
         echo "\nPath analysis:\n";
         $lastIndex = 0;

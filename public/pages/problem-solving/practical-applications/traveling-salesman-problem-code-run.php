@@ -21,8 +21,9 @@ $uninformedSearch = [
     'Uniform Cost Search' => 'uniform-cost-search',
     'Iterative Deepening Depth-First Search' => 'iterative-deepening-depth-first',
     'Bidirectional Search' => 'bidirectional-first',
-//    'Depth-Limited Search' => 'depth-limited-search',
-//    'Random Walk Search' => 'random-walk-search',
+    'Depth-Limited Search (depth = 2)' => 'depth-limited-search-2',
+    'Depth-Limited Search (depth = 3)' => 'depth-limited-search-3',
+    'Random Walk Search' => 'random-walk-search',
 ];
 
 $groupedAlgorithms = [
@@ -164,13 +165,7 @@ $memoryEnd = memory_get_usage();
                 $visualization = $visualizer->generateVisualization($searchResult);
                 $chartSteps = $visualization['steps'];
             } else {
-                $chartSteps = '[
-
-                ]';
-//                { visit: "NY", info: "", edge: null },
-//                { visit: "CH", info: "", edge: "NY-CH" },
-//                { visit: "DA", info: "", edge: "CH-DA" },
-//                { visit: "HO", info: "Search complete!", edge: "DA-HO" },
+                $chartSteps = '[]';
             }
 
             echo Chart::drawTreeDiagram(
@@ -190,7 +185,7 @@ $memoryEnd = memory_get_usage();
                 </div>
                 <form class="mt-2" action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run') : '';?>
-                    <?=create_form_features($groupedAlgorithms, [$searchAlgorithm], fieldName: 'searchAlgorithm', type: 'select', class: 'w-50');?>
+                    <?=create_form_features($groupedAlgorithms, [$searchAlgorithm], fieldName: 'searchAlgorithm', type: 'select', class: 'w-50', event: ' onchange="hangleOnChange(this)"');?>
                     <?=create_form_features($algorithmDebugOptions, [$algorithmDebug], fieldName: 'algorithmDebug', type: 'single-checkbox', class: 'ms-3');?>
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
@@ -212,3 +207,17 @@ $memoryEnd = memory_get_usage();
         </div>
     </div>
 </div>
+
+<script>
+    function hangleOnChange(el){
+        let checked = false;
+        let disabled = false;
+        if (['depth-first-search'].includes(el.value)) {
+            disabled = true;
+        } else {
+            disabled = false;
+        }
+        document.getElementById("inlineCheckbox1").checked = checked;
+        document.getElementById("inlineCheckbox1").disabled = disabled;
+    }
+</script>

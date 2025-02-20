@@ -213,13 +213,13 @@ function create_form_fields(string $section, string $subsection, string $page): 
     return $output;
 }
 
-function create_form_features(array $features = [], array $data = [], string $fieldName = 'features', string $type = 'checkbox', string $class='') {
+function create_form_features(array $features = [], array $data = [], string $fieldName = 'features', string $type = 'checkbox', string $class='', string $event='') {
     $output = '';
     $ind = 0;
     $type = in_array($type, ['select', 'radio', 'checkbox', 'number']) ? $type : 'checkbox';
 
     if ($type === 'select') {
-        $output = '<select class="form-select float-start ' . $class . '" name="' . $fieldName . '">';//$output// . $output .
+        $output = '<select class="form-select float-start ' . $class . '" name="' . $fieldName . '" ' . $event . '>';
         foreach ($features as $name => $feature) {
             if (str_starts_with($name, 'group')){
                 $label = $feature['label'] ?? '';

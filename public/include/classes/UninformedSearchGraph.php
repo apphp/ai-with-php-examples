@@ -122,7 +122,7 @@ class UninformedSearchGraph {
         return $path;
     }
 
-    public function dls(string $startVertex, int $maxDepth, string $target = null): array {
+    public function dls(string $startVertex, int $maxDepth, string $target = null, bool $pathOnly = false): array {
         if (!isset($this->adjacencyList[$startVertex])) {
             throw new InvalidArgumentException("Start vertex does not exist in the graph.");
         }
@@ -171,6 +171,10 @@ class UninformedSearchGraph {
 
         // Start DLS from the given vertex at depth 0
         $dlsRecursive($startVertex, 0);
+
+        if ($pathOnly) {
+            return $path;
+        }
 
         return [
             'path' => $path,
@@ -375,7 +379,7 @@ class UninformedSearchGraph {
         ];
     }
 
-    public function rws(string $startVertex, string $targetVertex = null, int $maxSteps = 1000): array {
+    public function rws(string $startVertex, string $targetVertex = null, int $maxSteps = 1000, bool $pathOnly = false): array {
         if (!isset($this->adjacencyList[$startVertex])) {
             throw new InvalidArgumentException("Start vertex does not exist in the graph.");
         }
@@ -424,6 +428,10 @@ class UninformedSearchGraph {
             ];
 
             $currentVertex = $nextVertex;
+        }
+
+        if ($pathOnly) {
+            return $path;
         }
 
         return [
@@ -628,7 +636,7 @@ class UninformedSearchGraph {
             $vertex = $node['vertex'] ?? $node;
             return $this->vertexLabels[$vertex] ?? $vertex;
         }, $searchResult);
-        echo implode(" -> ", $pathSequenceNames) . "\n";
+        echo " -> " . implode("\n -> ", $pathSequenceNames) . "\n";
 
         echo "\nPath analysis:\n";
         $lastIndex = 0;

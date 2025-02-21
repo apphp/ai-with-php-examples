@@ -219,10 +219,10 @@ $memoryEnd = memory_get_usage();
         if (uninformedSearch.includes(select.value)) {
             document.getElementById("inlineCheckbox1").checked = false;
             document.getElementById("inlineCheckbox1").disabled = true;
-            document.getElementById("inlineCheckbox1").closest("div").setAttribute("data-bs-original-title", "Disabled in Uninformed Search");
+            document.getElementById("inlineCheckbox1").closest("div").setAttribute("title", "Disabled in Uninformed Search");
         } else {
             document.getElementById("inlineCheckbox1").disabled = false;
-            document.getElementById("inlineCheckbox1").closest("div").removeAttribute("data-bs-original-title");
+            document.getElementById("inlineCheckbox1").closest("div").removeAttribute("title");
         }
         loadTooltips();
     }

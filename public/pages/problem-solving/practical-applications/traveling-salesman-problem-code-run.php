@@ -66,7 +66,8 @@ $memoryEnd = memory_get_usage();
     <h2 class="h4">Traveling Salesman Problem</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?= create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem') ?>" class="btn btn-sm btn-outline-primary">Show
+            <a href="<?= create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem') ?>"
+               class="btn btn-sm btn-outline-primary">Show
                 Code</a>
         </div>
     </div>
@@ -183,10 +184,12 @@ $memoryEnd = memory_get_usage();
                 <div class="mt-1">
                     <b>Search Type:</b>
                 </div>
-                <form class="mt-2" action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run') : 'index.php'; ?>" type="GET">
-                    <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run') : '';?>
-                    <?=create_form_features($groupedAlgorithms, [$searchAlgorithm], fieldName: 'searchAlgorithm', type: 'select', class: 'w-50', event: ' onchange="hangleOnChange(this)"');?>
-                    <?=create_form_features($algorithmDebugOptions, [$algorithmDebug], fieldName: 'algorithmDebug', type: 'single-checkbox', class: 'ms-3');?>
+                <form class="mt-2"
+                      action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run') : 'index.php'; ?>"
+                      type="GET">
+                    <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run') : ''; ?>
+                    <?= create_form_features($groupedAlgorithms, [$searchAlgorithm], fieldName: 'searchAlgorithm', type: 'select', class: 'w-50', event: ' _onchange="hangleOnChange(this)"'); ?>
+                    <?= create_form_features($algorithmDebugOptions, [$algorithmDebug], fieldName: 'algorithmDebug', type: 'single-checkbox', class: 'ms-3'); ?>
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
                     </div>
@@ -209,15 +212,25 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <script>
-    function hangleOnChange(el){
-        let checked = false;
-        let disabled = false;
-        if (['depth-first-search'].includes(el.value)) {
-            disabled = true;
+    function hangleOnChange() {
+        const select = document.getElementById("select_searchAlgorithm");
+        const uninformedSearch = ['depth-first-search', 'breadth-first-search', 'uniform-cost-search', 'iterative-deepening-depth-first', 'bidirectional-first', 'depth-limited-search-2', 'depth-limited-search-3', 'random-walk-search'];
+
+        if (uninformedSearch.includes(select.value)) {
+            document.getElementById("inlineCheckbox1").checked = false;
+            document.getElementById("inlineCheckbox1").disabled = true;
+            document.getElementById("inlineCheckbox1").closest("div").setAttribute("data-bs-original-title", "Disabled in Uninformed Search");
         } else {
-            disabled = false;
+            document.getElementById("inlineCheckbox1").disabled = false;
+            document.getElementById("inlineCheckbox1").closest("div").removeAttribute("data-bs-original-title");
         }
-        document.getElementById("inlineCheckbox1").checked = checked;
-        document.getElementById("inlineCheckbox1").disabled = disabled;
+        loadTooltips();
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const select = document.getElementById("select_searchAlgorithm");
+        select.addEventListener("change", hangleOnChange);
+        hangleOnChange();
+    });
+
 </script>

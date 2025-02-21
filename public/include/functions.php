@@ -219,7 +219,7 @@ function create_form_features(array $features = [], array $data = [], string $fi
     $type = in_array($type, ['select', 'radio', 'checkbox', 'number']) ? $type : 'checkbox';
 
     if ($type === 'select') {
-        $output = '<select class="form-select float-start ' . $class . '" name="' . $fieldName . '" ' . $event . '>';
+        $output = '<select class="form-select float-start ' . $class . '" id="select_' . $fieldName . '" name="' . $fieldName . '" ' . $event . '>';
         foreach ($features as $name => $feature) {
             if (str_starts_with($name, 'group')){
                 $label = $feature['label'] ?? '';
@@ -254,7 +254,7 @@ function create_form_features(array $features = [], array $data = [], string $fi
                     </div>';
             } else {
                 // Checkbox
-                $output .= '<div class="form-check form-check-inline mt-1 ' . $class . '">
+                $output .= '<div class="form-check form-check-inline mt-1 ' . $class . '" data-bs-toggle="tooltip" title="">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox' . $ind . '" name="' . $fieldName . ($totalFeatures > 1 ? '[]' : '') . '" value="' . $feature . '"' . (in_array($feature, $data) ? ' checked' : '') . '>
                     <label class="form-check-label" for="inlineCheckbox' . $ind . '">' . $name . '</label>
                     </div>';

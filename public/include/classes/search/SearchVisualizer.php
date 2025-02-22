@@ -1,8 +1,6 @@
 <?php
 
-namespace app\public\include\classes;
-
-use app\public\include\classes\InformedSearchGraph;
+namespace app\public\include\classes\search;
 
 class SearchVisualizer {
     private array $allNodes;

@@ -14,7 +14,7 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(APP_PATH . 'public/include/classes/UninformedSearchGraph.php', title: 'Example of class <code>UninformedSearchGraph</code> (with DFS search)', opened: true); ?>
+    <?= create_example_of_use_links(APP_PATH . 'public/include/classes/search/UninformedSearchGraph.php', title: 'Example of class <code>UninformedSearchGraph</code> (with DFS search)', opened: true); ?>
 </div>
 
 

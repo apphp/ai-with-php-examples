@@ -1,6 +1,5 @@
 <?php
 
-namespace app\public\include\classes;
 
 class KnowledgeBase {
     private array $facts = [];

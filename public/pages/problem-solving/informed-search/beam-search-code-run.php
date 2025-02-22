@@ -1,7 +1,6 @@
 <?php
 
 use app\public\include\classes\Chart;
-use app\public\include\classes\SearchVisualizer;
 
 $availablerBeams = ['β=1' => 1, 'β=2' => 2, 'β=3' => 3];
 $beam = isset($_GET['beam']) && is_string($_GET['beam']) ? $_GET['beam'] : '';

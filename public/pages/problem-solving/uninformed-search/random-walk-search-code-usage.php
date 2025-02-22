@@ -1,7 +1,7 @@
 <?php
 
 // Create new graph instance
-use app\public\include\classes\UninformedSearchGraph;
+use app\public\include\classes\search\UninformedSearchGraph;
 
 $graph = new UninformedSearchGraph();
 

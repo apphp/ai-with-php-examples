@@ -1,7 +1,7 @@
 <?php
 
 use app\public\include\classes\Chart;
-use app\public\include\classes\SearchVisualizer;
+use app\public\include\classes\search\SearchVisualizer;
 
 $informedSearch = [
     'Greedy Search' => 'greedy-search',

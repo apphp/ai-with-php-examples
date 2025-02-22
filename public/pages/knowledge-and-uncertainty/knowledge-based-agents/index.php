@@ -12,7 +12,7 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(APP_PATH . 'public/include/classes/KnowledgeBase.php', title: 'Example of class <code>KnowledgeBase</code>', opened: true); ?>
+    <?= create_example_of_use_links(APP_PATH . 'public/include/classes/knowledge-base/KnowledgeBase.php', title: 'Example of class <code>KnowledgeBase</code>', opened: true); ?>
     <br>
-    <?= create_example_of_use_links(APP_PATH . 'public/include/classes/KBAgent.php', title: 'Example of class <code>KBAgent</code>', opened: true); ?>
+    <?= create_example_of_use_links(APP_PATH . 'public/include/classes/knowledge-base/KBAgent.php', title: 'Example of class <code>KBAgent</code>', opened: true); ?>
 </div>

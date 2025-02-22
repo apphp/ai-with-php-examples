@@ -1,6 +1,6 @@
 <?php
 
-namespace app\public\include\classes;
+namespace app\public\include\classes\search;
 
 use InvalidArgumentException;
 

@@ -9,7 +9,8 @@
         "php-ai/php-ml": "0.10.0",
         "rubix/ml": "~2.5.1",
         "sciphp/numphp": "0.4.0",
-        "numphp/numphp": "v1.2.0"
+        "numphp/numphp": "v1.2.0",
+        "llm-agents/agents": "1.7.0"
     },
     "autoload": {
         "psr-4": {

@@ -10,6 +10,10 @@ function memory_usage(float $endMemory, float $startMemory): string {
     return round($memoryUsed / 1024 / 1024, 3);
 }
 
+function ucshortwords(string $text) {
+    return str_ireplace(['Llm', 'Ai'], ['LLM', 'AI'], $text);
+}
+
 function dd($data = [], bool $exit = false): void {
     echo '<pre>';
     print_r($data);

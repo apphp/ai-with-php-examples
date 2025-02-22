@@ -41,6 +41,16 @@ $menu = [
                 ['section' => 'knowledge-and-uncertainty', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
                 ['section' => 'knowledge-and-uncertainty', 'subSection' => 'knowledge-based-agents', 'page' => 'index', 'title' => 'Knowledge-Based Agents', 'permissions' => ['index', 'knowledge-based-agents-code-run']],
             ]
+        ],
+        [
+            'title' => 'AI Agents',
+            'subMenu' => [
+                ['section' => 'ai-agents', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
+                ['section' => 'ai-agents', 'subSection' => 'llm-agents', 'page' => 'index', 'title' => 'LLM Agents', 'permissions' => [
+                    'index',
+                    'site-status-checker-agent'
+                ]],
+            ]
         ]
     ],
     '<i class="fas fa-robot me-1"></i> Machine Learning' => [

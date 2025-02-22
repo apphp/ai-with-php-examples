@@ -1,11 +1,12 @@
 <?php
 
+namespace app\public\include\classes\knowledgebase;
 
 class KBAgent {
     private int $t = 0;
 
     public function __construct(
-        private \KnowledgeBase $kb = new \KnowledgeBase()
+        private KnowledgeBase $kb = new KnowledgeBase()
     ) {}
 
     public function makePerceptSentence(array $percept, int $t): string {

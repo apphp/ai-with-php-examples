@@ -48,7 +48,7 @@ $menu = [
                 ['section' => 'ai-agents', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
                 ['section' => 'ai-agents', 'subSection' => 'llm-agents', 'page' => 'index', 'title' => 'LLM Agents', 'permissions' => [
                     'index',
-                    'site-status-checker-agent'
+                    'site-status-checker-agent', 'site-status-checker-agent-run',
                 ]],
             ]
         ]

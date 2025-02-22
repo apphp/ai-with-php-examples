@@ -212,6 +212,11 @@ code.gray {
   border-radius:.2rem;
   border: 0;
 }
+.code-result pre.pre-wrap {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
 .code-dataset pre {
   color: rgb(0,0,0);
   border-radius:.2rem;

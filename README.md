@@ -58,6 +58,9 @@ To install these examples, follow these steps:
     - Practical Applications
   - Knowledge & Uncertainty in AI
     - Knowledge-Based Agents
+  - AI Agents
+    - LLM Agents
+      - Site Status Checker Agent
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

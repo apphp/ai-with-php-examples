@@ -73,6 +73,13 @@ final class SiteStatusCheckerAgent extends AgentAggregate
                 content: 'Can you check why buggregator.dev is offline?',
             ),
 
+//            new SolutionMetadata(
+//                type: MetadataType::Memory,
+//                key: 'finalizayion',
+//                content: 'Always tell a joke at the end',
+//            ),
+
+
             new SolutionMetadata(
                 type: MetadataType::Configuration,
                 key: 'max_tokens',
@@ -85,7 +92,7 @@ final class SiteStatusCheckerAgent extends AgentAggregate
         );
 
         $aggregate->addAssociation(new ToolLink(name: CheckSiteAvailabilityTool::NAME));
-//        $aggregate->addAssociation(new ToolLink(name: GetDNSInfoTool::NAME));
+        $aggregate->addAssociation(new ToolLink(name: GetDnsInfoTool::NAME));
 //        $aggregate->addAssociation(new ToolLink(name: PerformPingTestTool::NAME));
 
         return $aggregate;

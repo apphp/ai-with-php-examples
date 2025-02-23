@@ -1,31 +1,44 @@
 <?php
 
-use app\public\include\classes\llmagents\CheckSiteAvailabilityInput;
-use app\public\include\classes\llmagents\CheckSiteAvailabilityTool;
+declare(strict_types=1);
+
+use app\public\include\classes\llmagents\AiAgentExecutor;
 use app\public\include\classes\llmagents\SiteStatusCheckerAgent;
-use LLM\Agents\Agent\Agent;
-
-$a = new Agent('a', 'b', 'c', 'd');
-$agent = new SiteStatusCheckerAgent($a);
-$agent = $agent->create();
-//ddd($agent->getDescription());
-
-// TODO: convert name into class name of tool and call it !!!!!!!!
-// TODO: add 2 other tools
-//ddd($agent->getTools()[1]->getName());
 
 
-$tool = new CheckSiteAvailabilityTool();
-$input = new CheckSiteAvailabilityInput("http://aiwithphp.org");
-$result = $tool->execute($input);
+// Usage example:
+try {
+    // Initialize the checker
+    $checker = new AiAgentExecutor(
+        SiteStatusCheckerAgent::class,
+        '',
+        'gpt-4o-mini'
+    );
 
+    // Check a specific site with a question
+    $result = $checker->execute(
+        'https://aiwithphp.org',
+        'What is the current status of this site and are there any performance concerns?'
+    );
 
-echo 'Agent Name: ' . $agent->getName() . "\n";
-echo 'Agent Description: <div>' . $agent->getDescription() . "</div>\n";
-echo "Result: ";
-echo "\n---------------------------\n";
+    // Output the results
+    echo "Site Status Analysis:\n";
+    echo "URL: {$result['url']}\n\n";
 
-// Print each key-value pair on a new line
-foreach (json_decode($result, true) as $key => $value) {
-    echo "$key: $value\n";
+    // Show conversation history
+    echo "Analysis Process:\n";
+    foreach ($result['conversation_history'] as $message) {
+        if (isset($message->functionCall)) {
+            echo "Tool Called: {$message->functionCall->name}\n";
+            echo "Arguments: {$message->functionCall->arguments}\n";
+        } elseif (!empty($message->content)) {
+            echo "AI: {$message->content}\n";
+        }
+        echo "---\n";
+    }
+
+//    echo "\nFinal Analysis:\n{$result['final_analysis']}\n";
+
+} catch (\Exception $e) {
+    echo "Error: " . $e->getMessage() . "\n";
 }

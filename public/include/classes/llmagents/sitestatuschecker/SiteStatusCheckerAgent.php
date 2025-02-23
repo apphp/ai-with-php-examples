@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
-namespace app\public\include\classes\llmagents;
+namespace app\public\include\classes\llmagents\sitestatuschecker;
 
+use app\public\include\classes\llmagents\sitestatuschecker\tools\CheckSiteAvailabilityTool;
+use app\public\include\classes\llmagents\sitestatuschecker\tools\GetDnsInfoTool;
+use app\public\include\classes\llmagents\sitestatuschecker\tools\PerformPingTestTool;
 use LLM\Agents\Agent\Agent;
 use LLM\Agents\Agent\AgentAggregate;
 use LLM\Agents\Solution\MetadataType;
@@ -91,9 +94,10 @@ final class SiteStatusCheckerAgent extends AgentAggregate
             new Model(model: $model)
         );
 
+        // Abbilities of the agent
         $aggregate->addAssociation(new ToolLink(name: CheckSiteAvailabilityTool::NAME));
         $aggregate->addAssociation(new ToolLink(name: GetDnsInfoTool::NAME));
-//        $aggregate->addAssociation(new ToolLink(name: PerformPingTestTool::NAME));
+        $aggregate->addAssociation(new ToolLink(name: PerformPingTestTool::NAME));
 
         return $aggregate;
     }

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use app\public\include\classes\llmagents\AiAgentExecutor;
-use app\public\include\classes\llmagents\SiteStatusCheckerAgent;
+use app\public\include\classes\llmagents\sitestatuschecker\SiteStatusCheckerAgent;
 
 
 // Usage example:
@@ -11,7 +11,7 @@ try {
     // Initialize the checker
     $checker = new AiAgentExecutor(
         SiteStatusCheckerAgent::class,
-        '',
+        OPEN_AI_KEY,
         'gpt-4o-mini'
     );
 
@@ -37,8 +37,11 @@ try {
         echo "---\n";
     }
 
-//    echo "\nFinal Analysis:\n{$result['final_analysis']}\n";
+    if (!empty($result['final_analysis'])) {
+        echo "\nFinal Analysis:\n{$result['final_analysis']}\n";
+    }
 
 } catch (\Exception $e) {
+    echo "Error: " . $e->getFile() . " | " . $e->getLine() . "\n";
     echo "Error: " . $e->getMessage() . "\n";
 }

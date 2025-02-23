@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\public\include\classes\llmagents;
+namespace app\public\include\classes\llmagents\sitestatuschecker\tools;
 
 use LLM\Agents\Tool\PhpTool;
 

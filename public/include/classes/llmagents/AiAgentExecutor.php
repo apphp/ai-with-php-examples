@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\public\include\classes\llmagents;
 
+use app\public\include\classes\llmagents\sitestatuschecker\SiteStatusCheckerAgent;
 use LLM\Agents\Solution\MetadataType;
 use OpenAI;
 use OpenAI\Client;
@@ -30,7 +31,7 @@ class AiAgentExecutor
         foreach ($this->agent->getTools() as $toolLink) {
             $toolName = $toolLink->getName();
             // Convert tool name to class name (assuming naming convention)
-            $className = $this->getToolClassName($toolName);
+            $className = $this->getClassPath($toolName, 'Tool');
 
             if (class_exists($className)) {
                 $this->tools[$toolName] = new $className();
@@ -38,10 +39,12 @@ class AiAgentExecutor
         }
     }
 
-    private function getToolClassName(string $toolName): string
+    private function getClassPath(string $toolName, string $suffix): string
     {
-        $className = str_replace(' ', '', ucwords(str_replace('_', ' ', $toolName))) . 'Tool';
-        return "app\\public\\include\\classes\\llmagents\\{$className}";
+        $baseNamespace = (new \ReflectionClass($this->agent))->getNamespaceName() . '\\tools\\';
+        $className = str_replace(' ', '', ucwords(str_replace('_', ' ', $toolName))) . $suffix;
+
+        return $baseNamespace . $className;
     }
 
     public function execute(string $url, string $question): array
@@ -72,8 +75,6 @@ class AiAgentExecutor
                 'temperature' => 0.7,
                 'max_tokens' => $maxTokens
             ];
-
-//            ddd($requestData);
 
             $response = $this->client->chat()->create($requestData);
 
@@ -147,10 +148,20 @@ class AiAgentExecutor
 //            'max_tokens' => $maxTokens
 //        ]);
 
+        // Additional question
+//        $finalResponse = $this->client->chat()->create([
+//            'model' => $this->model,
+//            'messages' => array_merge($messages, [
+//                ['role' => 'user', 'content' => 'Provide the result in markdown table format.']
+//            ]),
+//            'temperature' => 0.7,
+//            'max_tokens' => $maxTokens
+//        ]);
+
         return [
             'url' => $url,
             'conversation_history' => $conversationHistory,
-            //'final_analysis' => $finalResponse->choices[0]->message->content,
+            'final_analysis' => !empty($finalResponse) ? $finalResponse->choices[0]->message->content : '',
             'tools_executed' => array_keys($toolsExecuted)
         ];
     }
@@ -160,7 +171,7 @@ class AiAgentExecutor
         $functions = [];
         foreach ($this->tools as $toolName => $tool) {
             // Get the input class for this tool
-            $inputClassName = $this->getToolInputClassName($toolName);
+            $inputClassName = $this->getClassPath($toolName, 'Input');
             if (!class_exists($inputClassName)) {
                 continue;
             }
@@ -255,7 +266,7 @@ class AiAgentExecutor
         }
 
         $tool = $this->tools[$functionName];
-        $inputClassName = $this->getToolInputClassName($functionName);
+        $inputClassName = $this->getClassPath($functionName, 'Input');
 
         if (!class_exists($inputClassName)) {
             throw new \RuntimeException("Input class not found for tool: $functionName");
@@ -263,12 +274,6 @@ class AiAgentExecutor
 
         $input = new $inputClassName($arguments['url']);
         return $tool->execute($input);
-    }
-
-    private function getToolInputClassName(string $toolName): string
-    {
-        $className = str_replace(' ', '', ucwords(str_replace('_', ' ', $toolName))) . 'Input';
-        return "app\\public\\include\\classes\\llmagents\\{$className}";
     }
 
     private function getSystemPrompt(): string

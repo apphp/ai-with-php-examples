@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\public\include\classes\llmagents;
+namespace app\public\include\classes\llmagents\sitestatuschecker\tools;
 
 use LLM\Agents\Tool\PhpTool;
 
@@ -24,7 +24,6 @@ final class GetDnsInfoTool extends PhpTool
 
     public function execute(object $input): string
     {
-//        echo "\n2222222222222222222222 " . $input->domain;
         // Implement the actual DNS info retrieval here
         // This is a placeholder implementation
         $dnsRecords = \dns_get_record(str_ireplace(['https://', 'http://'], '', $input->domain), DNS_A + DNS_NS);

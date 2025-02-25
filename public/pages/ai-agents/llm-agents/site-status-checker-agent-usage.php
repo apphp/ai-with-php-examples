@@ -10,9 +10,11 @@ use app\public\include\classes\llmagents\sitestatuschecker\SiteStatusCheckerAgen
 try {
     // Initialize the checker
     $checker = new AiAgentExecutor(
-        SiteStatusCheckerAgent::class,
-        OPEN_AI_KEY,
-        'gpt-4o-mini'
+        aiAgent: SiteStatusCheckerAgent::class,
+        apiKey: OPEN_AI_KEY,
+        model: 'gpt-4o-mini',
+        finalAnalysis: false,
+        debug: true
     );
 
     // Check a specific site with a question
@@ -20,6 +22,15 @@ try {
         'https://aiwithphp.org',
         'What is the current status of this site and are there any performance concerns?'
     );
+
+    // Output debug results
+    $debugResult = '';
+    $debugLog = $checker->getDebugLog();
+    foreach ($debugLog as $key => $message) {
+        $debugResult .= humanize($key);
+        $debugResult .= "\n=================\n";
+        $debugResult .= $message . "\n\n";
+    }
 
     // Output the results
     echo "Site Status Analysis:\n";
@@ -42,6 +53,6 @@ try {
     }
 
 } catch (\Exception $e) {
-    echo "Error: " . $e->getFile() . " | " . $e->getLine() . "\n";
-    echo "Error: " . $e->getMessage() . "\n";
+    echo 'Error: ' . $e->getFile() . ' | ' . $e->getLine() . "\n";
+    echo 'Error: ' . $e->getMessage() . "\n";
 }

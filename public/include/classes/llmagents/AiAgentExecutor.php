@@ -9,46 +9,25 @@ use LLM\Agents\Solution\MetadataType;
 use OpenAI;
 use OpenAI\Client;
 
-class AiAgentExecutor
-{
+class AiAgentExecutor {
     private Client $client;
     private SiteStatusCheckerAgent $agent;
     private array $tools = [];
+    private array $debugLog = [];
 
     public function __construct(
         private readonly string $aiAgent,
         private readonly string $apiKey,
-        private readonly string $model = 'gpt-4o-mini'
+        private readonly string $model = 'gpt-4o-mini',
+        private readonly bool   $finalAnalysis = false,
+        private readonly bool   $debug = false,
     ) {
         $this->client = OpenAI::client($this->apiKey);
         $this->agent = $aiAgent::create($this->model);
         $this->initializeTools();
     }
 
-    private function initializeTools(): void
-    {
-        // Get all tool associations from the agent
-        foreach ($this->agent->getTools() as $toolLink) {
-            $toolName = $toolLink->getName();
-            // Convert tool name to class name (assuming naming convention)
-            $className = $this->getClassPath($toolName, 'Tool');
-
-            if (class_exists($className)) {
-                $this->tools[$toolName] = new $className();
-            }
-        }
-    }
-
-    private function getClassPath(string $toolName, string $suffix): string
-    {
-        $baseNamespace = (new \ReflectionClass($this->agent))->getNamespaceName() . '\\tools\\';
-        $className = str_replace(' ', '', ucwords(str_replace('_', ' ', $toolName))) . $suffix;
-
-        return $baseNamespace . $className;
-    }
-
-    public function execute(string $url, string $question): array
-    {
+    public function execute(string $url, string $question): array {
         // Convert tools to OpenAI function definitions
         $functions = $this->getToolFunctions();
 
@@ -76,10 +55,18 @@ class AiAgentExecutor
                 'max_tokens' => $maxTokens
             ];
 
+            if ($this->debug) {
+                $this->debugLog['turn_' . $turn] = print_r($requestData, true);
+            }
+
             $response = $this->client->chat()->create($requestData);
 
             $message = $response->choices[0]->message;
             $conversationHistory[] = $message;
+
+            if ($this->debug) {
+                $this->debugLog['turn_' . $turn . '_answer'] = $message->content ?? '';
+            }
 
             // If no function call and all tools have been executed at least once, we can break
             if (!isset($message->functionCall)) {
@@ -105,6 +92,10 @@ class AiAgentExecutor
 
             try {
                 $result = $this->executeFunction($functionName, $arguments);
+
+                if ($this->debug) {
+                    $this->debugLog['turn_' . $turn . '_tool_result'] = $result;
+                }
 
                 // Add function call and result to messages
                 $messages[] = [
@@ -138,15 +129,17 @@ class AiAgentExecutor
             }
         }
 
-//        // Get final analysis
-//        $finalResponse = $this->client->chat()->create([
-//            'model' => $this->model,
-//            'messages' => array_merge($messages, [
-//                ['role' => 'user', 'content' => 'Please provide a final analysis based on all the information gathered from all tools.']
-//            ]),
-//            'temperature' => 0.7,
-//            'max_tokens' => $maxTokens
-//        ]);
+        // Get final analysis
+        if ($this->finalAnalysis) {
+            $finalResponse = $this->client->chat()->create([
+                'model' => $this->model,
+                'messages' => array_merge($messages, [
+                    ['role' => 'user', 'content' => 'Please provide a final analysis based on all the information gathered from all tools.']
+                ]),
+                'temperature' => 0.7,
+                'max_tokens' => $maxTokens
+            ]);
+        }
 
         // Additional question
 //        $finalResponse = $this->client->chat()->create([
@@ -166,8 +159,31 @@ class AiAgentExecutor
         ];
     }
 
-    private function getToolFunctions(): array
-    {
+    public function getDebugLog(): array {
+        return $this->debugLog;
+    }
+
+    private function initializeTools(): void {
+        // Get all tool associations from the agent
+        foreach ($this->agent->getTools() as $toolLink) {
+            $toolName = $toolLink->getName();
+            // Convert tool name to class name (assuming naming convention)
+            $className = $this->getClassPath($toolName, 'Tool');
+
+            if (class_exists($className)) {
+                $this->tools[$toolName] = new $className();
+            }
+        }
+    }
+
+    private function getClassPath(string $toolName, string $suffix): string {
+        $baseNamespace = (new \ReflectionClass($this->agent))->getNamespaceName() . '\\tools\\';
+        $className = str_replace(' ', '', ucwords(str_replace('_', ' ', $toolName))) . $suffix;
+
+        return $baseNamespace . $className;
+    }
+
+    private function getToolFunctions(): array {
         $functions = [];
         foreach ($this->tools as $toolName => $tool) {
             // Get the input class for this tool
@@ -221,8 +237,7 @@ class AiAgentExecutor
         return $functions;
     }
 
-    private function getInputParamDescription(\ReflectionParameter $param): string
-    {
+    private function getInputParamDescription(\ReflectionParameter $param): string {
         $descriptions = [
             'url' => 'The URL of the website to check',
             'timeout' => 'Maximum time in seconds to wait for response',
@@ -249,9 +264,8 @@ class AiAgentExecutor
             ?? ucfirst(str_replace('_', ' ', $param->getName()));
     }
 
-    private function mapPhpTypeToJsonType(string $phpType): string
-    {
-        return match($phpType) {
+    private function mapPhpTypeToJsonType(string $phpType): string {
+        return match ($phpType) {
             'int', 'float' => 'number',
             'bool' => 'boolean',
             'array' => 'array',
@@ -259,8 +273,7 @@ class AiAgentExecutor
         };
     }
 
-    private function executeFunction(string $functionName, array $arguments): string
-    {
+    private function executeFunction(string $functionName, array $arguments): string {
         if (!isset($this->tools[$functionName])) {
             throw new \RuntimeException("Unknown function: $functionName");
         }
@@ -276,8 +289,7 @@ class AiAgentExecutor
         return $tool->execute($input);
     }
 
-    private function getSystemPrompt(): string
-    {
+    private function getSystemPrompt(): string {
         // Get base description and instruction
         $basePrompt = $this->agent->getInstruction() . "\n\n";
 
@@ -289,11 +301,16 @@ class AiAgentExecutor
             }
         }
 
-        return $basePrompt . "Instructions:\n- " . implode("\n- ", $instructions);
+        $systemPrompt = $basePrompt . "Instructions:\n- " . implode("\n- ", $instructions);
+
+        if ($this->debug) {
+            $this->debugLog['system_prompt'] = $systemPrompt;
+        }
+
+        return $systemPrompt;
     }
 
-    private function getConfigValue(string $key, mixed $default = null): mixed
-    {
+    private function getConfigValue(string $key, mixed $default = null): mixed {
         foreach ($this->agent->getMetadata() as $metadata) {
             if ($metadata->type->value === MetadataType::Configuration->value && $metadata->key === $key) {
                 return $metadata->content;

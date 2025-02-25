@@ -28,6 +28,12 @@ function ddd($data = []): void {
     dd($data, true);
 }
 
+function humanize($data) {
+    $data = str_replace(['-', '_'], ' ', $data);
+    $data = ucwords($data);
+    return $data;
+}
+
 function array_flatten(array $array = []): array {
     $return = [];
     array_walk_recursive($array, function ($a) use (&$return) {

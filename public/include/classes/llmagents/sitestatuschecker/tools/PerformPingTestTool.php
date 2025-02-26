@@ -9,12 +9,10 @@ use LLM\Agents\Tool\PhpTool;
 /**
  * @extends PhpTool<PerformPingTestInput>
  */
-final class PerformPingTestTool extends PhpTool
-{
+final class PerformPingTestTool extends PhpTool {
     public const NAME = 'perform_ping_test';
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct(
             name: self::NAME,
             inputSchema: PerformPingTestInput::class,
@@ -22,8 +20,7 @@ final class PerformPingTestTool extends PhpTool
         );
     }
 
-    public function execute(object $input): string
-    {
+    public function execute(object $input): string {
         // Implement the actual ping test here
         // This is a placeholder implementation
         $command = \sprintf('ping -c %d %s', 4, \escapeshellarg($input->host));
@@ -45,8 +42,8 @@ final class PerformPingTestTool extends PhpTool
         }
 
         return \json_encode([
-            'packet_loss_percentage' => (float) $packetLoss,
-            'avg_round_trip_time_ms' => (float) $avgRoundTripTime,
+            'packet_loss_percentage' => (float)$packetLoss,
+            'avg_round_trip_time_ms' => (float)$avgRoundTripTime,
             'success' => $returnVar === 0,
         ]);
     }

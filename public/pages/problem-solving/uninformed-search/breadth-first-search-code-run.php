@@ -29,7 +29,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?= create_example_of_use_links(APP_PATH . '/public/include/classes/search/UninformedSearchGraph.php'); ?>
+    <?= create_example_of_use_links(APP_PATH . 'public/include/classes/search/UninformedSearchGraph.php'); ?>
 </div>
 
 <div class="container-fluid px-2">

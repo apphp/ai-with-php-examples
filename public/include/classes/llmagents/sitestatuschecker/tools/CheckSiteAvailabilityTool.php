@@ -9,12 +9,10 @@ use LLM\Agents\Tool\PhpTool;
 /**
  * @extends PhpTool<CheckSiteAvailabilityInput>
  */
-final class CheckSiteAvailabilityTool extends PhpTool
-{
+final class CheckSiteAvailabilityTool extends PhpTool {
     public const NAME = 'check_site_availability';
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct(
             name: self::NAME,
             inputSchema: CheckSiteAvailabilityInput::class,
@@ -22,8 +20,7 @@ final class CheckSiteAvailabilityTool extends PhpTool
         );
     }
 
-    public function execute(object $input): string
-    {
+    public function execute(object $input): string {
         $ch = \curl_init($input->url);
         \curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,

@@ -49,6 +49,7 @@ $menu = [
                 ['section' => 'ai-agents', 'subSection' => 'llm-agents', 'page' => 'index', 'title' => 'LLM Agents', 'permissions' => [
                     'index',
                     'site-status-checker-agent', 'site-status-checker-agent-run',
+                    'sales-analysis-agent', 'sales-analysis-agent-run',
                 ]],
             ]
         ]

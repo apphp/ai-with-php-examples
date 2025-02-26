@@ -15,6 +15,7 @@
             <div class="col">
                 <ui class="list">
                     <li><a href="<?= create_href('ai-agents', 'llm-agents', 'site-status-checker-agent') ?>">Site Status Checker Agent</a></li>
+                    <li><a href="<?= create_href('ai-agents', 'llm-agents', 'sales-analysis-agent') ?>">Sales Analysis Agent</a></li>
                 </ui>
             </div>
         </div>

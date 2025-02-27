@@ -4,8 +4,7 @@ $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 //ob_start();
 //////////////////////////////
-include('sales-analysis-agent-usage.php');
-//include('site-status-checker-agent-usage.cache.php');
+include('sales-analysis-agent-usage.cache.php');
 
 //////////////////////////////
 //$result = ob_get_clean();

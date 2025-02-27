@@ -94,4 +94,33 @@ final class SalesAnalysisAgent extends AgentAggregate {
 
         return $aggregate;
     }
+
+    public function getInputParamDescription(): array {
+        $descriptions = [
+            'reportPath' => 'The path to report file',
+        ];
+
+        return $descriptions;
+    }
+
+    /**
+     * Always require URL parameter for both tools
+     * @param $properties
+     * @param $required
+     * @return void
+     */
+    public function addRequiredParams(&$properties, &$required) {
+        // Always require URL parameter for both tools
+        if (!isset($properties['reportPath'])) {
+            $properties['reportPath'] = [
+                'type' => 'string',
+                'description' => 'The path to report file'
+            ];
+            $required[] = 'url';
+        }
+    }
+
+    public function getRequiredArgument():string {
+        return 'reportPath';
+    }
 }

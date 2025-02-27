@@ -1,0 +1,7 @@
+<?php
+
+$result = '
+';
+
+$debugResult = '
+';

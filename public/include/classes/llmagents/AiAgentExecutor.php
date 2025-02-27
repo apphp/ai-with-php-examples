@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace app\public\include\classes\llmagents;
 
 use app\public\include\classes\llmagents\sitestatuschecker\SiteStatusCheckerAgent;
+use app\public\include\classes\llmagents\salesanalysis\SalesAnalysisAgent;
 use LLM\Agents\Solution\MetadataType;
 use OpenAI;
 use OpenAI\Client;
 
 class AiAgentExecutor {
     private Client $client;
-    private SiteStatusCheckerAgent $agent;
+    private SiteStatusCheckerAgent|SalesAnalysisAgent $agent;
     private array $tools = [];
     private array $debugLog = [];
 
@@ -34,7 +35,7 @@ class AiAgentExecutor {
         // Initial conversation with the site check request
         $messages = [
             ['role' => 'system', 'content' => $this->getSystemPrompt()],
-            ['role' => 'user', 'content' => "$question"]
+            ['role' => 'user', 'content' => $question]
         ];
 
         $maxTokens = $this->getConfigValue('max_tokens', 3000);
@@ -73,16 +74,21 @@ class AiAgentExecutor {
                 if (count($toolsExecuted) >= count($this->tools)) {
                     break;
                 }
-                // If no function call but not all tools executed, prompt for remaining tools
-                $messages[] = [
-                    'role' => 'assistant',
-                    'content' => $message->content
+//                // If no function call but not all tools executed, prompt for remaining tools
+//                $messages[] = [
+//                    'role' => 'assistant',
+//                    'content' => $message->content
+//                ];
+//                $messages[] = [
+//                    'role' => 'user',
+//                    'content' => 'Please continue checking the site using any remaining available tools.'
+//                ];
+//                continue;
+                return [
+                    'conversation_history' => $conversationHistory,
+                    'final_analysis' => !empty($finalResponse) ? $finalResponse->choices[0]->message->content : '',
+                    'tools_executed' => array_keys($toolsExecuted)
                 ];
-                $messages[] = [
-                    'role' => 'user',
-                    'content' => 'Please continue checking the site using any remaining available tools.'
-                ];
-                continue;
             }
 
             // Execute the requested function
@@ -214,7 +220,7 @@ class AiAgentExecutor {
             }
 
             // Add required params
-            $this->agent->addRequiedParams($properties, $required);
+            $this->agent->addRequiredParams($properties, $required);
 
             $functions[] = [
                 'name' => $toolName,

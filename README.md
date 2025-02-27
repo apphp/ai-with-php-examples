@@ -61,6 +61,7 @@ To install these examples, follow these steps:
   - AI Agents
     - LLM Agents
       - Site Status Checker Agent
+      - Sales Analyst Agent
 - Machine Learning
   - Mathematics for ML
     - Scalar Operations with PHP

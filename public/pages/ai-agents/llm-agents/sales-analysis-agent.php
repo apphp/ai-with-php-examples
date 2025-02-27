@@ -17,7 +17,7 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(APP_PATH . 'public/include/classes/llmagents/salesanalysis/SiteStatusCheckerAgent.php', title: 'Example of class <code>SalesAnalysisAgent</code>', opened: true); ?>
+    <?= create_example_of_use_links(APP_PATH . 'public/include/classes/llmagents/salesanalysis/SalesAnalysisAgent.php', title: 'Example of class <code>SalesAnalysisAgent</code>', opened: true); ?>
 </div>
 
 

@@ -122,7 +122,7 @@ final class SiteStatusCheckerAgent extends AgentAggregate
      * @param $required
      * @return void
      */
-    public function addRequiedParams(&$properties, &$required) {
+    public function addRequiredParams(&$properties, &$required) {
         // Always require URL parameter for both tools
         if (!isset($properties['url'])) {
             $properties['url'] = [

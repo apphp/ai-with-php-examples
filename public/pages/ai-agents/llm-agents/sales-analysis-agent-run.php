@@ -32,7 +32,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?= create_dataset_and_test_data_links(__DIR__ . '/data/IC-Weekly-Sales-Activity-Report-11538.csv', fullWidth: true); ?>
+    <?= create_example_of_use_links(__DIR__ . '/sales-analysis-agent-usage.php'); ?>
 </div>
 
 <div class="container-fluid px-2">

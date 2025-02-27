@@ -15,6 +15,10 @@ code:not(#code) {
   font-family: monospace;
 }
 
+code#dataset {
+  padding: 10px !important;
+}
+
 code#code code {
   padding: 0 !important;
 }

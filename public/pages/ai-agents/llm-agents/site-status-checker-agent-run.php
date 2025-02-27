@@ -2,12 +2,12 @@
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
-ob_start();
+//ob_start();
 //////////////////////////////
-include('site-status-checker-agent-usage.php');
+include('site-status-checker-agent-usage.cache.php');
 
 //////////////////////////////
-$result = ob_get_clean();
+//$result = ob_get_clean();
 $microtimeEnd = microtime(true);
 $memoryEnd = memory_get_usage();
 

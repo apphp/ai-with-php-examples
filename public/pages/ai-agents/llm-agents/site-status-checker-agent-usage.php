@@ -17,10 +17,11 @@ try {
         debug: true
     );
 
+    $url = 'https://aiwithphp.org';
+
     // Check a specific site with a question
     $result = $checker->execute(
-        'https://aiwithphp.org',
-        'What is the current status of this site and are there any performance concerns?'
+        'URL to check: ' . $url . '\nQuestion: What is the current status of this site and are there any performance concerns?'
     );
 
     // Output debug results
@@ -34,7 +35,7 @@ try {
 
     // Output the results
     echo "Site Status Analysis:\n";
-    echo "URL: {$result['url']}\n\n";
+    echo "URL: {$url}\n\n";
 
     // Show conversation history
     echo "Analysis Process:\n";

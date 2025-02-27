@@ -101,4 +101,39 @@ final class SiteStatusCheckerAgent extends AgentAggregate
 
         return $aggregate;
     }
+
+    public function getInputParamDescription(): array {
+        $descriptions = [
+            'url' => 'The URL of the website to check',
+            'timeout' => 'Maximum time in seconds to wait for response',
+            'method' => 'HTTP method to use for the request',
+            'headers' => 'Additional HTTP headers to send with the request',
+            'followRedirects' => 'Whether to follow HTTP redirects',
+            'maxRedirects' => 'Maximum number of redirects to follow',
+            'verifySSL' => 'Whether to verify SSL certificates'
+        ];
+
+        return $descriptions;
+    }
+
+    /**
+     * Always require URL parameter for both tools
+     * @param $properties
+     * @param $required
+     * @return void
+     */
+    public function addRequiedParams(&$properties, &$required) {
+        // Always require URL parameter for both tools
+        if (!isset($properties['url'])) {
+            $properties['url'] = [
+                'type' => 'string',
+                'description' => 'The URL of the website to check'
+            ];
+            $required[] = 'url';
+        }
+    }
+
+    public function getRequiredArgument():string {
+        return 'url';
+    }
 }

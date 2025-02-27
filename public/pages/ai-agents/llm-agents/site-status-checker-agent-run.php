@@ -2,12 +2,12 @@
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
-//ob_start();
+ob_start();
 //////////////////////////////
-include('site-status-checker-agent-usage.cache.php');
+include('site-status-checker-agent-usage.php');
 
 //////////////////////////////
-//$result = ob_get_clean();
+$result = ob_get_clean();
 $microtimeEnd = microtime(true);
 $memoryEnd = memory_get_usage();
 
@@ -33,7 +33,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?//= create_example_of_use_links(__DIR__ . '/site-status-checker-agent-usage.php'); ?>
+    <?= create_example_of_use_links(__DIR__ . '/site-status-checker-agent-usage.php'); ?>
 </div>
 
 <div class="container-fluid px-2">

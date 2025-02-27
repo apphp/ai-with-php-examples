@@ -27,14 +27,14 @@ class AiAgentExecutor {
         $this->initializeTools();
     }
 
-    public function execute(string $url, string $question): array {
+    public function execute(string $question): array {
         // Convert tools to OpenAI function definitions
         $functions = $this->getToolFunctions();
 
         // Initial conversation with the site check request
         $messages = [
             ['role' => 'system', 'content' => $this->getSystemPrompt()],
-            ['role' => 'user', 'content' => "URL to check: $url\nQuestion: $question"]
+            ['role' => 'user', 'content' => "$question"]
         ];
 
         $maxTokens = $this->getConfigValue('max_tokens', 3000);
@@ -152,7 +152,6 @@ class AiAgentExecutor {
 //        ]);
 
         return [
-            'url' => $url,
             'conversation_history' => $conversationHistory,
             'final_analysis' => !empty($finalResponse) ? $finalResponse->choices[0]->message->content : '',
             'tools_executed' => array_keys($toolsExecuted)
@@ -214,14 +213,8 @@ class AiAgentExecutor {
                 }
             }
 
-            // Always require URL parameter for both tools
-            if (!isset($properties['url'])) {
-                $properties['url'] = [
-                    'type' => 'string',
-                    'description' => 'The URL of the website to check'
-                ];
-                $required[] = 'url';
-            }
+            // Add required params
+            $this->agent->addRequiedParams($properties, $required);
 
             $functions[] = [
                 'name' => $toolName,
@@ -238,15 +231,7 @@ class AiAgentExecutor {
     }
 
     private function getInputParamDescription(\ReflectionParameter $param): string {
-        $descriptions = [
-            'url' => 'The URL of the website to check',
-            'timeout' => 'Maximum time in seconds to wait for response',
-            'method' => 'HTTP method to use for the request',
-            'headers' => 'Additional HTTP headers to send with the request',
-            'followRedirects' => 'Whether to follow HTTP redirects',
-            'maxRedirects' => 'Maximum number of redirects to follow',
-            'verifySSL' => 'Whether to verify SSL certificates'
-        ];
+        $descriptions = $this->agent->getInputParamDescription();
 
         // Try to get attribute description if using PHP 8 attributes
         $attributes = $param->getAttributes();
@@ -285,7 +270,7 @@ class AiAgentExecutor {
             throw new \RuntimeException("Input class not found for tool: $functionName");
         }
 
-        $input = new $inputClassName($arguments['url']);
+        $input = new $inputClassName($arguments[$this->agent->getRequiredArgument()] ?? '');
         return $tool->execute($input);
     }
 

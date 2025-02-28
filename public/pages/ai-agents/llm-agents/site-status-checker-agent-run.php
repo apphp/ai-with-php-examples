@@ -51,10 +51,10 @@ $memoryEnd = memory_get_usage();
         <div class="col-md-12 col-lg-5 p-0 m-0">
             <div class="mb-1">
                 <b>Debug:</b>
-                <code class="code-result">
-                    <pre class="pre-wrap"><?= $debugResult; ?></pre>
-                </code>
             </div>
+            <code class="code-result">
+                <pre class="pre-wrap"><?= $debugResult; ?></pre>
+            </code>
         </div>
     </div>
 </div>

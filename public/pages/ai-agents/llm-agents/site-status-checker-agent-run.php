@@ -2,6 +2,11 @@
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
+
+$agentDebugOptions = ['Show Debug' => '1'];
+$agentDebug = isset($_GET['agentDebug']) && is_string($_GET['agentDebug']) ? $_GET['agentDebug'] : '';
+verify_fields($agentDebug, array_values($agentDebugOptions), '');
+
 //ob_start();
 //////////////////////////////
 include('site-status-checker-agent-usage.cache.php');
@@ -49,6 +54,22 @@ $memoryEnd = memory_get_usage();
             </code>
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
+            <div>
+                <div>
+                    <b>Search Type:</b>
+                </div>
+                <form class="mt-2" action="<?= APP_SEO_LINKS ? create_href('ai-agents', 'llm-agents', 'site-status-checker-agent-run') : 'index.php'; ?>" type="GET">
+                    <?= !APP_SEO_LINKS ? create_form_fields('ai-agents', 'llm-agents', 'site-status-checker-agent-run') : ''; ?>
+                    <?= create_form_features($agentDebugOptions, [$agentDebug], fieldName: 'agentDebug', type: 'single-checkbox', class: ''); ?>
+                    <div class="form-check form-check-inline float-end p-0 m-0 me-1">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
+                    </div>
+                    <div class=" clearfix "></div>
+                </form>
+            </div>
+
+            <hr>
+
             <div class="mb-1">
                 <b>Debug:</b>
             </div>

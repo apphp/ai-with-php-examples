@@ -1,26 +1,120 @@
 ,,,,,,,,,,,,,
-,WEEKLY SALES ACTIVITY REPORT TEMPLATE,,,,,,,,,,,,
+,WEEKLY SALES ACTIVITY REPORT,,,,,,,,,,,,
 ,,REPORT WEEK,,,,,,,COMMENTS,,,,
 ,,START DATE,,,END DATE,,,,,,,,
 ,,"Monday, May 2nd, 20XX",,,"Sunday, May 8th, 20XX",,,,,,,,
 ,,,,,,,,,,,,,
-,,SALES REPRESENTATIVE,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,REGION,,,,,,,,,,,
-,,,,,,,,,,,,,
+,,SALES REPRESENTATIVE,,,REGION,,,,,,,,
+,,John Smith,,,Northeast,,,,,,,,
 ,,,,,,,,,,,,,
 ,,COLD CALLS MADE,FOLLOW-UP CALLS,"EMAILS
 SENT",MEETINGS ARRANGED,VISITS COMPLETED,LEADS GENERATED,"DEALS
 CLOSED",PRODUCTS SOLD,"SALES
 REVENUE","TARGET
 AMOUNT",VARIANCE,NOTES
-,MON,5,7,80,12,3,18,3,785,"$285,000","$250,000"," $35,000.00 ",
-,TUES,35,25,22,8,2,16,1,500,"$210,000","$250,000"," $(40,000.00)",Lassiter reduced order.
-,WED,7,1,2,6,5,8,6,7,"$350,000","$250,000"," $100,000.00 ",Dule increased order.
-,THURS,2,1,4,5,3,2,2,2,"$138,750","$200,000"," $(61,250.00)",
-,FRI,1,0,3,1,2,8,0,5,$0,"$50,000"," $(50,000.00)",Shepard canceled order.
-,SAT,0,0,0,0,0,0,0,0,$0,$0, $-   ,
-,SUN,0,0,0,0,0,0,0,0,$0,$0, $-   ,
-,TOTALS,50,34,111,32,15,52,12,1299,"$983,750","$1,000,000"," $(16,250.00)",
+,MON,45,22,95,12,8,14,3,785,"$285,000","$250,000","$35,000.00",Strong start to the week
+,TUES,35,25,82,8,5,16,2,504,"$210,000","$250,000","$(40,000.00)",Lassiter reduced order
+,WED,38,19,76,9,7,12,6,712,"$350,000","$250,000","$100,000.00",Dule increased order
+,THURS,42,28,88,11,6,9,2,325,"$138,750","$200,000","$(61,250.00)",Competition in the region
+,FRI,28,15,65,6,4,5,0,0,"$0","$50,000","$(50,000.00)",Shepard canceled order
+,SAT,12,8,24,2,0,1,0,0,"$0","$0","$0.00",Weekend prospecting
+,SUN,0,0,0,0,0,0,0,0,"$0","$0","$0.00",
+,TOTALS,200,117,430,48,30,57,13,2326,"$983,750","$1,000,000","$(16,250.00)",
 ,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,SALES REPRESENTATIVE,,,REGION,,,,,,,,
+,,Sarah Johnson,,,Southeast,,,,,,,,
+,,,,,,,,,,,,,
+,,COLD CALLS MADE,FOLLOW-UP CALLS,"EMAILS
+SENT",MEETINGS ARRANGED,VISITS COMPLETED,LEADS GENERATED,"DEALS
+CLOSED",PRODUCTS SOLD,"SALES
+REVENUE","TARGET
+AMOUNT",VARIANCE,NOTES
+,MON,52,18,78,9,6,11,2,456,"$192,500","$180,000","$12,500.00",New client acquisition
+,TUES,48,22,85,11,8,15,3,628,"$275,000","$180,000","$95,000.00",Major deal with Henderson Inc.
+,WED,45,25,92,8,5,9,1,215,"$86,250","$180,000","$(93,750.00)",Market downturn affected sales
+,THURS,50,20,82,10,7,13,4,542,"$312,750","$180,000","$132,750.00",Excellent recovery
+,FRI,35,15,68,7,4,8,2,387,"$154,800","$180,000","$(25,200.00)",Partial cancellations
+,SAT,15,6,22,2,1,3,1,125,"$45,000","$50,000","$(5,000.00)",Weekend conference
+,SUN,0,0,5,0,0,0,0,0,"$0","$0","$0.00",Email follow-ups only
+,TOTALS,245,106,432,47,31,59,13,2353,"$1,066,300","$950,000","$116,300.00",
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,SALES REPRESENTATIVE,,,REGION,,,,,,,,
+,,Michael Chen,,,Midwest,,,,,,,,
+,,,,,,,,,,,,,
+,,COLD CALLS MADE,FOLLOW-UP CALLS,"EMAILS
+SENT",MEETINGS ARRANGED,VISITS COMPLETED,LEADS GENERATED,"DEALS
+CLOSED",PRODUCTS SOLD,"SALES
+REVENUE","TARGET
+AMOUNT",VARIANCE,NOTES
+,MON,38,15,65,7,4,8,1,215,"$96,750","$120,000","$(23,250.00)",Slow start after holiday
+,TUES,42,19,72,9,6,12,2,345,"$138,000","$120,000","$18,000.00",Recovery in agricultural sector
+,WED,48,22,85,11,8,15,3,512,"$230,400","$120,000","$110,400.00",Major industrial client signed
+,THURS,45,20,78,10,7,14,2,378,"$151,200","$120,000","$31,200.00",Consistent performance
+,FRI,40,18,70,8,5,10,2,295,"$118,000","$120,000","$(2,000.00)",Slightly below target
+,SAT,18,8,25,3,2,4,0,0,"$0","$40,000","$(40,000.00)",Trade show attendance
+,SUN,5,2,15,1,0,1,0,0,"$0","$0","$0.00",Early prep for next week
+,TOTALS,236,104,410,49,32,64,10,1745,"$734,350","$640,000","$94,350.00",
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,SALES REPRESENTATIVE,,,REGION,,,,,,,,
+,,Amanda Rodriguez,,,Southwest,,,,,,,,
+,,,,,,,,,,,,,
+,,COLD CALLS MADE,FOLLOW-UP CALLS,"EMAILS
+SENT",MEETINGS ARRANGED,VISITS COMPLETED,LEADS GENERATED,"DEALS
+CLOSED",PRODUCTS SOLD,"SALES
+REVENUE","TARGET
+AMOUNT",VARIANCE,NOTES
+,MON,55,25,95,12,9,18,3,625,"$281,250","$300,000","$(18,750.00)",
+,TUES,58,28,105,14,10,20,4,845,"$380,250","$300,000","$80,250.00",Breakthrough with Taylor Corp.
+,WED,52,24,90,11,8,16,2,425,"$191,250","$300,000","$(108,750.00)",Supply chain issues affected closings
+,THURS,60,30,110,15,11,22,5,975,"$438,750","$300,000","$138,750.00",Record day for the quarter
+,FRI,45,20,80,10,7,14,3,615,"$276,750","$300,000","$(23,250.00)",
+,SAT,22,10,35,4,2,5,1,215,"$96,750","$100,000","$(3,250.00)",Regional conference
+,SUN,8,3,18,1,0,2,0,0,"$0","$0","$0.00",Early prep for Monday meetings
+,TOTALS,300,140,533,67,47,97,18,3700,"$1,665,000","$1,600,000","$65,000.00",
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,SALES REPRESENTATIVE,,,REGION,,,,,,,,
+,,David Wilson,,,West Coast,,,,,,,,
+,,,,,,,,,,,,,
+,,COLD CALLS MADE,FOLLOW-UP CALLS,"EMAILS
+SENT",MEETINGS ARRANGED,VISITS COMPLETED,LEADS GENERATED,"DEALS
+CLOSED",PRODUCTS SOLD,"SALES
+REVENUE","TARGET
+AMOUNT",VARIANCE,NOTES
+,MON,48,22,85,11,8,16,2,485,"$218,250","$220,000","$(1,750.00)",Close to target
+,TUES,52,25,92,12,9,18,3,645,"$290,250","$220,000","$70,250.00",New tech startup clients
+,WED,55,26,98,13,10,20,4,825,"$371,250","$220,000","$151,250.00",Excellent day with enterprise clients
+,THURS,50,24,88,11,8,16,3,585,"$263,250","$220,000","$43,250.00",
+,FRI,45,21,80,10,7,14,2,425,"$191,250","$220,000","$(28,750.00)",
+,SAT,25,12,40,5,3,6,1,215,"$96,750","$100,000","$(3,250.00)",Innovation conference
+,SUN,12,5,22,2,1,3,0,0,"$0","$0","$0.00",Client dinner meeting
+,TOTALS,287,135,505,64,46,93,15,3180,"$1,431,000","$1,200,000","$231,000.00",
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,REGIONAL SUMMARY,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,REGION,COLD CALLS MADE,FOLLOW-UP CALLS,"EMAILS
+SENT",MEETINGS ARRANGED,VISITS COMPLETED,LEADS GENERATED,"DEALS
+CLOSED",PRODUCTS SOLD,"SALES
+REVENUE","TARGET
+AMOUNT",VARIANCE
+,,Northeast,200,117,430,48,30,57,13,2326,"$983,750","$1,000,000","$(16,250.00)"
+,,Southeast,245,106,432,47,31,59,13,2353,"$1,066,300","$950,000","$116,300.00"
+,,Midwest,236,104,410,49,32,64,10,1745,"$734,350","$640,000","$94,350.00"
+,,Southwest,300,140,533,67,47,97,18,3700,"$1,665,000","$1,600,000","$65,000.00"
+,,West Coast,287,135,505,64,46,93,15,3180,"$1,431,000","$1,200,000","$231,000.00"
+,,COMPANY TOTALS,1268,602,2310,275,186,370,69,13304,"$5,880,400","$5,390,000","$490,400.00"
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,PRODUCT BREAKDOWN,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,PRODUCT CATEGORY,UNITS SOLD,REVENUE,AVG UNIT PRICE,% OF TOTAL SALES,,,,,,,
+,,Enterprise Solutions,4250,"$2,125,000","$500.00",36.1%,,,,,,,
+,,Mid-Market Solutions,3825,"$1,530,000","$400.00",26.0%,,,,,,,
+,,Small Business Package,2964,"$890,000","$300.25",15.1%,,,,,,,
+,,Starter Kits,2265,"$735,400","$324.68",12.5%,,,,,,,
+,,Add-on Services,0,"$600,000",n/a,10.2%,,,,,,,
+,,TOTALS,13304,"$5,880,400",,100.0%,,,,,,,

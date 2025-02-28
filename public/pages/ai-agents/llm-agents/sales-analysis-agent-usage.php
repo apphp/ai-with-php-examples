@@ -25,12 +25,15 @@ try {
     );
 
     // Output debug results
-    $debugResult = '';
-    $debugLog = $checker->getDebugLog();
-    foreach ($debugLog as $key => $message) {
-        $debugResult .= humanize($key);
-        $debugResult .= "\n=================\n";
-        $debugResult .= $message . "\n\n";
+    $agentDebug ??= '';
+    $debugResult = '--';
+    if ($agentDebug) {
+        $debugLog = $checker->getDebugLog();
+        foreach ($debugLog as $key => $message) {
+            $debugResult .= humanize($key);
+            $debugResult .= "\n=================\n";
+            $debugResult .= $message . "\n\n";
+        }
     }
 
     // Output the results

@@ -32,7 +32,8 @@ AI: Here\'s the current status and analysis of the site **https://aiwithphp.org*
 - If performance concerns arise, monitoring the response times over different periods could provide insights into any potential issues.
 ---';
 
-$debugResult = 'System Prompt
+$agentDebug ??= '';
+$debugResult = !$agentDebug ? '--' : 'System Prompt
 =================
 You are a website status checking assistant. Your primary goal is to help users determine if a website is online and provide relevant information about its status. Use the provided tools to check site availability, retrieve DNS information, and perform ping tests when necessary. Always aim to give clear, concise responses about a site\'s status and offer potential reasons or troubleshooting steps if a site appears to be offline.
 

@@ -6,14 +6,18 @@ URL: https://aiwithphp.org
 Analysis Process:
 Tool Called: check_site_availability
 Arguments: {"url":"https://aiwithphp.org"}
----
+
 Tool Called: get_dns_info
 Arguments: {"domain":"aiwithphp.org","url":"https://aiwithphp.org"}
----
+
 Tool Called: perform_ping_test
 Arguments: {"host":"54.36.31.145","url":"https://aiwithphp.org"}
----
-AI: Here\'s the current status and analysis of the site **https://aiwithphp.org**:
+
+&nbsp; 
+
+### AI: Here\'s the current status and analysis of the site **https://aiwithphp.org**:
+
+&nbsp; 
 
 1. **Availability**: The site is online and accessible, with an HTTP status code of **200** indicating that the request was successful. The response time was approximately **217.49 ms**, which is generally acceptable for a good user experience.
 
@@ -30,7 +34,7 @@ AI: Here\'s the current status and analysis of the site **https://aiwithphp.org*
 ### Recommendations
 - If you experience any issues accessing the site, consider checking your internet connection or trying a different network.
 - If performance concerns arise, monitoring the response times over different periods could provide insights into any potential issues.
----';
+';
 
 $agentDebug ??= '';
 $debugResult = !$agentDebug ? '--' : 'System Prompt

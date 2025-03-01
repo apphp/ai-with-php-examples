@@ -13,7 +13,8 @@
         "llm-agents/agents": "1.7.0",
         "openai-php/client": "^0.10.1",
         "symfony/http-client": "^7.2",
-        "nyholm/psr7": "^1.8"
+        "nyholm/psr7": "^1.8",
+        "league/commonmark": "2.6.1"
     },
     "autoload": {
         "psr-4": {

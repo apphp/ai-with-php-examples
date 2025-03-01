@@ -47,9 +47,9 @@ try {
             echo "Tool Called: {$message->functionCall->name}\n";
             echo "Arguments: {$message->functionCall->arguments}\n";
         } elseif (!empty($message->content)) {
-            echo "AI: {$message->content}\n";
+            echo "\n&nbsp;\nAI: {$message->content}\n";
         }
-        echo "---\n";
+        echo "\n";
     }
 
     if (!empty($result['final_analysis'])) {

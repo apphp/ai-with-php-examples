@@ -37,7 +37,16 @@ code#code code {
 .form-select.w-60 {
   width: 60% !important;
 }
+.form-select.w-40 {
+  width: 40% !important;
+}
+.form-select.w-30 {
+  width: 30% !important;
+}
 
+.bg-lightgray {
+  background-color: #fafafa;
+}
 
 /*
  * Sidebar
@@ -215,6 +224,25 @@ code.gray {
   color: rgb(248, 248, 242);
   border-radius:.2rem;
   border: 0;
+}
+.html-result {
+  background-color:#f2f3f4;
+  font-family: var(--bs-font-sans-serif) !important;
+  .h2, h2 {
+    font-size: 1rem;
+  }
+  .h3, h3 {
+    font-size: 0.9rem;
+  }
+  .h4, h4 {
+    font-size: 0.8rem;
+  }
+  p {
+    margin-bottom: 0.5rem;
+  }
+  ul {
+    margin-bottom: 0.5rem;
+  }
 }
 .code-result pre.pre-wrap {
   overflow-x: auto;

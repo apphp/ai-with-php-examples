@@ -1,7 +1,13 @@
 <?php
 
+use League\CommonMark\CommonMarkConverter;
+
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
+
+$resultFormatOptions = ['Markdown' => 'md', 'HTML' => 'html'];
+$resultFormat = isset($_GET['resultFormat']) && is_string($_GET['resultFormat']) ? $_GET['resultFormat'] : '';
+verify_fields($resultFormat, array_values($resultFormatOptions), reset($resultFormatOptions));
 
 $agentDebugOptions = ['Show Debug' => '1'];
 $agentDebug = isset($_GET['agentDebug']) && is_string($_GET['agentDebug']) ? $_GET['agentDebug'] : '';
@@ -34,7 +40,6 @@ $memoryEnd = memory_get_usage();
         <li>Run ping tests</li>
         <li>Give you the explanation on why a site might be offline</li>
     </ul>
-    <br>
 </div>
 
 <div>
@@ -49,17 +54,30 @@ $memoryEnd = memory_get_usage();
                 <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>
                 <span class="float-end me-2">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
             </div>
-            <code class="code-result">
-                <pre class="pre-wrap"><?= $result; ?></pre>
+            <code class="<?= $resultFormat === 'md' ? 'code-result' : 'html-result'?>">
+                <?php if($resultFormat === 'md'): ?>
+                    <pre class="pre-wrap"><?= $result; ?></pre>
+                <?php else: ?>
+                    <div class="<?= $resultFormat === 'md' ? '' : 'bg-lightgray p-2'?>">
+                        <?php
+                        $converter = new CommonMarkConverter([
+                            'html_input' => 'strip',
+                            'allow_unsafe_links' => false,
+                        ]);
+                        echo $converter->convert($result);
+                        ?>
+                    </div>
+                <?php endif; ?>
             </code>
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
             <div>
                 <div>
-                    <b>Search Type:</b>
+                    <b>Result Format:</b>
                 </div>
                 <form class="mt-2" action="<?= APP_SEO_LINKS ? create_href('ai-agents', 'llm-agents', 'site-status-checker-agent-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('ai-agents', 'llm-agents', 'site-status-checker-agent-run') : ''; ?>
+                    <?= create_form_features($resultFormatOptions, [$resultFormat], fieldName: 'resultFormat', type: 'select', class: 'w-30 me-4'); ?>
                     <?= create_form_features($agentDebugOptions, [$agentDebug], fieldName: 'agentDebug', type: 'single-checkbox', class: ''); ?>
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>

@@ -14,7 +14,6 @@
         <li>Run ping tests</li>
         <li>Give you the lowdown on why a site might be offline</li>
     </ul>
-    <br>
 </div>
 
 <div>

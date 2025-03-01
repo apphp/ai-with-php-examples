@@ -4,14 +4,18 @@ $result = 'Sales Analysis:
 Analysis Process:
 Tool Called: generate_sales_report
 Arguments: {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
----
+
 Tool Called: analyze_sales_data
 Arguments: {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
----
+
 Tool Called: forecast_future_sales
 Arguments: {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv","forecastMethod":"linear","forecastPeriods":4,"timeUnit":"weeks","confidence":95,"seasonality":1}
----
-AI: The analysis of the sales data extracted from the provided report indicates the following key insights:
+
+&nbsp;
+
+### AI: The analysis of the sales data extracted from the provided report indicates the following key insights:
+
+&nbsp;
 
 ### Summary of Sales Activity
 - **Total Sales:** $5,880,400
@@ -53,7 +57,7 @@ AI: The analysis of the sales data extracted from the provided report indicates 
 Unfortunately, due to insufficient time series data, forecasting future sales trends was not possible. To assist with forecasting in the future, ensure that historical sales data is collected over a sufficient timeline. 
 
 If you need further analysis or specific insights, please let me know!
----';
+';
 
 $agentDebug ??= '';
 $debugResult = !$agentDebug ? '--' : 'System Prompt

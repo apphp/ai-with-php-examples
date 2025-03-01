@@ -13,7 +13,6 @@
         <li>Get sales analysis</li>
         <li>Get recommendations</li>
     </ul>
-    <br>
 </div>
 
 <div>

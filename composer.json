@@ -3,7 +3,7 @@
     "description": "Code examples provided for the book Artificial Intelligence with PHP.",
     "type": "project",
     "license": "MIT",
-    "version": "0.3.0",
+    "version": "0.5.0",
     "packageGroups": {
         "system": [
             "php"

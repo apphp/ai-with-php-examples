@@ -10,6 +10,8 @@
         equation to observed data, allowing predictions of continuous outcomes based on input features.
     </p>
 
+    <br>
+
     <h3 class="h5">Linear Regression with Rubix</h3>
     <ui class="list">
         <li><a href="<?= create_href('ml-algorithms', 'linear-regression', 'rubix-simple-linear-regression') ?>">Simple Linear Regression</a></li>

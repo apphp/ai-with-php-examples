@@ -12,6 +12,7 @@ verify_fields($searchType, array_values($availableTypes), reset($availableTypes)
 
 ob_start();
 //////////////////////////////
+
 include('hill-climbing-search-code-usage.php');
 
 //////////////////////////////

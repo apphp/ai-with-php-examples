@@ -14,7 +14,8 @@
         ],
         "ml-math": [
             "sciphp/numphp",
-            "numphp/numphp"
+            "numphp/numphp",
+            "markrogoyski/math-php"
         ],
         "llm-models": [
             "llm-agents/agents",
@@ -30,10 +31,12 @@
         "rubix/ml": "~2.5.1",
         "sciphp/numphp": "0.4.0",
         "numphp/numphp": "v1.2.0",
-        "llm-agents/agents": "1.7.0",
-        "openai-php/client": "^0.10.1",
-        "symfony/http-client": "^7.2",
-        "league/commonmark": "2.6.1"
+        "markrogoyski/math-php": "~2.11.0",
+        "llm-agents/agents": "~1.7.0",
+        "openai-php/client": "~0.10.1",
+        "symfony/http-client": "~7.2",
+        "league/commonmark": "~2.6.1",
+        "nyholm/psr7": "^1.8"
     },
     "autoload": {
         "psr-4": {

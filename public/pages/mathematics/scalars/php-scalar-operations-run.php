@@ -1,12 +1,12 @@
 <?php
-include_once('scalars-code.php');
+include_once('php-scalars-code.php');
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 
-include('scalars-code-usage.php');
+include('php-scalars-code-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -23,7 +23,7 @@ $memoryEnd = memory_get_usage();
     <h2 class="h4">Scalar Operations with PHP</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?=create_href('mathematics', 'scalars', 'index')?>"  class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?=create_href('mathematics', 'scalars', 'php-scalar-operations')?>"  class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>
@@ -38,7 +38,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/scalars-code-usage.php'); ?>
+    <?= create_example_of_use_links(__DIR__ . '/php-scalars-code-usage.php'); ?>
 </div>
 
 <div class="mb-1">

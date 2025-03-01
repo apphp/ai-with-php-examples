@@ -2,17 +2,27 @@
     <h1 class="h2">Scalars</h1>
 </div>
 
-<?= create_run_code_button('Scalar Operations with PHP', 'mathematics', 'scalars', 'scalars-code-run'); ?>
-
 <div>
     <p>
-        In PHP it can be written as a class Scalar with implementation of a set of scalar operations.
-        This class is a PHP implementation of scalar operations commonly used in linear algebra and, by extension, in various AI and machine learning
-        algorithms. It provides a robust set of methods for performing vectors calculations, making it a valuable tool for developers working on AI
-        projects in PHP.
+        Scalar operations in PHP involve performing mathematical computations on single values (scalars) such as integers, floats, and complex
+        numbers. These operations include basic arithmetic, scalar-vector operations, trigonometric functions, and more.
+        <br>
+        PHP supports scalar operations natively with built-in arithmetic operators (+, -, *, /, %), but for advanced mathematical computations,
+        libraries like Math PHP provide powerful functions to handle scalar arithmetic, transformations, and trigonometric calculations efficiently.
     </p>
-</div>
 
-<div>
-    <?= create_example_of_use_links(__DIR__ . '/scalars-code.php', title: 'Example of class <code>Scalar</code>', opened: true); ?>
+    <br>
+
+    <h3 class="h5">Scalar Operations with MathPHP</h3>
+    <ui class="list">
+        <li><a href="<?= create_href('mathematics', 'scalars', 'mathphp-scalar-operations') ?>">Scalars with MathPHP</a></li>
+    </ui>
+
+    <br>
+    <br>
+
+    <h3 class="h5">Scalar Operations with Pure PHP</h3>
+    <ui class="list">
+        <li><a href="<?= create_href('mathematics', 'scalars', 'php-scalar-operations') ?>">Scalars with Pure PHP</a></li>
+    </ui>
 </div>

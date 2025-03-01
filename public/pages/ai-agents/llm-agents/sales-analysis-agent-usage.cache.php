@@ -14,8 +14,7 @@ Arguments: {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales
 &nbsp;
 
 ### AI: The analysis of the sales data extracted from the provided report indicates the following key insights:
-
-&nbsp;
+---
 
 ### Summary of Sales Activity
 - **Total Sales:** $5,880,400

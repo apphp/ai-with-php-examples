@@ -4,6 +4,26 @@
     "type": "project",
     "license": "MIT",
     "version": "0.3.0",
+    "packageGroups": {
+        "system": [
+            "php"
+        ],
+        "ml": [
+            "php-ai/php-ml",
+            "rubix/ml"
+        ],
+        "ml-math": [
+            "sciphp/numphp",
+            "numphp/numphp"
+        ],
+        "llm-models": [
+            "llm-agents/agents",
+            "openai-php/client"
+        ],
+        "markdown": [
+            "league/commonmark"
+        ]
+    },
     "require": {
         "php": "~8.2.0",
         "php-ai/php-ml": "0.10.0",
@@ -13,7 +33,6 @@
         "llm-agents/agents": "1.7.0",
         "openai-php/client": "^0.10.1",
         "symfony/http-client": "^7.2",
-        "nyholm/psr7": "^1.8",
         "league/commonmark": "2.6.1"
     },
     "autoload": {

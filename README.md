@@ -30,6 +30,10 @@ To install these examples, follow these steps:
 4. After installation is complete, type in your browser: http://localhost:8088/
 5. If everything is OK, you should see the website with examples of code.
 
+## Live DEMO
+
+You may find live demo for these examples on official website: https://aiwithphp.org/examples/
+
 ## Using Libraries for UI
   - Chart.js [https://www.chartjs.org/](https://www.chartjs.org/)
   - Plotly.js [https://plotly.com/javascript/](https://plotly.com/javascript/)

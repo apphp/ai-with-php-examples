@@ -11,7 +11,7 @@ Tool Called: get_dns_info
 Arguments: {"domain":"aiwithphp.org","url":"https://aiwithphp.org"}
 
 Tool Called: perform_ping_test
-Arguments: {"host":"54.36.31.145","url":"https://aiwithphp.org"}
+Arguments: {"host":"22.36.34.125","url":"https://aiwithphp.org"}
 
 &nbsp; 
 

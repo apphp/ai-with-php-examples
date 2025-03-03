@@ -48,7 +48,17 @@
 [data-theme="dark"] .sidebar h6 {
   color: #6c757d !important;
 }
+[data-theme="dark"] .form-select {
+  background-color: #292929 !important;
+  color: #a9a9a9 !important;
+  border-color: #9B3922;
+}
 
+[data-theme="dark"] .html-result div {
+  background-color: #343434;
+  color: #a9a9a9 !important;
+}
+/* code */
 [data-theme="dark"] .code-result pre {
   background-color: #343434;
 }
@@ -57,7 +67,10 @@
   border: 0;
   color: #a9a9a9 !important;
 }
-[data-theme="dark"] code#code code {
+[data-theme="dark"] .code-wrapper {
+  background-color: #343434;
+}
+[data-theme="dark"] .code-wrapper span {
   background-color: #343434;
 }
 [data-theme="dark"] code:not(#code) {
@@ -67,6 +80,7 @@
 [data-theme="dark"] code pre code[style="color: #000000"]{
   color: #a9a9a9 !important;
 }
+/* NEW highlight method */
 /* reserved words */
 [data-theme="dark"] code pre span[style="color: #0000BB"]{
   color: #E7AB79 !important;
@@ -79,6 +93,19 @@
   color: #a2a0C3 !important;
 }
 [data-theme="dark"] code pre span[style="color: #FF8000"]{
+  color: #888877 !important;
+}
+/* OLD highlight method */
+[data-theme="dark"] .code-wrapper span[style="color: #0000BB"]{
+  color: #E7AB79 !important;
+}
+[data-theme="dark"] .code-wrapper span[style="color: #DD0000"]{
+  color: #00a061 !important;
+}
+[data-theme="dark"] .code-wrapper span[style="color: #007700"] {
+  color: #a2a0C3 !important;
+}
+[data-theme="dark"] .code-wrapper span[style="color: #007700"] {
   color: #888877 !important;
 }
 

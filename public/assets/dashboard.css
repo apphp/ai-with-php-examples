@@ -71,8 +71,8 @@ code#code code {
   top: 0;
   height: calc(100vh - 48px);
   padding-top: .5rem;
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
 }
 
 .sidebar h6 {
@@ -170,6 +170,7 @@ ui.list li {
 /* Add styles to hide the sidebar when 'collapsed' class is added */
 #sidebarMenu.collapsed {
   width: 30px !important;
+  overflow-y: hidden !important;
 }
 #main.expanded {
   width: calc(100% - 30px) !important;
@@ -385,6 +386,7 @@ code.gray {
   }
   #sidebarMenu.collapsed {
     width: 0px !important;
+
   }
 
   #main:not(.expanded) {

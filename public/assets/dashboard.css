@@ -254,6 +254,21 @@ code.gray {
   color: rgb(0,0,0);
   border-radius:.2rem;
 }
+.bd-fullscreen {
+  position: absolute;
+  right: 20px;
+}
+.bd-fullscreen i {
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 18px;
+  position: static;
+}
+.bd-fullscreen i.expanded {
+  top: 10px;
+  right: 15px;
+  position: fixed;
+}
 .bd-clipboard {
   position: absolute;
   right: 20px

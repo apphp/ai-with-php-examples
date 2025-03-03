@@ -92,7 +92,13 @@ $memoryEnd = memory_get_usage();
             <div class="mb-1">
                 <b>Debug:</b>
             </div>
-            <code class="code-result">
+            <code class="code-result" id="expandable-div">
+                <!-- Expand button -->
+                <?php if($debugResult !== '--'): ?>
+                    <div class="bd-fullscreen cursor-pointer">
+                        <i id="expandable-div-icon" class="fas fa-expand fa-inverse" title="Open in Full Screen"></i>
+                    </div>
+                <?php endif; ?>
                 <pre class="pre-wrap"><?= $debugResult; ?></pre>
             </code>
         </div>

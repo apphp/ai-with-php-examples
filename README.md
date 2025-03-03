@@ -1,5 +1,5 @@
 ## Examples for AI with PHP Learning Book
-https://apphp.gitbook.io/artificial-intelligence-with-php/
+<a href="https://apphp.gitbook.io/artificial-intelligence-with-php/" target="_blank" rel="noopener noreferrer">https://apphp.gitbook.io/artificial-intelligence-with-php/</a>
 
 
 ## **⚠️ Disclaimer**
@@ -32,7 +32,8 @@ To install these examples, follow these steps:
 
 ## Live DEMO
 
-You may find live demo for these examples on official website: https://aiwithphp.org/examples/
+You may find live demo for these examples on official website:
+<a href="https://aiwithphp.org/examples/" target="_blank" rel="noopener noreferrer">https://aiwithphp.org/examples/</a>
 
 ## Using Libraries for UI
   - Chart.js [https://www.chartjs.org/](https://www.chartjs.org/)

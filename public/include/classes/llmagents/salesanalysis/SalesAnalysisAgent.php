@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace app\public\include\classes\llmagents\salesanalysis;
 
+use app\public\include\classes\llmagents\salesanalysis\tools\GenerateSalesReportTool;
+use app\public\include\classes\llmagents\salesanalysis\tools\AnalyzeSalesDataTool;
+use app\public\include\classes\llmagents\salesanalysis\tools\ForecastFutureSalesTool;
 use LLM\Agents\Agent\Agent;
 use LLM\Agents\Agent\AgentAggregate;
 use LLM\Agents\Solution\MetadataType;
 use LLM\Agents\Solution\Model;
 use LLM\Agents\Solution\SolutionMetadata;
 use LLM\Agents\Solution\ToolLink;
-
-use app\public\include\classes\llmagents\salesanalysis\tools\GenerateSalesReportTool;
-use app\public\include\classes\llmagents\salesanalysis\tools\AnalyzeSalesDataTool;
-use app\public\include\classes\llmagents\salesanalysis\tools\ForecastFutureSalesTool;
 
 final class SalesAnalysisAgent extends AgentAggregate {
     public const DEFAULT_MODEL = 'gpt-4o-mini';

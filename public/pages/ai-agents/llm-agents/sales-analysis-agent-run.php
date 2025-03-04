@@ -33,7 +33,7 @@ $memoryEnd = memory_get_usage();
 
 <div>
     <p>
-        This agent gives you a status of following:
+        This agent can provide you following:
     </p>
     <ul>
         <li>Generate sales report</li>

@@ -99,6 +99,21 @@ $memoryEnd = memory_get_usage();
                         margin: 5px 0;
                         font-family: monospace;
                     }
+                    [data-theme="dark"] .controls-container {
+                        background-color: #434343;
+                        color: #a9a9a9;
+                        padding: 0px 5px;
+                    }
+                    [data-theme="dark"] .controls-container * {
+                        color: #a9a9a9;
+                    }
+                    [data-theme="dark"] .math-section {
+                        background-color: #434343;
+                        color: #a9a9a9;
+                    }
+                    [data-theme="dark"] .math-section * {
+                        color: #a9a9a9;
+                    }
                 </style>
             <div id="app"></div>
 

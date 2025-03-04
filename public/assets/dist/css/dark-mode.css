@@ -69,6 +69,7 @@
 }
 [data-theme="dark"] .code-wrapper {
   background-color: #343434;
+  border: 1px solid #6c757d;
 }
 [data-theme="dark"] .code-wrapper span {
   background-color: #343434;

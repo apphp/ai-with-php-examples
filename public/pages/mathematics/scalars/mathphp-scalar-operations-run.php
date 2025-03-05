@@ -29,8 +29,8 @@ $memoryEnd = memory_get_usage();
 
 <div>
     <p>
-        In PHP by using Math PHP, you can easily apply scalar operations to vectors, perform trigonometric computations, and manipulate scalars in a
-        structured way, making mathematical programming in PHP more convenient and reliable..
+        In PHP by using MathPHP, you can easily apply scalar operations to vectors, perform trigonometric computations, and manipulate scalars in a
+        structured way, making mathematical programming in PHP more convenient and reliable.
     </p>
 </div>
 

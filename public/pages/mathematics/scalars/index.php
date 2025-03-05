@@ -7,7 +7,7 @@
         Scalar operations in PHP involve performing mathematical computations on single values (scalars) such as integers, floats, and complex
         numbers. These operations include basic arithmetic, scalar-vector operations, trigonometric functions, and more. PHP supports scalar
         operations natively with built-in arithmetic operators (+, -, *, /, %), but for advanced mathematical computations,
-        libraries like Math PHP provide powerful functions to handle scalar arithmetic, transformations, and trigonometric calculations efficiently.
+        libraries like MathPHP provide powerful functions to handle scalar arithmetic, transformations, and trigonometric calculations efficiently.
     </p>
 
     <br>

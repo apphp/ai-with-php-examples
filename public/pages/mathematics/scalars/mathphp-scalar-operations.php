@@ -6,11 +6,11 @@
 
 <div>
     <p>
-        In PHP by using Math PHP, you can easily apply scalar operations to vectors, perform trigonometric computations, and manipulate scalars in a
-        structured way, making mathematical programming in PHP more convenient and reliable..
+        In PHP by using MathPHP, you can easily apply scalar operations to vectors, perform trigonometric computations, and manipulate scalars in a
+        structured way, making mathematical programming in PHP more convenient and reliable.
     </p>
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/mathphp-scalars-code-usage.php', title: 'Example of class <code>Scalar</code>', opened: true); ?>
+    <?= create_example_of_use_links(__DIR__ . '/mathphp-scalars-code-usage.php', opened: true); ?>
 </div>

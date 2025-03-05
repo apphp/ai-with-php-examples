@@ -1,5 +1,4 @@
 <?php
-include_once('php-scalars-code.php');
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
@@ -38,7 +37,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/php-scalars-code-usage.php'); ?>
+    <?= create_example_of_use_links(APP_PATH . 'public/include/classes/mathematics/Scalar.php'); ?>
 </div>
 
 <div class="mb-1">

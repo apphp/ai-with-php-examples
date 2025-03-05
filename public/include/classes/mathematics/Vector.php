@@ -1,5 +1,9 @@
 <?php
 
+namespace app\public\include\classes\mathematics;
+
+use Exception;
+
 class Vector {
     private $components;
 

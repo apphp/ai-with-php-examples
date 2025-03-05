@@ -1,6 +1,7 @@
 <?php
 
-// Examples
+use app\public\include\classes\mathematics\Scalar;
+
 $a = 5;
 $b = 2;
 $vector = [1, 2, 3];

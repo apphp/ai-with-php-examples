@@ -2,17 +2,28 @@
     <h1 class="h2">Vectors</h1>
 </div>
 
-<?= create_run_code_button('Vector Operations with PHP', 'mathematics', 'vectors', 'vectors-code-run'); ?>
-
 <div>
     <p>
-        In PHP it can be written as a class Vector with implementation of a set of vector operations.
-        This class is a PHP implementation of vector operations commonly used in linear algebra and, by extension, in various AI and machine learning
-        algorithms. It provides a robust set of methods for performing vectors calculations, making it a valuable tool for developers working on AI
-        projects in PHP.
+        Vectors are fundamental objects in linear algebra, representing quantities with both magnitude and direction. Unlike scalars, which are single
+        numbers, vectors consist of ordered lists of numbers. They can be visualized as arrows in space, where the length of the arrow represents
+        magnitude and its orientation represents direction.
+        Vectors are crucial in many mathematical and real-world applications, from physics to computer graphics and machine learning. Key operations
+        with vectors include addition, scalar multiplication, and dot products. Understanding vectors is essential for grasping more complex concepts
+        in linear algebra, such as matrix operations and linear transformations.
     </p>
-</div>
 
-<div>
-    <?= create_example_of_use_links(__DIR__ . '/vectors-code.php', title: 'Example of class <code>Vector</code>', opened: true); ?>
+    <br>
+
+    <h3 class="h5">Vector Operations with MathPHP</h3>
+    <ui class="list">
+        <li><a href="<?= create_href('mathematics', 'vectors', 'mathphp-vector-operations') ?>">Vectors with MathPHP</a></li>
+    </ui>
+
+    <br>
+    <br>
+
+    <h3 class="h5">Vector Operations with Pure PHP</h3>
+    <ui class="list">
+        <li><a href="<?= create_href('mathematics', 'vectors', 'php-vector-operations') ?>">Vectors with Pure PHP</a></li>
+    </ui>
 </div>

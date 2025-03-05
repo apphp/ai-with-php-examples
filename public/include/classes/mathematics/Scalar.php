@@ -1,5 +1,7 @@
 <?php
 
+namespace app\public\include\classes\mathematics;
+
 class Scalar
 {
     // Basic Arithmetic Operations

@@ -1,6 +1,7 @@
 <?php
 
-// Example usage
+use app\public\include\classes\mathematics\Vector;
+
 $v1 = new Vector([2, 3]);
 $v2 = new Vector([1, -1]);
 

@@ -1,12 +1,11 @@
 <?php
-include_once('vectors-code.php');
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 
-include('vectors-code-usage.php');
+include('php-vector-operations-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -23,7 +22,7 @@ $memoryEnd = memory_get_usage();
     <h2 class="h4">Vector Operations with PHP</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?=create_href('mathematics', 'vectors', 'index')?>"  class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?=create_href('mathematics', 'vectors', 'php-vector-operations')?>"  class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>
@@ -50,7 +49,7 @@ $memoryEnd = memory_get_usage();
         </div>
         <div class="code-wrapper">
             <code id="code">
-                <?= highlight_file(dirname(__FILE__) . '/vectors-code-usage.php', true); ?>
+                <?= highlight_file(dirname(__FILE__) . '/php-vector-operations-usage.php', true); ?>
             </code>
         </div>
     </div>

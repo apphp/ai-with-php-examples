@@ -197,3 +197,21 @@
 [data-theme="dark"] #vectorControls .output-vector {
   background-color: #343434 !important;
 }
+
+/* Plotly */
+[data-theme="dark"] .chart-container svg {
+    background-color: #343434 !important;
+}
+[data-theme="dark"] .chart-container svg g {
+    background-color: #343434 !important;
+    stroke: #515151 !important;
+}
+[data-theme="dark"] .chart-container svg g[stroke="red"] {
+    background-color: #343434 !important;
+    stroke: red !important;
+}
+[data-theme="dark"] .chart-container svg g[stroke="green"] {
+    background-color: #343434 !important;
+    stroke: green !important;
+}
+

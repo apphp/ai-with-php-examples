@@ -6,13 +6,11 @@
 
 <div>
     <p>
-        In PHP it can be written as a class Vector with implementation of a set of vector operations.
-        This class is a PHP implementation of vector operations commonly used in linear algebra and, by extension, in various AI and machine learning
-        algorithms. It provides a robust set of methods for performing vectors calculations, making it a valuable tool for developers working on AI
-        projects in PHP.
+        MathPHP is a PHP library designed for advanced mathematical operations, including vector operations. Below is an overview of how you can use
+        MathPHP to perform vector operations such as addition, subtraction, dot product, cross product, and magnitude.
     </p>
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/mathphp-vectors-code-usage.php', opened: true); ?>
+    <?= create_example_of_use_links(__DIR__ . '/mathphp-vector-operations-usage.php', opened: true); ?>
 </div>

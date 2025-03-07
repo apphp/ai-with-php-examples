@@ -1,12 +1,11 @@
 <?php
-include_once('matrices-code.php');
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 
-include('matrices-code-usage.php');
+include('php-matrix-operations-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -19,7 +18,7 @@ $memoryEnd = memory_get_usage();
     <h1 class="h2">Matrices</h1>
 </div>
 
-<?= create_show_code_button('Matrices with PHP', 'mathematics', 'matrices', 'index'); ?>
+<?= create_show_code_button('Matrix Operations with PHP', 'mathematics', 'matrices', 'php-matrix-operations'); ?>
 
 <div>
     <p>
@@ -43,7 +42,7 @@ $memoryEnd = memory_get_usage();
         </div>
         <div class="code-wrapper">
             <code id="code">
-            <?= highlight_file(dirname(__FILE__) . '/matrices-code-usage.php', true); ?>
+            <?= highlight_file(dirname(__FILE__) . '/php-matrix-operations-usage.php', true); ?>
             </code>
         </div>
     </div>

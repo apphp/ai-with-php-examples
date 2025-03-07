@@ -69,7 +69,10 @@ $menu = [
                     'php-vector-operations', 'php-vector-operations-run',
                     'mathphp-vector-operations', 'mathphp-vector-operations-run',
                 ]],
-                ['section' => 'mathematics', 'subSection' => 'matrices', 'page' => 'index', 'title' => 'Matrices', 'permissions' => ['index', 'matrices-code-run']],
+                ['section' => 'mathematics', 'subSection' => 'matrices', 'page' => 'index', 'title' => 'Matrices', 'permissions' => [
+                    'index',
+                    'php-matrix-operations', 'php-matrix-operations-run'
+                ]],
                 ['section' => 'mathematics', 'subSection' => 'tensors', 'page' => 'index', 'title' => 'Tensors', 'permissions' => ['index', 'creating-tensors', 'creating-tensors-code-run']],
                 ['section' => 'mathematics', 'subSection' => 'linear-transformations', 'page' => 'index', 'title' => 'Linear Transformations', 'permissions' => ['index', 'scale-transformation', 'scale-transformation-code-run', 'simple-linear-layer', 'simple-linear-layer-code-run', 'fully-connected-layer', 'fully-connected-layer-code-run','relu-activation', 'relu-activation-code-run',]],
                 ['section' => 'mathematics', 'subSection' => 'eigenvalues-and-eigenvectors', 'page' => 'index', 'title' => 'Eigenvalues and Eigenvectors', 'permissions' => [

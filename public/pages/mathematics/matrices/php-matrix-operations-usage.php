@@ -1,5 +1,7 @@
 <?php
 
+use app\public\include\classes\mathematics\Matrix;
+
 $matrix1 = new Matrix([[1, 2], [3, 4]]);
 $matrix2 = new Matrix([[5, 6], [7, 8]]);
 

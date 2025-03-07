@@ -2,17 +2,24 @@
     <h1 class="h2">Matrices</h1>
 </div>
 
-<?= create_run_code_button('Matrices with PHP', 'mathematics', 'matrices', 'matrices-code-run'); ?>
-
 <div>
     <p>
-        In PHP it can be written as a class Matrix with implementation of a set of matrix operations.
-        This class is a PHP implementation of matrix operations commonly used in linear algebra and, by extension, in various AI and machine learning
-        algorithms. It provides a robust set of methods for performing matrix calculations, making it a valuable tool for developers working on AI
-        projects in PHP.
+        In linear algebra, a matrix is a fundamental tool used to represent and manipulate data, especially in systems involving multiple variables.
+        Matrices are arrays of numbers or functions arranged in rows and columns, and they are used to perform various operations.
     </p>
-</div>
 
-<div>
-    <?= create_example_of_use_links(__DIR__ . '/matrices-code.php', title: 'Example of class <code>Matrix</code>', opened: true); ?>
+    <br>
+
+    <h3 class="h5">Matrix Operations with MathPHP</h3>
+    <ui class="list">
+        <li><a href="<?= create_href('mathematics', 'matrices', 'mathphp-matrix-operations') ?>">Matrices with MathPHP</a></li>
+    </ui>
+
+    <br>
+    <br>
+
+    <h3 class="h5">Matrix Operations with Pure PHP</h3>
+    <ui class="list">
+        <li><a href="<?= create_href('mathematics', 'matrices', 'php-matrix-operations') ?>">Matrices with Pure PHP</a></li>
+    </ui>
 </div>

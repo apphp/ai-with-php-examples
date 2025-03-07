@@ -1,5 +1,7 @@
 <?php
 
+namespace app\public\include\classes\mathematics;
+
 class Matrix {
     private $matrix;
     private $rows;

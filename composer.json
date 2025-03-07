@@ -14,6 +14,7 @@
         ],
         "ml-math": [
             "sciphp/numphp",
+            "numphp/numphp",
             "markrogoyski/math-php"
         ],
         "llm-models": [
@@ -22,6 +23,10 @@
         ],
         "markdown": [
             "league/commonmark"
+        ],
+        "other?": [
+            "symfony/http-client",
+            "nyholm/psr7",
         ]
     },
     "require": {

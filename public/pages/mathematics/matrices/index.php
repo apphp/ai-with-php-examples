@@ -10,6 +10,14 @@
 
     <br>
 
+    <h3 class="h5">Matrix Operations with Rubix</h3>
+    <ui class="list">
+        <li><a href="<?= create_href('mathematics', 'matrices', 'rubix-matrix-operations') ?>">Matrices with Rubix</a></li>
+    </ui>
+
+    <br>
+    <br>
+
     <h3 class="h5">Matrix Operations with MathPHP</h3>
     <ui class="list">
         <li><a href="<?= create_href('mathematics', 'matrices', 'mathphp-matrix-operations') ?>">Matrices with MathPHP</a></li>

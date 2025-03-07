@@ -69,9 +69,16 @@ You may find live demo for these examples on official website:
       - Sales Analyst Agent
 - Machine Learning
   - Mathematics for ML
-    - Scalar Operations with PHP
-    - Vector Operations with PHP
-    - Matrices with PHP
+    - Scalar
+      - Scalar Operations with MathPHP
+      - Scalar Operations with PHP
+    - Vector
+      - Vector Operations with MathPHP
+      - Vector Operations with PHP
+    - Matrices
+      - Matrices with Rubix
+      - Matrices with MathPHP
+      - Matrices with PHP
     - Tensors
     - Linear Transformations
       - Scale Transformation

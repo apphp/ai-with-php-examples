@@ -12,8 +12,8 @@ use Rubix\ML\Transformers\MinMaxNormalizer;
 $v1 = [2, 3, 4];
 $v2 = [1, -1, 2];
 
-echo "Vector 1: [" . implode(', ', $v1) . "]\n";
-echo "Vector 2: [" . implode(', ', $v2) ."]\n\n";
+echo "Vector 1: " . array_to_vector($v1) . "\n";
+echo "Vector 2: " . array_to_vector($v2) ."\n\n";
 
 // VECTOR ADDITION
 // Add two vectors using array mapping
@@ -21,7 +21,7 @@ $addition = array_map(function ($a, $b) {
     return $a + $b;
 }, $v1, $v2);
 
-echo "Addition: [" . implode(", ", $v1) . "] + [" . implode(", ", $v2) . "] = [" . implode(', ', $addition) . "]\n";
+echo "Addition: " . array_to_vector($v1) . " + " . array_to_vector($v2) . " = " . array_to_vector($addition) . "\n";
 
 // VECTOR SUBTRACTION
 // Subtract two vectors using array mapping
@@ -29,7 +29,7 @@ $subtraction = array_map(function ($a, $b) {
     return $a - $b;
 }, $v1, $v2);
 
-echo "Subtraction: [" . implode(", ", $v1) . "] - [" . implode(", ", $v2) . "] = [" . implode(', ', $subtraction) . "]\n";
+echo "Subtraction: " . array_to_vector($v1) . " - " . array_to_vector($v2) . " = " . array_to_vector($subtraction) . "\n";
 
 // SCALAR MULTIPLICATION
 // Multiply a vector by a scalar
@@ -38,14 +38,14 @@ $scalarMultiplication = array_map(function ($a) use ($scalar) {
     return $a * $scalar;
 }, $v1);
 
-echo "Scalar Multiplication: $scalar * [" . implode(", ", $v1) . "] = [" . implode(", ", $scalarMultiplication) . "]\n";
+echo "Scalar Multiplication: $scalar * " . array_to_vector($v1) . " = " . array_to_vector($scalarMultiplication) . "\n";
 
 // DOT PRODUCT
 $dotProduct = array_sum(array_map(function ($a, $b) {
     return $a * $b;
 }, $v1, $v2));
 
-echo "Dot Product: [" . implode(", ", $v1) . "] · [" . implode(", ", $v2) . "] = $dotProduct\n";
+echo "Dot Product: " . array_to_vector($v1) . " · " . array_to_vector($v2) . " = $dotProduct\n";
 
 // CROSS PRODUCT (for 3D vectors only)
 function crossProduct(array $a, array $b): array
@@ -62,7 +62,7 @@ function crossProduct(array $a, array $b): array
 }
 
 $crossProduct = crossProduct($v1, $v2);
-echo "Cross Product: [" . implode(", ", $v1) . "] × [" . implode(", ", $v2) . "] = [" . implode(", ", $crossProduct) . "]\n";
+echo "Cross Product: " . array_to_vector($v1) . " × " . array_to_vector($v2) . " = " . array_to_vector($crossProduct) . "\n";
 
 
 // MAGNITUDE (L2 NORM)
@@ -88,8 +88,8 @@ $l1NormalizedDataset = clone $dataset;
 $l1NormalizedDataset->apply($l1Normalizer);
 $l1NormalizedSamples = $l1NormalizedDataset->samples();
 
-echo "L1 Normalized Vector1: " . implode(', ', $l1NormalizedSamples[0]) . PHP_EOL;
-echo "L1 Normalized Vector2: " . implode(', ', $l1NormalizedSamples[1]) . PHP_EOL;
+echo "L1 Normalized Vector1: " . array_to_vector($l1NormalizedSamples[0]) . PHP_EOL;
+echo "L1 Normalized Vector2: " . array_to_vector($l1NormalizedSamples[1]) . PHP_EOL;
 
 // L2 Normalization (unit vectors)
 $l2Normalizer = new L2Normalizer();
@@ -97,8 +97,8 @@ $l2NormalizedDataset = clone $dataset;
 $l2NormalizedDataset->apply($l2Normalizer);
 $l2NormalizedSamples = $l2NormalizedDataset->samples();
 
-echo "L2 Normalized Vector1: " . implode(', ', $l2NormalizedSamples[0]) . PHP_EOL;
-echo "L2 Normalized Vector2: " . implode(', ', $l2NormalizedSamples[1]) . PHP_EOL;
+echo "L2 Normalized Vector1: " . array_to_vector($l2NormalizedSamples[0]) . PHP_EOL;
+echo "L2 Normalized Vector2: " . array_to_vector($l2NormalizedSamples[1]) . PHP_EOL;
 
 // VECTOR DISTANCES
 // Calculate various distances between vectors using RubixML distance kernels
@@ -121,13 +121,13 @@ echo "Cosine Similarity: $cosineSimilarity" . PHP_EOL;
 $elementWiseMultiplication = array_map(function ($a, $b) {
     return $a * $b;
 }, $v1, $v2);
-echo "Element-wise Multiplication: " . implode(', ', $elementWiseMultiplication) . PHP_EOL;
+echo "Element-wise Multiplication: " . array_to_vector($elementWiseMultiplication) . PHP_EOL;
 
 // Element-wise division
 $elementWiseDivision = array_map(function ($a, $b) {
     return $b != 0 ? $a / $b : 'undefined';
 }, $v1, $v2);
-echo "Element-wise Division: " . implode(', ', $elementWiseDivision) . PHP_EOL;
+echo "Element-wise Division: " . array_to_vector($elementWiseDivision) . PHP_EOL;
 
 // STATISTICAL OPERATIONS
 // Calculate mean of vectors
@@ -165,4 +165,4 @@ $projectionScalar = $dotProduct / ($magnitude2 * $magnitude2);
 $projection = array_map(function ($element) use ($projectionScalar) {
     return $element * $projectionScalar;
 }, $v2);
-echo "Projection of Vector1 onto Vector2: " . implode(', ', $projection) . PHP_EOL;
+echo "Projection of Vector1 onto Vector2: " . array_to_vector($projection) . PHP_EOL;

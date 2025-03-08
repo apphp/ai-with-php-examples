@@ -42,7 +42,7 @@ function array_flatten(array $array = []): array {
     return $return;
 }
 
-function array_format_matrix(array $matrix): string {
+function array_to_matrix(array $matrix): string {
     $result = [];
 
     foreach ($matrix as $row) {
@@ -52,6 +52,10 @@ function array_format_matrix(array $matrix): string {
 
     // Join rows with newlines
     return implode("\n", $result);
+}
+
+function array_to_vector(array $vector): string {
+    return "[" . implode(', ', $vector) . "]";
 }
 
 function verify_fields(array|string &$features, array $verificationData, array|string $defaultData): void {

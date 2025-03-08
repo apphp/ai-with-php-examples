@@ -22,6 +22,14 @@
     <br>
     <br>
 
+    <h3 class="h5">Vector Operations with Rubix/Tensor</h3>
+    <ui class="list">
+        <li><a href="<?= create_href('mathematics', 'vectors', 'rubixtensor-vector-operations') ?>">Vectors with Rubix/Tensor</a></li>
+    </ui>
+
+    <br>
+    <br>
+
     <h3 class="h5">Vector Operations with MathPHP</h3>
     <ui class="list">
         <li><a href="<?= create_href('mathematics', 'vectors', 'mathphp-vector-operations') ?>">Vectors with MathPHP</a></li>

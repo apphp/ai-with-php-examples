@@ -80,12 +80,12 @@ echo "Inverse of Matrix 1:\n" . $matrix1->inverse()->toString() . "\n";
 //$matrix2 = new NumArray([[5, 6], [7, 8]]);
 //
 //// Display matrices
-//echo "Matrix 1:\n" . array_format_matrix($matrix1->getData()). "\n\n";
-//echo "Matrix 2:\n" . array_format_matrix($matrix2->getData()). "\n\n";
+//echo "Matrix 1:\n" . array_to_matrix($matrix1->getData()). "\n\n";
+//echo "Matrix 2:\n" . array_to_matrix($matrix2->getData()). "\n\n";
 //
 //// Basic arithmetic operations
-//echo "\nAddition:\n" . array_format_matrix($matrix1->add($matrix2)->getData()). "\n\n";
-//echo "\nSubtraction:\n" . array_format_matrix($matrix1->sub($matrix2)->getData()). "\n\n";
+//echo "\nAddition:\n" . array_to_matrix($matrix1->add($matrix2)->getData()). "\n\n";
+//echo "\nSubtraction:\n" . array_to_matrix($matrix1->sub($matrix2)->getData()). "\n\n";
 //
 //
 //echo "\nScalar multiplication (by 2):\n";

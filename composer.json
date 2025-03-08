@@ -24,7 +24,7 @@
         ],
         "other?": [
             "symfony/http-client",
-            "nyholm/psr7",
+            "nyholm/psr7"
         ]
     },
     "require": {

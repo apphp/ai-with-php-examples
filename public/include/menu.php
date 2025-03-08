@@ -68,6 +68,7 @@ $menu = [
                     'index',
                     'php-vector-operations', 'php-vector-operations-run',
                     'mathphp-vector-operations', 'mathphp-vector-operations-run',
+                    'rubix-vector-operations', 'rubix-vector-operations-run',
                 ]],
                 ['section' => 'mathematics', 'subSection' => 'matrices', 'page' => 'index', 'title' => 'Matrices', 'permissions' => [
                     'index',

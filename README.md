@@ -73,6 +73,7 @@ You may find live demo for these examples on official website:
       - Scalar Operations with MathPHP
       - Scalar Operations with PHP
     - Vector
+      - Vector Operations with rubix
       - Vector Operations with MathPHP
       - Vector Operations with PHP
     - Matrices

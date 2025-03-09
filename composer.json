@@ -22,7 +22,7 @@
         "markdown": [
             "league/commonmark"
         ],
-        "other?": [
+        "other": [
             "symfony/http-client",
             "nyholm/psr7"
         ]

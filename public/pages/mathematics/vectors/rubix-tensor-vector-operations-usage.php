@@ -9,48 +9,48 @@ use Tensor\Tensor;
 $vector1 = Vector::build([1, 2, 3, 4, 5]);
 $vector2 = Vector::quick([5, 4, 3, 2, 1]);
 
-echo "Vector 1: " . render_vector($vector1) . PHP_EOL;
-echo "Vector 2: " . render_vector($vector2) . PHP_EOL;
+echo "Vector 1: " . render_vector($vector1) . "\n";
+echo "Vector 2: " . render_vector($vector2) . "\n";
 
 // Vector properties
-echo "Vector 1 Size: " . $vector1->size() . PHP_EOL;
+echo "Vector 1 Size: " . $vector1->size() . "\n";
 echo "Vector 1 Shape: [" . implode(', ', $vector1->shape()) . "]\n";
 
 // Vector operations
 echo "\nVector Operations:\n";
-echo "Addition: " . render_vector($vector1->add($vector2)) . PHP_EOL;
-echo "Subtraction: " . render_vector($vector1->subtract($vector2)) . PHP_EOL;
-echo "Multiplication: " . render_vector($vector1->multiply($vector2)) . PHP_EOL;
-echo "Division: " . render_vector($vector1->divide($vector2)) . PHP_EOL;
-echo "Scalar Multiplication: " . render_vector($vector1->multiply(2)) . PHP_EOL;
-echo "Dot Product: " . $vector1->dot($vector2) . PHP_EOL;
-//echo "Cross Product: " . Vector::quick([1, 0, 0])->cross(Vector::quick([0, 1, 0])) . PHP_EOL;
+echo "Addition: " . render_vector($vector1->add($vector2)) . "\n";
+echo "Subtraction: " . render_vector($vector1->subtract($vector2)) . "\n";
+echo "Multiplication: " . render_vector($vector1->multiply($vector2)) . "\n";
+echo "Division: " . render_vector($vector1->divide($vector2)) . "\n";
+echo "Scalar Multiplication: " . render_vector($vector1->multiply(2)) . "\n";
+echo "Dot Product: " . $vector1->dot($vector2) . "\n";
+//echo "Cross Product: " . Vector::quick([1, 0, 0])->cross(Vector::quick([0, 1, 0])) . "\n;
 
 // Vector norms
 echo "\nVector Norms:\n";
-echo "L1 Norm: " . $vector1->l1Norm() . PHP_EOL;
-echo "L2 Norm (Magnitude): " . $vector1->l2Norm() . PHP_EOL;
-echo "Max Norm: " . $vector1->maxNorm() . PHP_EOL;
+echo "L1 Norm: " . $vector1->l1Norm() . "\n";
+echo "L2 Norm (Magnitude): " . $vector1->l2Norm() . "\n";
+echo "Max Norm: " . $vector1->maxNorm() . "\n";
 
 // Vector transformations
 echo "\nVector Transformations:\n";
-//echo "Normalize (Unit Vector): " . $vector1->normalize() . PHP_EOL;
-echo "Absolute Value: " . render_vector($vector1->abs()) . PHP_EOL;
-echo "Square Root: " . render_vector($vector1->sqrt()) . PHP_EOL;
-echo "Exponentiate: " . render_vector($vector1->exp()) . PHP_EOL;
-echo "Log (Natural): " . render_vector($vector1->log()) . PHP_EOL;
-echo "Power of 2: " . render_vector($vector1->pow(2)) . PHP_EOL;
+//echo "Normalize (Unit Vector): " . $vector1->normalize() . "\n;
+echo "Absolute Value: " . render_vector($vector1->abs()) . "\n";
+echo "Square Root: " . render_vector($vector1->sqrt()) . "\n";
+echo "Exponentiate: " . render_vector($vector1->exp()) . "\n";
+echo "Log (Natural): " . render_vector($vector1->log()) . "\n";
+echo "Power of 2: " . render_vector($vector1->pow(2)) . "\n";
 
 // Vector statistical functions
 echo "\nVector Statistics:\n";
-echo "Sum: " . $vector1->sum() . PHP_EOL;
-echo "Product: " . $vector1->product() . PHP_EOL;
-echo "Min: " . $vector1->min() . PHP_EOL;
-echo "Max: " . $vector1->max() . PHP_EOL;
-echo "Mean: " . $vector1->mean() . PHP_EOL;
-echo "Median: " . $vector1->median() . PHP_EOL;
-echo "Variance: " . $vector1->variance() . PHP_EOL;
-//echo "Standard Deviation: " . $vector1->std() . PHP_EOL;
+echo "Sum: " . $vector1->sum() . "\n";
+echo "Product: " . $vector1->product() . "\n";
+echo "Min: " . $vector1->min() . "\n";
+echo "Max: " . $vector1->max() . "\n";
+echo "Mean: " . $vector1->mean() . "\n";
+echo "Median: " . $vector1->median() . "\n";
+echo "Variance: " . $vector1->variance() . "\n";
+//echo "Standard Deviation: " . $vector1->std() . "\n;
 
 echo "\n========== ADVANCED OPERATIONS ==========\n";
 
@@ -58,12 +58,12 @@ echo "\n========== ADVANCED OPERATIONS ==========\n";
 $standardVector = Vector::build([1, 2, 3]);
 $columnVector = ColumnVector::build([1, 2, 3]);
 
-echo "Standard Vector: " . render_vector($standardVector) . PHP_EOL;
+echo "Standard Vector: " . render_vector($standardVector) . "\n";
 echo "Column Vector:\n";
 echo render_column_vector($columnVector);
 echo PHP_EOL;
-echo "Column to Row: " . render_vector($columnVector) . PHP_EOL;
-echo "Row to Column:\n" . render_column_vector(ColumnVector::build($standardVector->asArray())) . PHP_EOL;
+echo "Column to Row: " . render_vector($columnVector) . "\n";
+echo "Row to Column:\n" . render_column_vector(ColumnVector::build($standardVector->asArray())) . "\n";
 
 // Outer product
 echo "Outer Product:\n";
@@ -72,20 +72,21 @@ echo PHP_EOL;
 
 // Comparison operations
 echo "\nComparison Operations:\n";
-echo "Vector 1 Greater Than 2: " . render_vector($vector1->greater(2)) . PHP_EOL;
-echo "Vector 1 Less Than 3: " . render_vector($vector1->less(3)) . PHP_EOL;
-echo "Vector 1 Equals Vector 2: " . render_vector($vector1->equal($vector2)) . PHP_EOL;
-echo "Vector 1 Not Equals Vector 2: " . render_vector($vector1->notEqual($vector2)) . PHP_EOL;
+echo "Vector 1 Greater Than 2: " . render_vector($vector1->greater(2)) . "\n";
+echo "Vector 1 Less Than 3: " . render_vector($vector1->less(3)) . "\n";
+echo "Vector 1 Equals Vector 2: " . render_vector($vector1->equal($vector2)) . "\n";
+echo "Vector 1 Not Equals Vector 2: " . render_vector($vector1->notEqual($vector2)) . "\n";
 
 // Trigonometric operations
 echo "\nTrigonometric Operations:\n";
-echo "Sin: " . render_vector($vector1->sin()) . PHP_EOL;
-echo "Cos: " . render_vector($vector1->cos()) . PHP_EOL;
-echo "Tan: " . render_vector($vector1->tan()) . PHP_EOL;
+echo "Sin: " . render_vector($vector1->sin()) . "\n";
+echo "Cos: " . render_vector($vector1->cos()) . "\n";
+echo "Tan: " . render_vector($vector1->tan()) . "\n";
 
 function render_vector(Vector $vector): string {
     return "[" . implode(', ', $vector->asArray()) . "]";
 }
+
 function render_column_vector(ColumnVector $vector): string {
     $result = [];
 

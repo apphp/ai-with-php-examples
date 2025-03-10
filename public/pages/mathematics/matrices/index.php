@@ -18,6 +18,14 @@
     <br>
     <br>
 
+    <h3 class="h5">Matrix Operations with Rubix/Tensor</h3>
+    <ui class="list">
+        <li><a href="<?= create_href('mathematics', 'matrices', 'rubix-tensor-matrix-operations') ?>">Matrices with Rubix/Tensor</a></li>
+    </ui>
+
+    <br>
+    <br>
+
     <h3 class="h5">Matrix Operations with MathPHP</h3>
     <ui class="list">
         <li><a href="<?= create_href('mathematics', 'matrices', 'mathphp-matrix-operations') ?>">Matrices with MathPHP</a></li>

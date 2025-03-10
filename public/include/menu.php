@@ -76,6 +76,7 @@ $menu = [
                     'php-matrix-operations', 'php-matrix-operations-run',
                     'mathphp-matrix-operations', 'mathphp-matrix-operations-run',
                     'rubix-matrix-operations', 'rubix-matrix-operations-run',
+                    'rubix-tensor-matrix-operations', 'rubix-tensor-matrix-operations-run',
                 ]],
                 ['section' => 'mathematics', 'subSection' => 'tensors', 'page' => 'index', 'title' => 'Tensors', 'permissions' => ['index', 'creating-tensors', 'creating-tensors-code-run']],
                 ['section' => 'mathematics', 'subSection' => 'linear-transformations', 'page' => 'index', 'title' => 'Linear Transformations', 'permissions' => ['index', 'scale-transformation', 'scale-transformation-code-run', 'simple-linear-layer', 'simple-linear-layer-code-run', 'fully-connected-layer', 'fully-connected-layer-code-run','relu-activation', 'relu-activation-code-run',]],

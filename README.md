@@ -71,16 +71,17 @@ You may find live demo for these examples on official website:
   - Mathematics for ML
     - Scalar
       - Scalar Operations with MathPHP
-      - Scalar Operations with PHP
+      - Scalar Operations with Pure PHP
     - Vector
       - Vector Operations with Rubix
       - Vector Operations with Rubix/Tensor
       - Vector Operations with MathPHP
-      - Vector Operations with PHP
+      - Vector Operations with Pure PHP
     - Matrices
-      - Matrices with Rubix
-      - Matrices with MathPHP
-      - Matrices with PHP
+      - Matrix Operations with Rubix
+      - Matrix Operations with Rubix/Tensor
+      - Matrix Operations with MathPHP
+      - Matrix Operations with Pure PHP
     - Tensors
     - Linear Transformations
       - Scale Transformation

@@ -59,7 +59,7 @@ class Chart {
                         y: -5 * x + ' . $separationBorder . "
                     });
                 }
-    
+
                 const chart = new Chart(ctx, {
                     type: 'scatter',
                     data: {
@@ -112,7 +112,7 @@ class Chart {
                             padding: {
                                 left: 10,
                                 right: 10,
-                                top: -100,    
+                                top: -100,
                                 bottom: 10
                             }
                         },
@@ -511,7 +511,7 @@ class Chart {
                     },
                     margin: {
                         l: 0, r: 0, b: 0, t: 0
-                    }, 
+                    },
                 };
 
                 // Render the plot in the specified div
@@ -540,7 +540,7 @@ class Chart {
             <div style='min-height:500px;'>
             <canvas id='scatterChart'></canvas>
             </div>
-            
+
             <script>
                 // Data points
                 const rawData = [";
@@ -548,34 +548,34 @@ class Chart {
             $return .= "{x: " . $samples[$i][0] . ", y: " . ($labels[$i] ?? 0) . "},";
         }
         $return .= '];
-                
+
                 // Test data points
                 const testData = [';
         for ($i = 0; $i < count($testSamples); $i++) {
             $return .= "{x: " . $testSamples[$i][0] . ", y: " . ($testLabels[$i] ?? 0) . "},";
         }
         $return .= '];
-            
+
                 // Convert data for regression calculation
                 const regressionData = rawData.map(point => [point.x, point.y]);
-            
+
                 // Calculate polynomial regression (degree)
                 const result = regression.polynomial(regressionData, { order:' . (int)$polynomialOrder . " });
                 const formula = result.string;
                 const r2 = result.r2;
-            
+
                 // Generate points for the polynomial curve
                 const minX = Math.min(...rawData.map(p => p.x), ...testData.map(p => p.x));
                 const maxX = Math.max(...rawData.map(p => p.x), ...testData.map(p => p.x));
                 const curvePoints = [];
-            
+
                 for(let x = minX; x <= maxX; x += 0.1) {
                     curvePoints.push({
                         x: x,
                         y: result.predict(x)[1]
                     });
                 }
-            
+
                 // Create the scatter chart
                 const ctx = document.getElementById('scatterChart').getContext('2d');
                 const chart = new Chart(ctx, {
@@ -618,7 +618,7 @@ class Chart {
                             padding: {
                                 left: 10,
                                 right: 10,
-                                top: -10,   
+                                top: -10,
                                 bottom: 10
                             }
                         },
@@ -707,19 +707,19 @@ class Chart {
                     class ' . $startNode . ' sNode
                     class ' . $endNode . ' gNode
                     ' . ($intersectionNode ? 'class ' . $intersectionNode . ' iNode' : '') . '
-                
+
                 %% Styling
                     classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px;
                     linkStyle default stroke:#2ea723,stroke-width:2px;
-                    classDef sNode fill:#a0eFeF,stroke:#333,stroke-width:1px          
+                    classDef sNode fill:#a0eFeF,stroke:#333,stroke-width:1px
                     ' . ($intersectionNode ? 'classDef gNode fill:#a0eFeF,stroke:#333,stroke-width:1px' : 'classDef gNode fill:#FFB07A,stroke:#333,stroke-width:1px') . '
                     ' . ($intersectionNode ? 'classDef iNode fill:#FFB07A,stroke:#333,stroke-width:1px' : '') . '
-                    
+
                     classDef default fill:#d0e6b8,stroke:#2ea723,stroke-width:2px
                     classDef visited fill:#ff9999,stroke:#ff0000,stroke-width:2px
-                    classDef current fill:#ffff99,stroke:#ffa500,stroke-width:2px 
-                    classDef finish fill:#ff8800,stroke:#333,stroke-width:1.5px 
-                    
+                    classDef current fill:#ffff99,stroke:#ffa500,stroke-width:2px
+                    classDef finish fill:#ff8800,stroke:#333,stroke-width:1.5px
+
                 %% Color visited edges
                     ${generateEdgeStyles()}
             ';
@@ -743,7 +743,7 @@ class Chart {
             <div class="container mb-5" style="overflow: hidden; min-height: 600px; width: 100%; position: relative;">
                 <div id="diagram"></div>
             </div>
-            
+
             <script>
                 let treeSteps = ' . $steps . ';
                 let currentStep = -1;
@@ -754,7 +754,7 @@ class Chart {
                     // Reset and rebuild visited nodes based on steps
                     visitedNodes = [];
                     visitedEdges = [];
-                    
+
                     steps.forEach(step => {
                         if (step.reset) {
                             // Clear all visited nodes on reset
@@ -765,17 +765,17 @@ class Chart {
                             if (step.edge) visitedEdges.push(step.edge);
                         }
                     });
-            
+
                     return `
-                        ' . $graph . '  
+                        ' . $graph . '
                         ' . $style . '
                         ${visitedNodes.slice(0, -1).map(node => `class ${node} visited`).join("\n")}
-                        ${visitedNodes.length > 0 
-                            ? (visitedNodes[visitedNodes.length-1] == "' . ($intersectionNode ?: $endNode) . '") ? `class ' . ($intersectionNode ?: $endNode) . ' finish` 
+                        ${visitedNodes.length > 0
+                            ? (visitedNodes[visitedNodes.length-1] == "' . ($intersectionNode ?: $endNode) . '") ? `class ' . ($intersectionNode ?: $endNode) . ' finish`
                             : `class ${visitedNodes[visitedNodes.length-1]} current` : ""}
                     `;
                 }
-                
+
                 function extractEdgesFromGraph(graphDefinition) {
                     // Split the graph definition into lines
                     const lines = graphDefinition.split("\n");
@@ -783,29 +783,29 @@ class Chart {
                     const weightMap = {};
                     let edgeIndex = 0;
                     let separatorType = "";
-                
+
                     // Process each line to find edge definitions
                     lines.forEach(line => {
                         // Remove leading/trailing whitespace
                         line = line.trim();
-                        
+
                         // Skip the graph TB line and empty lines
                         if (line.startsWith("graph TB") || !line) return;
-                        
+
                         // Look for lines that define edges (containing -->)
                         separatorType = line.includes("-->") ? "-->" : (line.includes("---") ? "---" : "");
 
                         if (separatorType) {
                             // Remove any comments and trim
                             line = line.split("%")[0].trim();
-                            
+
                             // Split the line into parts considering the edge weight
                             const parts = line.split(separatorType).map(part => part.trim());
-                            
+
                             if (parts.length === 2) {
                                 let sourceNode = parts[0];
                                 let targetPart = parts[1];
-                                
+
                                 // Extract source node name
                                 const sourceMatch = sourceNode.match(/\(\(([A-Z][0-9]?)\</);
                                 if (!sourceMatch) {
@@ -814,11 +814,11 @@ class Chart {
                                 } else {
                                     sourceNode = sourceMatch[1];
                                 }
-                                
+
                                 // Handle weight and target node
                                 let weight = 1; // default weight
                                 let targetNode = "";
-                                
+
                                 // Check if there is a weight
                                 if (targetPart.includes("|")) {
                                     const weightMatch = targetPart.match(/\|(\d+)\|/);
@@ -828,7 +828,7 @@ class Chart {
                                     // Extract the actual target part after the weight
                                     targetPart = targetPart.split("|").pop().trim();
                                 }
-                                
+
                                 // Extract target node name
                                 const targetMatch = targetPart.match(/\(\(([A-Z][0-9]?)\</);
                                 if (!targetMatch) {
@@ -837,10 +837,10 @@ class Chart {
                                 } else {
                                     targetNode = targetMatch[1];
                                 }
-                                
+
                                 // Create directed edge mapping
                                 const edge = `${sourceNode}-${targetNode}`;
-                                
+
                                 // Only add if not already in map
                                 if (!(edge in edgeMap)) {
                                     edgeMap[edge] = edgeIndex;
@@ -853,19 +853,19 @@ class Chart {
 
                     return { edges: edgeMap, weights: weightMap };
                 }
-                
+
                 function generateEdgeStyles() {
                     let edgeStyles = [];
                     let edgeIndex = 0;
-                    
+
                     // Get the graph definition from the generateDiagram function
                     const graphDefinition = `
                         ' . $graph . '
                     `;
-                
+
                     // Dynamically create edge map
                     const edgeMap = extractEdgesFromGraph(graphDefinition);
-                    
+
                     visitedEdges.forEach((edge, index) => {
                         const edgeNum = edgeMap.edges[edge];
                         if (edgeNum !== undefined) {
@@ -873,7 +873,7 @@ class Chart {
                             edgeStyles.push(`linkStyle ${edgeNum} stroke:${color},stroke-width:3px`);
                         }
                     });
-                
+
                     return edgeStyles.join("\n");
                 }
 
@@ -881,11 +881,11 @@ class Chart {
                     const container = document.getElementById("diagram");
                     const currentSteps = treeSteps.slice(0, currentStep + 1);
                     container.innerHTML = `<div class="mermaid">${generateDiagram(currentSteps)}</div>`;
-                
+
                     document.getElementById("step-info").textContent = currentStep >= 0 ? treeSteps[currentStep].info : "' . $defaultMessage . '";
                     document.getElementById("prevBtn").disabled = currentStep <= 0;
                     document.getElementById("nextBtn").disabled = currentStep >= treeSteps.length - 1;
-                
+
                     mermaid.init(undefined, document.querySelector(".mermaid"));
                 }
 
@@ -943,7 +943,7 @@ class Chart {
 
         return '
             <div class="chart-container" id="vectorPlot"></div>
-            
+
             <script>
                 class VectorGridChart {
                     constructor(containerId, mode = "' . $type . '") {
@@ -952,11 +952,11 @@ class Chart {
                         this.initPlot();
                         this.setupEventListeners();
                     }
-            
+
                     initPlot() {
                         this.updatePlot();
                     }
-            
+
                     calculateTransformation() {
                         const matrix = {
                             m11: parseFloat(document.getElementById("m11")?.value ? document.getElementById("m11").value : ' . $m11 . ') || 0,
@@ -964,12 +964,12 @@ class Chart {
                             m21: parseFloat(document.getElementById("m21")?.value ? document.getElementById("m21").value : ' . $m21 . ') || 0,
                             m22: parseFloat(document.getElementById("m22")?.value ? document.getElementById("m22").value : ' . $m22 . ') || 0,
                         };
-            
+
                         const inputVector = {
                             x: parseFloat(document.getElementById("vectorX")?.value ? document.getElementById("vectorX").value : ' . $vectorX . ') || 0,
                             y: parseFloat(document.getElementById("vectorY")?.value ? document.getElementById("vectorY").value : ' . $vectorY . ') || 0
                         };
-                        
+
                         const outputVector = {
                             x: matrix.m11 * inputVector.x + matrix.m12 * inputVector.y,
                             y: matrix.m21 * inputVector.x + matrix.m22 * inputVector.y
@@ -982,7 +982,7 @@ class Chart {
 
                         return { inputVector, outputVector };
                     }
-                    
+
                     calculateLinearLayer() {
                         // Get matrix (weights) values
                         const matrix = {
@@ -991,31 +991,31 @@ class Chart {
                             m21: parseFloat(document.getElementById("m21")?.value ? document.getElementById("m21").value : ' . $m21 . ') || 0,
                             m22: parseFloat(document.getElementById("m22")?.value ? document.getElementById("m22").value : ' . $m22 . ') || 0,
                         };
-                
+
                         // Get input vector values
                         const inputVector = {
                             x: parseFloat(document.getElementById("vectorX")?.value ? document.getElementById("vectorX").value : ' . $vectorX . ') || 0,
                             y: parseFloat(document.getElementById("vectorY")?.value ? document.getElementById("vectorY").value : ' . $vectorY . ') || 0
                         };
-                
+
                         // Get bias values
                         const bias = {
                             x: parseFloat(document.getElementById("biasX")?.value ? document.getElementById("biasX").value : ' . $biasX . ') || 0,
                             y: parseFloat(document.getElementById("biasY")?.value ? document.getElementById("biasY").value : ' . $biasY . ') || 0
                         };
-                                                
+
                         // Calculate Wx + b
                         const outputVector = {
                             x: matrix.m11 * inputVector.x + matrix.m12 * inputVector.y + bias.x,
                             y: matrix.m21 * inputVector.x + matrix.m22 * inputVector.y + bias.y
                         };
-                
+
                         // Update output display if elements exist
                         if (document.getElementById("outputX") && document.getElementById("outputY")) {
                             document.getElementById("outputX").textContent = outputVector.x.toFixed(1);
                             document.getElementById("outputY").textContent = outputVector.y.toFixed(1);
                         }
-                
+
                         return { inputVector, outputVector, matrix, bias };
                     }
 
@@ -1027,9 +1027,9 @@ class Chart {
                         } else {
                             result = this.calculateTransformation();
                         }
-                        
-                        const { inputVector, outputVector } = result;      
-                        
+
+                        const { inputVector, outputVector } = result;
+
                         // Calculate intermediate vector (Wx) for layer mode
                         let weightVector = null;
                         let biasVector = null;
@@ -1039,14 +1039,14 @@ class Chart {
                                 x: result.matrix.m11 * inputVector.x + result.matrix.m12 * inputVector.y,
                                 y: result.matrix.m21 * inputVector.x + result.matrix.m22 * inputVector.y
                             };
-                            
+
                             // Calculate bias vector
                             biasVector = {
                                 x: result.bias ? result.bias.x : 0,
                                 y: result.bias ? result.bias.y : 0
                             };
                         }
-                        
+
                         const maxVal = Math.max(
                             Math.abs(inputVector.x),
                             Math.abs(inputVector.y),
@@ -1087,7 +1087,7 @@ class Chart {
                                 marker: { size: 8 }
                             }
                         ];
-                        
+
                         // Add bias vector if in linear layer mode (green)
                         if (this.mode === "linear") {
                             data.push({
@@ -1098,7 +1098,7 @@ class Chart {
                                 line: { color: "rgb(75, 192, 75)", width: 2, dash: "dot" },
                                 marker: { size: 8 }
                             });
-                            
+
                             // Weight Transform Vector (purple)
                             data.push({
                                 x: [0, weightVector.x],
@@ -1109,7 +1109,7 @@ class Chart {
                                 marker: { size: 8 }
                             });
                         }
-                        
+
                         // Final Output Vector (red)
                         data.push({
                             x: [0, outputVector.x],
@@ -1191,7 +1191,7 @@ class Chart {
 
         return '
             <div class="chart-container" id="reluPlot"></div>
-            
+
             <script>
                 class ReluGridChart {
                     constructor(containerId) {
@@ -1199,11 +1199,11 @@ class Chart {
                         this.initPlot();
                         this.setupEventListeners();
                     }
-                    
+
                     initPlot() {
                         this.updatePlot();
                     }
-                    
+
                     calculateLinearLayer() {
                         // Get matrix (weights) values
                         const matrix = {
@@ -1212,48 +1212,48 @@ class Chart {
                             m21: parseFloat(document.getElementById("m21")?.value ? document.getElementById("m21").value : ' . $m21 . ') || 0,
                             m22: parseFloat(document.getElementById("m22")?.value ? document.getElementById("m22").value : ' . $m22 . ') || 0,
                         };
-                
+
                         // Get input vector values
                         const inputVector = {
                             x: parseFloat(document.getElementById("vectorX")?.value ? document.getElementById("vectorX").value : ' . $vectorX . ') || 0,
                             y: parseFloat(document.getElementById("vectorY")?.value ? document.getElementById("vectorY").value : ' . $vectorY . ') || 0
                         };
-                
+
                         // Get bias values
                         const bias = {
                             x: parseFloat(document.getElementById("biasX")?.value ? document.getElementById("biasX").value : ' . $biasX . ') || 0,
                             y: parseFloat(document.getElementById("biasY")?.value ? document.getElementById("biasY").value : ' . $biasY . ') || 0
                         };
-                                                
+
                         // Calculate Wx + b
                         const outputVector = {
                             x: matrix.m11 * inputVector.x + matrix.m12 * inputVector.y + bias.x,
                             y: matrix.m21 * inputVector.x + matrix.m22 * inputVector.y + bias.y
                         };
-                
+
                         // Update output display if elements exist
                         if (document.getElementById("outputX") && document.getElementById("outputY")) {
                             document.getElementById("outputX").textContent = outputVector.x.toFixed(1);
                             document.getElementById("outputY").textContent = outputVector.y.toFixed(1);
                         }
-                
+
                         return { inputVector, outputVector, matrix, bias };
                     }
-                    
+
                     relu(vector) {
                         return vector.map(v => Math.max(0, v));
                     }
-                    
-                    updatePlot() {                    
+
+                    updatePlot() {
                         let result = this.calculateLinearLayer();
-                        const { inputVector, outputVector } = result; 
-                        
+                        const { inputVector, outputVector } = result;
+
                         let reluResult = this.relu([outputVector.x, outputVector.y]);
-        
+
                         // Example points from the image
                         const exampleX = [outputVector.x, outputVector.y];
                         const exampleY = [reluResult[0], reluResult[1]];
-                        
+
                         const maxVal = Math.max(
                             Math.abs(inputVector.x),
                             Math.abs(inputVector.y),
@@ -1265,7 +1265,7 @@ class Chart {
                         // Generate points for ReLU function line
                         const x = Array.from({length: (maxVal * 20) + 10}, (_, i) => -maxVal + i * 0.1);
                         const y = x.map(val => Math.max(0, val));
-                        
+
                         // Calculate tick interval to show 5 ticks
                         let xdticks = 5;
                         let ydticks = 2;
@@ -1275,21 +1275,21 @@ class Chart {
                             // Calculate the step size and adjust to the nearest multiple of 5
                             xdticks = Math.ceil(roundedXMax / 10);
                             xdticks = Math.ceil(xdticks / 5) * 5;
-                            
+
                             // Round maxVal up to the nearest multiple of 5
                             const roundedYMax = Math.ceil(maxVal / 2) * 2;
                             ydticks = Math.ceil(roundedYMax / 10);
-                            ydticks = Math.ceil(ydticks / 2) * 2;      
+                            ydticks = Math.ceil(ydticks / 2) * 2;
                         }
-                                                
+
                         if (document.getElementById("output-vector")) {
                             document.getElementById("output-vector").textContent = outputVector.x + ", " + outputVector.y;
                         }
-                                               
+
                         if (document.getElementById("relu-vector")) {
                             document.getElementById("relu-vector").textContent = reluResult[0] + ", " + reluResult[1];
                         }
-        
+
                         // Create the line trace for ReLU function
                         const reluTrace = {
                             x: x,
@@ -1301,7 +1301,7 @@ class Chart {
                                 width: 2
                             }
                         };
-        
+
                         // Create the scatter trace for example points
                         const pointsTrace = {
                             x: exampleX,
@@ -1313,7 +1313,7 @@ class Chart {
                                 size: 10
                             }
                         };
-        
+
                         // Layout configuration
                         const layout = {
                             title: {
@@ -1355,14 +1355,14 @@ class Chart {
                                 r: 20   // right margin
                             }
                         };
-                              
+
                         // Create the plot
                         Plotly.newPlot(this.containerId, [reluTrace, pointsTrace], layout, {
                             responsive: true,
                             displayModeBar: false
                         });
                     }
-                    
+
                     setupEventListeners() {
                         const inputs = document.querySelectorAll("input");
                         inputs.forEach(input => {
@@ -1370,7 +1370,7 @@ class Chart {
                         });
                     }
                 }
-                    
+
                 // Initialize the chart when the page loads
                 document.addEventListener("DOMContentLoaded", () => {
                     const chart = new ReluGridChart("reluPlot");
@@ -1409,7 +1409,7 @@ class Chart {
         $maxlength = strlen((string)$max);
         $maxlength++;
 
-        $output = '           
+        $output = '
             <div id="vectorControls" class="form-section me-1">
                 <form id="transformForm" onsubmit="return false;">
                     <div class="row">
@@ -1477,7 +1477,7 @@ class Chart {
                     </div>
                 </form>
             </div>
-            
+
             <style>
                 #vectorControls {
                     padding: 0px;

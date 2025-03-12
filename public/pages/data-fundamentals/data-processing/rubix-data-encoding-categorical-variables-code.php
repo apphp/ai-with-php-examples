@@ -10,10 +10,11 @@ $dataset = Unlabeled::fromIterator(new CSV(dirname(__FILE__) . '/data/colors_and
 $encoder = new OneHotEncoder();
 $encoder->fit($dataset);
 $samples = $dataset->samples();
-$encoder->transform($samples);
+$transformedSamples = $samples;
+$encoder->transform($transformedSamples);
 
 echo "\nAfter Encoding:\n";
 echo "--------------\n";
-foreach ($samples as $sample) {
-    echo implode('', $sample) . "\n";
+foreach ($transformedSamples as $ind => $sample) {
+    echo str_pad($samples[$ind][0], 10) . implode('', $sample) . "\n";
 }

@@ -29,8 +29,10 @@ $memoryEnd = memory_get_usage();
 
 <div>
     <p>
-        Categorical data, such as "color" or "size," needs to be converted into numerical format so machine learning models can interpret it. One-Hot
-        Encoding is a common method that transforms each category into a binary vector.
+        Categorical data, like "color" or "size," must be converted into numerical form for machine learning models to process it. One common approach
+        is One-Hot Encoding, which represents each category as a binary vector. This method creates separate columns for each category, assigning a 1
+        if the category is present and a 0 if it is not. The main goal of One-Hot Encoding is to make categorical data usable in machine learning
+        models.
     </p>
 </div>
 

@@ -58,6 +58,12 @@ function array_to_vector(array $vector): string {
     return "[" . implode(', ', $vector) . "]";
 }
 
+function array_reduce_samples(array $samples, int $index): array {
+    return array_map(function($subArray) use ($index) {
+        return isset($subArray[$index]) ? [$subArray[$index]] : [];
+    }, $samples);
+}
+
 function verify_fields(array|string &$features, array $verificationData, array|string $defaultData): void {
     if (empty($features)) {
         $features = $defaultData;

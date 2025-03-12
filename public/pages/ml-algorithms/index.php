@@ -9,5 +9,6 @@
 
     <ui class="list">
         <li><a href="<?=create_href('ml-algorithms', 'linear-regression', 'index')?>">Linear Regression</a></li>
+        <li><a href="<?=create_href('ml-algorithms', 'polynomial-regression', 'index')?>">Polynomial Regression</a></li>
     </ui>
 </div>

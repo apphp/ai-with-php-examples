@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Linear Regression with PHP</h1>
+    <h1 class="h2">Polynomial Regression with PHP</h1>
 </div>
 
-<?= create_run_code_button('Polynomial Regression with PHP-ML', 'ml-algorithms', 'linear-regression', 'phpml-polynomial-regression-code-run'); ?>
+<?= create_run_code_button('Polynomial Regression with PHP-ML', 'ml-algorithms', 'polynomial-regression', 'phpml-polynomial-regression-code-run'); ?>
 
 <div>
     <p>

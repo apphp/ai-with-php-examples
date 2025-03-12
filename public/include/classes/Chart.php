@@ -188,11 +188,14 @@ class Chart {
         string $xLabel = '',
         string $yLabel = '',
         string $datasetLabel = '',
+        bool $regressionLine = true,
         string $regressionLabel = '',
         array  $predictionPoint = [],
         int    $minX = 0,
         int    $minY = 0,
-        string $darkSwitch = ''
+        string $darkSwitch = '',
+        string $chartId = 'myLinearChart',
+        bool   $showLabelBoxes = true,
     ): string {
 
         $predictionX = '';
@@ -206,16 +209,18 @@ class Chart {
         }
 
         $return = "
-            <canvas id='myLinearChart'></canvas>
-
+            <canvas id='".$chartId."'></canvas>
             <script>
-                const ctx = document.getElementById('myLinearChart');
+                var ctx = document.getElementById('".$chartId."');
 
                 // Data points
-                const data = [";
+                var data = [";
 
         // Print data combining samples and labels
         for ($i = 0; $i < count($samples); $i++) {
+            if (!isset($samples[$i][0])) {
+                continue;
+            }
             $highlight = ($samples[$i][0] == $predictionX) ? ', highlight: true' : '';
             $return .= sprintf('{ x: %.0f, y: %.0f ' . $highlight . "},\n",
                 $samples[$i][0],  // Square footage from samples
@@ -258,10 +263,10 @@ class Chart {
                     ];
                 }
 
-                const regression = calculateRegression(data);
-                const regressionLine = generateRegressionLine(data, regression);
+                var regression = calculateRegression(data);
+                var regressionLine = ".($regressionLine ? 'generateRegressionLine(data, regression)' : 'null').";
 
-                const chart = new Chart(ctx, {
+                var chart = new Chart(ctx, {
                     type: 'scatter',
                     data: {
                         datasets: [
@@ -270,20 +275,20 @@ class Chart {
                                 data: data,
                                 backgroundColor: function(context) {
                                     const point = context.raw;
-                                    return point.highlight ?
+                                    return point && point.highlight ?
                                         'rgba(255, 99, 132, 1)' :  // Bold point color
                                         'rgb(99,190,255)'; // Other points color
                                 },
                                 borderColor: function(context) {
                                     const point = context.raw;
-                                    return point.highlight ?
+                                    return point && point.highlight ?
                                         'rgba(255, 99, 132, 1)' :  // Bold point border
                                         'rgb(75,143,192)';   // Other points border
                                 },
-                                borderWidth: function(context) {return context.raw.highlight ? 1 : 1;},
-                                pointRadius: function(context) {return context.raw.highlight ? 5 : 4;},
-                                pointHoverRadius: function(context) {return context.raw.highlight ? 5 : 4;},
-                                pointStyle: function(context) {return context.raw.highlight ? 'circle' : 'circle';}
+                                borderWidth: function(context) {return context.raw && context.raw.highlight ? 1 : 1;},
+                                pointRadius: function(context) {return context.raw && context.raw.highlight ? 5 : 4;},
+                                pointHoverRadius: function(context) {return context.raw && context.raw.highlight ? 5 : 4;},
+                                pointStyle: function(context) {return context.raw && context.raw.highlight ? 'circle' : 'circle';}
                             },
                             {
                                 label: '" . htmlspecialchars($regressionLabel) . "',
@@ -306,8 +311,9 @@ class Chart {
                                 labels: {
                                     font: {
                                         size: 14
-                                    }
-                                }
+                                    },
+                                    boxWidth: ".($showLabelBoxes ? '40' : '0').",
+                                },
                             },
                             __title: {
                                 display: true,
@@ -545,14 +551,14 @@ class Chart {
                 // Data points
                 const rawData = [";
         for ($i = 0; $i < count($samples); $i++) {
-            $return .= "{x: " . $samples[$i][0] . ", y: " . ($labels[$i] ?? 0) . "},";
+            $return .= "{x: " . ($samples[$i][0] ?? 0) . ", y: " . ($labels[$i] ?? 0) . "},";
         }
         $return .= '];
 
                 // Test data points
                 const testData = [';
         for ($i = 0; $i < count($testSamples); $i++) {
-            $return .= "{x: " . $testSamples[$i][0] . ", y: " . ($testLabels[$i] ?? 0) . "},";
+            $return .= "{x: " . ($testSamples[$i][0] ?? 0) . ", y: " . ($testLabels[$i] ?? 0) . "},";
         }
         $return .= '];
 

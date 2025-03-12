@@ -22,21 +22,21 @@ $memoryEnd = memory_get_usage();
 ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Linear Regression with PHP</h1>
+    <h1 class="h2">Polynomial Regression with PHP</h1>
 </div>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
     <h2 class="h4">Polynomial Regression with Rubix</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?=create_href('ml-algorithms', 'linear-regression', 'rubix-polynomial-regression')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?=create_href('ml-algorithms', 'polynomial-regression', 'rubix-polynomial-regression')?>" class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>
 
 <div>
     <p>
-        An extension where the relationship between variables is non-linear.
+        Polynomial Regression is an extension where the relationship between variables is non-linear.
         Polynomial regression transforms input variables to higher powers (e.g., $x2,x3x^2, x^3x2,x3$) but remains a
         linear model concerning the parameters, making it suitable for more complex patterns.
         In polynomial regression, we aim to model a non-linear relationship by transforming the input variable $x$ to
@@ -75,8 +75,8 @@ $memoryEnd = memory_get_usage();
                 <div class="mt-1">
                     <b>Regression:</b>
                 </div>
-                <form action="<?= APP_SEO_LINKS ? create_href('ml-algorithms', 'linear-regression', 'rubix-polynomial-regression-code-run') : 'index.php'; ?>" type="GET">
-                    <?= !APP_SEO_LINKS ? create_form_fields('ml-algorithms', 'linear-regression', 'rubix-polynomial-regression-code-run') : '';?>
+                <form action="<?= APP_SEO_LINKS ? create_href('ml-algorithms', 'polynomial-regression', 'rubix-polynomial-regression-code-run') : 'index.php'; ?>" type="GET">
+                    <?= !APP_SEO_LINKS ? create_form_fields('ml-algorithms', 'polynomial-regression', 'rubix-polynomial-regression-code-run') : '';?>
                     <?=create_form_features($regressionOrders, [$regressionOrder], fieldName: 'regression_order', type: 'number');?>
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>

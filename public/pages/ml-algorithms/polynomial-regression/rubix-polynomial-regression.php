@@ -1,12 +1,12 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Linear Regression with PHP</h1>
+    <h1 class="h2">Polynomial Regression with PHP</h1>
 </div>
 
-<?= create_run_code_button('Polynomial Regression with Rubix', 'ml-algorithms', 'linear-regression', 'rubix-polynomial-regression-code-run'); ?>
+<?= create_run_code_button('Polynomial Regression with Rubix', 'ml-algorithms', 'polynomial-regression', 'rubix-polynomial-regression-code-run'); ?>
 
 <div>
     <p>
-        An extension where the relationship between variables is non-linear.
+        Polynomial Regression is an extension where the relationship between variables is non-linear.
         Polynomial regression transforms input variables to higher powers (e.g., $x2,x3x^2, x^3x2,x3$) but remains a
         linear model concerning the parameters, making it suitable for more complex patterns.
         In polynomial regression, we aim to model a non-linear relationship by transforming the input variable $x$ to

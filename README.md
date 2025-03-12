@@ -108,7 +108,8 @@ You may find live demo for these examples on official website:
     - Linear Regression
       - Simple Linear Regression
       - Multiple Linear Regression
-      - Polynomial Regression
+      - Regularized Linear Regression (Lasso)
+    - Polynomial Regression
 - Neural Networks
   - Types of NN
     - Basic Neural Network

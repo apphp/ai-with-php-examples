@@ -114,6 +114,7 @@ $menu = [
                     'rubix-simple-linear-regression', 'rubix-simple-linear-regression-code-run',
                     'rubix-multiple-linear-regression', 'rubix-multiple-linear-regression-code-run',
                     'rubix-polynomial-regression', 'rubix-polynomial-regression-code-run',
+                    'rubix-lasso-regression', 'rubix-lasso-regression-code-run',
                     'phpml-simple-linear-regression', 'phpml-simple-linear-regression-code-run',
                     'phpml-multiple-linear-regression', 'phpml-multiple-linear-regression-code-run',
                     'phpml-polynomial-regression', 'phpml-polynomial-regression-code-run'

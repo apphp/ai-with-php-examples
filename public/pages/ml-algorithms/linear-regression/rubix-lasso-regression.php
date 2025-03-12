@@ -16,9 +16,9 @@
 </div>
 
 <div>
-    <?= create_dataset_and_test_data_links(__DIR__ . '/data/boston_housing.csv', fullWidth: true); ?>
+    <?= create_dataset_and_test_data_links(__DIR__ . '/data/houses3.csv', fullWidth: true); ?>
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/rubix-polynomial-regression-code.php', opened: true); ?>
+    <?= create_example_of_use_links(__DIR__ . '/rubix-lasso-regression-code.php', opened: true); ?>
 </div>

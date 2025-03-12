@@ -127,58 +127,58 @@ $bestR2 = -PHP_FLOAT_MAX;
 $bestMAE = PHP_FLOAT_MAX;
 $bestEstimator = null;
 
-echo "\nTuning alpha parameter for Ridge regression...\n";
-foreach ($alphaValues as $alpha) {
-    // Set up Ridge regression with L2 regularization
-    $estimator = new Ridge(
-        $alpha, // alpha (regularization strength)
-        false // normalize (set to false since we already normalized)
-    );
+//echo "\nTuning alpha parameter for Ridge regression...\n";
+//foreach ($alphaValues as $alpha) {
+//    // Set up Ridge regression with L2 regularization
+//    $estimator = new Ridge(
+//        $alpha, // alpha (regularization strength)
+//        false // normalize (set to false since we already normalized)
+//    );
+//
+//    // Train the model
+//    echo "Training with alpha = $alpha...\n";
+//    try {
+//        $estimator->train($normalizedTraining);
+//
+//        // Make predictions on the test set
+//        $predictions = $estimator->predict($normalizedTesting);
+//
+//        // Calculate metrics
+//        $rmseMetric = new RMSE();
+//        $rmse = $rmseMetric->score($predictions, $testingLabels);
+//
+//        $r2Metric = new RSquared();
+//        $r2 = $r2Metric->score($predictions, $testingLabels);
+//
+//        $maeMetric = new MeanAbsoluteError();
+//        $mae = $maeMetric->score($predictions, $testingLabels);
+//
+//        echo "Alpha = $alpha: RMSE = $" . number_format(abs($rmse), 2) .
+//            ", R^2 = " . number_format($r2, 4) .
+//            ", MAE = $" . number_format(abs($mae), 2) . PHP_EOL;
+//
+//        // Track best model based on R^2
+//        if ($r2 > $bestR2) {
+//            $bestAlpha = $alpha;
+//            $bestRMSE = $rmse;
+//            $bestR2 = $r2;
+//            $bestMAE = $mae;
+//            $bestEstimator = $estimator;
+//        }
+//    } catch (Exception $e) {
+//        echo "\nError during training with alpha = $alpha: " . $e->getMessage() . "\n";
+//        continue;
+//    }
+//}
 
-    // Train the model
-    echo "Training with alpha = $alpha...\n";
-    try {
-        $estimator->train($normalizedTraining);
 
-        // Make predictions on the test set
-        $predictions = $estimator->predict($normalizedTesting);
-
-        // Calculate metrics
-        $rmseMetric = new RMSE();
-        $rmse = $rmseMetric->score($predictions, $testingLabels);
-
-        $r2Metric = new RSquared();
-        $r2 = $r2Metric->score($predictions, $testingLabels);
-
-        $maeMetric = new MeanAbsoluteError();
-        $mae = $maeMetric->score($predictions, $testingLabels);
-
-        echo "Alpha = $alpha: RMSE = $" . number_format(abs($rmse), 2) .
-            ", R^2 = " . number_format($r2, 4) .
-            ", MAE = $" . number_format(abs($mae), 2) . PHP_EOL;
-
-        // Track best model based on R^2
-        if ($r2 > $bestR2) {
-            $bestAlpha = $alpha;
-            $bestRMSE = $rmse;
-            $bestR2 = $r2;
-            $bestMAE = $mae;
-            $bestEstimator = $estimator;
-        }
-    } catch (Exception $e) {
-        echo "\nError during training with alpha = $alpha: " . $e->getMessage() . "\n";
-        continue;
-    }
-}
-
-
-// Report best model
-echo "\nBest model performance with alpha = $bestAlpha:\n";
-echo 'RMSE: $' . number_format(abs($bestRMSE), 2) . PHP_EOL;
-echo 'R^2: ' . number_format($bestR2, 4) . PHP_EOL;
-echo 'Mean Absolute Error: $' . number_format(abs($bestMAE), 2) . PHP_EOL;
-echo 'Improvement over baseline: ' . number_format(abs($baselineRMSE) - abs($bestRMSE), 2) . ' RMSE' . PHP_EOL;
-
+//// Report best model
+//echo "\nBest model performance with alpha = $bestAlpha:\n";
+//echo 'RMSE: $' . number_format(abs($bestRMSE), 2) . PHP_EOL;
+//echo 'R^2: ' . number_format($bestR2, 4) . PHP_EOL;
+//echo 'Mean Absolute Error: $' . number_format(abs($bestMAE), 2) . PHP_EOL;
+//echo 'Improvement over baseline: ' . number_format(abs($baselineRMSE) - abs($bestRMSE), 2) . ' RMSE' . PHP_EOL;
+//
 
 
 
@@ -206,7 +206,7 @@ $ridge->train($dataset);
 $coefficients = $ridge->coefficients();
 
 // Print results
-echo "Ridge Regression (alpha=$alpha):\n";
+echo "Ridge Regression (alpha=$bestAlpha):\n";
 foreach ($coefficients as $i => $coefficient) {
     echo $featureNames[$i] . ': ' . number_format($coefficient, 4) . PHP_EOL;
 }

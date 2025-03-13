@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polynomial Regression Visualization with TensorFlow.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/4.6.0/tf.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        .controls {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .stats {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        select, input {
+            padding: 8px;
+            margin-right: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .alert {
+            padding: 10px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background-color: #f1f1f1;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Polynomial Regression with TensorFlow.js</h1>
+
+    <div class="alert" id="alert-box">Error message will appear here</div>
+
+    <div class="controls">
+        <div class="form-group">
+            <label for="polynomial-degree">Polynomial Degree:</label>
+            <select id="polynomial-degree">
+                <option value="1">1 (Linear)</option>
+                <option value="2">2 (Quadratic)</option>
+                <option value="3" selected>3 (Cubic)</option>
+                <option value="4">4 (Quartic)</option>
+                <option value="5">5 (Quintic)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="learning-rate">Learning Rate:</label>
+            <input type="number" id="learning-rate" value="0.1" min="0.001" max="1" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="iterations">Training Iterations:</label>
+            <input type="number" id="iterations" value="200" min="10" max="2000" step="10">
+        </div>
+        <div class="form-group">
+            <label for="optimizer">Optimizer:</label>
+            <select id="optimizer">
+                <option value="sgd">SGD</option>
+                <option value="adam" selected>Adam</option>
+                <option value="rmsprop">RMSProp</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="batch-size">Batch Size:</label>
+            <input type="number" id="batch-size" value="32" min="1" max="256" step="1">
+        </div>
+        <button id="train-btn">Train Model</button>
+        <button id="reset-btn">Reset</button>
+        <button id="load-data">Load Sample Data</button>
+        <button id="generate-data">Generate New Data</button>
+
+        <div class="progress-container" id="progress-container" style="display: none;">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    </div>
+
+    <div class="stats" id="stats-container">
+        <h3>Model Statistics</h3>
+        <div id="true-equation">True Equation: Loading...</div>
+        <div id="model-equation">Model Equation: Not trained yet</div>
+        <div id="loss-value">Loss: N/A</div>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="chart" width="900" height="400"></canvas>
+    </div>
+</div>
+
+<script>
+    // DOM Elements
+    const chart = document.getElementById('chart');
+    const context = chart.getContext('2d');
+    const trainBtn = document.getElementById('train-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const loadDataBtn = document.getElementById('load-data');
+    const generateDataBtn = document.getElementById('generate-data');
+    const learningRateInput = document.getElementById('learning-rate');
+    const iterationsInput = document.getElementById('iterations');
+    const optimizerSelect = document.getElementById('optimizer');
+    const polynomialDegreeSelect = document.getElementById('polynomial-degree');
+    const batchSizeInput = document.getElementById('batch-size');
+    const modelEquation = document.getElementById('model-equation');
+    const trueEquation = document.getElementById('true-equation');
+    const lossValue = document.getElementById('loss-value');
+    const alertBox = document.getElementById('alert-box');
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar = document.getElementById('progress-bar');
+
+    // Data points and model
+    let points = [];
+    let curvePoints = [];
+    let trueCoefficients = { a: 0.1, b: -0.5, c: 2.0, d: 1.0 };
+    let model;
+
+    // Initialize the chart dimensions
+    const chartWidth = chart.width;
+    const chartHeight = chart.height;
+    const margin = 40;
+    const xScale = (chartWidth - 2 * margin) / 12;  // Scale for x-axis (-6 to 6)
+    const yScale = (chartHeight - 2 * margin) / 20; // Scale for y-axis (-10 to 10)
+
+    // Show alert message
+    function showAlert(message) {
+        alertBox.textContent = message;
+        alertBox.style.display = 'block';
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 5000);
+    }
+
+    // Update progress bar
+    function updateProgress(percent) {
+        progressBar.style.width = `${percent}%`;
+    }
+
+    // Initialize the model
+    function createModel() {
+        const degree = parseInt(polynomialDegreeSelect.value);
+
+        model = tf.sequential();
+
+        // For polynomial regression, we need to have as many input features as the degree
+        // The actual feature expansion happens outside the model
+        model.add(tf.layers.dense({
+            units: 16,
+            inputShape: [degree + 1],
+            activation: 'relu'
+        }));
+
+        model.add(tf.layers.dense({
+            units: 8,
+            activation: 'relu'
+        }));
+
+        model.add(tf.layers.dense({
+            units: 1
+        }));
+
+        const learningRate = parseFloat(learningRateInput.value);
+        let optimizer;
+
+        switch(optimizerSelect.value) {
+            case 'sgd':
+                optimizer = tf.train.sgd(learningRate);
+                break;
+            case 'adam':
+                optimizer = tf.train.adam(learningRate);
+                break;
+            case 'rmsprop':
+                optimizer = tf.train.rmsprop(learningRate);
+                break;
+            default:
+                optimizer = tf.train.adam(learningRate);
+        }
+
+        model.compile({
+            optimizer: optimizer,
+            loss: 'meanSquaredError'
+        });
+
+        return model;
+    }
+
+    // Generate polynomial features
+    function generatePolynomialFeatures(x, degree) {
+        const features = [];
+        for (let power = 0; power <= degree; power++) {
+            features.push(Math.pow(x, power));
+        }
+        return features;
+    }
+
+    // Initialize the visualization
+    function init() {
+        points = [];
+        curvePoints = [];
+        trueCoefficients = { a: 0.1, b: -0.5, c: 2.0, d: 1.0 };
+
+        // Create a new model
+        createModel();
+
+        // Update UI
+        updateTrueEquation();
+
+        // Initial chart drawing
+        drawChart();
+    }
+
+    // Update the true equation display
+    function updateTrueEquation() {
+        const degree = Math.min(parseInt(polynomialDegreeSelect.value), 3);
+        let equation = "";
+
+        if (degree >= 3) {
+            equation += `${trueCoefficients.a.toFixed(2)}x³ + `;
+        }
+
+        if (degree >= 2) {
+            equation += `${trueCoefficients.b.toFixed(2)}x² + `;
+        }
+
+        equation += `${trueCoefficients.c.toFixed(2)}x + ${trueCoefficients.d.toFixed(2)}`;
+
+        trueEquation.textContent = `True Equation: ${equation}`;
+    }
+
+    // Generate random data points based on a polynomial
+    function generateData(numPoints = 100, noise = 1.5) {
+        const degree = parseInt(polynomialDegreeSelect.value);
+        points = [];
+        curvePoints = [];
+
+        // For simplicity, we'll use the predefined coefficients
+        const a = trueCoefficients.a;
+        const b = trueCoefficients.b;
+        const c = trueCoefficients.c;
+        const d = trueCoefficients.d;
+
+        // Generate data points with noise
+        for (let i = 0; i < numPoints; i++) {
+            const x = Math.random() * 12 - 6; // -6 to 6
+
+            let y = 0;
+            if (degree >= 3) y += a * Math.pow(x, 3);
+            if (degree >= 2) y += b * Math.pow(x, 2);
+            y += c * x + d;
+
+            // Add noise
+            y += (Math.random() * 2 - 1) * noise;
+
+            points.push({ x, y });
+        }
+
+        // Generate curve points without noise
+        for (let x = -6; x <= 6; x += 0.1) {
+            let y = 0;
+            if (degree >= 3) y += a * Math.pow(x, 3);
+            if (degree >= 2) y += b * Math.pow(x, 2);
+            y += c * x + d;
+
+            curvePoints.push({ x, y });
+        }
+
+        updateTrueEquation();
+        drawChart();
+    }
+
+    // Load sample data from JSON
+    function loadSampleData() {
+        // In a real-world scenario, you would load from your PHP-generated JSON
+        // For this demo, we'll simulate it
+        const degree = parseInt(polynomialDegreeSelect.value);
+        points = [];
+        curvePoints = [];
+
+        // Set coefficients based on selected degree
+        if (degree === 1) {
+            trueCoefficients = { a: 0, b: 0, c: 2.0, d: 1.0 };
+        } else if (degree === 2) {
+            trueCoefficients = { a: 0, b: -0.5, c: 2.0, d: 1.0 };
+        } else {
+            trueCoefficients = { a: 0.1, b: -0.5, c: 2.0, d: 1.0 };
+        }
+
+        // Generate data points based on these coefficients
+        const a = trueCoefficients.a;
+        const b = trueCoefficients.b;
+        const c = trueCoefficients.c;
+        const d = trueCoefficients.d;
+
+        // Generate 150 sample points with noise
+        for (let i = 0; i < 150; i++) {
+            const x = Math.random() * 12 - 6; // -6 to 6
+
+            let y = 0;
+            if (degree >= 3) y += a * Math.pow(x, 3);
+            if (degree >= 2) y += b * Math.pow(x, 2);
+            y += c * x + d;
+
+            // Add noise
+            y += (Math.random() * 2 - 1) * 1.0;
+
+            points.push({ x, y });
+        }
+
+        // Generate curve points for visualization
+        for (let x = -6; x <= 6; x += 0.1) {
+            let y = 0;
+            if (degree >= 3) y += a * Math.pow(x, 3);
+            if (degree >= 2) y += b * Math.pow(x, 2);
+            y += c * x + d;
+
+            curvePoints.push({ x, y });
+        }
+
+        updateTrueEquation();
+        drawChart();
+    }
+
+    // Convert data for TensorFlow
+    function prepareData() {
+        const degree = parseInt(polynomialDegreeSelect.value);
+        const xValues = [];
+        const yValues = [];
+
+        // Generate polynomial features for each data point
+        points.forEach(point => {
+            const features = generatePolynomialFeatures(point.x, degree);
+            xValues.push(features);
+            yValues.push([point.y]);
+        });
+
+        return {
+            xs: tf.tensor2d(xValues),
+            ys: tf.tensor2d(yValues)
+        };
+    }
+
+    // Train the model
+    async function trainModel() {
+        if (points.length === 0) {
+            showAlert('Please generate or load data first!');
+            return;
+        }
+
+        try {
+            // Disable controls during training
+            trainBtn.disabled = true;
+            resetBtn.disabled = true;
+            loadDataBtn.disabled = true;
+            generateDataBtn.disabled = true;
+            progressContainer.style.display = 'block';
+
+            const { xs, ys } = prepareData();
+
+            const iterations = parseInt(iterationsInput.value);
+            const batchSize = parseInt(batchSizeInput.value);
+
+            await model.fit(xs, ys, {
+                epochs: iterations,
+                batchSize: batchSize,
+                callbacks: {
+                    onEpochEnd: async (epoch, logs) => {
+                        const percent = Math.round((epoch + 1) / iterations * 100);
+                        updateProgress(percent);
+
+                        if (epoch % 10 === 0 || epoch === iterations - 1) {
+                            updateModelEquation();
+                            drawChart(true);
+                            lossValue.textContent = `Loss: ${logs.loss.toFixed(6)}`;
+                            await tf.nextFrame();
+                        }
+                    }
+                }
+            });
+
+            updateModelEquation();
+            drawChart(true);
+
+            xs.dispose();
+            ys.dispose();
+
+        } catch (error) {
+            showAlert(`Training error: ${error.message}`);
+            console.error('Training error:', error);
+        } finally {
+            // Re-enable controls
+            trainBtn.disabled = false;
+            resetBtn.disabled = false;
+            loadDataBtn.disabled = false;
+            generateDataBtn.disabled = false;
+            progressContainer.style.display = 'none';
+        }
+    }
+
+    // Make a prediction for a single input
+    function predictPoint(x) {
+        const degree = parseInt(polynomialDegreeSelect.value);
+        const features = generatePolynomialFeatures(x, degree);
+
+        const prediction = model.predict(tf.tensor2d([features]));
+        const result = prediction.dataSync()[0];
+        prediction.dispose();
+
+        return result;
+    }
+
+    // Update model equation by sampling points and fitting a polynomial
+    function updateModelEquation() {
+        const degree = parseInt(polynomialDegreeSelect.value);
+
+        // We'll sample points from our model and fit a polynomial to display the equation
+        const testPoints = [];
+        const testValues = [];
+
+        // Sample predictions at regular intervals
+        for (let x = -6; x <= 6; x += 0.5) {
+            const y = predictPoint(x);
+            testPoints.push(x);
+            testValues.push(y);
+        }
+
+        // Fit a polynomial (this is just an approximation for display purposes)
+        // In a real application, you'd use a proper polynomial fitting algorithm
+        let equation = "y = ";
+
+        if (degree >= 3) {
+            equation += "ax³ + ";
+        }
+
+        if (degree >= 2) {
+            equation += "bx² + ";
+        }
+
+        equation += "cx + d";
+
+        modelEquation.textContent = `Model Equation: ${equation} (estimated)`;
+    }
+
+    // Draw the chart
+    function drawChart(showPredictions = false) {
+        // Clear the canvas
+        context.clearRect(0, 0, chartWidth, chartHeight);
+
+        // Draw axes
+        context.beginPath();
+        context.strokeStyle = '#333';
+        context.lineWidth = 2;
+
+        // X-axis
+        const xAxisY = chartHeight - margin - 10 * yScale;
+        context.moveTo(margin, xAxisY);
+        context.lineTo(chartWidth - margin, xAxisY);
+
+        // Y-axis
+        const yAxisX = margin + 6 * xScale;
+        context.moveTo(yAxisX, margin);
+        context.lineTo(yAxisX, chartHeight - margin);
+
+        context.stroke();
+
+        // Draw axis labels
+        context.fillStyle = '#333';
+        context.font = '12px Arial';
+
+        // X-axis labels
+        for (let i = -6; i <= 6; i += 2) {
+            const x = margin + (i + 6) * xScale;
+            const y = xAxisY + 20;
+            context.fillText(i.toString(), x, y);
+        }
+
+        // Y-axis labels
+        for (let i = -10; i <= 10; i += 5) {
+            const x = yAxisX - 25;
+            const y = chartHeight - margin - (i + 10) * yScale;
+            context.fillText(i.toString(), x, y);
+        }
+
+        // Draw data points
+        points.forEach(point => {
+            const x = margin + (point.x + 6) * xScale;
+            const y = chartHeight - margin - (point.y + 10) * yScale;
+
+            context.beginPath();
+            context.arc(x, y, 4, 0, 2 * Math.PI);
+            context.fillStyle = 'rgba(54, 162, 235, 0.7)';
+            context.fill();
+        });
+
+        // Draw true curve if available
+        if (curvePoints.length > 0) {
+            context.beginPath();
+            context.strokeStyle = 'rgba(75, 192, 192, 0.8)';
+            context.lineWidth = 2;
+
+            let firstPoint = curvePoints[0];
+            context.moveTo(
+                margin + (firstPoint.x + 6) * xScale,
+                chartHeight - margin - (firstPoint.y + 10) * yScale
+            );
+
+            for (let i = 1; i < curvePoints.length; i++) {
+                const point = curvePoints[i];
+                context.lineTo(
+                    margin + (point.x + 6) * xScale,
+                    chartHeight - margin - (point.y + 10) * yScale
+                );
+            }
+
+            context.stroke();
+        }
+
+        // Draw model predictions if requested
+        if (showPredictions) {
+            context.beginPath();
+            context.strokeStyle = 'rgba(255, 99, 132, 0.8)';
+            context.lineWidth = 2;
+            context.setLineDash([5, 5]);
+
+            let firstX = -6;
+            let firstY = predictPoint(firstX);
+
+            context.moveTo(
+                margin + (firstX + 6) * xScale,
+                chartHeight - margin - (firstY + 10) * yScale
+            );
+
+            for (let x = -5.9; x <= 6; x += 0.2) {
+                const y = predictPoint(x);
+                context.lineTo(
+                    margin + (x + 6) * xScale,
+                    chartHeight - margin - (y + 10) * yScale
+                );
+            }
+
+            context.stroke();
+            context.setLineDash([]);
+        }
+
+        // Add legend
+        context.font = '14px Arial';
+        context.fillStyle = 'rgba(75, 192, 192, 0.8)';
+        context.fillText('True Relationship', chartWidth - 200, 30);
+
+        context.fillStyle = 'rgba(255, 99, 132, 0.8)';
+        context.fillText('Model Prediction', chartWidth - 200, 50);
+
+        context.fillStyle = 'rgba(54, 162, 235, 0.7)';
+        context.fillText('Data Points', chartWidth - 200, 70);
+    }
+
+    // Event listeners
+    trainBtn.addEventListener('click', () => {
+        trainModel();
+    });
+
+    resetBtn.addEventListener('click', () => {
+        init();
+        modelEquation.textContent = 'Model Equation: Not trained yet';
+        lossValue.textContent = 'Loss: N/A';
+    });
+
+    loadDataBtn.addEventListener('click', () => {
+        loadSampleData();
+    });
+
+    generateDataBtn.addEventListener('click', () => {
+        generateData();
+    });
+
+    polynomialDegreeSelect.addEventListener('change', () => {
+        createModel();
+        updateTrueEquation();
+        if (points.length > 0) {
+            generateData();
+        }
+    });
+
+    // Initialize on page load
+    init();
+    loadSampleData();
+</script>
+</body>
+</html>

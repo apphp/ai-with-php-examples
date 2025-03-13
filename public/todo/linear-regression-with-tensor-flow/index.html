@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Regression Visualization with TensorFlow.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/4.6.0/tf.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        .controls {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .stats {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        select, input {
+            padding: 8px;
+            margin-right: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Linear Regression with TensorFlow.js</h1>
+
+    <div class="controls">
+        <div class="form-group">
+            <label for="learning-rate">Learning Rate:</label>
+            <input type="number" id="learning-rate" value="0.1" min="0.001" max="1" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="iterations">Training Iterations:</label>
+            <input type="number" id="iterations" value="100" min="10" max="1000" step="10">
+        </div>
+        <div class="form-group">
+            <label for="optimizer">Optimizer:</label>
+            <select id="optimizer">
+                <option value="sgd">SGD</option>
+                <option value="adam" selected>Adam</option>
+                <option value="rmsprop">RMSProp</option>
+            </select>
+        </div>
+        <button id="train-btn">Train Model</button>
+        <button id="reset-btn">Reset</button>
+        <button id="load-data">Load Sample Data</button>
+    </div>
+
+    <div class="stats" id="stats-container">
+        <h3>Model Statistics</h3>
+        <div id="model-equation">Equation: y = mx + b</div>
+        <div id="loss-value">Loss: N/A</div>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="chart" width="900" height="400"></canvas>
+    </div>
+</div>
+
+<script>
+    // DOM Elements
+    const chart = document.getElementById('chart');
+    const context = chart.getContext('2d');
+    const trainBtn = document.getElementById('train-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const loadDataBtn = document.getElementById('load-data');
+    const learningRateInput = document.getElementById('learning-rate');
+    const iterationsInput = document.getElementById('iterations');
+    const optimizerSelect = document.getElementById('optimizer');
+    const modelEquation = document.getElementById('model-equation');
+    const lossValue = document.getElementById('loss-value');
+
+    // Data points
+    let points = [];
+    let trueLineParams = { slope: 2, intercept: 1 }; // Default true relationship
+
+    // TensorFlow model
+    let model;
+    let xs, ys;
+
+    // Initialize the chart dimensions
+    const chartWidth = chart.width;
+    const chartHeight = chart.height;
+    const margin = 40;
+    const xScale = (chartWidth - 2 * margin) / 10;  // Scale for x-axis (0-10)
+    const yScale = (chartHeight - 2 * margin) / 25; // Scale for y-axis (0-25)
+
+    // Initialize the model
+    function createModel() {
+        model = tf.sequential();
+        model.add(tf.layers.dense({units: 1, inputShape: [1]}));
+
+        const learningRate = parseFloat(learningRateInput.value);
+        let optimizer;
+
+        switch(optimizerSelect.value) {
+            case 'sgd':
+                optimizer = tf.train.sgd(learningRate);
+                break;
+            case 'adam':
+                optimizer = tf.train.adam(learningRate);
+                break;
+            case 'rmsprop':
+                optimizer = tf.train.rmsprop(learningRate);
+                break;
+            default:
+                optimizer = tf.train.adam(learningRate);
+        }
+
+        model.compile({
+            optimizer: optimizer,
+            loss: 'meanSquaredError'
+        });
+
+        return model;
+    }
+
+    // Initialize the visualization
+    function init() {
+        points = [];
+        trueLineParams = { slope: 2, intercept: 1 };
+
+        // Create a new model
+        createModel();
+
+        // Initial chart drawing
+        drawChart();
+    }
+
+    // Generate random data points
+    function generateData(numPoints = 50, noise = 2) {
+        points = [];
+        for (let i = 0; i < numPoints; i++) {
+            const x = Math.random() * 10;
+            const y = trueLineParams.slope * x + trueLineParams.intercept + (Math.random() * 2 - 1) * noise;
+            points.push({ x, y });
+        }
+    }
+
+    // Load sample data from JSON
+    function loadSampleData() {
+        // In a real-world scenario, this would load from your PHP-generated JSON
+        // For this demo, we'll simulate it
+        points = [];
+        trueLineParams = { slope: 2.5, intercept: 1.2 };
+
+        for (let i = 0; i < 100; i++) {
+            const x = Math.random() * 10;
+            const y = trueLineParams.slope * x + trueLineParams.intercept + (Math.random() * 2 - 1) * 1.5;
+            points.push({ x, y });
+        }
+
+        drawChart();
+        updateModelInfo(trueLineParams.slope, trueLineParams.intercept, 0);
+    }
+
+    // Convert data for TensorFlow
+    function convertToTensors() {
+        return tf.tidy(() => {
+            const xValues = points.map(p => p.x);
+            const yValues = points.map(p => p.y);
+
+            const xs = tf.tensor2d(xValues, [xValues.length, 1]);
+            const ys = tf.tensor2d(yValues, [yValues.length, 1]);
+
+            return { xs, ys };
+        });
+    }
+
+    // Train the model
+    async function trainModel() {
+        if (points.length === 0) {
+            alert('Please generate or load data first!');
+            return;
+        }
+
+        const { xs, ys } = convertToTensors();
+
+        const iterations = parseInt(iterationsInput.value);
+
+        await model.fit(xs, ys, {
+            epochs: iterations,
+            callbacks: {
+                onEpochEnd: async (epoch, logs) => {
+                    if (epoch % 10 === 0) {
+                        const weights = model.layers[0].getWeights();
+                        const slope = weights[0].dataSync()[0];
+                        const intercept = weights[1].dataSync()[0];
+
+                        drawChart(slope, intercept);
+                        updateModelInfo(slope, intercept, logs.loss);
+
+                        await tf.nextFrame();
+                    }
+                }
+            }
+        });
+
+        const weights = model.layers[0].getWeights();
+        const slope = weights[0].dataSync()[0];
+        const intercept = weights[1].dataSync()[0];
+
+        drawChart(slope, intercept);
+
+        xs.dispose();
+        ys.dispose();
+    }
+
+    // Update model info display
+    function updateModelInfo(slope, intercept, loss) {
+        slope = parseFloat(slope).toFixed(4);
+        intercept = parseFloat(intercept).toFixed(4);
+
+        modelEquation.textContent = `Equation: y = ${slope}x + ${intercept}`;
+
+        if (loss !== undefined) {
+            lossValue.textContent = `Loss: ${parseFloat(loss).toFixed(6)}`;
+        }
+    }
+
+    // Draw the chart
+    function drawChart(modelSlope, modelIntercept) {
+        // Clear the canvas
+        context.clearRect(0, 0, chartWidth, chartHeight);
+
+        // Draw axes
+        context.beginPath();
+        context.strokeStyle = '#333';
+        context.lineWidth = 2;
+
+        // X-axis
+        context.moveTo(margin, chartHeight - margin);
+        context.lineTo(chartWidth - margin, chartHeight - margin);
+
+        // Y-axis
+        context.moveTo(margin, chartHeight - margin);
+        context.lineTo(margin, margin);
+
+        context.stroke();
+
+        // Draw axis labels
+        context.fillStyle = '#333';
+        context.font = '12px Arial';
+
+        // X-axis labels
+        for (let i = 0; i <= 10; i += 2) {
+            const x = margin + i * xScale;
+            const y = chartHeight - margin + 20;
+            context.fillText(i.toString(), x, y);
+        }
+
+        // Y-axis labels
+        for (let i = 0; i <= 20; i += 5) {
+            const x = margin - 25;
+            const y = chartHeight - margin - i * yScale;
+            context.fillText(i.toString(), x, y);
+        }
+
+        // Draw data points
+        points.forEach(point => {
+            const x = margin + point.x * xScale;
+            const y = chartHeight - margin - point.y * yScale;
+
+            context.beginPath();
+            context.arc(x, y, 5, 0, 2 * Math.PI);
+            context.fillStyle = 'rgba(54, 162, 235, 0.7)';
+            context.fill();
+        });
+
+        // Draw true line
+        context.beginPath();
+        context.strokeStyle = 'rgba(75, 192, 192, 0.8)';
+        context.lineWidth = 2;
+
+        const x1 = margin;
+        const y1 = chartHeight - margin - trueLineParams.intercept * yScale;
+        const x2 = chartWidth - margin;
+        const y2 = chartHeight - margin - (trueLineParams.slope * 10 + trueLineParams.intercept) * yScale;
+
+        context.moveTo(x1, y1);
+        context.lineTo(x2, y2);
+        context.stroke();
+
+        // Draw model line if provided
+        if (modelSlope !== undefined && modelIntercept !== undefined) {
+            context.beginPath();
+            context.strokeStyle = 'rgba(255, 99, 132, 0.8)';
+            context.lineWidth = 2;
+            context.setLineDash([5, 5]);
+
+            const mx1 = margin;
+            const my1 = chartHeight - margin - modelIntercept * yScale;
+            const mx2 = chartWidth - margin;
+            const my2 = chartHeight - margin - (modelSlope * 10 + modelIntercept) * yScale;
+
+            context.moveTo(mx1, my1);
+            context.lineTo(mx2, my2);
+            context.stroke();
+            context.setLineDash([]);
+        }
+
+        // Add legend
+        context.font = '14px Arial';
+        context.fillStyle = 'rgba(75, 192, 192, 0.8)';
+        context.fillText('True Relationship', chartWidth - 200, 30);
+
+        context.fillStyle = 'rgba(255, 99, 132, 0.8)';
+        context.fillText('Model Prediction', chartWidth - 200, 50);
+
+        context.fillStyle = 'rgba(54, 162, 235, 0.7)';
+        context.fillText('Data Points', chartWidth - 200, 70);
+    }
+
+    // Event listeners
+    trainBtn.addEventListener('click', () => {
+        trainModel();
+    });
+
+    resetBtn.addEventListener('click', () => {
+        init();
+        modelEquation.textContent = 'Equation: y = mx + b';
+        lossValue.textContent = 'Loss: N/A';
+    });
+
+    loadDataBtn.addEventListener('click', () => {
+        loadSampleData();
+    });
+
+    // Initialize on page load
+    init();
+    generateData();
+    drawChart();
+</script>
+</body>
+</html>

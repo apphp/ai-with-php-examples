@@ -17,7 +17,7 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(APP_PATH . 'public/include/classes/llmagents/sitestatuschecker/SiteStatusCheckerAgent.php', title: 'Example of class <code>SiteStatusCheckerAgent</code>', opened: true); ?>
+    <?= create_example_of_use_links(APP_PUBLIC_PATH . 'include/classes/llmagents/sitestatuschecker/SiteStatusCheckerAgent.php', title: 'Example of class <code>SiteStatusCheckerAgent</code>', opened: true); ?>
 </div>
 
 

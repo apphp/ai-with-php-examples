@@ -3,13 +3,13 @@
 $result = 'Sales Analysis:
 Analysis Process:
 Tool Called: generate_sales_report
-Arguments: {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
+Arguments: {"reportPath":"pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
 
 Tool Called: analyze_sales_data
-Arguments: {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
+Arguments: {"reportPath":"pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
 
 Tool Called: forecast_future_sales
-Arguments: {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv","forecastMethod":"linear","forecastPeriods":4,"timeUnit":"weeks","confidence":95,"seasonality":1}
+Arguments: {"reportPath":"pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv","forecastMethod":"linear","forecastPeriods":4,"timeUnit":"weeks","confidence":95,"seasonality":1}
 
 &nbsp;
 
@@ -53,7 +53,7 @@ Arguments: {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales
 
 5. **Data Collection Improvement:** To enable future forecasting, it\'s crucial to ensure more granular data is collected consistently, particularly on unique customers and more detailed sales metrics.
 
-Unfortunately, due to insufficient time series data, forecasting future sales trends was not possible. To assist with forecasting in the future, ensure that historical sales data is collected over a sufficient timeline. 
+Unfortunately, due to insufficient time series data, forecasting future sales trends was not possible. To assist with forecasting in the future, ensure that historical sales data is collected over a sufficient timeline.
 
 If you need further analysis or specific insights, please let me know!
 ';
@@ -95,7 +95,7 @@ Instructions:
             [1] => Array
                 (
                     [role] => user
-                    [content] => Generate sales report from report path: public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv
+                    [content] => Generate sales report from report path: pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv
                 )
 
         )
@@ -268,17 +268,17 @@ Instructions:
             [1] => Array
                 (
                     [role] => user
-                    [content] => Generate sales report from report path: public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv
+                    [content] => Generate sales report from report path: pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv
                 )
 
             [2] => Array
                 (
                     [role] => assistant
-                    [content] => 
+                    [content] =>
                     [function_call] => Array
                         (
                             [name] => generate_sales_report
-                            [arguments] => {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
+                            [arguments] => {"reportPath":"pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
                         )
 
                 )
@@ -466,17 +466,17 @@ Instructions:
             [1] => Array
                 (
                     [role] => user
-                    [content] => Generate sales report from report path: public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv
+                    [content] => Generate sales report from report path: pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv
                 )
 
             [2] => Array
                 (
                     [role] => assistant
-                    [content] => 
+                    [content] =>
                     [function_call] => Array
                         (
                             [name] => generate_sales_report
-                            [arguments] => {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
+                            [arguments] => {"reportPath":"pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
                         )
 
                 )
@@ -497,11 +497,11 @@ Instructions:
             [5] => Array
                 (
                     [role] => assistant
-                    [content] => 
+                    [content] =>
                     [function_call] => Array
                         (
                             [name] => analyze_sales_data
-                            [arguments] => {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
+                            [arguments] => {"reportPath":"pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
                         )
 
                 )
@@ -689,17 +689,17 @@ Instructions:
             [1] => Array
                 (
                     [role] => user
-                    [content] => Generate sales report from report path: public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv
+                    [content] => Generate sales report from report path: pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv
                 )
 
             [2] => Array
                 (
                     [role] => assistant
-                    [content] => 
+                    [content] =>
                     [function_call] => Array
                         (
                             [name] => generate_sales_report
-                            [arguments] => {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
+                            [arguments] => {"reportPath":"pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
                         )
 
                 )
@@ -720,11 +720,11 @@ Instructions:
             [5] => Array
                 (
                     [role] => assistant
-                    [content] => 
+                    [content] =>
                     [function_call] => Array
                         (
                             [name] => analyze_sales_data
-                            [arguments] => {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
+                            [arguments] => {"reportPath":"pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv"}
                         )
 
                 )
@@ -745,11 +745,11 @@ Instructions:
             [8] => Array
                 (
                     [role] => assistant
-                    [content] => 
+                    [content] =>
                     [function_call] => Array
                         (
                             [name] => forecast_future_sales
-                            [arguments] => {"reportPath":"public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv","forecastMethod":"linear","forecastPeriods":4,"timeUnit":"weeks","confidence":95,"seasonality":1}
+                            [arguments] => {"reportPath":"pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv","forecastMethod":"linear","forecastPeriods":4,"timeUnit":"weeks","confidence":95,"seasonality":1}
                         )
 
                 )
@@ -940,7 +940,7 @@ The analysis of the sales data extracted from the provided report indicates the 
 
 5. **Data Collection Improvement:** To enable future forecasting, it\'s crucial to ensure more granular data is collected consistently, particularly on unique customers and more detailed sales metrics.
 
-Unfortunately, due to insufficient time series data, forecasting future sales trends was not possible. To assist with forecasting in the future, ensure that historical sales data is collected over a sufficient timeline. 
+Unfortunately, due to insufficient time series data, forecasting future sales trends was not possible. To assist with forecasting in the future, ensure that historical sales data is collected over a sufficient timeline.
 
 If you need further analysis or specific insights, please let me know!
 ';

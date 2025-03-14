@@ -17,7 +17,7 @@ try {
         debug: true
     );
 
-    $reportPath = 'public/pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv';
+    $reportPath = 'pages/ai-agents/llm-agents/data/IC-Weekly-Sales-Activity-Report-11538.csv';
 
     // Generate report
     $result = $checker->execute(

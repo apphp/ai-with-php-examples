@@ -25,11 +25,11 @@ final class AnalyzeSalesDataTool extends PhpTool
     public function execute(object $input): string
     {
         // Validate input data path
-        if (!\file_exists(APP_PATH . $input->reportPath)) {
+        if (!\file_exists(APP_PUBLIC_PATH . $input->reportPath)) {
             return \json_encode([
                 'success' => false,
                 'error' => 'Sales data file not found',
-                'message' => "The file at path '" . APP_PATH . $input->reportPath . "' does not exist.",
+                'message' => "The file at path '" . APP_PUBLIC_PATH . $input->reportPath . "' does not exist.",
             ]);
         }
 
@@ -37,7 +37,7 @@ final class AnalyzeSalesDataTool extends PhpTool
         $startTime = \microtime(true);
 
         // Load and parse sales data
-        $salesData = $this->loadSalesData(APP_PATH . $input->reportPath);
+        $salesData = $this->loadSalesData(APP_PUBLIC_PATH . $input->reportPath);
         if (empty($salesData)) {
             return \json_encode([
                 'success' => false,

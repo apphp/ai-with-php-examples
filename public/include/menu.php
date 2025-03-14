@@ -40,6 +40,11 @@ $menu = [
             'subMenu' => [
                 ['section' => 'knowledge-and-uncertainty', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
                 ['section' => 'knowledge-and-uncertainty', 'subSection' => 'knowledge-based-agents', 'page' => 'index', 'title' => 'Knowledge-Based Agents', 'permissions' => ['index', 'knowledge-based-agents-code-run']],
+                ['section' => 'knowledge-and-uncertainty', 'subSection' => 'logical-representation', 'page' => 'index', 'title' => 'Logical Representation', 'permissions' => [
+                    'index',
+                    'propositional-logic-code', 'propositional-logic-code-run',
+                    'predicate-logic-code', 'predicate-logic-code-run',
+                ]],
             ]
         ],
         [

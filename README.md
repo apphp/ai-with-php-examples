@@ -74,6 +74,9 @@ You may find live demo for these examples on official website:
     - Practical Applications
   - Knowledge & Uncertainty in AI
     - Knowledge-Based Agents
+    - Logical Representation
+        - Propositional
+        - Predicate Logic
   - AI Agents
     - LLM Agents
       - Site Status Checker Agent

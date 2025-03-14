@@ -29,9 +29,9 @@ $memoryEnd = memory_get_usage();
 
 <div>
     <p>
-        Logical representation is a powerful technique in AI that uses formal logic to represent knowledge and reason about it systematically. By
-        employing well-defined rules and symbols, logical representation enables machines to infer new information, verify facts, and solve complex
-        problems.
+        Propositional logic, also known as Boolean logic, is a fundamental concept in AI that deals with statements that are either true or false. It
+        provides a systematic way to represent knowledge and reason about facts using logical operators. AI systems utilize propositional logic in
+        various applications, such as expert systems, automated reasoning, and problem-solving.
     </p>
 </div>
 

@@ -6,19 +6,23 @@
 
 <div>
     <p>
-        Logical representation is a powerful technique in AI that uses formal logic to represent knowledge and reason about it systematically. By
-        employing well-defined rules and symbols, logical representation enables machines to infer new information, verify facts, and solve complex
-        problems.
+        Propositional logic, also known as Boolean logic, is a fundamental concept in AI that deals with statements that are either true or false. It
+        provides a systematic way to represent knowledge and reason about facts using logical operators. AI systems utilize propositional logic in
+        various applications, such as expert systems, automated reasoning, and problem-solving.
     </p>
 </div>
 
 <div>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="Proposition-tab" data-bs-toggle="tab" data-bs-target="#Proposition" type="button" role="tab" aria-controls="Proposition" aria-selected="true">Proposition</button>
+            <button class="nav-link active" id="Proposition-tab" data-bs-toggle="tab" data-bs-target="#Proposition" type="button" role="tab"
+                    aria-controls="Proposition" aria-selected="true">Proposition
+            </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="PropositionalLogic-tab" data-bs-toggle="tab" data-bs-target="#PropositionalLogic" type="button" role="tab" aria-controls="PropositionalLogic" aria-selected="false">PropositionalLogic</button>
+            <button class="nav-link" id="PropositionalLogic-tab" data-bs-toggle="tab" data-bs-target="#PropositionalLogic" type="button" role="tab"
+                    aria-controls="PropositionalLogic" aria-selected="false">PropositionalLogic
+            </button>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">

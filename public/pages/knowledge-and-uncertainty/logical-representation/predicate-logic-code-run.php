@@ -29,9 +29,10 @@ $memoryEnd = memory_get_usage();
 
 <div>
     <p>
-        Logical representation is a powerful technique in AI that uses formal logic to represent knowledge and reason about it systematically. By
-        employing well-defined rules and symbols, logical representation enables machines to infer new information, verify facts, and solve complex
-        problems.
+        Predicate logic, also known as first-order logic (FOL), is a fundamental tool in AI used to represent complex relationships between objects
+        and their properties. Unlike propositional logic, which deals with simple true/false statements, predicate logic allows reasoning about
+        objects, their attributes, and their interconnections. This capability makes it an essential component in knowledge representation, expert
+        systems, and automated reasoning.
     </p>
 </div>
 

@@ -1,7 +1,7 @@
 <?php
 
 // Example usage:
-use app\include\classes\knowledgebase\KBAgent;
+use app\classes\knowledgebase\KBAgent;
 
 $agent = new KBAgent();
 $percept = ["temperature" => 25, "humidity" => 60];

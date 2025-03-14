@@ -12,5 +12,5 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(APP_PATH . 'include/classes/search/UninformedSearchGraph.php', title: 'Example of class <code>UninformedSearchGraph</code> (with BFS search)', opened: true); ?>
+    <?= create_example_of_use_links(APP_PATH . 'classes/search/UninformedSearchGraph.php', title: 'Example of class <code>UninformedSearchGraph</code> (with BFS search)', opened: true); ?>
 </div>

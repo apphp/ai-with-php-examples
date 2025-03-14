@@ -1,6 +1,6 @@
 <?php
 
-use app\include\classes\mathematics\Scalar;
+use app\classes\mathematics\Scalar;
 
 $a = 5;
 $b = 2;

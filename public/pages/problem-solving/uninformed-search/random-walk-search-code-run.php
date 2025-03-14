@@ -1,7 +1,7 @@
 <?php
 
-use app\include\classes\Chart;
-use app\include\classes\search\SearchVisualizer;
+use app\classes\Chart;
+use app\classes\search\SearchVisualizer;
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);

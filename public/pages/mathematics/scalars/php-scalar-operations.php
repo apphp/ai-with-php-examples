@@ -14,5 +14,5 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(APP_PATH . 'include/classes/mathematics/Scalar.php', title: 'Example of class <code>Scalar</code>', opened: true); ?>
+    <?= create_example_of_use_links(APP_PATH . 'classes/mathematics/Scalar.php', title: 'Example of class <code>Scalar</code>', opened: true); ?>
 </div>

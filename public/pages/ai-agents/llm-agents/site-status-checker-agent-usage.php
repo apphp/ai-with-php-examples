@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use app\include\classes\llmagents\AiAgentExecutor;
-use app\include\classes\llmagents\sitestatuschecker\SiteStatusCheckerAgent;
+use app\classes\llmagents\AiAgentExecutor;
+use app\classes\llmagents\sitestatuschecker\SiteStatusCheckerAgent;
 
 
 // Usage example:

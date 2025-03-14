@@ -1,6 +1,6 @@
 <?php
 
-use app\include\classes\Chart;
+use app\classes\Chart;
 
 include_once('linear-transformation-code.php');
 

@@ -1,7 +1,7 @@
 <?php
 
 // Create the graph and add vertices with their levels
-use app\include\classes\search\UninformedSearchGraph;
+use app\classes\search\UninformedSearchGraph;
 
 $graph = new UninformedSearchGraph();
 

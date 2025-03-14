@@ -16,7 +16,7 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(APP_PATH . 'include/classes/search/InformedSearchGraph.php', title: 'Example of class <code>InformedSearchGraph</code> (with A* Graph search)', opened: true); ?>
+    <?= create_example_of_use_links(APP_PATH . 'classes/search/InformedSearchGraph.php', title: 'Example of class <code>InformedSearchGraph</code> (with A* Graph search)', opened: true); ?>
 </div>
 
 

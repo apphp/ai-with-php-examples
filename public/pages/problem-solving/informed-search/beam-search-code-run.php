@@ -1,6 +1,6 @@
 <?php
 
-use app\include\classes\Chart;
+use app\classes\Chart;
 
 $availablerBeams = ['β=1' => 1, 'β=2' => 2, 'β=3' => 3];
 $beam = isset($_GET['beam']) && is_string($_GET['beam']) ? $_GET['beam'] : '';

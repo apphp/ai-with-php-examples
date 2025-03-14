@@ -1,6 +1,6 @@
 <?php
 
-use app\public\include\classes\mathematics\Vector;
+use app\include\classes\mathematics\Vector;
 
 // Define vectors
 $v1 = new Vector([2, 3]);

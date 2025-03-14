@@ -1,6 +1,6 @@
 <?php
 
-use app\public\include\classes\Chart;
+use app\include\classes\Chart;
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
@@ -49,7 +49,7 @@ $memoryEnd = memory_get_usage();
                         A-->D((D))
                         C-->G((G))
                         C-->H((H))
-                        D-->I((I))                        
+                        D-->I((I))
                         B-->E((E))
                         B-->F((F))
                         E-->J((J))
@@ -58,12 +58,12 @@ $memoryEnd = memory_get_usage();
                 $steps = '[
                     { visit: "S", info: "Starting at root node S - Not Found!" },
                     { reset: true, info: "Reset for depth 1 search" },
-                   
+
                     { visit: "S", info: "Starting at root node S", edge: null },
                     { visit: "A", info: "Visiting first level node A", edge: "S-A" },
                     { visit: "B", info: "Visiting first level node B - Not Found!", edge: "S-B" },
                     { reset: true, info: "Reset for depth 2 search" },
-                    
+
                     { visit: "S", info: "Starting at root node S", edge: null },
                     { visit: "A", info: "Visiting first level node A", edge: "S-A" },
                     { visit: "C", info: "Visiting second level node C", edge: "A-C" },

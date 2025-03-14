@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use app\public\include\classes\llmagents\AiAgentExecutor;
-use app\public\include\classes\llmagents\salesanalysis\SalesAnalysisAgent;
+use app\include\classes\llmagents\AiAgentExecutor;
+use app\include\classes\llmagents\salesanalysis\SalesAnalysisAgent;
 
 
 // Usage example:

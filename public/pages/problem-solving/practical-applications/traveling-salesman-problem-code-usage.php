@@ -1,7 +1,7 @@
 <?php
 
-use app\public\include\classes\search\InformedSearchGraph;
-use app\public\include\classes\search\UninformedSearchGraph;
+use app\include\classes\search\InformedSearchGraph;
+use app\include\classes\search\UninformedSearchGraph;
 
 
 // Function to run and analyze all search algorithms

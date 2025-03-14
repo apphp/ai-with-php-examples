@@ -1,7 +1,7 @@
 <?php
 
-use app\public\include\classes\Chart;
-use app\public\include\classes\search\SearchVisualizer;
+use app\include\classes\Chart;
+use app\include\classes\search\SearchVisualizer;
 
 $informedSearch = [
     'Greedy Search' => 'greedy-search',
@@ -103,57 +103,57 @@ $memoryEnd = memory_get_usage();
                     PH["Phoenix<br>Level: 3<br>h: 574.3"]
                     SD["San Diego<br>Level: 3<br>h: 179.4"]
                     SA["San Antonio<br>Level: 4<br>h: 1933.8"]
-                
+
                     %% Style definitions for regions
                     classDef westCoast fill:#ffdddd,stroke:#333
                     classDef eastCoast fill:#ddffdd,stroke:#333
                     classDef central fill:#ddddff,stroke:#333
                     classDef south fill:#ffffdd,stroke:#333
-                
+
                     %% Apply styles
                     class LA,SD,PH westCoast
                     class NY,PHL,MI eastCoast
                     class CH,DA central
                     class HO,SA south
-                
+
                     %% Key connections with edge costs
                     NY <--> |129.6| PHL
                     NY <--> |1144.3| CH
                     NY <--> |3935.7| LA
-                    
+
                     LA <--> |179.4| SD
                     LA <--> |574.3| PH
-                    
+
                     HO <--> |304.3| SA
                     HO <--> |361.8| DA
-                    
+
                     PH <--> |480.9| SD
-                    
+
                     SA <--> |406.3| DA
-                    
+
                     CH <--> |1294.9| DA
-                    
+
                     MI <--> |1757.9| NY
                     MI <--> |1556.8| HO
-                
+
                     %% Group cities by region
                     subgraph West["West Coast Region"]
                         LA
                         SD
                         PH
                     end
-                
+
                     subgraph East["East Coast Region"]
                         NY
                         PHL
                         MI
                     end
-                
+
                     subgraph Central["Central Region"]
                         CH
                         DA
                     end
-                
+
                     subgraph South["Southern Region"]
                         HO
                         SA

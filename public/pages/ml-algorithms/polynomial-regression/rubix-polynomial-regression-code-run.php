@@ -1,6 +1,6 @@
 <?php
 
-use app\public\include\classes\Chart;
+use app\include\classes\Chart;
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);

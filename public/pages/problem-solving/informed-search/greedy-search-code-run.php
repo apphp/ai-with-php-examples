@@ -1,6 +1,6 @@
 <?php
 
-use app\public\include\classes\Chart;
+use app\include\classes\Chart;
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
@@ -52,10 +52,10 @@ $memoryEnd = memory_get_usage();
             $graph = '
                     graph TB
                         S((S<small class="sub-title">h=7</small>))-->A((A<small class="sub-title">h=9</small>))
-                        S-->D((D<small class="sub-title">h=5</small>))                
-                        D-->B((B<small class="sub-title">h=4</small>))                
-                        D-->E((E<small class="sub-title">h=3</small>))                
-                        E-->G((G<small class="sub-title">h=0</small>))                
+                        S-->D((D<small class="sub-title">h=5</small>))
+                        D-->B((B<small class="sub-title">h=4</small>))
+                        D-->E((E<small class="sub-title">h=3</small>))
+                        E-->G((G<small class="sub-title">h=0</small>))
                     ';
 
             $steps = '[

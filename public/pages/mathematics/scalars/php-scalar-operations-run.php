@@ -37,7 +37,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?= create_example_of_use_links(APP_PUBLIC_PATH . 'include/classes/mathematics/Scalar.php'); ?>
+    <?= create_example_of_use_links(APP_PATH . 'include/classes/mathematics/Scalar.php'); ?>
 </div>
 
 <div class="mb-1">

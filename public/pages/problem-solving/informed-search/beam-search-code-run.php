@@ -1,6 +1,6 @@
 <?php
 
-use app\public\include\classes\Chart;
+use app\include\classes\Chart;
 
 $availablerBeams = ['β=1' => 1, 'β=2' => 2, 'β=3' => 3];
 $beam = isset($_GET['beam']) && is_string($_GET['beam']) ? $_GET['beam'] : '';
@@ -61,13 +61,13 @@ $memoryEnd = memory_get_usage();
             $graph = '
                     graph TB
                         A((A<small class="sub-title">h=0</small>))--> |2| B((B<small class="sub-title">h=1</small>))
-                        A--> |1| C((C<small class="sub-title">h=2</small>))                
-                        A--> |2| D((D<small class="sub-title">h=3</small>))                
-                        B--> |3| E((E<small class="sub-title">h=3</small>))                
-                        E--> |4| G((G<small class="sub-title">h=0</small>))                
-                        C--> |2| F((F<small class="sub-title">h=1</small>))                
-                        F--> |3| G((G<small class="sub-title">h=0</small>))                
-                        D--> |3| G((G<small class="sub-title">h=0</small>))                
+                        A--> |1| C((C<small class="sub-title">h=2</small>))
+                        A--> |2| D((D<small class="sub-title">h=3</small>))
+                        B--> |3| E((E<small class="sub-title">h=3</small>))
+                        E--> |4| G((G<small class="sub-title">h=0</small>))
+                        C--> |2| F((F<small class="sub-title">h=1</small>))
+                        F--> |3| G((G<small class="sub-title">h=0</small>))
+                        D--> |3| G((G<small class="sub-title">h=0</small>))
                     ';
 
             if ($beam === '3') {

@@ -1,6 +1,6 @@
 <?php
 
-use app\public\include\classes\Chart;
+use app\include\classes\Chart;
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
@@ -52,7 +52,7 @@ $memoryEnd = memory_get_usage();
                         D-->G((G))
                         B-->I((I))
                         B-->J((J))
-                        I-->H((H))                       
+                        I-->H((H))
                     ';
 
                 $steps = '[

@@ -1,7 +1,7 @@
 <?php
 
-use app\public\include\classes\Chart;
-use app\public\include\classes\search\SearchVisualizer;
+use app\include\classes\Chart;
+use app\include\classes\search\SearchVisualizer;
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
@@ -54,7 +54,7 @@ $memoryEnd = memory_get_usage();
             <p><b>Graph:</b></p>
             <?php
             $chartGraph = '
-               graph TD                    
+               graph TD
                     S(("S<small class="sub-title">level=0<br>h=10</small>"))
                     A(("A<small class="sub-title">level=1<br>h=8</small>"))
                     B(("B<small class="sub-title">level=1<br>h=8.5</small>"))
@@ -73,7 +73,7 @@ $memoryEnd = memory_get_usage();
                     P(("P<small class="sub-title">level=5 <br>h=1.5</small>"))
                     Q(("Q<small class="sub-title">level=5 <br>h=2</small>"))
                     G(("G<small class="sub-title">level=6 <br>h=0</small>"))
-                
+
                     S -->|2.1| A
                     S -->|1.5| B
                     S -->|1.1| C

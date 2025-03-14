@@ -35,7 +35,16 @@ To install these examples, follow these steps:
 You may find live demo for these examples on official website:
 <a href="https://aiwithphp.org/examples/" target="_blank" rel="noopener noreferrer">https://aiwithphp.org/examples/</a>
 
-## Using Libraries for UI
+## Libraries for Backend
+   - Rubix ML [https://rubixml.com](https://rubixml.com)
+   - RubixML/Tensor [https://github.com/RubixML/Tensor](https://github.com/RubixML/Tensor)
+   - PHP-ML [https://php-ml.readthedocs.io/en/latest/](https://php-ml.readthedocs.io/en/latest/)
+   - MathPHP [https://github.com/markrogoyski/math-php](https://github.com/markrogoyski/math-php)
+   - OpenAI PHP Client [https://github.com/openai-php/client](https://github.com/openai-php/client)
+   - LLM Agents PHP SDK [https://github.com/llm-agents-php/agents](https://github.com/llm-agents-php/agents)
+
+
+## Libraries for UI
   - Chart.js [https://www.chartjs.org/](https://www.chartjs.org/)
   - Plotly.js [https://plotly.com/javascript/](https://plotly.com/javascript/)
   - Mermaid.js [https://mermaid.js.org/](https://mermaid.js.org/)

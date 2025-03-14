@@ -203,7 +203,7 @@ function initFullscreen() {
     if (!div) {
         console.warn('Expandable div not found. Make sure the element exists in the DOM.');
         // Try again after a short delay in case the DOM is still loading
-        setTimeout(initFullscreen, 500);
+        // setTimeout(initFullscreen, 500);
         return;
     }
 

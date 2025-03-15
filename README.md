@@ -71,6 +71,8 @@ You may find live demo for these examples on official website:
       - A* Graph Search
       - Iterative Deepening A*
       - Beam Search
+      - Hill Climbing Search
+      - Simulated Annealing Search
     - Practical Applications
   - Knowledge & Uncertainty in AI
     - Knowledge-Based Agents

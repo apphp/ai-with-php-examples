@@ -25,7 +25,7 @@
     <h3 class="h5">Local Search</h3>
     <ui class="list">
         <li><a href="<?= create_href('problem-solving', 'informed-search', 'hill-climbing-search') ?>">Hill Climbing Search</a></li>
-        <li><a _href="<?= create_href('problem-solving', 'informed-search', 'simulated-annealing-search') ?>">Simulated Annealing Search</a></li>
+        <li><a href="<?= create_href('problem-solving', 'informed-search', 'simulated-annealing-search') ?>">Simulated Annealing Search</a></li>
         <li><a _href="<?= create_href('problem-solving', 'informed-search', 'local-beam-search') ?>">Local Beam Search</a></li>
         <li><a _href="<?= create_href('problem-solving', 'informed-search', 'genetic-algorithms-search') ?>">Genetic Algorithms Search</a></li>
         <li><a _href="<?= create_href('problem-solving', 'informed-search', 'tabu-search') ?>">Tabu Search</a></li>

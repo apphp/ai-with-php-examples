@@ -135,7 +135,7 @@ $memoryEnd = memory_get_usage();
                 <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>
                 <span class="float-end me-2">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
             </div>
-            <code class="code-result">
+            <code class="_code-result">
                 <pre><?= $result; ?></pre>
             </code>
 

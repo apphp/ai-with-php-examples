@@ -74,6 +74,8 @@ You may find live demo for these examples on official website:
       - Hill Climbing Search
       - Simulated Annealing Search
     - Practical Applications
+      - Traveling Salesman Problem
+      - Simulated Annealing Process
   - Knowledge & Uncertainty in AI
     - Knowledge-Based Agents
     - Logical Representation

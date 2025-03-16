@@ -10,6 +10,7 @@
 
     <ul>
         <li><a href="<?= create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem') ?>">Traveling Salesman Problem</a></li>
+        <li><a href="<?= create_href('problem-solving', 'practical-applications', 'simulated-annealing-process') ?>">Simulated Annealing Process Animation</a></li>
     </ul>
 </div>
 

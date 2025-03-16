@@ -6,9 +6,9 @@ use app\classes\search\SearchVisualizer;
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 
-$availableTypes = ['Simple' => 'simple', 'Steepest Ascent' => 'steepest', 'Stochastic' => 'stochastic'];
-$searchType = isset($_GET['searchType']) && is_string($_GET['searchType']) ? $_GET['searchType'] : '';
-verify_fields($searchType, array_values($availableTypes), reset($availableTypes));
+$resultDebugOptions = ['Show Debug' => '1'];
+$resultDebug = isset($_GET['resultDebug']) && is_string($_GET['resultDebug']) ? $_GET['resultDebug'] : '';
+verify_fields($resultDebug, array_values($resultDebugOptions), '');
 
 ob_start();
 //////////////////////////////
@@ -61,31 +61,43 @@ $memoryEnd = memory_get_usage();
                     // Generate x values from -10 to 10
                     const xValues = [];
                     const yValues = [];
-                    for (let x = -10; x <= 10; x += 0.5) {
+                    for (let x = -10; x <= 10; x += 0.1) {
                         xValues.push(x);
                         yValues.push(x * x);
                     }
 
                     // Special point
-                    const specialPoint = { x: <?=$optimalSolution?>, y: <?=$optimalSolution^2?> }; // Example: (3, 9)
+                    const startPoint = { x: <?=$initialSolution?>, y: <?=$initialSolution ** 2?> }; // Example: (3, 9)
+                    const optimalPoint = { x: <?=$optimalSolution?>, y: <?=$optimalSolution ** 2?> }; // Example: (3, 9)
 
                     new Chart(ctx, {
                         type: 'scatter',
                         data: {
                             datasets: [
                                 {
-                                    label: 'y = x²',
-                                    data: xValues.map((x, i) => ({ x, y: yValues[i] })),
-                                    borderColor: 'blue',
-                                    showLine: true,
-                                    fill: false,
-                                    tension: 0.2
+                                    label: 'Initial Point',
+                                    data: [startPoint],
+                                    backgroundColor: 'green',
+                                    pointRadius: 6,
+                                    fill: true
                                 },
                                 {
                                     label: 'Best Solution',
-                                    data: [specialPoint],
+                                    data: [optimalPoint],
                                     backgroundColor: 'red',
-                                    pointRadius: 6
+                                    borderColor: 'red',
+                                    pointRadius: 6,
+                                    pointStyle: 'circle'
+                                },
+                                {
+                                    label: 'y = x²',
+                                    data: xValues.map((x, i) => ({ x, y: yValues[i] })),
+                                    borderColor: '#cccccc',
+                                    showLine: true,
+                                    fill: false,
+                                    borderWidth: 2,
+                                    pointRadius: 0,
+                                    tension: 0
                                 }
                             ]
                         },
@@ -102,6 +114,22 @@ $memoryEnd = memory_get_usage();
         </div>
 
         <div class="col-md-12 col-lg-5 p-0 m-0">
+            <div>
+                <div>
+                    <b>Result Format:</b>
+                </div>
+                <form class="mt-2" action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'informed-search', 'simulated-annealing-search-code-run') : 'index.php'; ?>" type="GET">
+                    <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'informed-search', 'simulated-annealing-search-code-run') : ''; ?>
+                    <?= create_form_features($resultDebugOptions, [$resultDebug], fieldName: 'resultDebug', type: 'single-checkbox', class: ''); ?>
+                    <div class="form-check form-check-inline float-end p-0 m-0 me-1">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
+                    </div>
+                    <div class=" clearfix "></div>
+                </form>
+            </div>
+
+            <hr>
+
             <div class="mb-1">
                 <b>Result:</b>
                 <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>
@@ -109,6 +137,20 @@ $memoryEnd = memory_get_usage();
             </div>
             <code class="code-result">
                 <pre><?= $result; ?></pre>
+            </code>
+
+
+            <div class="mb-1">
+                <b>Debug:</b>
+            </div>
+            <code class="code-result" id="expandable-div">
+                <!-- Expand button -->
+                <?php if($resultDebug && $debugResult !== '--'): ?>
+                    <div class="bd-fullscreen cursor-pointer">
+                        <i id="expandable-div-icon" class="fas fa-expand fa-inverse" title="Open in Full Screen"></i>
+                    </div>
+                <?php endif; ?>
+                <pre class="pre-wrap" id="expandable-pre-wrap" style="<?=$resultDebug ? 'height:1000px' : ''?>"><?= $debugResult; ?></pre>
             </code>
         </div>
 

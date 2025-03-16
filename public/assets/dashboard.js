@@ -194,6 +194,7 @@ function initFullscreen() {
     // Try to find the div - you can update this selector to match your specific div
     // This example uses 'expandable-div' as the ID, but you could change to a class or other selector
     const div = document.getElementById('expandable-div');
+    const pre = document.getElementById('expandable-pre-wrap');
     const icon = document.getElementById('expandable-div-icon');
 
     // If div is not found, try to find it by other means (class, data attribute, etc.)
@@ -223,6 +224,10 @@ function initFullscreen() {
         overflow: div.style.overflow || getComputedStyle(div).overflow
     };
 
+    const preOriginalStyles = {
+        height: pre ? (pre.style.height || getComputedStyle(pre).height) : '100%'
+    };
+
     // Add click event listener
     icon.addEventListener('click', function (e) {
         // Prevent event bubbling
@@ -245,6 +250,9 @@ function initFullscreen() {
             div.style.zIndex = '9999';
             div.style.margin = '0';
             div.style.overflow = 'auto';
+            if (pre) {
+                pre.style.height = '100%';
+            }
 
             // Restore scroll position
             window.scrollTo(scrollX, scrollY);
@@ -270,6 +278,9 @@ function initFullscreen() {
             div.style.zIndex = originalStyles.zIndex;
             div.style.margin = originalStyles.margin;
             div.style.overflow = originalStyles.overflow;
+            if (pre) {
+                pre.style.height = preOriginalStyles.height;
+            }
 
             isExpanded = false;
 
@@ -296,6 +307,9 @@ function initFullscreen() {
             div.style.zIndex = originalStyles.zIndex;
             div.style.margin = originalStyles.margin;
             div.style.overflow = originalStyles.overflow;
+            if (pre) {
+                pre.style.height = preOriginalStyles.height;
+            }
 
             isExpanded = false;
 

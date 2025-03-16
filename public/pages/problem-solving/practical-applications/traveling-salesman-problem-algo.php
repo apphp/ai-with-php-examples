@@ -2,7 +2,7 @@
     <h1 class="h2">Practical Applications</h1>
 </div>
 
-<?= create_run_code_button('Traveling Salesman Problem', 'problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run'); ?>
+<?= create_run_code_button('Traveling Salesman Problem', 'problem-solving', 'practical-applications', 'traveling-salesman-problem-algo-code-run'); ?>
 
 <div>
     <p>
@@ -12,7 +12,7 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/traveling-salesman-problem-code-usage.php', title: 'Example of code (with Informed (Heuristic) Search)', opened: true); ?>
+    <?= create_example_of_use_links(__DIR__ . '/traveling-salesman-problem-algo-code-usage.php', title: 'Example of code (with Informed (Heuristic) Search)', opened: true); ?>
 </div>
 
 

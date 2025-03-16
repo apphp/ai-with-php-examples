@@ -5,7 +5,7 @@ $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 
-include('simulated-annealing-process-usage.php');
+include('traveling-salesman-problem-annealing-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -22,7 +22,7 @@ $memoryEnd = memory_get_usage();
     <h2 class="h4">Traveling Salesman Problem</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?= create_href('problem-solving', 'practical-applications', 'simulated-annealing-process') ?>"
+            <a href="<?= create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem-annealing') ?>"
                class="btn btn-sm btn-outline-primary">Show
                 Code</a>
         </div>
@@ -36,7 +36,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/traveling-salesman-problem-code-usage.php'); ?>
+    <?= create_example_of_use_links(__DIR__ . '/traveling-salesman-problem-annealing-usage.php'); ?>
 </div>
 
 <div class="container-fluid px-2">

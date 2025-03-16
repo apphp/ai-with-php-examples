@@ -32,7 +32,8 @@ $menu = [
                 ]],
                 ['section' => 'problem-solving', 'subSection' => 'practical-applications', 'page' => 'index', 'title' => 'Practical Applications', 'permissions' => [
                     'index',
-                    'traveling-salesman-problem', 'traveling-salesman-problem-code-run',
+                    'traveling-salesman-problem-algo', 'traveling-salesman-problem-algo-code-run',
+                    'traveling-salesman-problem-annealing', 'traveling-salesman-problem-annealing-code-run',
                 ]],
             ],
         ],

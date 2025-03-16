@@ -50,7 +50,7 @@ $microtimeStart = microtime(true);
 ob_start();
 //////////////////////////////
 
-include('traveling-salesman-problem-code-usage.php');
+include('traveling-salesman-problem-algo-code-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -67,7 +67,7 @@ $memoryEnd = memory_get_usage();
     <h2 class="h4">Traveling Salesman Problem</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?= create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem') ?>"
+            <a href="<?= create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem-algo') ?>"
                class="btn btn-sm btn-outline-primary">Show
                 Code</a>
         </div>
@@ -82,7 +82,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/traveling-salesman-problem-code-usage.php'); ?>
+    <?= create_example_of_use_links(__DIR__ . '/traveling-salesman-problem-algo-code-usage.php'); ?>
 </div>
 
 <div class="container-fluid px-2">
@@ -186,9 +186,9 @@ $memoryEnd = memory_get_usage();
                     <b>Search Type:</b>
                 </div>
                 <form class="mt-2"
-                      action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run') : 'index.php'; ?>"
+                      action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem-algo-code-run') : 'index.php'; ?>"
                       type="GET">
-                    <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'practical-applications', 'traveling-salesman-problem-code-run') : ''; ?>
+                    <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'practical-applications', 'traveling-salesman-problem-algo-code-run') : ''; ?>
                     <?= create_form_features($groupedAlgorithms, [$searchAlgorithm], fieldName: 'searchAlgorithm', type: 'select', class: 'w-50', event: ' _onchange="hangleOnChange(this)"'); ?>
                     <?= create_form_features($algorithmDebugOptions, [$algorithmDebug], fieldName: 'algorithmDebug', type: 'single-checkbox', class: 'ms-3'); ?>
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">

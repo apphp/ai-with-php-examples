@@ -9,8 +9,8 @@
     </p>
 
     <ul>
-        <li><a href="<?= create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem') ?>">Traveling Salesman Problem</a></li>
-        <li><a href="<?= create_href('problem-solving', 'practical-applications', 'simulated-annealing-process') ?>">Simulated Annealing Process Animation</a></li>
+        <li><a href="<?= create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem-algo') ?>">Traveling Salesman Problem (Algorithms)</a></li>
+        <li><a href="<?= create_href('problem-solving', 'practical-applications', 'traveling-salesman-problem-annealing') ?>">Annealing Process Animation (Annealing Process)</a></li>
     </ul>
 </div>
 

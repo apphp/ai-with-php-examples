@@ -13,7 +13,7 @@ verify_fields($searchType, array_values($availableTypes), reset($availableTypes)
 ob_start();
 //////////////////////////////
 
-//include('hill-climbing-search-code-usage.php');
+include('simulated-annealing-search-code-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -38,60 +38,78 @@ $memoryEnd = memory_get_usage();
 
 <div>
     <p>
-        ...
+        Simulated Annealing (SA) is an optimization algorithm inspired by the annealing process in metallurgy, where materials are heated and slowly
+        cooled to reach a stable state with minimal energy. It is used to find approximate solutions to optimization problems by iteratively exploring
+        potential solutions and occasionally accepting worse solutions to escape local optima.
     </p>
 </div>
 
 <div>
-<!--    --><?php //= create_example_of_use_links(__DIR__ . '/hill-climbing-search-code-usage.php'); ?>
+    <?= create_example_of_use_links(__DIR__ . '/simulated-annealing-search-code-usage.php'); ?>
 </div>
 
 
 <div class="container-fluid px-2">
     <div class="row justify-content-start p-0">
-        <div class="col-md-12 col-lg-12 px-1 pe-4">
+        <div class="col-md-12 col-lg-7 px-1 pe-4">
 
-            <div id="root" class="_container py-4"></div>
+            <canvas id="myChart"></canvas>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const ctx = document.getElementById('myChart').getContext('2d');
 
-            <?php include('simulated-annealing-search-js.php'); ?>
+                    // Generate x values from -10 to 10
+                    const xValues = [];
+                    const yValues = [];
+                    for (let x = -10; x <= 10; x += 0.5) {
+                        xValues.push(x);
+                        yValues.push(x * x);
+                    }
 
-            <style>
-                /* Additional custom styles */
-                .legend-item {
-                    display: flex;
-                    align-items: center;
-                    margin-right: 15px;
-                }
+                    // Special point
+                    const specialPoint = { x: <?=$optimalSolution?>, y: <?=$optimalSolution^2?> }; // Example: (3, 9)
 
-                .legend-marker {
-                    width: 12px;
-                    height: 12px;
-                    border-radius: 50%;
-                    margin-right: 5px;
-                }
+                    new Chart(ctx, {
+                        type: 'scatter',
+                        data: {
+                            datasets: [
+                                {
+                                    label: 'y = x²',
+                                    data: xValues.map((x, i) => ({ x, y: yValues[i] })),
+                                    borderColor: 'blue',
+                                    showLine: true,
+                                    fill: false,
+                                    tension: 0.2
+                                },
+                                {
+                                    label: 'Best Solution',
+                                    data: [specialPoint],
+                                    backgroundColor: 'red',
+                                    pointRadius: 6
+                                }
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                x: { type: 'linear', position: 'bottom' },
+                                y: { type: 'linear' }
+                            }
+                        }
+                    });
+                });
+            </script>
 
-                .algorithm-log {
-                    height: 250px;
-                    background-color: #000;
-                    color: #4CFF4C;
-                    font-family: monospace;
-                    font-size: 0.875rem;
-                    overflow-y: auto;
-                }
+        </div>
 
-                .log-entry-accepted {
-                    color: #4CFF4C;
-                }
-
-                .log-entry-rejected {
-                    color: #FFCC00;
-                }
-
-                .log-entry-info {
-                    color: #6699FF;
-                }
-            </style>
-
+        <div class="col-md-12 col-lg-5 p-0 m-0">
+            <div class="mb-1">
+                <b>Result:</b>
+                <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>
+                <span class="float-end me-2">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
+            </div>
+            <code class="code-result">
+                <pre><?= $result; ?></pre>
+            </code>
         </div>
 
     </div>

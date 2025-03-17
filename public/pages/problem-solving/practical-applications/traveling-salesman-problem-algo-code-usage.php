@@ -6,10 +6,6 @@ use app\classes\search\UninformedSearchGraph;
 
 // Function to run and analyze all search algorithms
 function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $start, string $goal, string $searchAlgorithm = 'a-tree-search', string $algorithmDebug = '') {
-//    echo "\nInitial graph structure:\n";
-//    echo "------------------------\n";
-//    $graph->printGraph();
-
     // Init algorithms
     $searches = [];
 

@@ -10,6 +10,12 @@ $resultDebugOptions = ['Show Debug' => '1'];
 $resultDebug = isset($_GET['resultDebug']) && is_string($_GET['resultDebug']) ? $_GET['resultDebug'] : '';
 verify_fields($resultDebug, array_values($resultDebugOptions), '');
 
+$coolingRateOptions = ['Cooling Rate' => range(0.99, 0.09, -0.01)];
+$coolingRate = $_GET['coolingRate'] ?? '';
+$roundedArray = array_map(fn($v) => round($v, 2), $coolingRateOptions['Cooling Rate']);
+verify_fields($coolingRate, $roundedArray, 0.99);
+
+
 ob_start();
 //////////////////////////////
 
@@ -52,7 +58,6 @@ $memoryEnd = memory_get_usage();
 <div class="container-fluid px-2">
     <div class="row justify-content-start p-0">
         <div class="col-md-12 col-lg-7 px-1 pe-4">
-
             <canvas id="myChart"></canvas>
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
@@ -110,7 +115,6 @@ $memoryEnd = memory_get_usage();
                     });
                 });
             </script>
-
         </div>
 
         <div class="col-md-12 col-lg-5 p-0 m-0">
@@ -121,6 +125,8 @@ $memoryEnd = memory_get_usage();
                 <form class="mt-2" action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'informed-search', 'simulated-annealing-search-code-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'informed-search', 'simulated-annealing-search-code-run') : ''; ?>
                     <?= create_form_features($resultDebugOptions, [$resultDebug], fieldName: 'resultDebug', type: 'single-checkbox', class: ''); ?>
+                    <?= create_form_features($coolingRateOptions, [$coolingRate], fieldName: 'coolingRate', type: 'number', step: 0.01, precisionCompare: true, class: 'w-20'); ?>
+
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
                     </div>
@@ -136,7 +142,7 @@ $memoryEnd = memory_get_usage();
                 <span class="float-end me-2">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
             </div>
             <code class="_code-result">
-                <pre><?= $result; ?></pre>
+                <pre>Start temprature: 1000&deg;<br>Stop temprature: 0.1&deg;<br>Cooling Rate: <?=$coolingRate?><br><?= $result; ?></pre>
             </code>
 
 
@@ -150,7 +156,7 @@ $memoryEnd = memory_get_usage();
                         <i id="expandable-div-icon" class="fas fa-expand fa-inverse" title="Open in Full Screen"></i>
                     </div>
                 <?php endif; ?>
-                <pre class="pre-wrap" id="expandable-pre-wrap" style="<?=$resultDebug ? 'height:1000px' : ''?>"><?= $debugResult; ?></pre>
+                <pre class="pre-wrap" id="expandable-pre-wrap" style="<?=$resultDebug ? 'min-height:100px; max-height:1000px' : ''?>"><?= $debugResult; ?></pre>
             </code>
         </div>
 

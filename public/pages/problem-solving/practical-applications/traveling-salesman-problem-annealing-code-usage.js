@@ -1,4 +1,3 @@
-<!-- React component inline -->
 <script type="text/babel">
     const {useState, useEffect, useRef} = React;
 

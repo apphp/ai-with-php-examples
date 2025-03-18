@@ -229,68 +229,70 @@ function initFullscreen() {
     };
 
     // Add click event listener
-    icon.addEventListener('click', function (e) {
-        // Prevent event bubbling
-        e.stopPropagation();
+    if (icon) {
+        icon.addEventListener('click', function (e) {
+            // Prevent event bubbling
+            e.stopPropagation();
 
-        if (!isExpanded) {
-            // Save the current scroll position
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
+            if (!isExpanded) {
+                // Save the current scroll position
+                const scrollX = window.scrollX;
+                const scrollY = window.scrollY;
 
-            document.body.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden';
 
-            // Expand to fullscreen
-            div.style.position = 'fixed';
-            div.style.border = '1px solid #cccc';
-            div.style.top = '0';
-            div.style.left = '0';
-            div.style.width = '100%';
-            div.style.height = '100%';
-            div.style.zIndex = '9999';
-            div.style.margin = '0';
-            div.style.overflow = 'auto';
-            if (pre) {
-                pre.style.height = '100%';
+                // Expand to fullscreen
+                div.style.position = 'fixed';
+                div.style.border = '1px solid #cccc';
+                div.style.top = '0';
+                div.style.left = '0';
+                div.style.width = '100%';
+                div.style.height = '100%';
+                div.style.zIndex = '9999';
+                div.style.margin = '0';
+                div.style.overflow = 'auto';
+                if (pre) {
+                    pre.style.height = '100%';
+                }
+
+                // Restore scroll position
+                window.scrollTo(scrollX, scrollY);
+
+                isExpanded = true;
+
+                // Change icon from expand to compress
+                icon.classList.remove('fa-expand');
+                icon.classList.add('fa-compress');
+                icon.classList.add('expanded');
+                icon.title = 'Collapse';
+
+            } else {
+                document.body.style.overflow = 'auto';
+
+                // Restore original size and position
+                div.style.border = originalStyles.border;
+                div.style.width = originalStyles.width;
+                div.style.height = originalStyles.height;
+                div.style.position = originalStyles.position;
+                div.style.top = originalStyles.top;
+                div.style.left = originalStyles.left;
+                div.style.zIndex = originalStyles.zIndex;
+                div.style.margin = originalStyles.margin;
+                div.style.overflow = originalStyles.overflow;
+                if (pre) {
+                    pre.style.height = preOriginalStyles.height;
+                }
+
+                isExpanded = false;
+
+                // Change icon from compress to expand
+                icon.classList.remove('fa-compress');
+                icon.classList.add('fa-expand');
+                icon.classList.remove('expanded');
+                icon.title = 'Open in Full Screen';
             }
-
-            // Restore scroll position
-            window.scrollTo(scrollX, scrollY);
-
-            isExpanded = true;
-
-            // Change icon from expand to compress
-            icon.classList.remove('fa-expand');
-            icon.classList.add('fa-compress');
-            icon.classList.add('expanded');
-            icon.title = 'Collapse';
-
-        } else {
-            document.body.style.overflow = 'auto';
-
-            // Restore original size and position
-            div.style.border = originalStyles.border;
-            div.style.width = originalStyles.width;
-            div.style.height = originalStyles.height;
-            div.style.position = originalStyles.position;
-            div.style.top = originalStyles.top;
-            div.style.left = originalStyles.left;
-            div.style.zIndex = originalStyles.zIndex;
-            div.style.margin = originalStyles.margin;
-            div.style.overflow = originalStyles.overflow;
-            if (pre) {
-                pre.style.height = preOriginalStyles.height;
-            }
-
-            isExpanded = false;
-
-            // Change icon from compress to expand
-            icon.classList.remove('fa-compress');
-            icon.classList.add('fa-expand');
-            icon.classList.remove('expanded');
-            icon.title = 'Open in Full Screen';
-        }
-    });
+        });
+    }
 
     // Add escape key listener to exit fullscreen mode
     document.addEventListener('keydown', function (e) {

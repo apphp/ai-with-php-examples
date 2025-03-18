@@ -1,7 +1,6 @@
 <?php
 
-use app\classes\Chart;
-use app\classes\search\SearchVisualizer;
+use app\classes\Graph;
 
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
@@ -58,63 +57,12 @@ $memoryEnd = memory_get_usage();
 <div class="container-fluid px-2">
     <div class="row justify-content-start p-0">
         <div class="col-md-12 col-lg-7 px-1 pe-4">
-            <canvas id="myChart"></canvas>
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    const ctx = document.getElementById('myChart').getContext('2d');
-
-                    // Generate x values from -10 to 10
-                    const xValues = [];
-                    const yValues = [];
-                    for (let x = -10; x <= 10; x += 0.1) {
-                        xValues.push(x);
-                        yValues.push(x * x);
-                    }
-
-                    // Special point
-                    const startPoint = { x: <?=$initialSolution?>, y: <?=$initialSolution ** 2?> }; // Example: (3, 9)
-                    const optimalPoint = { x: <?=$optimalSolution?>, y: <?=$optimalSolution ** 2?> }; // Example: (3, 9)
-
-                    new Chart(ctx, {
-                        type: 'scatter',
-                        data: {
-                            datasets: [
-                                {
-                                    label: 'Initial Point',
-                                    data: [startPoint],
-                                    backgroundColor: 'green',
-                                    pointRadius: 6,
-                                    fill: true
-                                },
-                                {
-                                    label: 'Best Solution',
-                                    data: [optimalPoint],
-                                    backgroundColor: 'red',
-                                    borderColor: 'red',
-                                    pointRadius: 6,
-                                    pointStyle: 'circle'
-                                },
-                                {
-                                    label: 'y = x²',
-                                    data: xValues.map((x, i) => ({ x, y: yValues[i] })),
-                                    borderColor: '#cccccc',
-                                    showLine: true,
-                                    fill: false,
-                                    borderWidth: 2,
-                                    pointRadius: 0,
-                                    tension: 0
-                                }
-                            ]
-                        },
-                        options: {
-                            scales: {
-                                x: { type: 'linear', position: 'bottom' },
-                                y: { type: 'linear' }
-                            }
-                        }
-                    });
-                });
-            </script>
+            <?php
+                echo Graph::drawQuadraticFunction([
+                    ['x' => $initialSolution, 'label' => 'Initial Solution'],
+                    ['x' => $optimalSolution, 'label' => 'Щptimal Solution']
+                ]);
+            ?>
         </div>
 
         <div class="col-md-12 col-lg-5 p-0 m-0">
@@ -144,7 +92,6 @@ $memoryEnd = memory_get_usage();
             <code class="_code-result">
                 <pre>Start temprature: 1000&deg;<br>Stop temprature: 0.1&deg;<br>Cooling Rate: <?=$coolingRate?><br><?= $result; ?></pre>
             </code>
-
 
             <div class="mb-1">
                 <b>Debug:</b>

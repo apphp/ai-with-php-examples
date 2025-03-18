@@ -67,6 +67,8 @@ class Graph {
                             datasets: datasets
                         },
                         options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
                             scales: {
                                 x: { type: "linear", position: "bottom" },
                                 y: { type: "linear" }

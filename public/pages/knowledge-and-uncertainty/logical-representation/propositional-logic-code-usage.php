@@ -86,6 +86,7 @@ echo "When P is true and P→Q is true, Q must be true. Valid Modus Ponens!\n";
 
 // Example 5: Modus Tollens: ¬Q, P→Q ⊢ ¬P
 echo "\n\nExample 5: Modus Tollens\n";
+echo "-------------------------------\n";
 echo "Rule: ¬Q, P→Q ⊢ ¬P (From not-Q and P implies Q, we can deduce not-P)\n";
 
 $p->setValue(true);

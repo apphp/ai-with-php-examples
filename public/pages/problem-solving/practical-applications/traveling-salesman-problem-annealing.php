@@ -60,12 +60,6 @@
             <li>Eventually converges to a near-optimal solution</li>
         </ul>
     </div>
-
-    <p>
-        The TSP has applications in logistics, planning, microchip manufacturing, DNA sequencing,
-        and many other fields - making this visualization not just a demonstration of an algorithm,
-        but a simulation of solving real-world optimization problems.
-    </p>
 </div>
 
 

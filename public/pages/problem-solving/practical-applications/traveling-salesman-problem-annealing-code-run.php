@@ -76,14 +76,14 @@ $memoryEnd = memory_get_usage();
 </p>
 <div class="collapse" id="collapseExample">
     <div class="card card-body">
-        <h1>Step-by-Step: Simulated Annealing for TSP</h1>
+        <h2 class="h5">Step-by-Step: Simulated Annealing for TSP</h2>
 
         <p>
             This explanation walks through exactly how the simulated annealing algorithm works in the
             visualization to solve the Traveling Salesman Problem with 6 cities.
         </p>
 
-        <h2>Algorithm Initialization</h2>
+        <h2 class="h5">Algorithm Initialization</h2>
 
         <div class="step">
             <p>The algorithm starts with:</p>
@@ -156,7 +156,7 @@ $memoryEnd = memory_get_usage();
             <p>The final result is the best route found throughout the entire process.</p>
         </div>
 
-        <h2>What You're Seeing in the Visualization</h2>
+        <h2 class="h5">What You're Seeing in the Visualization</h2>
 
         <div class="note">
             <p>
@@ -166,24 +166,21 @@ $memoryEnd = memory_get_usage();
             </p>
         </div>
 
-        <p>
+        <p class="my-0">
             By observing the visualization over time, you can see how the algorithm initially explores widely (accepting many worse solutions)
             and then gradually focuses on refining the best solutions as the temperature decreases.
         </p>
-
     </div>
 </div>
 
-
-<div class="container-fluid px-2">
+<div class="container-fluid px-2 mt-3">
     <div class="row justify-content-start p-0">
         <div class="col-md-12 col-lg-12 px-1 pe-4">
             <p><b>Graph:</b></p>
 
-            <div id="root" class="_container py-4"></div>
+            <div id="root" class="py-0"></div>
 
             <?php include('traveling-salesman-problem-annealing-code-usage.js'); ?>
-
         </div>
     </div>
 </div>

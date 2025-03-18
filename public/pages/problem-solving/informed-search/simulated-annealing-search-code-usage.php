@@ -1,6 +1,5 @@
 <?php
 
-// Create a custom problem by extending the class
 use app\classes\search\SimulatedAnnealing;
 
 // Example of usage

@@ -60,7 +60,7 @@ $memoryEnd = memory_get_usage();
             <?php
                 echo Graph::drawQuadraticFunction([
                     ['x' => $initialSolution, 'label' => 'Initial Solution'],
-                    ['x' => $optimalSolution, 'label' => 'Щptimal Solution']
+                    ['x' => $optimalSolution, 'label' => 'Optimal Solution']
                 ]);
             ?>
         </div>

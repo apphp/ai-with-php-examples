@@ -48,7 +48,7 @@ $memoryEnd = memory_get_usage();
 
 <div class="container-fluid px-2">
     <div class="row justify-content-start p-0">
-        <div class="col-md-12 col-lg-7 px-1 pe-5">
+        <div class="col-md-12 col-lg-7 px-1 pe-lg-5">
             <?= create_result_block($memoryEnd, $memoryStart, $microtimeEnd, $microtimeStart, showResult: false); ?>
             <code class="<?= $resultFormat === 'md' ? 'code-result' : 'html-result'?>">
                 <?php if($resultFormat === 'md'): ?>

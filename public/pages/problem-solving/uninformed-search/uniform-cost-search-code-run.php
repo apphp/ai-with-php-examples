@@ -71,14 +71,7 @@ $memoryEnd = memory_get_usage();
 
         </div>
         <div class="col-md-12 col-lg-5 p-0 m-0">
-            <div class="mb-1">
-                <b>Result:</b>
-                <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>
-                <span class="float-end me-2">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
-            </div>
-            <code class="code-result">
-                <pre><?= $result; ?></pre>
-            </code>
+            <?= create_result_block($memoryEnd, $memoryStart, $microtimeEnd, $microtimeStart, $result); ?>
         </div>
     </div>
 </div>

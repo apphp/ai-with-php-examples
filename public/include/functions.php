@@ -299,6 +299,22 @@ function create_form_features(array $features = [], array $data = [], string $fi
     return $output;
 }
 
+function create_result_block($memoryEnd, $memoryStart, $microtimeEnd, $microtimeStart, $result = '', $showResult = true) {
+    $output = '<div class="mb-1">
+                <b>Result:</b>
+                <span class="float-end">Memory: '.memory_usage($memoryEnd, $memoryStart).' Mb</span>
+                <span class="float-end me-2">Time <span class="d-xs-hide">running:</span> '.running_time($microtimeEnd, $microtimeStart).' sec.</span>
+            </div>';
+
+    if ($showResult) {
+        $output .= '<code class="code-result">
+                <pre>'.$result.'</pre>
+            </code>';
+    }
+
+    return $output;
+}
+
 // Function to validate the GET parameters against the $menu array
 function is_valid_page(array $menu, $section, $subSection, $page): bool {
     if (!is_string($section) || !is_string($subSection) || !is_string($page)) {

@@ -30,11 +30,4 @@ $memoryEnd = memory_get_usage();
     <?= create_dataset_and_test_data_links(__DIR__ . '/data/customers.csv'); ?>
 </div>
 
-<div class="mb-1">
-    <b>Result:</b>
-    <span class="float-end">Memory: <?= memory_usage($memoryEnd, $memoryStart); ?> Mb</span>
-    <span class="float-end me-2">Time running: <?= running_time($microtimeEnd, $microtimeStart); ?> sec.</span>
-</div>
-<code class="code-result">
-    <pre><?= $result; ?></pre>
-</code>
+<span class="float-end me-2"><span class="d-xs-hide">Time running:</span>

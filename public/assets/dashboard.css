@@ -432,3 +432,9 @@ code.gray {
     right: 15px;
   }
 }
+
+@media (max-width: 450px) {
+  .d-xs-hide {
+     display: none;
+  }
+}

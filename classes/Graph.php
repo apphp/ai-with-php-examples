@@ -68,7 +68,7 @@ class Graph {
                         },
                         options: {
                             responsive: true,
-                            maintainAspectRatio: false,
+                            maintainAspectRatio: true,
                             scales: {
                                 x: { type: "linear", position: "bottom" },
                                 y: { type: "linear" }

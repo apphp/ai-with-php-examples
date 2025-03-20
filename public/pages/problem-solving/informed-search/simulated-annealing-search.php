@@ -13,7 +13,7 @@
 </div>
 
 <div>
-        <?= create_example_of_use_links(APP_PATH . 'classes/search/SimulatedAnnealing.php', title: 'Example of class <code>SimulatedAnnealing</code>', opened: true); ?>
+    <?= create_example_of_use_links(APP_PATH . 'classes/search/SimulatedAnnealing.php', title: 'Example of class <code>SimulatedAnnealing</code>', opened: true); ?>
 </div>
 
 

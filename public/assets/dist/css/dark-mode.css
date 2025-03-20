@@ -113,6 +113,13 @@
   color: #888877 !important;
 }
 
+/* Nav tabs */
+[data-theme="dark"] .nav-tabs .nav-link.active {
+    background-color: #9B3922;
+    color: #fff !important;
+    border-bottom: 1px solid #ccc;
+}
+
 /* Switch button */
 [data-theme="dark"] .form-check-input:checked {
   background-color: #9B3922;
@@ -189,9 +196,12 @@
 }
 
 /* vectors */
-[data-theme="dark"] #vectorControls input[type="number"] {
-  background-color: #393939 !important;
+[data-theme="dark"] input[type="number"] {
+    background-color: #292929;
   color: #fff !important;
+    border: 1px solid #9B3922;
+    padding: 4px 6px;
+  border-radius: 4px;
 }
 
 [data-theme="dark"] #vectorControls .output-vector {
@@ -200,7 +210,7 @@
 
 /* Plotly */
 [data-theme="dark"] .chart-container svg {
-    background-color: #343434 !important;
+    /*background-color: #343434 !important;*/
 }
 [data-theme="dark"] .chart-container svg g {
     background-color: #343434 !important;

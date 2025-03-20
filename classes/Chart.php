@@ -1511,7 +1511,8 @@ class Chart {
                 #vectorControls input[type="number"] {
                     width: 100%;
                     padding: 4px 6px;
-                    border: 1px solid #ccc;
+                    border: 1px solid #9B3922;
+                    background-color: #292929;
                     border-radius: 4px;
                 }
                 #vectorControls .output-vector {

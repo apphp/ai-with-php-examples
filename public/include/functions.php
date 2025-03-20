@@ -233,7 +233,7 @@ function create_form_fields(string $section, string $subsection, string $page): 
     return $output;
 }
 
-function create_form_features(array $features = [], array $data = [], string $fieldName = 'features', string $type = 'checkbox', int|float $step=1, bool $precisionCompare = false, string $class='', string $event='') {
+function create_form_features(array $features = [], array $data = [], string $fieldName = 'features', string $type = 'checkbox', int|float $step=1, bool $precisionCompare = false, string $class='', string $style = '', string $event='') {
     $output = '';
     $ind = 0;
     $type = in_array($type, ['select', 'radio', 'checkbox', 'number']) ? $type : 'checkbox';
@@ -262,7 +262,7 @@ function create_form_features(array $features = [], array $data = [], string $fi
             if ($type === 'number') {
                 $min = min($feature);
                 $max = max($feature);
-                $maxLength = strlen((string)$max);
+                $maxLength = 5;
 
                 // Loop through the array and compare the values - to prevent floating-point precision issues
                 $found = false;
@@ -278,7 +278,7 @@ function create_form_features(array $features = [], array $data = [], string $fi
                 }
 
                 $output .= '<div class="form-check-inline mt-2 ml-0 pl-0 ' . $class . '">
-                    <input class="form-inline-number" type="number" id="inlineNumber' . $ind . '" name="' . $fieldName . '" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > ' . $max . ') this.value=' . $min . ';" maxlength="' . $maxLength . '" value="' . ($found ? $data[0] : '1') . '" step="' . $step . '" style="min-width:50px">
+                    <input class="form-inline-number" type="number" id="inlineNumber' . $ind . '" name="' . $fieldName . '" min="' . $min . '" max="' . $max . '" oninput="javascript:if (this.value.length > this.maxLength || this.value > ' . $max . ') this.value=' . $min . ';" maxlength="' . $maxLength . '" value="' . ($found ? $data[0] : '1') . '" step="' . $step . '" style="' . ($style ?: 'min-width:50px') . '">
                     <label class="form-check-label" for="inlineNumber' . $ind . '">&nbsp;' . $name . '</label>
                     </div>';
             } elseif ($type === 'radio') {

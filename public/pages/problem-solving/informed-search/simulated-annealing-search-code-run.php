@@ -5,15 +5,20 @@ use app\classes\Graph;
 $memoryStart = memory_get_usage();
 $microtimeStart = microtime(true);
 
-$resultDebugOptions = ['Show Debug' => '1'];
+$resultDebugOptions = ['Debug' => '1'];
 $resultDebug = isset($_GET['resultDebug']) && is_string($_GET['resultDebug']) ? $_GET['resultDebug'] : '';
 verify_fields($resultDebug, array_values($resultDebugOptions), '');
 
-$coolingRateOptions = ['Cooling Rate' => range(0.99, 0.09, -0.01)];
+$coolingRateOptions = ['Cooling' => range(0.99, 0.09, -0.01)];
 $coolingRate = $_GET['coolingRate'] ?? '';
-$roundedArray = array_map(fn($v) => round($v, 2), $coolingRateOptions['Cooling Rate']);
+$roundedArray = array_map(fn($v) => round($v, 2), $coolingRateOptions['Cooling']);
 verify_fields($coolingRate, $roundedArray, 0.99);
 
+$stopTemperatureOptions = ['Stop &deg;' => range(99, 0.09, -0.1)];
+$stopTemperature = $_GET['stopTemperature'] ?? '';
+$roundedArray = array_map(fn($v) => round($v, 1), $stopTemperatureOptions['Stop &deg;']);
+$stopTemperatureOptions = ['Stop &deg;' => $roundedArray];
+verify_fields($stopTemperature, $roundedArray, 0.1);
 
 ob_start();
 //////////////////////////////
@@ -72,8 +77,9 @@ $memoryEnd = memory_get_usage();
                 </div>
                 <form class="mt-2" action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'informed-search', 'simulated-annealing-search-code-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'informed-search', 'simulated-annealing-search-code-run') : ''; ?>
-                    <?= create_form_features($resultDebugOptions, [$resultDebug], fieldName: 'resultDebug', type: 'single-checkbox', class: ''); ?>
                     <?= create_form_features($coolingRateOptions, [$coolingRate], fieldName: 'coolingRate', type: 'number', step: 0.01, precisionCompare: true, class: 'w-20'); ?>
+                    <?= create_form_features($stopTemperatureOptions, [$stopTemperature], fieldName: 'stopTemperature', type: 'number', step: 0.1, precisionCompare: true, class: 'w-20', style: 'width:55px;'); ?>
+                    <?= create_form_features($resultDebugOptions, [$resultDebug], fieldName: 'resultDebug', type: 'single-checkbox', class: ''); ?>
 
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Re-generate</button>
@@ -86,7 +92,7 @@ $memoryEnd = memory_get_usage();
 
             <?= create_result_block($memoryEnd, $memoryStart, $microtimeEnd, $microtimeStart, showResult: false); ?>
             <code class="_code-result">
-                <pre>Start temprature: 1000&deg;<br>Stop temprature: 0.1&deg;<br>Cooling Rate: <?=$coolingRate?><br><?= $result; ?></pre>
+                <pre>Start temprature: 1000&deg;<br>Stop temprature: <?=$stopTemperature?>&deg;<br>Cooling Rate: <?=$coolingRate?><br><?= $result; ?></pre>
             </code>
 
             <div class="mb-1">

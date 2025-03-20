@@ -32,8 +32,6 @@ foreach ($extractor->getIterator() as $row) {
     $labels[] = $label;
 }
 
-//ddd($labels);
-
 // Feature names (for display)
 $featureNames = ['bedrooms', 'bathrooms', 'sqft', 'lot_size', 'year_built','days_on_market','proximity_to_transit','crime_rate', 'school_rating','neighborhood_rating'];
 

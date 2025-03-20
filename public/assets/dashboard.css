@@ -198,6 +198,13 @@ ui.list li {
   transform: rotate(180deg);
 }
 
+input[type="number"] {
+    border: 1px solid #ccc;
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+
+
 /***********************
  * CODE
  ***********************/

@@ -198,14 +198,19 @@
 /* vectors */
 [data-theme="dark"] input[type="number"] {
     background-color: #292929;
-  color: #fff !important;
+    color: #fff !important;
     border: 1px solid #9B3922;
     padding: 4px 6px;
-  border-radius: 4px;
+    border-radius: 4px;
+}
+
+[data-theme="dark"] #vectorControls input[type="number"] {
+    border: 1px solid #9B3922;
+    background-color: #292929;
 }
 
 [data-theme="dark"] #vectorControls .output-vector {
-  background-color: #343434 !important;
+    background-color: #343434 !important;
 }
 
 /* Plotly */

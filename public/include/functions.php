@@ -105,6 +105,12 @@ function create_run_code_button(string $title, string $section1, string $subsect
                 <a href="' . create_href($section1, $subsection1, $page1) . '" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
             </div>';
 
+        if($section2 && $subsection2 && $page2){
+            $output .= '<div class="btn-group">
+                <a href="' . create_href($section2, $subsection2, $page2) . '" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
+            </div>';
+        }
+
         $output .= '</div>
     </div>';
 

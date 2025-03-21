@@ -2,7 +2,10 @@
     <h1 class="h2">Informed (Heuristic) Search</h1>
 </div>
 
-<?= create_run_code_button('Simulated Annealing Search', 'problem-solving', 'informed-search', 'simulated-annealing-search-code-run'); ?>
+<?= create_run_code_button('Simulated Annealing Search',
+    'problem-solving', 'informed-search', 'simulated-annealing-search-code-run',
+    'problem-solving', 'informed-search', 'simulated-annealing-search-code-additional-run'
+); ?>
 
 <div>
     <p>

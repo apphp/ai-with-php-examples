@@ -1,164 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulated Annealing Visualization</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 20px;
-        }
-        h1, h2, h3 {
-            color: #333;
-        }
-        .panel {
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        .form-group {
-            margin-bottom: 10px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #3a80d2;
-        }
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        .canvas-container {
-            width: 100%;
-            height: 300px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            position: relative;
-        }
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .results {
-            background-color: #e8f5e9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-        .best-result {
-            background-color: #e3f2fd;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            border-left: 4px solid #2196f3;
-        }
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        .results-value {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .log-container {
-            height: 300px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 10px;
-            font-family: monospace;
-            font-size: 14px;
-            background-color: #f8f8f8;
-        }
-        .log-entry {
-            margin-bottom: 5px;
-            padding: 5px;
-            border-bottom: 1px solid #eee;
-        }
-        .log-accepted {
-            background-color: rgba(0, 255, 0, 0.1);
-        }
-        .log-rejected {
-            background-color: rgba(255, 115, 0, 0.1);
-        }
-        .log-best {
-            background-color: rgba(33, 150, 243, 0.2);
-            font-weight: bold;
-            border-left: 3px solid #2196f3;
-        }
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        @media (max-width: 768px) {
-            .two-column {
-                grid-template-columns: 1fr;
-            }
-        }
-        .legend {
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            margin-right: 20px;
-            margin-bottom: 5px;
-        }
-        .legend-color {
-            width: 15px;
-            height: 15px;
-            margin-right: 5px;
-            border-radius: 50%;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>Simulated Annealing Visualization</h1>
+<?php
 
+?>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Informed (Heuristic) Search</h1>
+</div>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h2 class="h4">Simulated Annealing Search Visualization</h2>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group">
+            <a href="<?= create_href('problem-solving', 'informed-search', 'simulated-annealing-search') ?>" class="btn btn-sm btn-outline-primary">Show
+                Code</a>
+        </div>
+    </div>
+</div>
+
+<div>
+    <p>
+        Simulated Annealing (SA) is an optimization algorithm inspired by the annealing process in metallurgy, where materials are heated and slowly
+        cooled to reach a stable state with minimal energy. It is used to find approximate solutions to optimization problems by iteratively exploring
+        potential solutions and occasionally accepting worse solutions to escape local optima.
+    </p>
+</div>
+
+<div>
+<!--    --><?php //= create_example_of_use_links(__DIR__ . '/simulated-annealing-search-code-usage.php'); ?>
+</div>
+
+
+<div class="">
     <div class="panel">
-        <h3>Parameters</h3>
+        <h3 class="h5">Parameters</h3>
         <div class="grid">
             <div class="form-group">
                 <label for="initialTemperature">Initial Temperature</label>
@@ -202,8 +75,8 @@
         </button>
     </div>
 
-    <div id="bestResultContainer" class="best-result" style="display: none;">
-        <h3>Best Solution Found</h3>
+    <div id="bestResultContainer" class="best-result mb-4" style="display: none;">
+        <h3 class="h5">Best Solution Found</h3>
         <div class="results-grid">
             <div>
                 <p>Solution:</p>
@@ -222,7 +95,7 @@
 
     <div class="two-column">
         <div class="panel">
-            <h3>Objective Function: f(x) = x²</h3>
+            <h3 class="h5">Objective Function: f(x) = x²</h3>
             <div class="legend">
                 <div class="legend-item">
                     <div class="legend-color" style="background-color: #00ff00;"></div>
@@ -247,7 +120,7 @@
         </div>
 
         <div class="panel">
-            <h3>Temperature & Energy Over Time</h3>
+            <h3 class="h5">Temperature & Energy Over Time</h3>
             <div class="legend">
                 <div class="legend-item">
                     <div class="legend-color" style="background-color: #8884d8;"></div>
@@ -265,14 +138,14 @@
     </div>
 
     <div class="panel">
-        <h3>Iteration Log</h3>
+        <h3 class="h5">Iteration Log</h3>
         <div id="logContainer" class="log-container">
             <div class="log-entry">Waiting for simulation to start...</div>
         </div>
     </div>
 
     <div id="resultsContainer" style="display: none;" class="results">
-        <h3>Final Results</h3>
+        <h3 class="h5">Final Results</h3>
         <div class="results-grid">
             <div>
                 <p>Final Solution:</p>
@@ -289,6 +162,138 @@
         </div>
     </div>
 </div>
+
+<style>
+    .panel {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    .form-group {
+        margin-bottom: 10px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    button {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:hover {
+        background-color: #3a80d2;
+    }
+    button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+    .canvas-container {
+        width: 100%;
+        height: 300px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        position: relative;
+    }
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .results {
+        background-color: #e8f5e9;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+    .best-result {
+        background-color: #e3f2fd;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+        border-left: 4px solid #2196f3;
+    }
+    .results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    .results-value {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .log-container {
+        height: 300px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        font-family: monospace;
+        font-size: 14px;
+        background-color: #f8f8f8;
+    }
+    .log-entry {
+        margin-bottom: 5px;
+        padding: 5px;
+        border-bottom: 1px solid #eee;
+    }
+    .log-accepted {
+        background-color: rgba(0, 255, 0, 0.1);
+    }
+    .log-rejected {
+        background-color: rgba(255, 115, 0, 0.1);
+    }
+    .log-best {
+        background-color: rgba(33, 150, 243, 0.2);
+        font-weight: bold;
+        border-left: 3px solid #2196f3;
+    }
+    .two-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    @media (max-width: 768px) {
+        .two-column {
+            grid-template-columns: 1fr;
+        }
+    }
+    .legend {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+    .legend-item {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        margin-bottom: 5px;
+    }
+    .legend-color {
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+        border-radius: 50%;
+    }
+</style>
 
 <script>
     // Get DOM elements
@@ -783,5 +788,4 @@
     drawFunctionCanvas();
     drawTemperatureCanvas();
 </script>
-</body>
-</html>
+

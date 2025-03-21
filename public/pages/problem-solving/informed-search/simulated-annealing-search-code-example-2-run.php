@@ -1,5 +1,81 @@
+<?php
 
-<!-- React component inline -->
+use app\classes\Graph;
+
+?>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Informed (Heuristic) Search</h1>
+</div>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h2 class="h4">Simulated Annealing Search Visualization</h2>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group">
+            <a href="<?= create_href('problem-solving', 'informed-search', 'simulated-annealing-search') ?>" class="btn btn-sm btn-outline-primary">Show
+                Code</a>
+        </div>
+    </div>
+</div>
+
+<div>
+    <p>
+        Simulated Annealing (SA) is an optimization algorithm inspired by the annealing process in metallurgy, where materials are heated and slowly
+        cooled to reach a stable state with minimal energy. It is used to find approximate solutions to optimization problems by iteratively exploring
+        potential solutions and occasionally accepting worse solutions to escape local optima.
+    </p>
+</div>
+
+<div>
+<!--    --><?php //= create_example_of_use_links(__DIR__ . '/simulated-annealing-search-code-usage.php'); ?>
+</div>
+
+
+
+<div class="_container py-4">
+    <div id="root"></div>
+</div>
+
+<style>
+    .algorithm-log {
+        height: 200px;
+        overflow-y: auto;
+        background-color: #f8f9fa;
+        font-family: monospace;
+        font-size: 0.8rem;
+        border: 1px solid #dee2e6;
+    }
+
+    .log-entry-accepted {
+        color: green;
+        margin-bottom: 2px;
+    }
+
+    .log-entry-rejected {
+        color: #d63384;
+        margin-bottom: 2px;
+    }
+
+    .log-entry-info {
+        color: #0d6efd;
+        margin-bottom: 2px;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .legend-marker {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+</style>
+
+
+<!-- React component -->
 <script type="text/babel">
     const { useState, useEffect, useRef } = React;
 
@@ -334,8 +410,8 @@
             setCurrentStep(prev => prev + 1);
 
             // Update message
-            const stepMessage = `Step ${currentStep + 1}: Temperature = ${newTemp.toFixed(2)}, ` +
-                `New solution ${accepted ? 'ACCEPTED' : 'REJECTED'} (probability: ${ap.toFixed(4)})`;
+            const stepMessage = `Step ${currentStep + 1}: T°= ${newTemp.toFixed(2)}, ` +
+                `Solution ${accepted ? 'ACCEPTED' : 'REJECTED'} (probab.: ${ap.toFixed(4)})`;
             setMessage(stepMessage);
 
             // Log to algorithm log
@@ -425,12 +501,9 @@
         };
 
         return (
-            <div className="row g-4 bg-light p-4 rounded shadow">
-                {/* Left panel - Visualizations */}
+            <div className="row">
                 <div className="col-md-6">
-                    <h2 className="mb-4 fw-bold">Simulated Annealing Visualization</h2>
-
-                    <div className="bg-white p-3 rounded shadow mb-4">
+                    <div className="bg-white p-3 rounded mb-4">
                         <div className="mb-2 d-flex justify-content-between align-items-center">
                             <h3 className="fs-5 fw-semibold">Energy Landscape</h3>
                             <div className="small text-secondary">Step: {currentStep} / {maxSteps}</div>
@@ -471,7 +544,7 @@
                         </div>
                     </div>
 
-                    <div className="bg-white p-3 rounded shadow mb-4">
+                    <div className="bg-white p-3 mb-4">
                         <h3 className="fs-5 fw-semibold mb-2">Energy & Temperature Over Time</h3>
                         <canvas
                             ref={graphCanvasRef}
@@ -484,7 +557,7 @@
 
                 {/* Right panel - Controls and Info */}
                 <div className="col-md-6">
-                    <div className="bg-white p-3 rounded shadow mb-4">
+                    <div className="bg-white p-3 mb-4">
                         <h3 className="fs-5 fw-semibold mb-2">Algorithm Status</h3>
 
                         <div className="row row-cols-1 row-cols-md-2 g-3 mb-3">
@@ -594,3 +667,4 @@
         </React.StrictMode>
     );
 </script>
+

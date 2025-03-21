@@ -96,20 +96,30 @@ function create_show_code_button(string $title, string $section, string $subsect
     return $output;
 }
 
-function create_run_code_button(string $title, string $section1, string $subsection1, string $page1, string $section2 = '', string $subsection2 = '', string $page2 = ''): string {
+function create_run_code_button(
+    string $title, string $section1, string $subsection1, string $page1, string $buttonText1 = 'Run Code',
+    string $section2 = '', string $subsection2 = '', string $page2 = '', string $buttonText2 = 'Run Code',
+    string $section3 = '', string $subsection3 = '', string $page3 = '', string $buttonText3 = 'Run Code'
+): string {
     $output = '<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h2 class="h4">' . $title . '</h2>
         <div class="btn-toolbar mb-2 mb-md-0">';
 
-        $output .= '<div class="btn-group">
-                <a href="' . create_href($section1, $subsection1, $page1) . '" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
-            </div>';
+        if($section3 && $subsection3 && $page3){
+            $output .= '<div class="btn-group me-3">
+                    <a href="' . create_href($section3, $subsection3, $page3) . '" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; '.$buttonText3.'</a>
+                </div>';
+        }
 
         if($section2 && $subsection2 && $page2){
-            $output .= '<div class="btn-group">
-                <a href="' . create_href($section2, $subsection2, $page2) . '" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; Run Code</a>
+            $output .= '<div class="btn-group me-3">
+                <a href="' . create_href($section2, $subsection2, $page2) . '" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; '.$buttonText2.'</a>
             </div>';
         }
+
+        $output .= '<div class="btn-group">
+                <a href="' . create_href($section1, $subsection1, $page1) . '" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; '.$buttonText1.'</a>
+            </div>';
 
         $output .= '</div>
     </div>';

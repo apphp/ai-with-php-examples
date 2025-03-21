@@ -4,7 +4,8 @@
 
 <?= create_run_code_button('Simulated Annealing Search',
     'problem-solving', 'informed-search', 'simulated-annealing-search-code-run',
-    'problem-solving', 'informed-search', 'simulated-annealing-search-code-additional-run'
+    section2: 'problem-solving', subsection2: 'informed-search', page2: 'simulated-annealing-search-code-example-1-run', buttonText2: 'Visual Example #1',
+    section3: 'problem-solving', subsection3: 'informed-search', page3: 'simulated-annealing-search-code-example-2-run', buttonText3: 'Visual Example #2'
 ); ?>
 
 <div>

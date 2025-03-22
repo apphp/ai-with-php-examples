@@ -14,10 +14,10 @@ $coolingRate = $_GET['coolingRate'] ?? '';
 $roundedArray = array_map(fn($v) => round($v, 2), $coolingRateOptions['Cooling']);
 verify_fields($coolingRate, $roundedArray, 0.99);
 
-$stopTemperatureOptions = ['Stop &deg;' => range(99, 0.09, -0.1)];
+$stopTemperatureOptions = ['Stop T&deg;' => range(99, 0.09, -0.1)];
 $stopTemperature = $_GET['stopTemperature'] ?? '';
-$roundedArray = array_map(fn($v) => round($v, 1), $stopTemperatureOptions['Stop &deg;']);
-$stopTemperatureOptions = ['Stop &deg;' => $roundedArray];
+$roundedArray = array_map(fn($v) => round($v, 1), $stopTemperatureOptions['Stop T&deg;']);
+$stopTemperatureOptions = ['Stop T&deg;' => $roundedArray];
 verify_fields($stopTemperature, $roundedArray, 0.1);
 
 ob_start();
@@ -51,6 +51,8 @@ $memoryEnd = memory_get_usage();
         Simulated Annealing (SA) is an optimization algorithm inspired by the annealing process in metallurgy, where materials are heated and slowly
         cooled to reach a stable state with minimal energy. It is used to find approximate solutions to optimization problems by iteratively exploring
         potential solutions and occasionally accepting worse solutions to escape local optima.
+        <br>
+        The goal in this example here is to find the minimum point of $f(x) = x²$, which is clearly at $x = 0$, where the function value is also $0$.
     </p>
 </div>
 

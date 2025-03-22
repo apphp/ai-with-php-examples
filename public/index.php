@@ -15,7 +15,7 @@
     $dataTheme = $darkSwitch === 'dark' ? ' data-theme="dark"' : '';
 
     // Check if the current page is valid; if not, set default values
-    if (!is_valid_page($menu, $section, $subSection, $page)) {
+    if ($section !== 'search' && !is_valid_page($menu, $section, $subSection, $page)) {
         $section = '';
         $subSection = '';
         $page = 'home';
@@ -66,7 +66,6 @@
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', '<?=GOOGLE_CID?>');
         </script>
     <?php endif; ?>
@@ -75,9 +74,18 @@
 <body<?=$dataTheme;?>>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="<?=APP_URL?>">AI with PHP Examples (<small>v0.5.0</small>)</a>
+
     <button id="btn-toggler" class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
+    <div class="ms-auto"></div>
+
+    <div class="search-container col-12 col-lg-auto mb-3 mb-lg-0 me-lg-5">
+        <form action="<?= create_href('search', 'index')?>" method="get">
+            <input type="text" name="s" maxlength="100" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>
+    </div>
 
     <div class="form-check form-switch form-switch-mode mt-1" title="Swith Light/Dark Mode">
         <input type="checkbox" class="form-check-input cursor-pointer" id="darkSwitch" <?= $darkSwitch ? 'checked' : ''?>>

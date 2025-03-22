@@ -322,6 +322,37 @@ code.gray {
 }
 
 /***********************
+ * SEARCH BAR
+ ***********************/
+.search-container {
+    height: 30px;
+}
+.search-container .form-control {
+    height: 30px;
+    border-radius: .2em;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: none !important;
+    color: #999;
+}
+.search-container .form-control:focus {
+    color: #999;
+    /*border: 1px solid #444;*/
+    box-shadow: none !important;
+}
+
+.search-container-page {
+    margin-top: 100px;
+}
+.search-container-page .btn {
+    margin: auto;
+}
+.search-container-page .form-control {
+    border-radius: .2em;
+    /*background-color: rgba(255, 255, 255, .1);*/
+    box-shadow: none !important;
+}
+
+/***********************
  * DEBUG
  ***********************/
 .debug {

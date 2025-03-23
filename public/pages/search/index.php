@@ -27,7 +27,7 @@
         }
 
         while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..') continue;
+            if ($file == '.' || $file == '..' || strstr($file, '-js.php')) continue;
 
             $path = $dir . '/' . $file;
 
@@ -39,21 +39,22 @@
 
             // Only process PHP files
             if (preg_match('/\.php/i', $file)) {
-
                 $data = file_get_contents($path);
-                $body = strip_tags($data);
+                $stripedBody = strip_tags($data);
 
-                if (preg_match('/' . $keyword . '/i', $body)) {
-                    if (preg_match('/<h1>(.*)<\/h1>/s', $data, $m)) {
-                        $title = $m['1'];
+                if (preg_match('/' . $keyword . '/i', $stripedBody)) {
+                    if (preg_match('/<h2(.*)>(.*)<\/h2>/s', $data, $m)) {
+                        $title = $m[2] ?? 'No Title';
+                    } elseif (preg_match('/<h1(.*)>(.*)<\/h1>/s', $data, $m)) {
+                        $title = $m[2] ?? 'No Title';
                     } else {
                         $title = 'No Title';
                     }
 
-                    $result_text = substr(str_replace([$title, '¶'], '', $body), 0, 350);
+                    $result_text = substr(str_replace([$title, '¶'], '', $stripedBody), 0, 350);
 
                     // Store relative path from base directory
-                    $rel_path = str_replace(__DIR__ . '/../', '', $path);
+                    $rel_path = str_replace([__DIR__ . '/../', '.php'], [''], $path);
                     $array[] = $rel_path . '##' . $title . '##' . $result_text;
                 }
             }
@@ -96,7 +97,23 @@
             // Highlight text
             $result_text = preg_replace('@(' . $keyword . ')@si', '<strong style="background-color:yellow">$1</strong>', $result_text);
 
-            $result .= '<li style="margin-bottom:20px"><a href="index.php?page=' . $filedir . '" target="_blank">' . $title . '</a><br>' . $result_text . '...</li>' . "\n";
+            $result .= '<li style="margin-bottom:20px">';
+            $result .= '<a href="' . $filedir . '" target="_blank" rel="noopener noreferrer">' . $title . '</a>';
+
+            // Prepare breadcrumbs
+            $filedirParts = explode('/', $filedir);
+            if($filedirParts){
+                $breadcrumbs = '<br>';
+                foreach ($filedirParts as $part) {
+                    if(empty($part)){
+                        continue;
+                    }
+                    $breadcrumbs .= humanize($part) . ' / ';
+                }
+                $result .= '<i>' . trim($breadcrumbs, ' / ') . '</i>';
+            }
+
+            $result .= '<br>' . $result_text . '...</li>' . "\n";
         }
         $result .= '</ul>';
 
@@ -115,7 +132,7 @@
 
 <?php if (!$keyword || !$found): ?>
     <div class="search-container-page col-lg-4 offset-lg-4">
-        <p>Enter text or keyword to search</p>
+        <p class="mb-1">Enter text or keyword to search</p>
         <form action="<?= create_href('search', 'index')?>" method="get">
             <div class="input-group mb-3">
                 <input type="text" name="s" maxlength="100" class="form-control" placeholder="Search..." aria-label="Search" autofocus>

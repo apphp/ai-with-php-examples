@@ -336,6 +336,9 @@
         margin-right: 5px;
         border-radius: 50%;
     }
+    .validation-error-text {
+        border-color: red;
+    }
     @media (max-width: 992px) {
         .column-layout {
             flex-direction: column;
@@ -752,6 +755,8 @@
             running = false;
         }
 
+        removeAllValidationErrors();
+
         // Reset UI
         startBtn.textContent = 'Start Simulation';
         startBtn.disabled = false;
@@ -781,10 +786,128 @@
         addLogEntry('Simulation paused.', false);
     }
 
+    // Function to validate all number input fields
+    function validateAllNumberInputs() {
+        // Get all number input fields with a more reliable selector
+        const numberInputs = document.querySelectorAll('input[type="number"]');
+
+        let isValid = true;
+        let firstInvalidInput = null;
+
+        // Check each input field
+        for (const input of numberInputs) {
+            // Skip if input doesn't exist
+            if (!input) continue;
+
+            // Get validation attributes
+            const value = input.value.trim();
+            const numValue = parseFloat(value);
+            const min = parseFloat(input.getAttribute('min'));
+            const max = parseFloat(input.getAttribute('max'));
+            const step = parseFloat(input.getAttribute('step') || '1');
+            const name = input.getAttribute('id') || 'This field';
+
+            // Reset previous error styling
+            input.style.borderColor = '';
+
+            // Check for empty value
+            if (value === '' || isNaN(numValue)) {
+                showError(input, `${name} must have a numeric value`);
+                isValid = false;
+                firstInvalidInput = firstInvalidInput || input;
+                continue;
+            }
+
+            // Check min value if specified
+            if (!isNaN(min) && numValue < min) {
+                showError(input, `${name} must be at least ${min}`);
+                isValid = false;
+                firstInvalidInput = firstInvalidInput || input;
+                continue;
+            }
+
+            // Check max value if specified
+            if (!isNaN(max) && numValue > max) {
+                showError(input, `${name} must be at most ${max}`);
+                isValid = false;
+                firstInvalidInput = firstInvalidInput || input;
+                continue;
+            }
+
+            // Improved step validation with better floating point handling
+            if (!isNaN(step) && step > 0) {
+                const baseline = !isNaN(min) ? min : 0;
+                const diff = Math.abs(numValue - baseline);
+                const remainder = diff / step;
+                const roundedRemainder = Math.round(remainder);
+
+                if (Math.abs(remainder - roundedRemainder) > 0.000001) {
+                    showError(input, `${name} must be in increments of ${step} from ${baseline}`);
+                    isValid = false;
+                    firstInvalidInput = firstInvalidInput || input;
+                }
+            }
+        }
+
+        // Focus on the first invalid input if any
+        if (firstInvalidInput) {
+            firstInvalidInput.focus();
+        }
+
+        return isValid;
+    }
+
+    // Function to show error for an input
+    function showError(input, message) {
+        // Add red border to highlight the error
+        input.classList.add('validation-error-field');
+
+        // Create or update error message
+        let errorElement = document.getElementById(`${input.id}-error`);
+        if (!errorElement) {
+            errorElement = document.createElement('div');
+            errorElement.id = `${input.id}-error`;
+            errorElement.style.color = 'red';
+            errorElement.classList.add('validation-error-text');
+            errorElement.style.fontSize = '12px';
+            errorElement.style.marginTop = '5px';
+            input.parentNode.appendChild(errorElement);
+        }
+
+        errorElement.textContent = message;
+
+        // Remove error message after 5 seconds
+        setTimeout(() => {
+            if (errorElement.parentNode) {
+                errorElement.parentNode.removeChild(errorElement);
+            }
+            input.style.borderColor = '';
+        }, 5000);
+    }
+
+    // Function to remove all validation error elements
+    function removeAllValidationErrors() {
+        const errorElements = document.querySelectorAll('.validation-error-text');
+        errorElements.forEach(element => {
+            element.parentNode.removeChild(element);
+        });
+
+        const elements = document.querySelectorAll('.validation-error-text');
+        elements.forEach(element => {
+            element.classList.remove('validation-error-text');
+        });
+    }
+
     // Run the simulation
-    function runSimulation() {
+    function runSimulation(event) {
         // Prevent multiple runs
         if (running) return;
+
+        // Validate all number inputs before starting simulation
+        if (!validateAllNumberInputs()) {
+            event.preventDefault();
+            return false;
+        }
 
         // Set running state
         running = true;

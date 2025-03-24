@@ -23,6 +23,13 @@
         header('location: ' . APP_URL);
         exit;
     }
+
+    // Title
+    if ($page === 'index') {
+         $title = humanize($subSection) . ' in ' . humanize($section);
+    } else {
+        $title = humanize($page) . ' in ' . humanize($subSection) . ' of ' . humanize($section);
+    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,7 +37,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Artificial Intelligence with PHP</title>
+    <title><?=$title?> | AI with PHP</title>
     <link rel="icon" type="image/webp" href="<?=APP_URL?>favicon.webp">
 
     <link href="<?=APP_URL?>assets/dist/css/bootstrap.min.css" rel="stylesheet">

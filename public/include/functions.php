@@ -31,6 +31,7 @@ function ddd($data = []): void {
 function humanize($data) {
     $data = str_replace(['-', '_'], ' ', $data);
     $data = ucwords($data);
+    $data = str_ireplace(['Php', 'Llm'], ['PHP', 'LLM'], $data);
     return $data;
 }
 

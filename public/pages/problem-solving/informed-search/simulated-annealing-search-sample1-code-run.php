@@ -23,7 +23,7 @@ verify_fields($stopTemperature, $roundedArray, 0.1);
 ob_start();
 //////////////////////////////
 
-include('simulated-annealing-search-code-usage.php');
+include('simulated-annealing-search-sample1-code-usage.php');
 
 //////////////////////////////
 $result = ob_get_clean();
@@ -40,7 +40,7 @@ $memoryEnd = memory_get_usage();
     <h2 class="h4">Simulated Annealing Search</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?= create_href('problem-solving', 'informed-search', 'simulated-annealing-search') ?>" class="btn btn-sm btn-outline-primary">Show
+            <a href="<?= create_href('problem-solving', 'informed-search', 'simulated-annealing-search-sample1') ?>" class="btn btn-sm btn-outline-primary">Show
                 Code</a>
         </div>
     </div>
@@ -57,7 +57,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/simulated-annealing-search-code-usage.php'); ?>
+    <?= create_example_of_use_links(__DIR__ . '/simulated-annealing-search-sample1-code-usage.php'); ?>
 </div>
 
 

@@ -28,7 +28,10 @@ $menu = [
                     'iterative-deepening-a-search', 'iterative-deepening-a-search-code-run',
                     'beam-search', 'beam-search-code-run',
                     'hill-climbing-search', 'hill-climbing-search-code-run',
-                    'simulated-annealing-search', 'simulated-annealing-search-code-run', 'simulated-annealing-search-code-example-1-run', 'simulated-annealing-search-code-example-2-run',
+                    'simulated-annealing-search',
+                    'simulated-annealing-search-sample1', 'simulated-annealing-search-sample1-code-run',
+                    'simulated-annealing-search-sample2', 'simulated-annealing-search-sample2-code-run',
+                    'simulated-annealing-search-sample3', 'simulated-annealing-search-sample3-code-run',
                 ]],
                 ['section' => 'problem-solving', 'subSection' => 'practical-applications', 'page' => 'index', 'title' => 'Practical Applications', 'permissions' => [
                     'index',

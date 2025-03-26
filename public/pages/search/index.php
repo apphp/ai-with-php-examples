@@ -1,4 +1,6 @@
 <?php
+    const MAX_SEARCH_RESULTS = 25;
+
     /**
      * Returns formatted microtime
      * @return float
@@ -37,12 +39,16 @@
                 continue;
             }
 
+            if (count($array) >= MAX_SEARCH_RESULTS) {
+                return false;
+            }
+
             // Only process PHP files
             if (preg_match('/\.php/i', $file)) {
                 $data = file_get_contents($path);
                 $stripedBody = strip_tags($data);
 
-                if (preg_match('/' . $keyword . '/i', $stripedBody)) {
+                if (preg_match('/' . preg_quote($keyword) . '/i', $stripedBody)) {
                     if (preg_match('/<h2(.*)>(.*)<\/h2>/s', $data, $m)) {
                         $title = $m[2] ?? 'No Title';
                     } elseif (preg_match('/<h1(.*)>(.*)<\/h1>/s', $data, $m)) {
@@ -51,11 +57,11 @@
                         $title = 'No Title';
                     }
 
-                    $result_text = substr(str_replace([$title, '¶'], '', $stripedBody), 0, 350);
+                    $resultText = substr(str_replace([$title, '¶'], '', $stripedBody), 0, 500);
 
                     // Store relative path from base directory
                     $rel_path = str_replace([__DIR__ . '/../', '.php'], [''], $path);
-                    $array[] = $rel_path . '##' . $title . '##' . $result_text;
+                    $array[] = $rel_path . '##' . $title . '##' . $resultText;
                 }
             }
         }
@@ -65,7 +71,7 @@
     }
 
     $array = [];
-    $keyword = isset($_GET['s']) ? trim($_GET['s']) : '';
+    $keyword = isset($_GET['s']) && is_string($_GET['s']) ? trim($_GET['s']) : '';
     $keyword = str_ireplace(['\\', ':', '../', '%00'], '', $keyword);
     $keyword = str_ireplace(['(', ')', '[', ']'], ['\(', '\)', '\[', '\]'], $keyword);
 
@@ -92,10 +98,10 @@
 
         $result .= '<ul class="search-result">';
         foreach ($array as $value) {
-            [$filedir, $title, $result_text] = explode('##', $value, 3);
+            [$filedir, $title, $resultText] = explode('##', $value, 3);
 
             // Highlight text
-            $result_text = preg_replace('@(' . $keyword . ')@si', '<strong style="background-color:yellow">$1</strong>', $result_text);
+            $resultText = preg_replace('@(' . $keyword . ')@si', '<strong style="background-color:yellow">$1</strong>', $resultText);
 
             $result .= '<li style="margin-bottom:20px">';
             $result .= '<a href="' . $filedir . '" target="_blank" rel="noopener noreferrer">' . $title . '</a>';
@@ -113,7 +119,7 @@
                 $result .= '<i>' . trim($breadcrumbs, ' / ') . '</i>';
             }
 
-            $result .= '<br>' . $result_text . '...</li>' . "\n";
+            $result .= '<br>' . $resultText . '...</li>' . "\n";
         }
         $result .= '</ul>';
 

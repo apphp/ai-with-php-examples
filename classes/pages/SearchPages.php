@@ -241,7 +241,7 @@ class SearchPages {
                 [$filedir, $title, $resultText] = explode('##', $value, 3);
 
                 // Highlight text
-                $resultText = preg_replace('@(' . $this->keyword . ')@si', '<strong style="background-color:yellow">$1</strong>', $resultText);
+                $resultText = preg_replace('@(' . $this->keyword . ')@si', '<strong class="bg-yellow">$1</strong>', $resultText);
 
                 $result .= '<li style="margin-bottom:20px">';
                 $result .= '<a href="' . $filedir . '" target="_blank" rel="noopener noreferrer">' . $title . '</a>';

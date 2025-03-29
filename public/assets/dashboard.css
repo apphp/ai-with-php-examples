@@ -50,6 +50,10 @@ code#code code {
     background-color: #fafafa;
 }
 
+.bg-yellow {
+    background-color: yellow;
+}
+
 /*
  * Sidebar
  */

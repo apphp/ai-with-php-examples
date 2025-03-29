@@ -77,7 +77,7 @@ $memoryEnd = memory_get_usage();
                 <div>
                     <b>Result Format:</b>
                 </div>
-                <form class="mt-2" action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'informed-search', 'simulated-annealing-search-code-run') : 'index.php'; ?>" type="GET">
+                <form class="mt-2" action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'informed-search', 'simulated-annealing-search-sample1-code-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'informed-search', 'simulated-annealing-search-code-run') : ''; ?>
                     <?= create_form_features($coolingRateOptions, [$coolingRate], fieldName: 'coolingRate', type: 'number', step: 0.01, precisionCompare: true, class: 'w-20'); ?>
                     <?= create_form_features($stopTemperatureOptions, [$stopTemperature], fieldName: 'stopTemperature', type: 'number', step: 0.1, precisionCompare: true, class: 'w-20', style: 'width:55px;'); ?>

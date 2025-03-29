@@ -13,7 +13,12 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(__DIR__ . '/simulated-annealing-search-sample3-code-js.php', title: 'Example of class <code>JS Sample 3</code>', opened: true); ?>
+    <?= create_example_of_use_links(__DIR__ . '/simulated-annealing-search-sample3-code-js.php',
+        title: 'Example of class <code>JS Sample 3</code>',
+        opened: true,
+        language: 'js');
+    ?>
 </div>
 
-
+<!-- Initialize it -->
+<script>hljs.highlightAll();</script>

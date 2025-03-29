@@ -128,7 +128,14 @@ function create_run_code_button(
     return $output;
 }
 
-function create_example_of_use_links(string $datasetFile = '', string $title = 'Example of use', bool $opened = false): string {
+/**
+ * @param string $datasetFile
+ * @param string $title
+ * @param bool $opened
+ * @param string $language      php|js
+ * @return string
+ */
+function create_example_of_use_links(string $datasetFile = '', string $title = 'Example of use', bool $opened = false, string $language = 'php'): string {
 
     if ($opened) {
         $output = ($title ? '<p>' . $title . ':</p>' : '') . '
@@ -136,10 +143,13 @@ function create_example_of_use_links(string $datasetFile = '', string $title = '
             <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
             Copy
             </button>&nbsp;
-        </div>
-        <div class="code-wrapper">
-            <code id="code">' . highlight_file($datasetFile, true) . '</code>
         </div>';
+
+        if($language === 'js') {
+            $output .= '<div class="code-wrapper p-0"><pre><code id="code" class="language-javascript">' . htmlentities(file_get_contents($datasetFile)) . '</code></pre class=""></div>';
+        } else {
+            $output .= '<div class="code-wrapper"><code id="code">' . highlight_file($datasetFile, true) . '</code></div>';
+        }
     } else {
         $output = '
         <p class="btn btn-link px-0 py-0" id="toggleExampleOfUse" data-bs-toggle="collapse" href="#collapseExampleOfUse" role="button" aria-expanded="false" aria-controls="collapseExampleOfUse" title="Click to expand">

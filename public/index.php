@@ -42,6 +42,7 @@
 
     <link href="<?=APP_URL?>assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?=APP_URL?>assets/dist/css/dark-mode.css" rel="stylesheet">
+    <link href="<?=APP_URL?>assets/dist/css/highlight/default.min.css" rel="stylesheet">
     <link href="<?=APP_URL?>assets/dashboard.css" rel="stylesheet">
     <link href="<?=APP_URL?>assets/dist/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
 
@@ -50,6 +51,7 @@
     <script src="<?=APP_URL?>assets/dist/js/chartjs/regression.min.js"></script>
     <script src="<?=APP_URL?>assets/dist/js/plotly/plotly-latest.min.js"></script>
     <script src="<?=APP_URL?>assets/dist/js/mermaid/mermaid.min.js"></script>
+    <script src="<?=APP_URL?>assets/dist/js/highlight/highlight.min.js"></script>
     <script>
         window.MathJax = {
             tex: {
@@ -88,7 +90,7 @@
 
     <div class="ms-auto"></div>
 
-    <div class="search-container col-12 col-sm-4 col-md-3 mt-1 mt-sm-0 mb-sm-0 me-5">
+    <div class="search-container col-12 col-sm-4 col-md-3 col-lg-2 mt-1 mt-sm-0 mb-sm-0 me-5">
         <form action="<?= create_href('search', 'index')?>" method="get">
             <input type="text" name="s" maxlength="100" class="form-control" placeholder="Search..." aria-label="Search">
         </form>

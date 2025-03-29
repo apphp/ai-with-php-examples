@@ -81,9 +81,14 @@
   background-color: #343434;
   color: #fff;
 }
-[data-theme="dark"] code pre code[style="color: #000000"]{
-  color: #a9a9a9 !important;
+[data-theme="dark"] code.language-javascript.hljs {
+    background-color: #343434;
+    color: #fff;
 }
+/* FIX colors for JS highlighter: */
+[data-theme="dark"] code.language-javascript.hljs {color: #cccccc !important;}
+[data-theme="dark"] code.language-javascript.hljs .hljs-keyword{color: #3a80d2ba !important;}
+
 /* NEW highlight method */
 /* reserved words */
 [data-theme="dark"] code pre span[style="color: #0000BB"]{

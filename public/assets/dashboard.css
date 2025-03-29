@@ -225,6 +225,23 @@ input[type="number"] {
     background-color: #f8f9fa;
 }
 
+.code-wrapper pre code.language-javascript {
+    background-color: #f8f9fa;
+    margin: 0;
+    padding-bottom: 0;
+}
+
+/* FIX colors for JS highlighter: */
+code.hljs .hljs-keyword{color:#3a80d2 !important;}
+code.hljs .hljs-comment {color: gray !important;}
+code.hljs .hljs-variable{color:#ab5656 !important;}
+code.hljs .hljs-deletion, code.hljs .hljs-number, code.hljs .hljs-quote, code.hljs .hljs-selector-class, code.hljs .hljs-selector-id, code.hljs .hljs-string, code.hljs .hljs-template-tag, code.hljs .hljs-type {
+    color:green !important;
+}
+code.hljs .hljs-property {
+    color:#ab5656 !important;
+}
+
 code pre {
     background-color: #f8f9fa;
     padding: 10px;

@@ -52,6 +52,7 @@ You may find live demo for these examples on official website:
   - Regression-js [https://tom-alexander.github.io/regression-js/](https://tom-alexander.github.io/regression-js/)
   - React and ReactDOM [https://legacy.reactjs.org/docs/cdn-links.html](https://legacy.reactjs.org/docs/cdn-links.html)
   - Babel for JSX transformation [https://babeljs.io/](https://babeljs.io/)
+  - JavaScript syntax highlighter [https://highlightjs.org/](https://highlightjs.org/)
 
 ## The Following Examples are Available:
 - Artificial Intelligence

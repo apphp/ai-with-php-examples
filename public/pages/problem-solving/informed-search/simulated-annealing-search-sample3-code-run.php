@@ -23,30 +23,28 @@ use app\classes\Graph;
         Simulated Annealing (SA) is an optimization algorithm inspired by the annealing process in metallurgy, where materials are heated and slowly
         cooled to reach a stable state with minimal energy. It is used to find approximate solutions to optimization problems by iteratively exploring
         potential solutions and occasionally accepting worse solutions to escape local optima.
+        <br>
+        The goal in this example here is to find the minimum point of a complex function with several local minima.
+        It animates the optimization process step-by-step, showing accepted/rejected solutions, energy and temperature changes, and tracks the best-found solution. The goal is to illustrate how simulated annealing works through interactive visuals and graphs.
     </p>
 </div>
 
-<div>
-    <!--    --><?php //= create_example_of_use_links(__DIR__ . '/simulated-annealing-search-code-usage.php'); ?>
-</div>
-
-
-
 <div class="_container py-4">
-<!--    <div id="root"></div>-->
-
     <div class="row">
+        <!-- Canvas container adjustments -->
         <div class="col-md-6">
-            <div class="bg-white p-3 rounded mb-4">
+            <div class="bg-lightgray p-3 rounded mb-4">
                 <div class="mb-2 d-flex justify-content-between align-items-center">
                     <h3 class="fs-5 fw-semibold">Energy Landscape</h3>
                     <div class="small text-secondary">Step: <span id="step-counter">0 / 500</span></div>
                 </div>
 
-                <canvas
-                    id="landscape-canvas"
-                    class="border rounded"
-                ></canvas>
+                <div class="canvas-container">
+                    <canvas
+                        id="landscape-canvas"
+                        class="border rounded w-100"
+                    ></canvas>
+                </div>
 
                 <div class="row row-cols-2 row-cols-md-4 g-2 mt-2 small">
                     <div class="col">
@@ -76,18 +74,49 @@ use app\classes\Graph;
                 </div>
             </div>
 
-            <div class="bg-white p-3 mb-4">
+            <div class="bg-lightgray p-3 mb-4 time-block-wrapper">
                 <h3 class="fs-5 fw-semibold mb-2">Energy & Temperature Over Time</h3>
-                <canvas
-                    id="graph-canvas"
-                    class="border rounded"
-                ></canvas>
+
+                <div class="canvas-container">
+                    <canvas
+                        id="graph-canvas"
+                        class="border rounded w-100"
+                    ></canvas>
+                </div>
             </div>
         </div>
 
         <!-- Right panel - Controls and Info -->
         <div class="col-md-6">
-            <div class="bg-white p-3 mb-4">
+            <div class="p-3 mb-3 bg-lightgray rounded">
+                <h3 class="fs-5 fw-semibold mb-3">Algorithm Settings</h3>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="initial-temp" class="form-label small fw-medium">Initial Temp(°)</label>
+                        <input type="number" class="form-control form-control-sm" id="initial-temp" value="1000" min="1" max="5000">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="cooling-rate" class="form-label small fw-medium">Cooling Rate</label>
+                        <input type="number" class="form-control form-control-sm" id="cooling-rate" value="0.99" min="0.8" max="0.999" step="0.001">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="stop-temp" class="form-label small fw-medium">Stop Temp(°)</label>
+                        <input type="number" class="form-control form-control-sm" id="stop-temp" value="0.1" min="0.01" max="10" step="0.01">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="initial-solution" class="form-label small fw-medium">Initial Solution</label>
+                        <select class="form-select form-select-sm" id="initial-solution">
+                            <option value="random" selected>Random</option>
+                            <option value="leftmost">Leftmost</option>
+                            <option value="rightmost">Rightmost</option>
+                            <option value="center">Center</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3 mb-4 bg-lightgray rounded">
                 <h3 class="fs-5 fw-semibold mb-2">Algorithm Status</h3>
 
                 <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
@@ -123,12 +152,12 @@ use app\classes\Graph;
                     </div>
                 </div>
 
-                <div class="bg-info bg-opacity-10 p-3 rounded border border-info border-opacity-25">
+                <div class="bg-info bg-opacity-10 p-3 border border-info border-opacity-25">
                     <p id="message-display" class="small mb-0">Click "Start" to begin the simulation</p>
                 </div>
             </div>
 
-            <div class="mb-4 d-flex flex-wrap gap-2 align-items-center">
+            <div class="p-3 bg-lightgray rounded mb-4 d-flex flex-wrap gap-2 align-items-center">
                 <button
                     id="start-pause-btn"
                     class="btn btn-success"
@@ -162,60 +191,55 @@ use app\classes\Graph;
                 </div>
             </div>
 
-            <div class="bg-light bg-opacity-75 p-3 rounded border mb-4">
-                <h3 class="fs-5 fw-semibold mb-2">How Simulated Annealing Works</h3>
-                <div class="small">
-                    <p>
-                        <strong>1. High Temperature Phase:</strong> The algorithm explores widely,
-                        accepting many worse solutions to escape local minima.
-                    </p>
-                    <p>
-                        <strong>2. Cooling Process:</strong> As temperature decreases, the algorithm becomes
-                        more selective about which solutions to accept.
-                    </p>
-                    <p>
-                        <strong>3. Convergence:</strong> At low temperatures, the algorithm converges to
-                        a near-optimal solution, making only small adjustments.
-                    </p>
-                    <p class="mb-0">
-                        <strong>Key Insight:</strong> The acceptance probability (P = e<sup>-ΔE/T</sup>) allows the
-                        algorithm to escape local minima while eventually settling in a good solution.
-                    </p>
-                </div>
+            <div class="p-3 bg-lightgray rounded">
+                <h3 class="fs-5 fw-semibold mb-2">Iteration Log</h3>
+                <div id="algorithm-log" class="algorithm-log p-2 rounded"></div>
             </div>
-
-            <div id="algorithm-log" class="algorithm-log p-3 rounded shadow-inner"></div>
         </div>
     </div>
 </div>
 
 <style>
+    .canvas-container {
+        width: 100%;
+        position: relative;
+    }
+
+    /* Base styling for the algorithm interface */
     .algorithm-log {
         max-height: 250px;
         overflow-y: auto;
         background-color: #f8f9fa;
         border: 1px solid #dee2e6;
         font-family: monospace;
-        font-size: 0.8rem;
+        font-size: 12px;
     }
 
     .log-entry-accepted {
-        color: #28a745;
+        color: rgb(33, 37, 41);
         margin-bottom: 2px;
+        background-color: rgba(0, 255, 0, 0.1);
+        margin-bottom: 3px;
+        padding: 3px;
     }
 
     .log-entry-rejected {
-        color: #dc3545;
+        color: rgb(33, 37, 41);
         margin-bottom: 2px;
+        background-color: rgba(255, 115, 0, 0.1);
+        margin-bottom: 3px;
+        padding: 3px;
     }
 
     .log-entry-info {
         color: #0d6efd;
         margin-bottom: 2px;
+        padding: 3px;
     }
 
-    .shadow-inner {
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+    .log-entry-best {
+        background-color: rgba(0, 255, 0, 0.2) !important;
+        font-weight: bold;
     }
 
     .legend-item {
@@ -229,6 +253,25 @@ use app\classes\Graph;
         height: 12px;
         margin-right: 6px;
         border-radius: 2px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .canvas-container {
+            min-height: 200px;
+        }
+
+        #landscape-canvas {
+            min-height: 200px;
+        }
+
+        #graph-canvas {
+            min-height: 100px;
+        }
+
+        .time-block-wrapper {
+            padding-bottom: 0px !important;
+        }
     }
 </style>
 

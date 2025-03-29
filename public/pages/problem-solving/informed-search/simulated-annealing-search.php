@@ -14,10 +14,32 @@
         </p>
     </div>
 
+    <div class="bg-light bg-opacity-50 p-3 rounded border mt-2 mb-4">
+        <h3 class="h6 fw-semibold mb-3">How Simulated Annealing Works</h3>
+        <div class="small">
+            <p>
+                <strong>1. High Temperature Phase:</strong> The algorithm explores widely,
+                accepting many worse solutions to escape local minima.
+            </p>
+            <p>
+                <strong>2. Cooling Process:</strong> As temperature decreases, the algorithm becomes
+                more selective about which solutions to accept.
+            </p>
+            <p>
+                <strong>3. Convergence:</strong> At low temperatures, the algorithm converges to
+                a near-optimal solution, making only small adjustments.
+            </p>
+            <p class="mb-0">
+                <strong>Key Insight:</strong> The acceptance probability ($P = e$<sup>-ΔE/T</sup>) allows the
+                algorithm to escape local minima while eventually settling in a good solution.
+            </p>
+        </div>
+    </div>
+
     <ui class="list">
         <li><a href="<?= create_href('problem-solving', 'informed-search', 'simulated-annealing-search-sample1') ?>">Sample 1</a>: &rarr; Find the minimum point of $f(x) = x²$ (with PHP)</li>
-        <li><a href="<?= create_href('problem-solving', 'informed-search', 'simulated-annealing-search-sample2') ?>">Sample 2</a>: &rarr;  Find the minimum point of $f(x) = x²$ (with JS)</li>
-        <li><a href="<?= create_href('problem-solving', 'informed-search', 'simulated-annealing-search-sample3') ?>">Sample 3</a>: &rarr; ind the minimum point of a complex function with several local minima (with JS)</li>
+        <li><a href="<?= create_href('problem-solving', 'informed-search', 'simulated-annealing-search-sample2') ?>">Sample 2</a>: &rarr; Find the minimum point of $f(x) = x²$ (with JS)</li>
+        <li><a href="<?= create_href('problem-solving', 'informed-search', 'simulated-annealing-search-sample3') ?>">Sample 3</a>: &rarr; Find the minimum point of a complex function with several local minima (with JS)</li>
     </ui>
 </div>
 

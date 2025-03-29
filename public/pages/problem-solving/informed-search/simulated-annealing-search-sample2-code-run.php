@@ -26,10 +26,6 @@
     </p>
 </div>
 
-<div>
-<!--    --><?php //= create_example_of_use_links(__DIR__ . '/simulated-annealing-search-code-usage.php'); ?>
-</div>
-
 <div class="column-layout">
     <!-- Left Column -->
     <div class="left-column">

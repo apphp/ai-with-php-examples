@@ -18,11 +18,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const messageDisplay = document.getElementById('message-display');
     const algorithmLog = document.getElementById('algorithm-log');
 
+    // New input elements
+    const initialTempInput = document.getElementById('initial-temp');
+    const coolingRateInput = document.getElementById('cooling-rate');
+    const stopTempInput = document.getElementById('stop-temp');
+    const initialSolutionSelect = document.getElementById('initial-solution');
+
     // Animation state
     let animating = false;
     let speed = 1;
     let currentStep = 0;
-    let currentTemperature = 1000;
+    let currentTemperature = parseFloat(initialTempInput.value);
     let currentEnergy = 0;
     let bestEnergy = 0;
     let currentX = 0;
@@ -32,15 +38,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let pathHistory = [];
     let animationId = null;
     let stepCounter_internal = 0;
+    let prevBestEnergy = Infinity;
 
     // Constants
     const maxSteps = 500;
-    const initialTemp = 1000;
-    const minTemp = 0.1;
-    const coolingRate = 0.99;
     const canvasWidth = 600;
     const canvasHeight = 300;
-    const graphHeight = 150;
+    const graphHeight = 175;
 
     // Energy landscape function (a complex function with multiple local minima)
     function landscape(x) {
@@ -54,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Generate a random nearby solution
     function getNeighbor(x, temp) {
         // Step size is proportional to current temperature
+        const initialTemp = parseFloat(initialTempInput.value);
         const stepSize = Math.min(Math.max(30 * (temp / initialTemp), 5), 50);
         return x + (Math.random() * 2 - 1) * stepSize;
     }
@@ -66,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Draw energy landscape
     function drawLandscape() {
+        // ... (existing drawing code unchanged)
         landscapeCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
         // Draw landscape background
@@ -172,6 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Draw graph showing temperature and energy over time
     function drawGraphs() {
+        // ... (existing graph drawing code unchanged)
         if (energyHistory.length === 0) return;
 
         graphCtx.clearRect(0, 0, canvasWidth, graphHeight);
@@ -214,6 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Scale the histories to fit the canvas
         const scaleX = canvasWidth / (maxSteps > 0 ? maxSteps : 1);
         const scaleEnergyY = (graphHeight - 20) / (energyRange > 0 ? energyRange : 1);
+        const initialTemp = parseFloat(initialTempInput.value);
         const scaleTempY = (graphHeight - 20) / initialTemp;
 
         // Draw energy history
@@ -263,7 +271,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Run a single step of the algorithm
     function runStep() {
-        if (currentStep >= maxSteps || currentTemperature <= minTemp) {
+        let stopTemp = parseFloat(stopTempInput.value);
+        if (currentStep >= maxSteps || currentTemperature <= stopTemp) {
             animating = false;
             startPauseButton.textContent = 'Start';
             startPauseButton.className = 'btn btn-success';
@@ -287,6 +296,9 @@ document.addEventListener('DOMContentLoaded', function () {
             accepted
         });
 
+        // Flag to track if this is a new best solution
+        let isNewBest = false;
+
         // Update current solution if accepted
         if (accepted) {
             currentX = boundedX;
@@ -294,12 +306,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Update best solution if better
             if (newEnergy < bestEnergy) {
+                isNewBest = true;
+                prevBestEnergy = bestEnergy;
                 bestX = boundedX;
                 bestEnergy = newEnergy;
             }
         }
 
         // Update temperature
+        const coolingRate = parseFloat(coolingRateInput.value);
         const newTemp = currentTemperature * coolingRate;
         currentTemperature = newTemp;
 
@@ -313,19 +328,28 @@ document.addEventListener('DOMContentLoaded', function () {
         // Update UI
         updateUI();
 
+        // Format iteration log entry with the requested format
+        let logEntryText = `Iteration ${currentStep}: x = ${boundedX.toFixed(4)}, f(x) = ${newEnergy.toFixed(4)}, T° = ${newTemp.toFixed(2)}, ${accepted ? 'ACCEPTED' : 'REJECTED'}${isNewBest ? ' (NEW BEST)' : ''}`;
+        if (currentStep >= maxSteps || currentTemperature <= stopTemp) {
+            logEntryText = `Simulation complete. Best solution found has energy: ${bestEnergy.toFixed(2)}`;
+        }
+
         // Update message
-        const stepMessage = `Step ${currentStep}: T°= ${newTemp.toFixed(2)}, ` +
-            `Solution ${accepted ? 'ACCEPTED' : 'REJECTED'} (probab.: ${ap.toFixed(4)})`;
-        messageDisplay.textContent = stepMessage;
+        messageDisplay.textContent = logEntryText;
 
         // Log to algorithm log
         const logEntry = document.createElement('div');
-        logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${stepMessage}`;
-        if (accepted) {
+        logEntry.textContent = logEntryText;
+
+        if (isNewBest) {
+            logEntry.className = 'log-entry-best';
+            logEntry.style.fontWeight = 'bold';
+        } else if (accepted) {
             logEntry.className = 'log-entry-accepted';
         } else {
             logEntry.className = 'log-entry-rejected';
         }
+
         algorithmLog.appendChild(logEntry);
         algorithmLog.scrollTop = algorithmLog.scrollHeight;
 
@@ -338,6 +362,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateUI() {
         stepCounter.textContent = `${currentStep} / ${maxSteps}`;
         temperatureValue.textContent = currentTemperature.toFixed(2);
+        const initialTemp = parseFloat(initialTempInput.value);
         temperatureBar.style.width = `${Math.max(0, Math.min(100, (currentTemperature / initialTemp) * 100))}%`;
         currentEnergyValue.textContent = currentEnergy.toFixed(2);
         bestEnergyValue.textContent = bestEnergy.toFixed(2);
@@ -354,7 +379,8 @@ document.addEventListener('DOMContentLoaded', function () {
             stepCounter_internal -= 1;
         }
 
-        if (animating && currentStep < maxSteps && currentTemperature > minTemp) {
+        const stopTemp = parseFloat(stopTempInput.value);
+        if (animating && currentStep < maxSteps && currentTemperature > stopTemp) {
             animationId = requestAnimationFrame(animate);
         } else {
             animating = false;
@@ -389,17 +415,37 @@ document.addEventListener('DOMContentLoaded', function () {
             cancelAnimationFrame(animationId);
         }
 
+        // Get selected starting position
+        let startX;
+        const initialSolution = initialSolutionSelect.value;
+
+        switch (initialSolution) {
+            case 'leftmost':
+                startX = 50; // Near the leftmost local minimum
+                break;
+            case 'rightmost':
+                startX = 520; // Near the rightmost (global) minimum
+                break;
+            case 'center':
+                startX = 300; // Center of the canvas
+                break;
+            case 'random':
+            default:
+                startX = Math.random() * canvasWidth;
+                break;
+        }
+
         currentStep = 0;
-        currentTemperature = initialTemp;
-        const startX = Math.random() * canvasWidth;
+        currentTemperature = parseFloat(initialTempInput.value);
         const startEnergy = landscape(startX);
 
         currentX = startX;
         currentEnergy = startEnergy;
         bestX = startX;
         bestEnergy = startEnergy;
+        prevBestEnergy = Infinity;
         energyHistory = [startEnergy];
-        tempHistory = [initialTemp];
+        tempHistory = [currentTemperature];
         pathHistory = [{x: startX, y: startEnergy, accepted: true}];
 
         messageDisplay.textContent = 'Click "Start" to begin the simulation';
@@ -422,6 +468,19 @@ document.addEventListener('DOMContentLoaded', function () {
         speed = parseFloat(this.value);
     });
 
+    // Add event listeners for the new input fields to update values when changed
+    initialTempInput.addEventListener('change', function() {
+        if (!animating) {
+            currentTemperature = parseFloat(this.value);
+            updateUI();
+        }
+    });
+
+    // Add event listeners for parameter changes to reset simulation
+    coolingRateInput.addEventListener('change', resetSimulation);
+    stopTempInput.addEventListener('change', resetSimulation);
+    initialSolutionSelect.addEventListener('change', resetSimulation);
+
     // Initialize the simulation
     function init() {
         landscapeCanvas.width = canvasWidth;
@@ -429,16 +488,38 @@ document.addEventListener('DOMContentLoaded', function () {
         graphCanvas.width = canvasWidth;
         graphCanvas.height = graphHeight;
 
-        // Set initial position
-        const startX = Math.random() * canvasWidth;
+        // Set initial values from inputs
+        currentTemperature = parseFloat(initialTempInput.value);
+
+        // Set initial position based on the selected option
+        let startX;
+        const initialSolution = initialSolutionSelect.value;
+
+        switch (initialSolution) {
+            case 'leftmost':
+                startX = 50; // Near the leftmost local minimum
+                break;
+            case 'rightmost':
+                startX = 520; // Near the rightmost (global) minimum
+                break;
+            case 'center':
+                startX = 300; // Center of the canvas
+                break;
+            case 'random':
+            default:
+                startX = Math.random() * canvasWidth;
+                break;
+        }
+
         const startEnergy = landscape(startX);
 
         currentX = startX;
         currentEnergy = startEnergy;
         bestX = startX;
         bestEnergy = startEnergy;
+        prevBestEnergy = Infinity;
         energyHistory = [startEnergy];
-        tempHistory = [initialTemp];
+        tempHistory = [currentTemperature];
         pathHistory = [{x: startX, y: startEnergy, accepted: true}];
 
         // Initialize algorithm log
@@ -454,6 +535,17 @@ document.addEventListener('DOMContentLoaded', function () {
         drawLandscape();
         drawGraphs();
     }
+
+    // Add styles for new log entry class
+    const styleElement = document.createElement('style');
+    styleElement.textContent = `
+    .log-entry-best {
+        color: #228B22;
+        font-weight: bold;
+        margin-bottom: 2px;
+    }
+`;
+    document.head.appendChild(styleElement);
 
     // Start the simulation
     init();

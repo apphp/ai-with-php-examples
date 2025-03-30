@@ -536,6 +536,62 @@ document.addEventListener('DOMContentLoaded', function () {
         drawGraphs();
     }
 
+    // Function to validate the simulation inputs
+    function validateSimulationInputs() {
+        // Get all the input elements
+        const initialTempInput = document.getElementById('initial-temp');
+        const coolingRateInput = document.getElementById('cooling-rate');
+        const stopTempInput = document.getElementById('stop-temp');
+
+        // Get values and convert to numbers
+        const initialTemp = parseFloat(initialTempInput.value);
+        const coolingRate = parseFloat(coolingRateInput.value);
+        const stopTemp = parseFloat(stopTempInput.value);
+
+        // Create an array to store error messages
+        const errors = [];
+
+        // Validate initial temperature (must be positive)
+        if (isNaN(initialTemp) || initialTemp <= 0) {
+            errors.push("Initial temperature must be a positive number");
+            initialTempInput.classList.add('is-invalid');
+        } else {
+            initialTempInput.classList.remove('is-invalid');
+        }
+
+        // Validate cooling rate (must be between 0 and 1)
+        if (isNaN(coolingRate) || coolingRate <= 0 || coolingRate >= 1) {
+            errors.push("Cooling rate must be a number between 0 and 1");
+            coolingRateInput.classList.add('is-invalid');
+        } else {
+            coolingRateInput.classList.remove('is-invalid');
+        }
+
+        // Validate stop temperature (must be positive and less than initial temp)
+        if (isNaN(stopTemp) || stopTemp < 0) {
+            errors.push("Stop temperature must be a non-negative number");
+            stopTempInput.classList.add('is-invalid');
+        } else if (stopTemp >= initialTemp) {
+            errors.push("Stop temperature must be less than initial temperature");
+            stopTempInput.classList.add('is-invalid');
+        } else {
+            stopTempInput.classList.remove('is-invalid');
+        }
+
+        // If there are errors, display them and return false
+        if (errors.length > 0) {
+            const messageDisplay = document.getElementById('message-display');
+            messageDisplay.textContent = errors[0]; // Display the first error
+            messageDisplay.style.color = 'red';
+            return false;
+        }
+
+        // If no errors, reset message display and return true
+        const messageDisplay = document.getElementById('message-display');
+        messageDisplay.style.color = '';
+        return true;
+    }
+
     // Add styles for new log entry class
     const styleElement = document.createElement('style');
     styleElement.textContent = `
@@ -549,5 +605,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Start the simulation
     init();
+
+    // Remove the original event listener (after the original code runs)
+    setTimeout(function() {
+        const startPauseButton = document.getElementById('start-pause-btn');
+
+        // Clone the button to remove all event listeners
+        const newButton = startPauseButton.cloneNode(true);
+        startPauseButton.parentNode.replaceChild(newButton, startPauseButton);
+
+        // Add new event listener with validation
+        newButton.addEventListener('click', function() {
+            if (animating) {
+                // If already animating, just stop (no validation needed)
+                animating = false;
+                this.textContent = 'Start';
+                this.className = 'btn btn-success';
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
+            } else {
+                // Validate before starting
+                if (validateSimulationInputs()) {
+                    animating = true;
+                    this.textContent = 'Pause';
+                    this.className = 'btn btn-danger';
+                    animationId = requestAnimationFrame(animate);
+                }
+                // If validation fails, do nothing (error is already displayed)
+            }
+        });
+
+        // Add input event listeners to clear error styling when user changes input
+        const inputs = [
+            document.getElementById('initial-temp'),
+            document.getElementById('cooling-rate'),
+            document.getElementById('stop-temp')
+        ];
+
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                this.classList.remove('is-invalid');
+                document.getElementById('message-display').style.color = '';
+            });
+        });
+    }, 500); // Give enough time for the original code to initialize
 });
 </script>

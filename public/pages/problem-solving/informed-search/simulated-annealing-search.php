@@ -20,12 +20,10 @@
             <p>
                 <strong>1. High Temperature Phase:</strong> The algorithm explores widely,
                 accepting many worse solutions to escape local minima.
-            </p>
-            <p>
+                <br>
                 <strong>2. Cooling Process:</strong> As temperature decreases, the algorithm becomes
                 more selective about which solutions to accept.
-            </p>
-            <p>
+                <br>
                 <strong>3. Convergence:</strong> At low temperatures, the algorithm converges to
                 a near-optimal solution, making only small adjustments.
             </p>

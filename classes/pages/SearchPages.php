@@ -14,6 +14,11 @@ class SearchPages {
     private const MAX_DEPTH = 5;
 
     /**
+     * Maximum number of files to process
+     */
+    private const MAX_PROCESSED_FILES = 500;
+
+    /**
      * Base directory to search in
      * @var string
      */
@@ -65,6 +70,11 @@ class SearchPages {
     private string $errorMessage = '';
 
     /**
+     * @var int
+     */
+    private int $processedFiles = 0;
+
+    /**
      * Constructor
      *
      * @param string|null $baseDir Base directory to search in
@@ -101,6 +111,8 @@ class SearchPages {
     private function sanitizeKeyword(string $keyword): string {
         $keyword = is_string($keyword) ? trim($keyword) : '';
         $keyword = str_replace(['\\', ':', '../', "\0", chr(0)], '', $keyword);
+        $keyword = preg_replace('/[^\p{L}\p{N}\s]/u', '', $keyword);
+        $keyword = preg_quote($keyword, '/');
         $keyword = htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8');
         $keyword = str_ireplace(['(', ')', '[', ']'], ['\(', '\)', '\[', '\]'], $keyword);
 
@@ -156,7 +168,7 @@ class SearchPages {
                 continue;
             }
 
-            if (count($this->results) >= self::MAX_SEARCH_RESULTS) {
+            if (count($this->results) >= self::MAX_SEARCH_RESULTS || $this->processedFiles >= self::MAX_PROCESSED_FILES) {
                 return;
             }
 
@@ -184,6 +196,7 @@ class SearchPages {
                     // Store relative path from base directory
                     $rel_path = str_replace([$this->baseDir, '.php'], [''], $path);
                     $this->results[] = $rel_path . '##' . $title . '##' . $resultText;
+                    $this->processedFiles++;
                 }
             }
         }

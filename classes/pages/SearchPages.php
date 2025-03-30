@@ -95,7 +95,7 @@ class SearchPages {
      */
     private function sanitizeKeyword(string $keyword): string {
         $keyword = is_string($keyword) ? trim($keyword) : '';
-        $keyword = str_ireplace(['\\', ':', '../', '%00'], '', $keyword);
+        $keyword = str_replace(['\\', ':', '../', "\0"], '', $keyword);
         $keyword = str_ireplace(['(', ')', '[', ']'], ['\(', '\)', '\[', '\]'], $keyword);
 
         // Remove unexpected characters if length more than 255 symbols
@@ -120,12 +120,14 @@ class SearchPages {
         $realPath = realpath($dir);
 
         // Limit access to not real paths
-        if (!$realBase || !$realPath || strpos($realPath, $realBase) !== 0) {
+        if (!$realBase || !$realPath || strpos($realPath . DIRECTORY_SEPARATOR, $realBase . DIRECTORY_SEPARATOR) !== 0) {
             return;
         }
 
         // Limit recursive search deepth
-        if ($depth > 5) return;
+        if ($depth > 5) {
+            return;
+        }
 
         if ($this->keyword == '' || strlen($this->keyword) < 3 || in_array($this->keyword, $this->ignoredWords)) {
             return;
@@ -137,7 +139,7 @@ class SearchPages {
 
         while (false !== ($file = readdir($handle))) {
 
-            if ($file == '.' || $file == '..' || strstr($file, '-js.php')) continue;
+            if ($file == '.' || $file == '..' || strpos($file, '-js.php') !== false) continue;
 
             $path = $dir . '/' . $file;
 
@@ -189,9 +191,14 @@ class SearchPages {
      * @return string
      */
     private function readFileContents($path): string {
+        if (!file_exists($path)) {
+            return '';
+        }
+
         if (!is_readable($path)) {
             return '';
         }
+
         return file_get_contents($path);
     }
 
@@ -254,6 +261,10 @@ class SearchPages {
      * @return string HTML results
      */
     public function getFormattedResults($humanizeFunction = null): string {
+        if (!is_string($this->keyword)) {
+            $this->keyword = '';
+        }
+
         $result = '';
         $resultnum = $this->getResultCount();
 

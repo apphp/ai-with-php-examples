@@ -115,7 +115,18 @@ class SearchPages {
      * @param string $dir Directory to search in
      * @return void
      */
-    private function listFiles($dir): void {
+    private function listFiles($dir, $depth = 0): void {
+        $realBase = realpath($this->baseDir);
+        $realPath = realpath($dir);
+
+        // Limit access to not real paths
+        if (!$realBase || !$realPath || strpos($realPath, $realBase) !== 0) {
+            return;
+        }
+
+        // Limit recursive search deepth
+        if ($depth > 5) return;
+
         if ($this->keyword == '' || strlen($this->keyword) < 3 || in_array($this->keyword, $this->ignoredWords)) {
             return;
         }
@@ -132,7 +143,7 @@ class SearchPages {
 
             // If it's a directory, recursively search it
             if (is_dir($path)) {
-                $this->listFiles($path);
+                $this->listFiles($path, $depth + 1);
                 continue;
             }
 
@@ -142,7 +153,12 @@ class SearchPages {
 
             // Only process PHP files
             if (preg_match('/\.php/i', $file)) {
-                $data = file_get_contents($path);
+                $data = $this->readFileContents($path);
+
+                if ($data === null) {
+                    continue; // Skip unreadable files
+                }
+
                 $stripedBody = strip_tags($data);
 
                 if (preg_match('/' . preg_quote($this->keyword) . '/i', $stripedBody)) {
@@ -164,6 +180,19 @@ class SearchPages {
         }
 
         closedir($handle);
+    }
+
+    /**
+     * Read file contents with error handling
+     *
+     * @param string $path
+     * @return string
+     */
+    private function readFileContents($path): string {
+        if (!is_readable($path)) {
+            return '';
+        }
+        return file_get_contents($path);
     }
 
     /**
@@ -231,8 +260,9 @@ class SearchPages {
         if (!empty($this->results)) {
             $this->isFound = true;
 
-            $keyword_display = htmlentities(str_ireplace(['\(', '\)', '\[', '\]'], ['(', ')', '[', ']'], $this->keyword));
-            $result .= '<br>Found ' . $resultnum . ' results for: <i>' . $keyword_display . '</i>';
+            $safeKeyword = htmlspecialchars($this->keyword, ENT_QUOTES, 'UTF-8');
+            $keywordDisplay = htmlentities(str_ireplace(['\(', '\)', '\[', '\]'], ['(', ')', '[', ']'], $safeKeyword));
+            $result .= '<br>Found ' . $resultnum . ' results for: <i>' . $keywordDisplay . '</i>';
             $result .= '<br>Total running time: ' . $this->getExecutionTime() . ' sec.';
             $result .= '<br><br>';
 
@@ -241,10 +271,10 @@ class SearchPages {
                 [$filedir, $title, $resultText] = explode('##', $value, 3);
 
                 // Highlight text
-                $resultText = preg_replace('@(' . $this->keyword . ')@si', '<strong class="bg-yellow">$1</strong>', $resultText);
+                $resultText = preg_replace('@(' . preg_quote($safeKeyword, '/') . ')@si', '<strong class="bg-yellow">$1</strong>', htmlspecialchars($resultText, ENT_QUOTES, 'UTF-8'));
 
                 $result .= '<li style="margin-bottom:20px">';
-                $result .= '<a href="' . $filedir . '" target="_blank" rel="noopener noreferrer">' . $title . '</a>';
+                $result .= '<a href="' . htmlspecialchars($filedir, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($title, ENT_QUOTES, 'UTF-8') . '</a>';
 
                 // Prepare breadcrumbs
                 $filedirParts = explode('/', $filedir);
@@ -255,7 +285,7 @@ class SearchPages {
                             continue;
                         }
                         $humanizedPart = is_callable($humanizeFunction) ? call_user_func($humanizeFunction, $part) : $part;
-                        $breadcrumbs .= $humanizedPart . ' / ';
+                        $breadcrumbs .= htmlspecialchars($humanizedPart, ENT_QUOTES, 'UTF-8') . ' / ';
                     }
                     $result .= '<i>' . trim($breadcrumbs, ' / ') . '</i>';
                 }
@@ -266,10 +296,9 @@ class SearchPages {
         } elseif ($this->isError) {
             $result .= '<br><i class="text-danger">' . $this->errorMessage . '</i>';
         } elseif ($this->keyword) {
-            $result .= '<br>No results found for: <i>' . htmlspecialchars($this->keyword) . '</i>';
+            $result .= '<br>No results found for: <i>' . htmlspecialchars($this->keyword, ENT_QUOTES, 'UTF-8') . '</i>';
         }
 
         return $result;
     }
 }
-

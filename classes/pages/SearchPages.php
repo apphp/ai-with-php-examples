@@ -16,7 +16,7 @@ class SearchPages {
     /**
      * Maximum number of files to process
      */
-    private const MAX_PROCESSED_FILES = 500;
+    private const MAX_PROCESSED_FILES = 1000;
 
     /**
      * Base directory to search in

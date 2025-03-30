@@ -6,7 +6,12 @@ class SearchPages {
     /**
      * Maximum number of search results to return
      */
-    const MAX_SEARCH_RESULTS = 25;
+    private const MAX_SEARCH_RESULTS = 25;
+
+    /**
+     * Maximum recursion depth
+     */
+    private const MAX_DEPTH = 5;
 
     /**
      * Base directory to search in
@@ -96,6 +101,7 @@ class SearchPages {
     private function sanitizeKeyword(string $keyword): string {
         $keyword = is_string($keyword) ? trim($keyword) : '';
         $keyword = str_replace(['\\', ':', '../', "\0"], '', $keyword);
+        $keyword = htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8');
         $keyword = str_ireplace(['(', ')', '[', ']'], ['\(', '\)', '\[', '\]'], $keyword);
 
         // Remove unexpected characters if length more than 255 symbols
@@ -113,6 +119,7 @@ class SearchPages {
      * Recursively searches for files in directory and subdirectories
      *
      * @param string $dir Directory to search in
+     * @param int $depth
      * @return void
      */
     private function listFiles($dir, $depth = 0): void {
@@ -120,12 +127,12 @@ class SearchPages {
         $realPath = realpath($dir);
 
         // Limit access to not real paths
-        if (!$realBase || !$realPath || strpos($realPath . DIRECTORY_SEPARATOR, $realBase . DIRECTORY_SEPARATOR) !== 0) {
+        if (!$realPath || strpos($realPath . DIRECTORY_SEPARATOR, $realBase . DIRECTORY_SEPARATOR) !== 0) {
             return;
         }
 
-        // Limit recursive search deepth
-        if ($depth > 5) {
+        // Limit recursive search depth
+        if ($depth > self::MAX_DEPTH) {
             return;
         }
 
@@ -139,7 +146,7 @@ class SearchPages {
 
         while (false !== ($file = readdir($handle))) {
 
-            if ($file == '.' || $file == '..' || strpos($file, '-js.php') !== false) continue;
+            if ($file == '.' || $file == '..' || preg_match('/-js\.php$/', $file)) continue;
 
             $path = $dir . '/' . $file;
 
@@ -188,15 +195,11 @@ class SearchPages {
      * Read file contents with error handling
      *
      * @param string $path
-     * @return string
+     * @return string|null
      */
-    private function readFileContents($path): string {
-        if (!file_exists($path)) {
-            return '';
-        }
-
-        if (!is_readable($path)) {
-            return '';
+    private function readFileContents($path): ?string {
+        if (!file_exists($path) || !is_readable($path)) {
+            return null;
         }
 
         return file_get_contents($path);

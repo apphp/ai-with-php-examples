@@ -100,7 +100,7 @@ class SearchPages {
      */
     private function sanitizeKeyword(string $keyword): string {
         $keyword = is_string($keyword) ? trim($keyword) : '';
-        $keyword = str_replace(['\\', ':', '../', "\0"], '', $keyword);
+        $keyword = str_replace(['\\', ':', '../', "\0", chr(0)], '', $keyword);
         $keyword = htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8');
         $keyword = str_ireplace(['(', ')', '[', ']'], ['\(', '\)', '\[', '\]'], $keyword);
 
@@ -127,7 +127,7 @@ class SearchPages {
         $realPath = realpath($dir);
 
         // Limit access to not real paths
-        if (!$realPath || strpos($realPath . DIRECTORY_SEPARATOR, $realBase . DIRECTORY_SEPARATOR) !== 0) {
+        if (empty($realBase) || !$realPath || strpos($realPath . DIRECTORY_SEPARATOR, $realBase . DIRECTORY_SEPARATOR) !== 0) {
             return;
         }
 
@@ -198,7 +198,7 @@ class SearchPages {
      * @return string|null
      */
     private function readFileContents($path): ?string {
-        if (!file_exists($path) || !is_readable($path)) {
+        if (!file_exists($path) || !is_readable($path) || strpos(realpath($path), realpath($this->baseDir)) !== 0) {
             return null;
         }
 

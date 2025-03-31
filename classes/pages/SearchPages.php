@@ -144,7 +144,7 @@ class SearchPages {
      */
     private function listFiles($dir, $depth = 0): void {
         $realBase = realpath($this->baseDir);
-        $realPath = realpath($dir);
+        $realPath = is_dir($dir) ? realpath($dir) : false;
 
         // Limit access to not real paths
         if (empty($realBase) || !$realPath || strpos($realPath . DIRECTORY_SEPARATOR, $realBase . DIRECTORY_SEPARATOR) !== 0) {
@@ -243,6 +243,12 @@ class SearchPages {
      * @return SearchPages Returns self for method chaining
      */
     public function search(string $keyword): self {
+        if (empty(trim($keyword))) {
+            $this->isError = true;
+            $this->errorMessage = 'Search keyword cannot be empty.';
+            return $this;
+        }
+
         if (strlen($keyword) > 100){
             $this->keyword = '';
             $this->isFound = false;
@@ -341,7 +347,7 @@ class SearchPages {
         } elseif ($this->isError) {
             $result .= '<br><i class="text-danger">' . $this->errorMessage . '</i>';
         } elseif ($this->keyword) {
-            $result .= '<br>No results found for: <i>' . htmlspecialchars($this->keyword, ENT_QUOTES, 'UTF-8') . '</i>';
+            $result .= '<br>No results found for: <i>' . htmlspecialchars(str_ireplace(['&#39;', '&#34;'],["'", '"'], $this->keyword), ENT_QUOTES, 'UTF-8') . '</i>';
         }
 
         return $result;

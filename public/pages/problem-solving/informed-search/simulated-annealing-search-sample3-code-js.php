@@ -453,6 +453,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Clear algorithm log
         algorithmLog.innerHTML = '<div class="log-entry-info">Simulation reset. Ready to start.</div>';
 
+        removeAllValidationErrors();
+
         // Update UI
         updateUI();
 
@@ -561,12 +563,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const initialSolution = initialSolutionInput.value;
         const speedSelect = speedSelectInput.value;
 
-        // Create an array to store error messages
-        const errors = [];
+        let hasError = false;
 
         // Validate initial temperature (must be positive)
         if (isNaN(initialTemp) || initialTemp < initialTempMin || initialTemp > initialTempMax) {
-            errors.push(`Initial temperature must be a positive number between ${initialTempMin} and ${initialTempMax}.`);
+            showError(initialTempInput, `Initial temperature must be a positive number between ${initialTempMin} and ${initialTempMax}.`);
+            hasError = true;
             initialTempInput.classList.add('is-invalid');
         } else {
             initialTempInput.classList.remove('is-invalid');
@@ -574,7 +576,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Validate cooling rate (must be between 0 and 1)
         if (isNaN(coolingRate) || coolingRate < coolingRateMin || coolingRate > coolingRateMax) {
-            errors.push(`Cooling rate must be a number between ${coolingRateMin} and ${coolingRateMax}.`);
+            showError(coolingRateInput, `Cooling rate must be a number between ${coolingRateMin} and ${coolingRateMax}.`);
+            hasError = true;
             coolingRateInput.classList.add('is-invalid');
         } else {
             coolingRateInput.classList.remove('is-invalid');
@@ -582,10 +585,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Validate stop temperature (must be positive and less than initial temp)
         if (isNaN(stopTemp) || stopTemp < stopTempMin || stopTemp > stopTempMax) {
-            errors.push(`Stop temperature must be a non-negative number between ${stopTempMin} and ${stopTempMax}.`);
+            showError(stopTempInput, `Stop temperature must be a non-negative number between ${stopTempMin} and ${stopTempMax}.`);
+            hasError = true;
             stopTempInput.classList.add('is-invalid');
         } else if (stopTemp >= initialTemp) {
-            errors.push("Stop temperature must be less than initial temperature.");
+            showError(stopTempInput, "Stop temperature must be less than initial temperature.");
+            hasError = true;
             stopTempInput.classList.add('is-invalid');
         } else {
             stopTempInput.classList.remove('is-invalid');
@@ -593,21 +598,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Validate initial solution
         if (!['random', 'leftmost', 'rightmost', 'center'].includes(initialSolution)) {
-            errors.push(`Illegal initial solution value selected.`);
+            showError(initialSolutionInput, `Illegal initial solution value selected.`);
+            hasError = true;
             initialSolutionInput.classList.add('is-invalid');
         }
 
         // Validate speed select
         if (!['0.1', '0.25', '0.5', '0.75', '1', '1.5', '2', '3', '5', '10'].includes(speedSelect)) {
-            errors.push(`Illegal speed value selected.`);
+            showError(initialSolutionInput, `Illegal speed value selected.`);
+            hasError = true;
             speedSelectInput.classList.add('is-invalid');
         }
 
         // If there are errors, display them and return false
-        if (errors.length > 0) {
-            const messageDisplay = document.getElementById('message-display');
-            messageDisplay.textContent = errors[0]; // Display the first error
-            messageDisplay.style.color = 'red';
+        if (hasError) {
             return false;
         }
 
@@ -676,4 +680,45 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }, 500); // Give enough time for the original code to initialize
 });
+
+function showError(input, message) {
+    // Add red border to highlight the error
+    input.classList.add('validation-error-field');
+
+    // Create or update error message
+    let errorElement = document.getElementById(`${input.id}-error`);
+    if (!errorElement) {
+        errorElement = document.createElement('div');
+        errorElement.id = `${input.id}-error`;
+        errorElement.style.color = 'red';
+        errorElement.classList.add('validation-error-text');
+        errorElement.style.fontSize = '12px';
+        errorElement.style.marginTop = '5px';
+        input.parentNode.appendChild(errorElement);
+    }
+
+    errorElement.textContent = message;
+
+    // Remove error message after 5 seconds
+    setTimeout(() => {
+        if (errorElement.parentNode) {
+            errorElement.parentNode.removeChild(errorElement);
+        }
+        input.style.borderColor = '';
+    }, 5000);
+}
+
+// Function to remove all validation error elements
+function removeAllValidationErrors() {
+    const errorElements = document.querySelectorAll('.validation-error-text');
+    errorElements.forEach(element => {
+        element.parentNode.removeChild(element);
+    });
+
+    const elements = document.querySelectorAll('.validation-error-field');
+    elements.forEach(element => {
+        element.classList.remove('validation-error-field');
+        element.classList.remove('is-invalid');
+    });
+}
 </script>

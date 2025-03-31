@@ -158,26 +158,18 @@ use app\classes\Graph;
             </div>
 
             <div class="p-3 bg-lightgray rounded mb-4 d-flex flex-wrap gap-2 align-items-center">
-                <button
-                    id="start-pause-btn"
-                    class="btn btn-success"
-                >
+                <button id="start-pause-btn" class="btn btn-success">
                     Start
                 </button>
 
-                <button
-                    id="reset-btn"
-                    class="btn btn-secondary"
-                >
+                <button id="reset-btn" class="btn btn-secondary">
                     Reset
                 </button>
 
                 <div class="d-flex align-items-center ms-2">
                     <span class="me-2 small fw-medium">Speed:</span>
-                    <select
-                        id="speed-select"
-                        class="form-select form-select-sm"
-                    >
+                    <select id="speed-select" class="form-select form-select-sm">
+                        <option value="0.1">0.1x</option>
                         <option value="0.25">0.25x</option>
                         <option value="0.5">0.5x</option>
                         <option value="0.75">0.75x</option>

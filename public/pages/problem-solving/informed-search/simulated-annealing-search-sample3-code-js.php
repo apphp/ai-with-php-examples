@@ -542,40 +542,65 @@ document.addEventListener('DOMContentLoaded', function () {
         const initialTempInput = document.getElementById('initial-temp');
         const coolingRateInput = document.getElementById('cooling-rate');
         const stopTempInput = document.getElementById('stop-temp');
+        const initialSolutionInput = document.getElementById('initial-solution');
+        const speedSelectInput = document.getElementById('speed-select');
 
         // Get values and convert to numbers
         const initialTemp = parseFloat(initialTempInput.value);
+        const initialTempMin = parseFloat(initialTempInput.getAttribute('min'));
+        const initialTempMax = parseFloat(initialTempInput.getAttribute('max'));
+
         const coolingRate = parseFloat(coolingRateInput.value);
+        const coolingRateMin = parseFloat(coolingRateInput.getAttribute('min'));
+        const coolingRateMax = parseFloat(coolingRateInput.getAttribute('max'));
+
         const stopTemp = parseFloat(stopTempInput.value);
+        const stopTempMin = parseFloat(stopTempInput.getAttribute('min'));
+        const stopTempMax = parseFloat(stopTempInput.getAttribute('max'));
+
+        const initialSolution = initialSolutionInput.value;
+        const speedSelect = speedSelectInput.value;
 
         // Create an array to store error messages
         const errors = [];
 
         // Validate initial temperature (must be positive)
-        if (isNaN(initialTemp) || initialTemp <= 0) {
-            errors.push("Initial temperature must be a positive number");
+        if (isNaN(initialTemp) || initialTemp < initialTempMin || initialTemp > initialTempMax) {
+            errors.push(`Initial temperature must be a positive number between ${initialTempMin} and ${initialTempMax}.`);
             initialTempInput.classList.add('is-invalid');
         } else {
             initialTempInput.classList.remove('is-invalid');
         }
 
         // Validate cooling rate (must be between 0 and 1)
-        if (isNaN(coolingRate) || coolingRate <= 0 || coolingRate >= 1) {
-            errors.push("Cooling rate must be a number between 0 and 1");
+        if (isNaN(coolingRate) || coolingRate < coolingRateMin || coolingRate > coolingRateMax) {
+            errors.push(`Cooling rate must be a number between ${coolingRateMin} and ${coolingRateMax}.`);
             coolingRateInput.classList.add('is-invalid');
         } else {
             coolingRateInput.classList.remove('is-invalid');
         }
 
         // Validate stop temperature (must be positive and less than initial temp)
-        if (isNaN(stopTemp) || stopTemp < 0) {
-            errors.push("Stop temperature must be a non-negative number");
+        if (isNaN(stopTemp) || stopTemp < stopTempMin || stopTemp > stopTempMax) {
+            errors.push(`Stop temperature must be a non-negative number between ${stopTempMin} and ${stopTempMax}.`);
             stopTempInput.classList.add('is-invalid');
         } else if (stopTemp >= initialTemp) {
-            errors.push("Stop temperature must be less than initial temperature");
+            errors.push("Stop temperature must be less than initial temperature.");
             stopTempInput.classList.add('is-invalid');
         } else {
             stopTempInput.classList.remove('is-invalid');
+        }
+
+        // Validate initial solution
+        if (!['random', 'leftmost', 'rightmost', 'center'].includes(initialSolution)) {
+            errors.push(`Illegal initial solution value selected.`);
+            initialSolutionInput.classList.add('is-invalid');
+        }
+
+        // Validate speed select
+        if (!['0.1', '0.25', '0.5', '0.75', '1', '1.5', '2', '3', '5', '10'].includes(speedSelect)) {
+            errors.push(`Illegal speed value selected.`);
+            speedSelectInput.classList.add('is-invalid');
         }
 
         // If there are errors, display them and return false

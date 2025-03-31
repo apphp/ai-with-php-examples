@@ -29,7 +29,7 @@ use app\classes\Graph;
     </p>
 </div>
 
-<div class="_container py-4">
+<div class="py-4">
     <div class="row">
         <!-- Canvas container adjustments -->
         <div class="col-md-6">

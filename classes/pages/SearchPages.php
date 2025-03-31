@@ -120,20 +120,17 @@ class SearchPages {
      * @return string Sanitized keyword
      */
     private function sanitizeKeyword(string $keyword): string {
-        $keyword = is_string($keyword) ? trim($keyword) : '';
-        $keyword = str_replace(['\\', ':', '../', "\0", chr(0)], '', $keyword);
-        $keyword = preg_replace('/[^\p{L}\p{N}\s]/u', '', $keyword);
-        $keyword = preg_quote($keyword, '/');
-        $keyword = htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8');
-        $keyword = str_ireplace(['(', ')', '[', ']'], ['\(', '\)', '\[', '\]'], $keyword);
+        // Removing spaces and other hidden characters
+        $keyword = trim($keyword);
 
-        // Remove unexpected characters if length more than 255 symbols
-        $detect_encoding = function_exists("mb_detect_encoding") ? mb_detect_encoding($keyword) : 'ASCII';
-        if ($detect_encoding == 'ASCII') {
-            $keyword = substr($keyword, 0, 255);
-        } else {
-            $keyword = mb_substr($keyword, 0, 255, 'UTF-8');
-        }
+        // Remove null bytes and other potentially dangerous characters
+        $keyword = str_replace(["\0", "\x00", chr(0)], '', $keyword);
+
+        // Apply a filter to remove unwanted characters
+        $keyword = filter_var($keyword, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
+
+        // We remove attempts to bypass the path
+        $keyword = basename($keyword);
 
         return $keyword;
     }

@@ -80,7 +80,18 @@ class SearchPages {
      * @param string|null $baseDir Base directory to search in
      */
     public function __construct(?string $baseDir = null) {
-        $this->baseDir = $baseDir ?: '';
+        $this->baseDir = $this->sanitizeBaseDir($baseDir);
+    }
+
+    /**
+     * Sanitize the base directory
+     *
+     * @param string|null $baseDir
+     * @return string
+     */
+    private function sanitizeBaseDir(?string $baseDir): string {
+        $baseDir = is_string($baseDir) ? trim($baseDir) : '';
+        return rtrim($baseDir, '/') . '/';
     }
 
     /**
@@ -153,6 +164,8 @@ class SearchPages {
         }
 
         if (!is_dir($dir) || !($handle = opendir($dir))) {
+            $this->isError = true;
+            $this->errorMessage = "Cannot open directory: $dir";
             return;
         }
 
@@ -173,7 +186,7 @@ class SearchPages {
             }
 
             // Only process PHP files
-            if (preg_match('/\.php/i', $file)) {
+            if (preg_match('/\.php$/i', $file)) {
                 $data = $this->readFileContents($path);
 
                 if ($data === null) {
@@ -211,7 +224,15 @@ class SearchPages {
      * @return string|null
      */
     private function readFileContents($path): ?string {
-        if (!file_exists($path) || !is_readable($path) || strpos(realpath($path), realpath($this->baseDir)) !== 0) {
+        if (!file_exists($path)) {
+            $this->isError = true;
+            $this->errorMessage = "File does not exist: $path";
+            return null;
+        }
+
+        if (!is_readable($path) || strpos(realpath($path), realpath($this->baseDir)) !== 0) {
+            $this->isError = true;
+            $this->errorMessage = "File is not readable or outside of base directory: $path";
             return null;
         }
 

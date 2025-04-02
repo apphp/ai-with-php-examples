@@ -262,9 +262,9 @@ function create_form_fields(string $section, string $subsection, string $page): 
     return $output;
 }
 
-function create_form_features(array $features = [], array $data = [], string $fieldName = 'features', string $type = 'checkbox', int|float $step=1, bool $precisionCompare = false, string $class='', string $style = '', string $event='') {
+function create_form_features(array $features = [], array $data = [], string $fieldName = 'features', string $type = 'checkbox', int|float $step=1, bool $precisionCompare = false, string $class='', string $style = '', string $event='', int $initId = 0) {
     $output = '';
-    $ind = 0;
+    $ind = $initId;
     $type = in_array($type, ['select', 'radio', 'checkbox', 'number']) ? $type : 'checkbox';
 
     if ($type === 'select') {

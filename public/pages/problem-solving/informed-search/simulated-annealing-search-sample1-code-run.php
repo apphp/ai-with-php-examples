@@ -79,8 +79,8 @@ $memoryEnd = memory_get_usage();
                 </div>
                 <form class="mt-2" action="<?= APP_SEO_LINKS ? create_href('problem-solving', 'informed-search', 'simulated-annealing-search-sample1-code-run') : 'index.php'; ?>" type="GET">
                     <?= !APP_SEO_LINKS ? create_form_fields('problem-solving', 'informed-search', 'simulated-annealing-search-code-run') : ''; ?>
-                    <?= create_form_features($coolingRateOptions, [$coolingRate], fieldName: 'coolingRate', type: 'number', step: 0.01, precisionCompare: true, class: 'w-20'); ?>
-                    <?= create_form_features($stopTemperatureOptions, [$stopTemperature], fieldName: 'stopTemperature', type: 'number', step: 0.1, precisionCompare: true, class: 'w-20', style: 'width:55px;'); ?>
+                    <?= create_form_features($coolingRateOptions, [$coolingRate], fieldName: 'coolingRate', type: 'number', step: 0.01, precisionCompare: true, class: 'w-20', initId: 0); ?>
+                    <?= create_form_features($stopTemperatureOptions, [$stopTemperature], fieldName: 'stopTemperature', type: 'number', step: 0.1, precisionCompare: true, class: 'w-20', style: 'width:55px;', initId: 1); ?>
                     <?= create_form_features($resultDebugOptions, [$resultDebug], fieldName: 'resultDebug', type: 'single-checkbox', class: ''); ?>
 
                     <div class="form-check form-check-inline float-end p-0 m-0 me-1">

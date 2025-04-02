@@ -19,6 +19,11 @@ class SearchPages {
     private const MAX_PROCESSED_FILES = 1000;
 
     /**
+     * Number of bytes in MB
+     */
+    private const BYTES_IN_MB = 1048576;
+
+    /**
      * Base directory to search in
      * @var string
      */
@@ -233,7 +238,27 @@ class SearchPages {
             return null;
         }
 
-        return file_get_contents($path);
+        if (filesize($path) > self::BYTES_IN_MB) { // 1MB limit
+            $this->isError = true;
+            $this->errorMessage = "File too large: $path";
+            return null;
+        }
+
+        $content = '';
+        $handle = fopen($path, 'r');
+        if ($handle) {
+            while (!feof($handle)) {
+                $content .= fgets($handle, 4096);
+                if (strlen($content) > self::BYTES_IN_MB) { // Stop if content exceeds 1MB
+                    $this->isError = true;
+                    $this->errorMessage = "File content too large: $path";
+                    fclose($handle);
+                    return null;
+                }
+            }
+            fclose($handle);
+        }
+        return $content;
     }
 
     /**

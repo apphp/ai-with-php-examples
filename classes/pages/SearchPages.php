@@ -192,7 +192,7 @@ class SearchPages {
 
                 $stripedBody = strip_tags($data);
 
-                if (preg_match('/' . preg_quote($this->keyword) . '/i', $stripedBody)) {
+                if (preg_match('/' . preg_quote($this->keyword, '/') . '/i', $stripedBody)) {
                     if (preg_match('/<h2(.*)>(.*)<\/h2>/s', $data, $m)) {
                         $title = htmlspecialchars($m[2] ?? 'No Title', ENT_QUOTES, 'UTF-8');
                     } elseif (preg_match('/<h1(.*)>(.*)<\/h1>/s', $data, $m)) {

@@ -61,7 +61,9 @@ class Graph {
                         tension: 0
                     });
 
-                    new Chart(ctx, {
+                    let gridColor = document.body.getAttribute("data-theme") === "dark" ? "#444" : "#ccc";
+
+                    const chart =  new Chart(ctx, {
                         type: "scatter",
                         data: {
                             datasets: datasets
@@ -72,8 +74,32 @@ class Graph {
                             scales: {
                                 x: { type: "linear", position: "bottom" },
                                 y: { type: "linear" }
+                            },
+                            scales: {
+                                x: {
+                                    type: "linear",
+                                    position: "bottom",
+                                    grid: {
+                                        color: gridColor
+                                    },
+                                },
+                                y: {
+                                    type: "linear",
+                                    grid: {
+                                        color: gridColor
+                                    },
+                                }
                             }
                         }
+                    });
+
+                    // Change grid color according to theme color
+                    document.getElementById("darkSwitch").addEventListener("change", function () {
+                        const isDarkMode = document.body.getAttribute("data-theme") === "dark";
+                        gridColor = isDarkMode ? "#ccc" : "#444";
+                        chart.options.scales.x.grid.color = gridColor;
+                        chart.options.scales.y.grid.color = gridColor;
+                        chart.update();
                     });
                 });
             </script>';

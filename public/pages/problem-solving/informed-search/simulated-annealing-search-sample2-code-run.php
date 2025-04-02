@@ -26,7 +26,7 @@
     </p>
 </div>
 
-<div class="column-layout">
+<div id="sa-search" class="column-layout">
     <!-- Left Column -->
     <div class="left-column">
         <div class="panel">

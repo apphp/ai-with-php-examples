@@ -1,12 +1,17 @@
+:root {
+    --dark-bg-color: #292929;
+}
+
+
 
 [data-theme="dark"] input[type="checkbox"] {
-  background-color: #292929;
+  background-color: var(--dark-bg-color);
   border-color: #9B3922;
   box-shadow: none;
 }
 
 [data-theme="dark"] input[type="text"] {
-    background-color: #292929;
+    background-color: var(--dark-bg-color);
     border-color: #9B3922;
     color: #ccc;
     box-shadow: none;
@@ -61,7 +66,7 @@
   color: #6c757d !important;
 }
 [data-theme="dark"] .form-select {
-  background-color: #292929 !important;
+  background-color: var(--dark-bg-color) !important;
   color: #a9a9a9 !important;
   border-color: #9B3922;
 }
@@ -228,7 +233,7 @@
 
 /* vectors */
 [data-theme="dark"] input[type="number"] {
-    background-color: #292929;
+    background-color: var(--dark-bg-color);
     color: #fff !important;
     border: 1px solid #9B3922;
     padding: 4px 6px;
@@ -237,7 +242,7 @@
 
 [data-theme="dark"] #vectorControls input[type="number"] {
     border: 1px solid #9B3922;
-    background-color: #292929;
+    background-color: var(--dark-bg-color);
 }
 
 [data-theme="dark"] #vectorControls .output-vector {
@@ -261,3 +266,33 @@
     stroke: green !important;
 }
 
+/* Simulated Annealing Search */
+[data-theme="dark"] #sa-search .panel {
+    background-color: var(--dark-bg-color);
+}
+[data-theme="dark"] #sa-search .log-container {
+    background-color: var(--dark-bg-color);
+}
+[data-theme="dark"] #sa-search .best-result {
+    background-color: var(--dark-bg-color);
+}
+[data-theme="dark"] #sa-search #startBtn {
+    border: 1px solid #9B3922;
+}
+[data-theme="dark"] #sa-search #startBtn[disabled] {
+    border: 1px solid #999;
+}
+[data-theme="dark"] #sa-search #pauseBtn {
+    background-color: #6C757D;
+}
+[data-theme="dark"] #sa-search #pauseBtn:not([disabled]) {
+    background-color: #9B3922;
+    color: #eee !important;
+}
+[data-theme="dark"] #sa-search #resetBtn {
+    background-color: #c06000;
+    color: #000 !important;
+}
+[data-theme="dark"] #sa-search .log-entry {
+    border-bottom: none;
+}

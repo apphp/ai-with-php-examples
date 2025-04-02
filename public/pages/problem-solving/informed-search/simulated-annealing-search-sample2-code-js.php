@@ -98,6 +98,7 @@ function drawFunctionCanvas() {
     const minYDisplay = -40;
     const maxYDisplay = 150;
     const yRange = maxYDisplay - minYDisplay;
+    const yOffset = 3;
 
     // Calculate vertical center position (where y=0 should be drawn)
     const yZeroPosition = height * ((maxYDisplay) / yRange);
@@ -123,21 +124,21 @@ function drawFunctionCanvas() {
     }
 
     // Draw axes
-    functionCtx.strokeStyle = '#000';
+    functionCtx.strokeStyle = '#888';
     functionCtx.lineWidth = 1;
     functionCtx.beginPath();
 
     // X axis (at y=0 position)
-    functionCtx.moveTo(0, yZeroPosition);
-    functionCtx.lineTo(width, yZeroPosition);
+    functionCtx.moveTo(0, yZeroPosition + yOffset);
+    functionCtx.lineTo(width, yZeroPosition + yOffset);
 
     // Y axis (at center of width)
-    functionCtx.moveTo(width/2, 0);
-    functionCtx.lineTo(width/2, height);
+    functionCtx.moveTo(width/2 - yOffset, 0);
+    functionCtx.lineTo(width/2 - yOffset, height);
     functionCtx.stroke();
 
     // Draw axis labels
-    functionCtx.fillStyle = '#000';
+    functionCtx.fillStyle = '#999';
     functionCtx.font = '12px Arial';
 
     // X-axis labels
@@ -172,7 +173,7 @@ function drawFunctionCanvas() {
         // Only draw if within display range
         if (y >= minYDisplay && y <= maxYDisplay) {
             // Convert y value to canvas position
-            const py = height - ((y - minYDisplay) / yRange) * height;
+            const py = height - ((y - minYDisplay) / yRange) * height + yOffset;
 
             if (px === 0) {
                 functionCtx.moveTo(px, py);
@@ -278,7 +279,7 @@ function drawTemperatureCanvas() {
     const xOffset = 20;
 
     // Draw axes
-    temperatureCtx.strokeStyle = '#000';
+    temperatureCtx.strokeStyle = '#666';
     temperatureCtx.lineWidth = 1;
     temperatureCtx.beginPath();
     temperatureCtx.moveTo(xOffset, 30);
@@ -287,7 +288,7 @@ function drawTemperatureCanvas() {
     temperatureCtx.stroke();
 
     // Draw labels
-    temperatureCtx.fillStyle = '#000';
+    temperatureCtx.fillStyle = '#666';
     temperatureCtx.font = '12px Arial';
     temperatureCtx.fillText('Temperature / Energy', 10, 20);
     temperatureCtx.fillText('Iterations', width - 60, height - 10);

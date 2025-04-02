@@ -27,42 +27,42 @@ class SearchPages {
      * Base directory to search in
      * @var string
      */
-    private $baseDir;
+    private string $baseDir;
 
     /**
      * Search keyword
      * @var string
      */
-    private $keyword;
+    private string $keyword;
 
     /**
      * Search results array
      * @var array
      */
-    private $results = [];
+    private array $results = [];
 
     /**
      * Start time of search
      * @var float
      */
-    private $startTime;
+    private float $startTime;
 
     /**
      * Finish time of search
      * @var float
      */
-    private $finishTime;
+    private float $finishTime;
 
     /**
      * Words to ignore in search
      * @var array
      */
-    private $ignoredWords = ['on', 'for', 'a', 'in', 'the', 'this'];
+    private array $ignoredWords = ['on', 'for', 'a', 'in', 'the', 'this'];
 
     /**
      * @var bool
      */
-    private $isFound = false;
+    private bool $isFound = false;
 
     /**
      * @var bool
@@ -96,7 +96,16 @@ class SearchPages {
      */
     private function sanitizeBaseDir(?string $baseDir): string {
         $baseDir = is_string($baseDir) ? trim($baseDir) : '';
-        return rtrim($baseDir, '/') . '/';
+        $baseDir = rtrim($baseDir, '/') . '/';
+
+        // Add validation
+        if (!is_dir($baseDir) || !is_readable($baseDir)) {
+            $this->isError = true;
+            $this->errorMessage = 'Invalid or inaccessible base directory';
+            return '';
+        }
+
+        return $baseDir;
     }
 
     /**
@@ -131,11 +140,11 @@ class SearchPages {
         // Remove null bytes and other potentially dangerous characters
         $keyword = str_replace(["\0", "\x00", chr(0)], '', $keyword);
 
-        // Apply a filter to remove unwanted characters
-        $keyword = filter_var($keyword, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
-
         // We remove attempts to bypass the path
         $keyword = basename($keyword);
+
+        // Apply a filter to remove unwanted characters
+        $keyword = htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8');
 
         return $keyword;
     }
@@ -167,7 +176,7 @@ class SearchPages {
 
         if (!is_dir($dir) || !($handle = opendir($dir))) {
             $this->isError = true;
-            $this->errorMessage = "Cannot open directory: $dir";
+            $this->errorMessage = "Cannot open directory: " . basename($dir);
             return;
         }
 

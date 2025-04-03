@@ -33,7 +33,7 @@ class SearchPages {
      * Search keyword
      * @var string
      */
-    private string $keyword;
+    private string $keyword = '';
 
     /**
      * Search results array
@@ -137,14 +137,11 @@ class SearchPages {
         // Removing spaces and other hidden characters
         $keyword = trim($keyword);
 
-        // Remove null bytes and other potentially dangerous characters
-        $keyword = str_replace(["\0", "\x00", chr(0)], '', $keyword);
+        // Apply a whitelist approach - only allow alphanumeric and some safe characters
+        $keyword = preg_replace('/[^a-zA-Z0-9\s\-_\'\,\:\.]/', '', $keyword);
 
-        // We remove attempts to bypass the path
-        $keyword = basename($keyword);
-
-        // Apply a filter to remove unwanted characters
-        $keyword = htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8');
+        // Limit keyword length
+        $keyword = substr($keyword, 0, 100);
 
         return $keyword;
     }
@@ -206,7 +203,7 @@ class SearchPages {
 
                 $stripedBody = strip_tags($data);
 
-                if (preg_match('/' . preg_quote($this->keyword, '/') . '/i', $stripedBody)) {
+                if (stripos($stripedBody, $this->keyword) !== false) {
                     if (preg_match('/<h2(.*)>(.*)<\/h2>/s', $data, $m)) {
                         $title = htmlspecialchars($m[2] ?? 'No Title', ENT_QUOTES, 'UTF-8');
                     } elseif (preg_match('/<h1(.*)>(.*)<\/h1>/s', $data, $m)) {

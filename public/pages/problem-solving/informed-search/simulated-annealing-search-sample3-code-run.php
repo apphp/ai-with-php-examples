@@ -29,7 +29,7 @@ use app\classes\Graph;
     </p>
 </div>
 
-<div class="py-4">
+<div id="sa-search-3" class="py-4">
     <div class="row">
         <!-- Canvas container adjustments -->
         <div class="col-md-6">
@@ -195,6 +195,10 @@ use app\classes\Graph;
     .canvas-container {
         width: 100%;
         position: relative;
+    }
+
+    button {
+        box-shadow: none !important;
     }
 
     /* Base styling for the algorithm interface */

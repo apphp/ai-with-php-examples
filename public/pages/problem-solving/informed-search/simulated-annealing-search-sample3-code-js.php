@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const canvasHeight = 300;
     const graphHeight = 175;
 
+    let isDark = document.body.getAttribute("data-theme") === "dark";
+
+
     // Energy landscape function (a complex function with multiple local minima)
     function landscape(x) {
         return 30 * Math.sin(0.1 * x) +
@@ -76,13 +79,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Draw landscape background
         const gradient = landscapeCtx.createLinearGradient(0, 0, 0, canvasHeight);
-        gradient.addColorStop(0, '#e6f7ff');
-        gradient.addColorStop(1, '#ffffff');
+        gradient.addColorStop(0, isDark ? '#666' : '#e6f7ff');
+        gradient.addColorStop(1, isDark ? '#777' : '#ffffff');
         landscapeCtx.fillStyle = gradient;
         landscapeCtx.fillRect(0, 0, canvasWidth, canvasHeight);
 
         // Draw grid lines
-        landscapeCtx.strokeStyle = '#e0e0e0';
+        landscapeCtx.strokeStyle = isDark ? '#888' : '#e0e0e0';
         landscapeCtx.lineWidth = 1;
         for (let x = 0; x < canvasWidth; x += 50) {
             landscapeCtx.beginPath();
@@ -104,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const y = landscape(x);
             landscapeCtx.lineTo(x, canvasHeight - y);
         }
-        landscapeCtx.strokeStyle = '#333';
+        landscapeCtx.strokeStyle = isDark ? '#ccc' : '#333';
         landscapeCtx.lineWidth = 2;
         landscapeCtx.stroke();
 
@@ -112,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
         landscapeCtx.lineTo(canvasWidth, canvasHeight);
         landscapeCtx.lineTo(0, canvasHeight);
         landscapeCtx.closePath();
-        landscapeCtx.fillStyle = 'rgba(100, 149, 237, 0.2)';
+        landscapeCtx.fillStyle = isDark ? 'rgba(237, 237, 149, 0.2)' : 'rgba(100, 149, 237, 0.2)';
         landscapeCtx.fill();
 
         // Mark local minima
@@ -184,11 +187,11 @@ document.addEventListener('DOMContentLoaded', function () {
         graphCtx.clearRect(0, 0, canvasWidth, graphHeight);
 
         // Fill background
-        graphCtx.fillStyle = '#f5f5f5';
+        graphCtx.fillStyle = isDark ? '#666' : '#f5f5f5';
         graphCtx.fillRect(0, 0, canvasWidth, graphHeight);
 
         // Draw grid lines
-        graphCtx.strokeStyle = '#e0e0e0';
+        graphCtx.strokeStyle = isDark ? '#777' : '#e0e0e0';
         graphCtx.lineWidth = 1;
         for (let x = 0; x < canvasWidth; x += 50) {
             graphCtx.beginPath();
@@ -205,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Draw axes labels
         graphCtx.font = '12px Arial';
-        graphCtx.fillStyle = '#333';
+        graphCtx.fillStyle = isDark ? '#ccc' : '#333';
         graphCtx.textAlign = 'left';
         graphCtx.fillText('Energy & Temperature', 10, 15);
         graphCtx.textAlign = 'right';

@@ -158,8 +158,12 @@ use app\classes\Graph;
             </div>
 
             <div class="p-3 bg-lightgray rounded mb-4 d-flex flex-wrap gap-2 align-items-center">
-                <button id="start-pause-btn" class="btn btn-success">
+                <button id="start-btn" class="btn btn-success">
                     Start
+                </button>
+
+                <button id="pause-btn" class="btn btn-secondary" disabled>
+                    Pause
                 </button>
 
                 <button id="reset-btn" class="btn btn-secondary">
@@ -234,8 +238,11 @@ use app\classes\Graph;
     }
 
     .log-entry-best {
-        background-color: rgba(0, 255, 0, 0.2) !important;
+        background-color: rgba(33, 150, 243, 0.2);
         font-weight: bold;
+        border-left: 3px solid #2196f3;
+        color: #000;
+        padding-left: 3px;
     }
 
     .legend-item {
@@ -249,6 +256,15 @@ use app\classes\Graph;
         height: 12px;
         margin-right: 6px;
         border-radius: 2px;
+    }
+
+    #reset-btn {
+        background-color: #ff9800;
+        border-color: #ff9800;
+    }
+    #reset-btn:hover {
+        background-color: #f57c00;
+        border-color: #f57c00;
     }
 
     /* Responsive adjustments */

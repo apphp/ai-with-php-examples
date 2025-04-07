@@ -330,9 +330,9 @@
 [data-theme="dark"] #sa-search-3 button {
     color: #fff !important;
 }
-[data-theme="dark"] #sa-search-3 button#start-pause-btn:active,
+[data-theme="dark"] #sa-search-3 button#start-btn:active,
 [data-theme="dark"] #sa-search-3 button.btn-success:focus,
-[data-theme="dark"] #sa-search-3 button#start-pause-btn:visited {
+[data-theme="dark"] #sa-search-3 button#start-btn:visited {
     background-color: var(--dark-color-brown) !important;
     color: #fff !important;
 }

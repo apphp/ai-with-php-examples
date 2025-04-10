@@ -19,15 +19,18 @@ class ScalarTest extends TestCase
      */
     public function testAdd(): void
     {
-        // Positive test cases
+        // Integer arguments
         self::assertEquals(5.0, Scalar::add(2, 3));
-        self::assertEquals(0.0, Scalar::add(0, 0));
-        self::assertEquals(0.3, Scalar::add(0.1, 0.2));
-
-        // Negative test cases
         self::assertEquals(-5.0, Scalar::add(-2, -3));
-        self::assertEquals(0.0, Scalar::add(-1, 1));
+        self::assertEquals(0.0, Scalar::add(0, 0));
+
+        // Float arguments
+        self::assertEquals(0.3, Scalar::add(0.1, 0.2));
         self::assertEquals(-0.3, Scalar::add(-0.1, -0.2));
+
+        // Mixed integer and float
+        self::assertEquals(3.5, Scalar::add(3, 0.5));
+        self::assertEquals(-1.5, Scalar::add(-2, 0.5));
     }
 
     /**
@@ -38,15 +41,18 @@ class ScalarTest extends TestCase
      */
     public function testSubtract(): void
     {
-        // Positive test cases
+        // Integer arguments
         self::assertEquals(-1.0, Scalar::subtract(2, 3));
-        self::assertEquals(0.0, Scalar::subtract(0, 0));
-        self::assertEquals(-0.1, Scalar::subtract(0.1, 0.2));
-
-        // Negative test cases
         self::assertEquals(1.0, Scalar::subtract(-2, -3));
-        self::assertEquals(-2.0, Scalar::subtract(-1, 1));
+        self::assertEquals(0.0, Scalar::subtract(0, 0));
+
+        // Float arguments
+        self::assertEquals(-0.1, Scalar::subtract(0.1, 0.2));
         self::assertEquals(0.1, Scalar::subtract(-0.1, -0.2));
+
+        // Mixed integer and float
+        self::assertEquals(2.5, Scalar::subtract(3, 0.5));
+        self::assertEquals(-2.5, Scalar::subtract(-2, 0.5));
     }
 
     /**
@@ -57,15 +63,18 @@ class ScalarTest extends TestCase
      */
     public function testMultiply(): void
     {
-        // Positive test cases
+        // Integer arguments
         self::assertEquals(6.0, Scalar::multiply(2, 3));
-        self::assertEquals(0.0, Scalar::multiply(0, 5));
-        self::assertEquals(0.06, Scalar::multiply(0.2, 0.3));
-
-        // Negative test cases
         self::assertEquals(6.0, Scalar::multiply(-2, -3));
-        self::assertEquals(-6.0, Scalar::multiply(-2, 3));
+        self::assertEquals(0.0, Scalar::multiply(0, 5));
+
+        // Float arguments
+        self::assertEquals(0.06, Scalar::multiply(0.2, 0.3));
         self::assertEquals(-0.06, Scalar::multiply(-0.2, 0.3));
+
+        // Mixed integer and float
+        self::assertEquals(1.5, Scalar::multiply(3, 0.5));
+        self::assertEquals(-1.5, Scalar::multiply(-3, 0.5));
     }
 
     /**
@@ -76,14 +85,20 @@ class ScalarTest extends TestCase
      */
     public function testDivide(): void
     {
-        // Positive test cases
+        // Integer arguments
         self::assertEquals(2.0, Scalar::divide(6, 3));
-        self::assertEquals(0.0, Scalar::divide(0, 5));
-        self::assertEquals(2.0, Scalar::divide(0.6, 0.3));
-
-        // Negative test cases
         self::assertEquals(2.0, Scalar::divide(-6, -3));
-        self::assertEquals(-2.0, Scalar::divide(-6, 3));
+        self::assertEquals(0.0, Scalar::divide(0, 5));
+
+        // Float arguments
+        self::assertEquals(2.0, Scalar::divide(0.6, 0.3));
+        self::assertEquals(-2.0, Scalar::divide(-0.6, 0.3));
+
+        // Mixed integer and float
+        self::assertEquals(6.0, Scalar::divide(3, 0.5));
+        self::assertEquals(-6.0, Scalar::divide(-3, 0.5));
+
+        // Division by zero
         self::assertEquals('undefined', Scalar::divide(6, 0));
     }
 
@@ -95,15 +110,18 @@ class ScalarTest extends TestCase
      */
     public function testModulus(): void
     {
-        // Positive test cases
+        // Integer arguments
         self::assertEquals(1.0, Scalar::modulus(5, 2));
         self::assertEquals(0.0, Scalar::modulus(4, 2));
-        self::assertEquals(0.1, Scalar::modulus(2.1, 1.0));
-
-        // Negative test cases
         self::assertEquals(-1.0, Scalar::modulus(-5, 2));
-        self::assertEquals(1.0, Scalar::modulus(5, -2));
-        self::assertTrue(-0.1 === Scalar::modulus(-2.1, 1.0));
+
+        // Float arguments
+        self::assertEquals(0.1, Scalar::modulus(2.1, 1.0));
+        self::assertEquals(-0.1, Scalar::modulus(-2.1, 1.0));
+
+        // Mixed integer and float
+        self::assertEquals(0.5, Scalar::modulus(3, 2.5));
+        self::assertEquals(-0.5, Scalar::modulus(-3, 2.5));
     }
 
     /**
@@ -114,14 +132,18 @@ class ScalarTest extends TestCase
      */
     public function testPower(): void
     {
-        // Positive test cases
+        // Integer arguments
         self::assertEquals(8.0, Scalar::power(2, 3));
         self::assertEquals(1.0, Scalar::power(5, 0));
+        self::assertEquals(-8.0, Scalar::power(-2, 3));
+
+        // Float arguments
+        self::assertEquals(0.125, Scalar::power(0.5, 3));
         self::assertEquals(0.25, Scalar::power(2, -2));
 
-        // Negative test cases
-        self::assertEquals(-8.0, Scalar::power(-2, 3));
-        self::assertEquals(0.125, Scalar::power(0.5, 3));
+        // Mixed integer and float
+        self::assertEquals(2.8284271247, Scalar::power(2, 1.5));
+        self::assertEquals(0.3535533906, Scalar::power(2, -1.5));
     }
 
     /**
@@ -132,13 +154,17 @@ class ScalarTest extends TestCase
      */
     public function testMultiplyVector(): void
     {
-        // Positive test cases
+        // Integer scalar
         self::assertEquals([2, 4, 6], Scalar::multiplyVector(2, [1, 2, 3]));
-        self::assertEquals([0, 0, 0], Scalar::multiplyVector(0, [1, 2, 3]));
-        self::assertEquals([0.2, 0.4], Scalar::multiplyVector(0.2, [1, 2]));
-
-        // Negative test cases
         self::assertEquals([-2, -4, -6], Scalar::multiplyVector(-2, [1, 2, 3]));
+        self::assertEquals([0, 0, 0], Scalar::multiplyVector(0, [1, 2, 3]));
+
+        // Float scalar
+        self::assertEquals([0.2, 0.4], Scalar::multiplyVector(0.2, [1, 2]));
+        self::assertEquals([-0.2, -0.4], Scalar::multiplyVector(-0.2, [1, 2]));
+
+        // Mixed vector elements
+        self::assertEquals([2.5, 5.0, 7.5], Scalar::multiplyVector(2.5, [1, 2, 3]));
         self::assertEquals([], Scalar::multiplyVector(2, []));
     }
 
@@ -150,13 +176,17 @@ class ScalarTest extends TestCase
      */
     public function testAddToVector(): void
     {
-        // Positive test cases
+        // Integer scalar
         self::assertEquals([3, 4, 5], Scalar::addToVector(2, [1, 2, 3]));
-        self::assertEquals([1, 2, 3], Scalar::addToVector(0, [1, 2, 3]));
-        self::assertEquals([1.2, 2.2], Scalar::addToVector(0.2, [1, 2]));
-
-        // Negative test cases
         self::assertEquals([-1, 0, 1], Scalar::addToVector(-2, [1, 2, 3]));
+        self::assertEquals([1, 2, 3], Scalar::addToVector(0, [1, 2, 3]));
+
+        // Float scalar
+        self::assertEquals([1.2, 2.2], Scalar::addToVector(0.2, [1, 2]));
+        self::assertEquals([0.8, 1.8], Scalar::addToVector(-0.2, [1, 2]));
+
+        // Mixed vector elements
+        self::assertEquals([3.5, 4.5, 5.5], Scalar::addToVector(2.5, [1, 2, 3]));
         self::assertEquals([], Scalar::addToVector(2, []));
     }
 
@@ -168,13 +198,13 @@ class ScalarTest extends TestCase
      */
     public function testAbsolute(): void
     {
-        // Positive test cases
+        // Integer arguments
         self::assertEquals(5.0, Scalar::absolute(5));
-        self::assertEquals(0.0, Scalar::absolute(0));
-        self::assertEquals(0.5, Scalar::absolute(0.5));
-
-        // Negative test cases
         self::assertEquals(5.0, Scalar::absolute(-5));
+        self::assertEquals(0.0, Scalar::absolute(0));
+
+        // Float arguments
+        self::assertEquals(0.5, Scalar::absolute(0.5));
         self::assertEquals(0.5, Scalar::absolute(-0.5));
     }
 
@@ -186,13 +216,15 @@ class ScalarTest extends TestCase
      */
     public function testCeiling(): void
     {
-        // Positive test cases
-        self::assertEquals(6.0, Scalar::ceiling(5.1));
-        self::assertEquals(5.0, Scalar::ceiling(5.0));
-        self::assertEquals(1.0, Scalar::ceiling(0.1));
+        // Integer arguments
+        self::assertEquals(5.0, Scalar::ceiling(5));
+        self::assertEquals(-5.0, Scalar::ceiling(-5));
+        self::assertEquals(0.0, Scalar::ceiling(0));
 
-        // Negative test cases
+        // Float arguments
+        self::assertEquals(6.0, Scalar::ceiling(5.1));
         self::assertEquals(-5.0, Scalar::ceiling(-5.1));
+        self::assertEquals(1.0, Scalar::ceiling(0.1));
         self::assertEquals(0.0, Scalar::ceiling(-0.1));
     }
 

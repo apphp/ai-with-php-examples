@@ -37,7 +37,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?= create_example_of_use_links(APP_PATH . 'classes/mathematics/Scalar.php'); ?>
+    <?= create_example_of_use_links(__DIR__ . '/php-scalars-code-usage.php'); ?>
 </div>
 
 <?= create_result_block($memoryEnd, $memoryStart, $microtimeEnd, $microtimeStart, $result); ?>

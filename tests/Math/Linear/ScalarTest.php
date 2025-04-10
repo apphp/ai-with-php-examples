@@ -268,6 +268,7 @@ class ScalarTest extends TestCase
      * Test exponential function
      *
      * @covers \Apphp\MLKit\Math\Linear\Scalar::exponential
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::getOptimalPrecision
      * @return void
      */
     public function testExponential(): void
@@ -286,6 +287,7 @@ class ScalarTest extends TestCase
      * Test logarithm function
      *
      * @covers \Apphp\MLKit\Math\Linear\Scalar::logarithm
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::getOptimalPrecision
      * @return void
      */
     public function testLogarithm(): void
@@ -304,17 +306,22 @@ class ScalarTest extends TestCase
      * Test square root function
      *
      * @covers \Apphp\MLKit\Math\Linear\Scalar::squareRoot
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::getOptimalPrecision
      * @return void
      */
     public function testSquareRoot(): void
     {
-        // Positive test cases
+        // Integer arguments
         self::assertEquals(2.0, Scalar::squareRoot(4));
+        self::assertEquals(2.0, Scalar::squareRoot(-4)); // Should take absolute value
         self::assertEquals(0.0, Scalar::squareRoot(0));
-        self::assertEquals(0.5, Scalar::squareRoot(0.25));
 
-        // Negative test cases
-        self::assertEquals(2.0, Scalar::squareRoot(-4)); // Returns sqrt of absolute value
+        // Float arguments
+        self::assertEquals(1.41421356, Scalar::squareRoot(2));
+        self::assertEquals(0.70710678, Scalar::squareRoot(0.5));
+
+        // With specific precision
+        self::assertEquals(1.414, Scalar::squareRoot(2, 3));
     }
 
     /**
@@ -343,6 +350,58 @@ class ScalarTest extends TestCase
         self::assertEquals(0.0, Scalar::tangent(M_PI));
         self::assertEquals('undefined', Scalar::tangent(3 * M_PI_2)); // Test another undefined point
         self::assertEquals(1.0, Scalar::tangent(M_PI_4)); // tan(π/4) = 1
+    }
+
+    /**
+     * Test precision control methods
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::setPrecision
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::getPrecision
+     * @return void
+     */
+    public function testPrecisionControl(): void
+    {
+        // Store original precision
+        $originalPrecision = Scalar::getPrecision();
+
+        // Test setting and getting precision
+        Scalar::setPrecision(15);
+        self::assertEquals(15, Scalar::getPrecision());
+
+        // Test precision affects calculations
+        self::assertEquals(0.33333, Scalar::divide(1, 3));
+
+        // Test different precisions for different operation types
+        self::assertEquals(3.14159, Scalar::multiply(3.14159265359, 1, 5)); // basic_arithmetic
+        self::assertEquals(0.7071068, Scalar::sine(M_PI / 4)); // trigonometric
+        self::assertEquals(2.71828183, Scalar::exponential(1)); // exponential
+        self::assertEquals([1.500000, 3.000000], Scalar::multiplyVector(1.5, [1, 2])); // vector
+
+        // Restore original precision
+        Scalar::setPrecision($originalPrecision);
+    }
+
+    /**
+     * Test precision override in method calls
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::divide
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::sine
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::exponential
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::multiplyVector
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::getOptimalPrecision
+     * @return void
+     */
+    public function testPrecisionOverride(): void
+    {
+        // Test explicit precision override
+        self::assertEquals(0.333, Scalar::divide(1, 3, 3));
+        self::assertEquals(0.3333, Scalar::divide(1, 3, 4));
+        self::assertEquals(0.33333, Scalar::divide(1, 3, 5));
+
+        // Test different operation types with precision override
+        self::assertEquals(0.707, Scalar::sine(M_PI / 4, 3));
+        self::assertEquals(2.718, Scalar::exponential(1, 3));
+        self::assertEquals([1.50, 3.00], Scalar::multiplyVector(1.5, [1, 2], 2));
     }
 
     /**
@@ -460,5 +519,66 @@ class ScalarTest extends TestCase
         // Right shift
         self::assertEquals(2, Scalar::rightShift(5, 1));
         self::assertEquals(1, Scalar::rightShift(5, 2));
+    }
+
+    /**
+     * Test sine function
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::sine
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::getOptimalPrecision
+     * @return void
+     */
+    public function testSine(): void
+    {
+        // Test with standard angles
+        self::assertEquals(0.0, Scalar::sine(0));
+        self::assertEquals(1.0, Scalar::sine(M_PI_2));
+        self::assertEquals(0.0, Scalar::sine(M_PI));
+
+        // Test with specific precision
+        self::assertEquals(0.7071068, Scalar::sine(M_PI / 4)); // Default precision
+        self::assertEquals(0.707, Scalar::sine(M_PI / 4, 3)); // Custom precision
+    }
+
+    /**
+     * Test cosine function
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::cosine
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::getOptimalPrecision
+     * @return void
+     */
+    public function testCosine(): void
+    {
+        // Test with standard angles
+        self::assertEquals(1.0, Scalar::cosine(0));
+        self::assertEquals(0.0, Scalar::cosine(M_PI_2));
+        self::assertEquals(-1.0, Scalar::cosine(M_PI));
+
+        // Test with specific precision
+        self::assertEquals(0.7071068, Scalar::cosine(M_PI / 4)); // Default precision
+        self::assertEquals(0.707, Scalar::cosine(M_PI / 4, 3)); // Custom precision
+    }
+
+    /**
+     * Test tangent function
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::tangent
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::getOptimalPrecision
+     * @return void
+     */
+    public function testTangent(): void
+    {
+        // Test with standard angles
+        self::assertEquals(0.0, Scalar::tangent(0));
+        self::assertEquals('undefined', Scalar::tangent(M_PI_2));
+        self::assertEquals(0.0, Scalar::tangent(M_PI));
+
+        // Test with specific precision
+        self::assertEquals(1.0, Scalar::tangent(M_PI / 4)); // Default precision
+        self::assertEquals(1.000, Scalar::tangent(M_PI / 4, 3)); // Custom precision
+
+        // Test undefined cases
+        self::assertEquals('undefined', Scalar::tangent(3 * M_PI_2));
+        self::assertEquals('undefined', Scalar::tangent(5 * M_PI_2));
     }
 }

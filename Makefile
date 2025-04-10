@@ -41,6 +41,8 @@ info:
 	@echo "${GREEN}info-docker${NC} \t\t - list of commands for Docker"
 	@echo "${GREEN}info-general${NC} \t\t - list of general commands"
 	@echo "${GREEN}info-composer${NC} \t\t - list of commands for Composer"
+	@echo "${GREEN}info-tests${NC} \t\t - list of commands for tests"
+
 
 ## -------------------------------------------------
 ## DOCKER
@@ -116,3 +118,29 @@ composer-update-command:
 composer-du: composer-dump
 composer-dump:
 	$(docker) exec app /bin/bash -c "composer dump-autoload --quiet --optimize --classmap-authoritative $(args)"
+
+
+## -------------------------------------------------
+## TESTS
+## -------------------------------------------------
+info-tests:
+	@echo ""
+	@echo "${GRAY}# -------------------------------------------------"
+	@echo "# TESTS"
+	@echo "# -------------------------------------------------${NC}"
+	@echo "${GREEN} tests${NC} \t\t\t - run all tests"
+	@echo "${GREEN} tests-coverage{NC} \t\t\t - run all tests with coverage"
+	@echo "${GREEN} test${NC} \t\t\t - run specific test"
+
+tests: app-tests
+tests-coverage: app-tests-coverage
+test: app-test
+
+app-tests:
+	$(docker) exec app /bin/bash -c "composer tests"
+
+app-tests-coverage:
+	$(docker) exec app /bin/bash -c "composer tests:coverage"
+
+app-test::
+	$(docker) exec app /bin/bash -c "composer test $(name)"

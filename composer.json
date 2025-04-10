@@ -4,6 +4,11 @@
     "type": "project",
     "license": "MIT",
     "version": "0.5.0",
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    },
     "packageGroups": {
         "system": [
             "php"
@@ -25,6 +30,9 @@
         "other": [
             "symfony/http-client",
             "nyholm/psr7"
+        ],
+        "testing": [
+            "phpunit/phpunit"
         ]
     },
     "require": {
@@ -38,14 +46,23 @@
         "league/commonmark": "~2.6.1",
         "nyholm/psr7": "^1.8"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^10.4"
+    },
     "autoload": {
         "psr-4": {
-            "app\\": ""
+            "app\\": "",
+            "Apphp\\MLKit\\": "src/"
         }
     },
-    "config": {
-        "allow-plugins": {
-            "php-http/discovery": true
+    "autoload-dev": {
+        "psr-4": {
+            "Apphp\\MLKit\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "tests": "phpunit --colors=always --configuration phpunit.xml --testsuite all",
+        "tests:coverage": "phpunit --colors=always --configuration phpunit.xml --testsuite all --coverage-html coverage",
+        "test": "phpunit --colors=always --configuration phpunit.xml --testsuite all --filter"
     }
 }

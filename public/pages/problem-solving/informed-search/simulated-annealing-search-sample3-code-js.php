@@ -717,5 +717,23 @@
 
         // Initialize
         init();
+
+        // Use a MutationObserver to detect changes to the data-theme attribute
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'data-theme') {
+                    if (mutation.target.getAttribute('data-theme') === 'dark') {
+                        isDark = true;
+                    } else {
+                        isDark = false;
+                    }
+                    drawLandscape();
+                    drawGraphs();
+                }
+            });
+        });
+
+        // Start observing the body element for attribute changes
+        observer.observe(document.body, { attributes: true });
     });
 </script>

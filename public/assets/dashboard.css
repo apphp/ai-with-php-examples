@@ -28,6 +28,12 @@ code#code code {
     margin-bottom: -2px !important;
 }
 
+.form-switch-mode #darkSwitch:focus {
+    box-shadow: none !important;
+    border: none !important;
+    transition: none !important;
+}
+
 .form-select {
     line-height: 21px;
     font-size: 14px !important;

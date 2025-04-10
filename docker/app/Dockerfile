@@ -44,6 +44,26 @@ RUN pecl install tensor && \
     docker-php-ext-enable tensor
 
 # ------------------------------
+# Install xDebug
+# ------------------------------
+# Remove this xDebug to enable JIT compiler
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
+
+# ------------------------------
+# Create xdebug log file (if needed)
+# ------------------------------
+#RUN touch /var/log/xdebug.log
+#RUN chown phishing:phishing /var/log/xdebug.log
+#RUN chmod 775 /var/log/xdebug.log
+
+# ------------------------------
+# CONFIG files
+# ------------------------------
+COPY docker/app/conf.d/xdebug.ini /etc/php/8.2/mods-available/xdebug.ini
+COPY docker/app/conf.d/opcache.ini /etc/php/8.2/mods-available/opcache.ini
+
+# ------------------------------
 # Install Composer
 # ------------------------------
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

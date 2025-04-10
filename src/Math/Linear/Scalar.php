@@ -23,6 +23,46 @@ class Scalar {
     private static int $precision = 10;
 
     /**
+     * Set global precision for all operations
+     *
+     * @param int $precision Number of decimal places
+     * @return void
+     */
+    public static function setPrecision(int $precision): void {
+        self::$precision = $precision;
+    }
+
+    /**
+     * Get current global precision
+     *
+     * @return int Current precision setting
+     */
+    public static function getPrecision(): int {
+        return self::$precision;
+    }
+
+    /**
+     * Get optimal precision based on operation type
+     *
+     * @param string $operation Type of operation ('basic_arithmetic', 'trigonometric', 'exponential', 'vector')
+     * @param int|null $precision Optional precision override
+     * @return int Optimal precision for the operation
+     */
+    private static function getOptimalPrecision(string $operation, ?int $precision = null): int {
+        if ($precision !== null) {
+            return $precision;
+        }
+
+        return match($operation) {
+            'trigonometric' => 7,       // Trigonometric operations typically need less precision
+            'basic_arithmetic' => 5,    // Basic arithmetic often needs less precision
+            'exponential' => 8,         // Exponential operations may need more precision
+            'vector' => 6,              // Vector operations balance precision and performance
+            default => self::$precision
+        };
+    }
+
+    /**
      * Adds two numbers
      *
      * @param float|int $a First number
@@ -31,7 +71,7 @@ class Scalar {
      * @return float Sum of the two numbers
      */
     public static function add(float|int $a, float|int $b, ?int $precision = null): float {
-        $precision = $precision ?? self::$precision;
+        $precision = self::getOptimalPrecision('basic_arithmetic', $precision);
         return round($a + $b, $precision);
     }
 
@@ -44,7 +84,7 @@ class Scalar {
      * @return float Result of subtraction
      */
     public static function subtract(float|int $a, float|int $b, ?int $precision = null): float {
-        $precision = $precision ?? self::$precision;
+        $precision = self::getOptimalPrecision('basic_arithmetic', $precision);
         return round($a - $b, $precision);
     }
 
@@ -57,7 +97,7 @@ class Scalar {
      * @return float Product of the two numbers
      */
     public static function multiply(float|int $a, float|int $b, ?int $precision = null): float {
-        $precision = $precision ?? self::$precision;
+        $precision = self::getOptimalPrecision('basic_arithmetic', $precision);
         return round($a * $b, $precision);
     }
 
@@ -73,7 +113,7 @@ class Scalar {
         if ($b == 0) {
             return 'undefined';
         }
-        $precision = $precision ?? self::$precision;
+        $precision = self::getOptimalPrecision('basic_arithmetic', $precision);
         return round($a / $b, $precision);
     }
 
@@ -86,7 +126,7 @@ class Scalar {
      * @return float Remainder of the division
      */
     public static function modulus(float|int $a, float|int $b, ?int $precision = null): float {
-        $precision = $precision ?? self::$precision;
+        $precision = self::getOptimalPrecision('basic_arithmetic', $precision);
         return round(fmod($a, $b), $precision);
     }
 
@@ -99,7 +139,7 @@ class Scalar {
      * @return float Result of exponentiation
      */
     public static function power(float|int $a, float|int $b, ?int $precision = null): float {
-        $precision = $precision ?? self::$precision;
+        $precision = self::getOptimalPrecision('exponential', $precision);
         return round($a ** $b, $precision);
     }
 
@@ -112,7 +152,7 @@ class Scalar {
      * @return array<int|float> Resulting vector after multiplication
      */
     public static function multiplyVector(float|int $scalar, array $vector, ?int $precision = null): array {
-        $precision = $precision ?? self::$precision;
+        $precision = self::getOptimalPrecision('vector', $precision);
         return array_map(fn($x) => round($x * $scalar, $precision), $vector);
     }
 
@@ -125,7 +165,7 @@ class Scalar {
      * @return array<int|float> Resulting vector after addition
      */
     public static function addToVector(float|int $scalar, array $vector, ?int $precision = null): array {
-        $precision = $precision ?? self::$precision;
+        $precision = self::getOptimalPrecision('vector', $precision);
         return array_map(fn($x) => round($x + $scalar, $precision), $vector);
     }
 
@@ -173,30 +213,39 @@ class Scalar {
      * Calculates e raised to the power of x
      *
      * @param float|int $x The exponent
+     * @param int|null $precision Number of decimal places to round to
      * @return float e^x
      */
-    public static function exponential(float|int $x): float {
-        return exp($x);
+    public static function exponential(float|int $x, ?int $precision = null): float {
+        $precision = self::getOptimalPrecision('exponential', $precision);
+        return round(exp($x), $precision);
     }
 
     /**
      * Calculates the natural logarithm of a number
      *
      * @param float|int $x Input number (must be positive)
+     * @param int|null $precision Number of decimal places to round to
      * @return float|string Natural logarithm or 'undefined' if x <= 0
      */
-    public static function logarithm(float|int $x): float|string {
-        return $x > 0 ? log($x) : 'undefined';
+    public static function logarithm(float|int $x, ?int $precision = null): float|string {
+        if ($x <= 0) {
+            return 'undefined';
+        }
+        $precision = self::getOptimalPrecision('exponential', $precision);
+        return round(log($x), $precision);
     }
 
     /**
      * Calculates the square root of the absolute value of a number
      *
      * @param float|int $x Input number
+     * @param int|null $precision Number of decimal places to round to
      * @return float Square root of |x|
      */
-    public static function squareRoot(float|int $x): float {
-        return sqrt(abs($x));
+    public static function squareRoot(float|int $x, ?int $precision = null): float {
+        $precision = self::getOptimalPrecision('exponential', $precision);
+        return round(sqrt(abs($x)), $precision);
     }
 
     /**
@@ -207,7 +256,7 @@ class Scalar {
      * @return float Sine value
      */
     public static function sine(float|int $angle, ?int $precision = null): float {
-        $precision = $precision ?? self::$precision;
+        $precision = self::getOptimalPrecision('trigonometric', $precision);
         return round(sin($angle), $precision);
     }
 
@@ -219,7 +268,7 @@ class Scalar {
      * @return float Cosine value
      */
     public static function cosine(float|int $angle, ?int $precision = null): float {
-        $precision = $precision ?? self::$precision;
+        $precision = self::getOptimalPrecision('trigonometric', $precision);
         return round(cos($angle), $precision);
     }
 
@@ -237,9 +286,8 @@ class Scalar {
             return 'undefined';
         }
 
-        $result = tan($angle);
-        $precision = $precision ?? self::$precision;
-        return round($result, $precision);
+        $precision = self::getOptimalPrecision('trigonometric', $precision);
+        return round(tan($angle), $precision);
     }
 
     /**

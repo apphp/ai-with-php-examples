@@ -142,8 +142,8 @@ class ScalarTest extends TestCase
         self::assertEquals(0.25, Scalar::power(2, -2));
 
         // Mixed integer and float
-        self::assertEquals(2.8284271247, Scalar::power(2, 1.5));
-        self::assertEquals(0.3535533906, Scalar::power(2, -1.5));
+        self::assertEquals(2.82842712, Scalar::power(2, 1.5));
+        self::assertEquals(0.35355339, Scalar::power(2, -1.5));
     }
 
     /**
@@ -273,12 +273,12 @@ class ScalarTest extends TestCase
     public function testExponential(): void
     {
         // Positive test cases
-        self::assertEquals(exp(1), Scalar::exponential(1));
+        self::assertEquals(round(exp(1), 8), Scalar::exponential(1));
         self::assertEquals(1.0, Scalar::exponential(0));
-        self::assertEquals(exp(0.5), Scalar::exponential(0.5));
+        self::assertEquals(round(exp(0.5), 8), Scalar::exponential(0.5));
 
         // Negative test cases
-        self::assertEquals(exp(-1), Scalar::exponential(-1));
+        self::assertEquals(round(exp(-1), 8), Scalar::exponential(-1));
         self::assertTrue(Scalar::exponential(1000) > 0);
     }
 
@@ -292,8 +292,8 @@ class ScalarTest extends TestCase
     {
         // Positive test cases
         self::assertEquals(0.0, Scalar::logarithm(1));
-        self::assertEquals(log(2), Scalar::logarithm(2));
-        self::assertEquals(log(0.5), Scalar::logarithm(0.5));
+        self::assertEquals(round(log(2), 8), Scalar::logarithm(2));
+        self::assertEquals(round(log(0.5), 8), Scalar::logarithm(0.5));
 
         // Negative test cases
         self::assertEquals('undefined', Scalar::logarithm(0));

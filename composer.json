@@ -62,7 +62,7 @@
     },
     "scripts": {
         "tests": "phpunit --colors=always --configuration phpunit.xml --testsuite all",
-        "tests:coverage": "phpunit --colors=always --configuration phpunit.xml --testsuite all --coverage-html coverage",
+        "tests:coverage": "XDEBUG_MODE=coverage phpunit --colors=always --configuration phpunit.xml --testsuite all --coverage-html tmp/coverage",
         "test": "phpunit --colors=always --configuration phpunit.xml --testsuite all --filter"
     }
 }

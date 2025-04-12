@@ -66,7 +66,7 @@ $memoryEnd = memory_get_usage();
                     xLabel: 'Number of Rooms',
                     yLabel: 'Price ($1000s)',
                     polynomialOrder: $regressionOrder,
-                    title: "Boston Housing: Price vs Room Count",
+                    title: 'Boston Housing: Price vs Room Count',
                 );
             ?>
         </div>

@@ -18,7 +18,7 @@ class Tensor {
 
     private function validateData(array $data): void {
         if (empty($data)) {
-            throw new InvalidArgumentException("Tensor cannot be empty");
+            throw new InvalidArgumentException('Tensor cannot be empty');
         }
 
         $this->validateNestedArrays($data);
@@ -32,7 +32,7 @@ class Tensor {
                 if ($depth === null) {
                     $depth = count($element);
                 } elseif (count($element) !== $depth) {
-                    throw new InvalidArgumentException("Inconsistent dimensions in tensor");
+                    throw new InvalidArgumentException('Inconsistent dimensions in tensor');
                 }
                 $this->validateNestedArrays($element, $depth);
             }
@@ -60,7 +60,7 @@ class Tensor {
         $newTotalElements = array_product($newShape);
 
         if ($totalElements !== $newTotalElements) {
-            throw new InvalidArgumentException("Cannot reshape tensor: incompatible dimensions");
+            throw new InvalidArgumentException('Cannot reshape tensor: incompatible dimensions');
         }
 
         $flatData = $this->flatten($this->data);
@@ -71,7 +71,7 @@ class Tensor {
 
     private function flatten(array $array): array {
         $result = [];
-        array_walk_recursive($array, function($value) use (&$result) {
+        array_walk_recursive($array, function ($value) use (&$result) {
             $result[] = $value;
         });
         return $result;
@@ -79,7 +79,7 @@ class Tensor {
 
     private function reshapeArray(array $flatData, array $shape, int $offset): array {
         if (empty($shape)) {
-            throw new InvalidArgumentException("Shape cannot be empty");
+            throw new InvalidArgumentException('Shape cannot be empty');
         }
 
         $currentDim = array_shift($shape);
@@ -99,39 +99,39 @@ class Tensor {
 
     public function add(Tensor $other): self {
         if ($this->shape !== $other->shape) {
-            throw new InvalidArgumentException("Tensors must have the same shape for addition");
+            throw new InvalidArgumentException('Tensors must have the same shape for addition');
         }
 
-        $result = $this->elementWiseOperation($this->data, $other->data, fn($a, $b) => $a + $b);
+        $result = $this->elementWiseOperation($this->data, $other->data, fn ($a, $b) => $a + $b);
         return new self($result);
     }
 
     public function subtract(Tensor $other): self {
         if ($this->shape !== $other->shape) {
-            throw new InvalidArgumentException("Tensors must have the same shape for subtraction");
+            throw new InvalidArgumentException('Tensors must have the same shape for subtraction');
         }
 
-        $result = $this->elementWiseOperation($this->data, $other->data, fn($a, $b) => $a - $b);
+        $result = $this->elementWiseOperation($this->data, $other->data, fn ($a, $b) => $a - $b);
         return new self($result);
     }
 
     public function multiply(Tensor $other): self {
         if ($this->shape !== $other->shape) {
-            throw new InvalidArgumentException("Tensors must have the same shape for element-wise multiplication");
+            throw new InvalidArgumentException('Tensors must have the same shape for element-wise multiplication');
         }
 
-        $result = $this->elementWiseOperation($this->data, $other->data, fn($a, $b) => $a * $b);
+        $result = $this->elementWiseOperation($this->data, $other->data, fn ($a, $b) => $a * $b);
         return new self($result);
     }
 
     public function divide(Tensor $other): self {
         if ($this->shape !== $other->shape) {
-            throw new InvalidArgumentException("Tensors must have the same shape for division");
+            throw new InvalidArgumentException('Tensors must have the same shape for division');
         }
 
-        $result = $this->elementWiseOperation($this->data, $other->data, function($a, $b) {
+        $result = $this->elementWiseOperation($this->data, $other->data, function ($a, $b) {
             if ($b == 0) {
-                throw new DivisionByZeroError("Division by zero");
+                throw new DivisionByZeroError('Division by zero');
             }
             return $a / $b;
         });
@@ -154,11 +154,11 @@ class Tensor {
 
     public function matrixMultiply(Tensor $other): self {
         if (count($this->shape) !== 2 || count($other->shape) !== 2) {
-            throw new InvalidArgumentException("Matrix multiplication requires 2D tensors");
+            throw new InvalidArgumentException('Matrix multiplication requires 2D tensors');
         }
 
         if ($this->shape[1] !== $other->shape[0]) {
-            throw new InvalidArgumentException("Incompatible dimensions for matrix multiplication");
+            throw new InvalidArgumentException('Incompatible dimensions for matrix multiplication');
         }
 
         $result = [];
@@ -179,12 +179,12 @@ class Tensor {
     public function dotProduct(Tensor $other): float {
         // Ensure both tensors are vectors (1D)
         if (count($this->shape) !== 1 || count($other->shape) !== 1) {
-            throw new InvalidArgumentException("Dot product requires 1D tensors (vectors)");
+            throw new InvalidArgumentException('Dot product requires 1D tensors (vectors)');
         }
 
         // Check dimensions match
         if ($this->shape[0] !== $other->shape[0]) {
-            throw new InvalidArgumentException("Vectors must have the same dimension");
+            throw new InvalidArgumentException('Vectors must have the same dimension');
         }
 
         $result = 0;
@@ -197,7 +197,7 @@ class Tensor {
 
     public function transpose(): self {
         if (count($this->shape) !== 2) {
-            throw new InvalidArgumentException("Transpose operation is only supported for 2D tensors");
+            throw new InvalidArgumentException('Transpose operation is only supported for 2D tensors');
         }
 
         $result = [];
@@ -212,7 +212,7 @@ class Tensor {
 
     public function determinant(): float {
         if (count($this->shape) !== 2 || $this->shape[0] !== $this->shape[1]) {
-            throw new InvalidArgumentException("Determinant requires a square matrix");
+            throw new InvalidArgumentException('Determinant requires a square matrix');
         }
 
         $n = $this->shape[0];
@@ -239,11 +239,15 @@ class Tensor {
         $r = 0;
 
         for ($i = 0; $i < $n; $i++) {
-            if ($i === $row) continue;
+            if ($i === $row) {
+                continue;
+            }
             $minor[$r] = [];
             $c = 0;
             for ($j = 0; $j < $n; $j++) {
-                if ($j === $col) continue;
+                if ($j === $col) {
+                    continue;
+                }
                 $minor[$r][$c] = $this->data[$i][$j];
                 $c++;
             }
@@ -254,15 +258,15 @@ class Tensor {
     }
 
     public function exp(): self {
-        return $this->applyFunction(fn($x) => exp($x));
+        return $this->applyFunction(fn ($x) => exp($x));
     }
 
     public function log(): self {
-        return $this->applyFunction(fn($x) => log($x));
+        return $this->applyFunction(fn ($x) => log($x));
     }
 
     public function power(float $n): self {
-        return $this->applyFunction(fn($x) => pow($x, $n));
+        return $this->applyFunction(fn ($x) => pow($x, $n));
     }
 
     private function applyFunction(callable $func): self {

@@ -44,4 +44,3 @@ echo "\nRoot Mean Squared Error: $" . number_format(sqrt($mse), 2);
 
 $mae = Regression::meanAbsoluteError($predictions, $actualValues);
 echo "\nMean Absolute Error: $" . number_format(abs($mae), 2);
-

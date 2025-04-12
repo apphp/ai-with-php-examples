@@ -1,6 +1,6 @@
 <?php
 
-echo "Creating Tensors:";
+echo 'Creating Tensors:';
 echo "\n---------\n";
 
 // Create a scalar (0D tensor)
@@ -17,7 +17,7 @@ print_r($vector->getData());
 $matrix = new Tensor([
     [1, 2, 3],
     [4, 5, 6],
-    [7, 8, 9]
+    [7, 8, 9],
 ]);
 
 echo "\n\nMatrix: ";
@@ -28,12 +28,12 @@ print_r($matrix->getData());
 $tensor3D = new Tensor([
     [
         [1, 2],
-        [3, 4]
+        [3, 4],
     ],
     [
         [5, 6],
-        [7, 8]
-    ]
+        [7, 8],
+    ],
 ]);
 
 echo "\n\n3D Tensor: ";

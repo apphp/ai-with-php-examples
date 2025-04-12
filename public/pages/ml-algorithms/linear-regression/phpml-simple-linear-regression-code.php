@@ -23,7 +23,7 @@ echo "\nPredicted Price for: $" . number_format($predictedPrice, decimals: 2);
 
 // Calculate MSE - check how accurate our model is using Mean Squared Error
 // Lower number = better predictions
-$predictions = array_map(function($sample) use ($regressor) {
+$predictions = array_map(function ($sample) use ($regressor) {
     return $regressor->predict($sample);
 }, $samples);
 
@@ -34,5 +34,5 @@ $mse = Regression::meanSquaredError($labels, $predictions);
 $predictedPriceScaled = $predictedPrice / 1000;
 $mseScaled = $mse / (1000 * 1000); // Scale MSE accordingly (square of 1000 since it's squared error)
 
-echo "\n\nMean Squared Error (scaled): $" . number_format($mseScaled, decimals: 2) . "k²";
-echo "\nRoot Mean Squared Error (scaled): $" . number_format(sqrt($mseScaled), decimals: 2) . "k";
+echo "\n\nMean Squared Error (scaled): $" . number_format($mseScaled, decimals: 2) . 'k²';
+echo "\nRoot Mean Squared Error (scaled): $" . number_format(sqrt($mseScaled), decimals: 2) . 'k';

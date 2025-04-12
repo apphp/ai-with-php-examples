@@ -54,14 +54,14 @@ $memoryEnd = memory_get_usage();
         <div class="col-md-12 col-lg-7 px-1 pe-4">
             <p><b>Chart:</b></p>
             <?php
-            foreach($featureNames as $ind => $name):
+            foreach ($featureNames as $ind => $name):
                 if ($featureNames[$ind] === 'price'):
                     continue;
                 endif;
                 echo '<div class="col-md-12 col-lg-12">';
                 echo Chart::drawLinearRegression(
                     samples:  array_reduce_samples($dataset->samples(), $ind),
-                    labels: array_map(fn($label) => round($label / 1000), $dataset->labels()),
+                    labels: array_map(fn ($label) => round($label / 1000), $dataset->labels()),
                     chartId: 'lasso_' . $ind,
                     regressionLine: false,
 //                    testSamples:  $testSamples,
@@ -73,7 +73,7 @@ $memoryEnd = memory_get_usage();
                     showLabelBoxes: false
                 );
                 echo '</div>';
-            endforeach;;
+            endforeach;
 
             ?>
         </div>

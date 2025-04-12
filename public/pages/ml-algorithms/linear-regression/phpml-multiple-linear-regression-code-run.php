@@ -48,7 +48,7 @@ $memoryEnd = memory_get_usage();
         $testData = [
             'rooms,size,distance',
             '4,1800,3,  // First house',
-            '2,1200,8   // Second house'
+            '2,1200,8   // Second house',
         ];
         echo create_dataset_and_test_data_links(__DIR__ . '/data/houses2.csv', $testData);
     ?>

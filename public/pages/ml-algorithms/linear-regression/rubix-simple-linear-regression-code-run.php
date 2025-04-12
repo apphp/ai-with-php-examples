@@ -35,7 +35,7 @@ $memoryEnd = memory_get_usage();
     <?php
         $testData = [
             'size',
-            '2250    // New house: 2250 sq ft'
+            '2250    // New house: 2250 sq ft',
         ];
         echo create_dataset_and_test_data_links(__DIR__ . '/data/houses1.csv', $testData);
     ?>

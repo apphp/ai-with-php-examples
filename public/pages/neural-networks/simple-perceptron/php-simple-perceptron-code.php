@@ -7,7 +7,7 @@ class Perceptron {
 
     public function __construct($inputSize = 25, $learningRate = 0.01) { // Reduced learning rate
         // Initialize weights with smaller random values
-        $this->weights = array_map(function() {
+        $this->weights = array_map(function () {
             return rand(-5, 5) / 10; // Smaller initial weights
         }, array_fill(0, $inputSize, 0));
 
@@ -95,10 +95,10 @@ function displayDigit($digit) {
 // Run tests
 echo "\nTesting the perceptron:\n";
 foreach ($testCases as $index => $test) {
-    echo "Test case " . ($index + 1) . ":\n";
+    echo 'Test case ' . ($index + 1) . ":\n";
     displayDigit($test);
     $result = $perceptron->predict($test) ? 'Yes' : 'No';
-    echo "Prediction: " . $result . "\n\n";
+    echo 'Prediction: ' . $result . "\n\n";
 }
 
 

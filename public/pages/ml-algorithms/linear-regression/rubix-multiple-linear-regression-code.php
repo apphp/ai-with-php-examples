@@ -14,7 +14,7 @@ $dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/houses2.csv'
 
 // For PHP 8.2
 // Convert samples and labels to float
-$samples = array_map(fn($sample) => array_map('floatval', $sample), $dataset->samples());
+$samples = array_map(fn ($sample) => array_map('floatval', $sample), $dataset->samples());
 $labels = array_map('floatval', $dataset->labels());
 // Create new dataset with float values
 $dataset = new Labeled($samples, $labels);
@@ -34,7 +34,7 @@ $estimator->train($dataset);
 // Important: Each sample must be its own array within the main array
 $newSamples = [
     [4, 1800, 3],  // First house
-    [2, 1200, 8]   // Second house
+    [2, 1200, 8],   // Second house
 ];
 
 // Create Unlabeled dataset for prediction

@@ -14,7 +14,6 @@ use Rubix\ML\Regressors\Ridge;
 use Rubix\ML\Transformers\MinMaxNormalizer;
 use Rubix\ML\Transformers\ZScaleStandardizer;
 
-
 // Load and prepare the dataset
 $extractor = new CSV(dirname(__FILE__) . '/data/houses3.csv', true);
 $samples = [];
@@ -207,14 +206,14 @@ $exampleHomes = [
     // 3 bed, 2 bath, medium-sized newer home
     [3.0, 2.0, 2000.0, 6000.0, 2010.0, 30.0, 8.0, 3.0, 8.0, 8.0],
     // 5 bed, 3.5 bath, large luxury home
-    [5.0, 3.5, 3500.0, 12000.0, 2018.0, 15.0, 6.5, 2.0, 9.0, 9.0]
+    [5.0, 3.5, 3500.0, 12000.0, 2018.0, 15.0, 6.5, 2.0, 9.0, 9.0],
 ];
 
 // Create descriptions for the homes
 $homeDescriptions = [
-    "Small home (2 bed, 1 bath, 1000 sqft, built 1965)",
-    "Medium home (3 bed, 2 bath, 2000 sqft, built 2010)",
-    "Luxury home (5 bed, 3.5 bath, 3500 sqft, built 2018)",
+    'Small home (2 bed, 1 bath, 1000 sqft, built 1965)',
+    'Medium home (3 bed, 2 bath, 2000 sqft, built 2010)',
+    'Luxury home (5 bed, 3.5 bath, 3500 sqft, built 2018)',
 ];
 
 $exampleDataset = new Labeled($exampleHomes, [0, 0, 0]); // Dummy labels
@@ -234,7 +233,7 @@ echo "\nPredictions for example homes:\n";
 echo "----------------\n";
 
 foreach ($predictions as $i => $prediction) {
-    echo $homeDescriptions[$i] . ": $" . number_format($prediction, 2) . PHP_EOL;
+    echo $homeDescriptions[$i] . ': $' . number_format($prediction, 2) . PHP_EOL;
 }
 
 function simpleLasso($X, $y, $alpha = 1.0, $maxIter = 1000, $tolerance = 1e-4) {
@@ -286,7 +285,7 @@ function simpleLasso($X, $y, $alpha = 1.0, $maxIter = 1000, $tolerance = 1e-4) {
             $oldBeta = $beta[$j];
             if ($corr > $alpha) {
                 $beta[$j] = ($corr - $alpha) / $l2Norm;
-            } else if ($corr < -$alpha) {
+            } elseif ($corr < -$alpha) {
                 $beta[$j] = ($corr + $alpha) / $l2Norm;
             } else {
                 $beta[$j] = 0;

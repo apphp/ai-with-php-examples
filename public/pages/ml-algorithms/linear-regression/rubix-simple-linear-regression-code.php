@@ -8,13 +8,12 @@ use Rubix\ML\CrossValidation\Metrics\MeanSquaredError;
 use Rubix\ML\Transformers\MissingDataImputer;
 use Rubix\ML\Transformers\NumericStringConverter;
 
-
 // Load the raw data from CSV
 $dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/houses1.csv', true));
 
 // For PHP 8.2
 // Convert samples and labels to float
-$samples = array_map(fn($sample) => array_map('floatval', $sample), $dataset->samples());
+$samples = array_map(fn ($sample) => array_map('floatval', $sample), $dataset->samples());
 $labels = array_map('floatval', $dataset->labels());
 // Create new dataset with float values
 $dataset = new Labeled($samples, $labels);
@@ -48,11 +47,10 @@ $predictions = array_map('floatval', $estimator->predict($dataset));
 $actuals = array_map('floatval', $dataset->labels());
 
 // Scale down by 1000
-$scaledPredictions = array_map(function($val) { return $val / 1000; }, $predictions);
-$scaledActuals = array_map(function($val) { return $val / 1000; }, $actuals);
+$scaledPredictions = array_map(function ($val) { return $val / 1000; }, $predictions);
+$scaledActuals = array_map(function ($val) { return $val / 1000; }, $actuals);
 
 $score = $mse->score($scaledPredictions, $scaledActuals);
 
-echo "\n\nMean Squared Error (scaled): $" . number_format(abs($score), 3) . "k²";
-echo "\nRoot Mean Squared Error (scaled): $" . number_format(sqrt(abs($score)), decimals: 2) . "k";
-
+echo "\n\nMean Squared Error (scaled): $" . number_format(abs($score), 3) . 'k²';
+echo "\nRoot Mean Squared Error (scaled): $" . number_format(sqrt(abs($score)), decimals: 2) . 'k';

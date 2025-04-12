@@ -20,7 +20,7 @@ try {
     $x = 17;
     echo "Integer Square Root of $x: " . Arithmetic::isqrt($x) . "\n";
 } catch (BadParameterException $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo 'Error: ' . $e->getMessage() . "\n";
 }
 
 // Example 4: Digit Sum
@@ -34,7 +34,7 @@ echo "Digital Root of $x: " . Arithmetic::digitalRoot($x) . "\n";
 // Example 6: Almost Equal
 $a = 1.00000000001;
 $b = 1.00000000002;
-echo "Are $a and $b almost equal? " . (Arithmetic::almostEqual($a, $b) ? "Yes" : "No") . "\n";
+echo "Are $a and $b almost equal? " . (Arithmetic::almostEqual($a, $b) ? 'Yes' : 'No') . "\n";
 
 // Example 7: Copy Sign
 $magnitude = 5.5;
@@ -45,4 +45,3 @@ echo "Copy sign of $sign to $magnitude: " . Arithmetic::copySign($magnitude, $si
 $a = -13;
 $n = 5;
 echo "Modulo of $a % $n: " . Arithmetic::modulo($a, $n) . "\n";
-

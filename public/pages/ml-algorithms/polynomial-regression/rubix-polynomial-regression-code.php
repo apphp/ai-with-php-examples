@@ -11,12 +11,12 @@ try {
     $dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/boston_housing.csv', true));
 
     // Get the 6th column (index 5 since arrays are zero-based)
-    $samples = array_map(function($row) {
+    $samples = array_map(function ($row) {
         return [(float)$row[5]];
     }, $dataset->samples());
 
     // Convert targets to float values (prices in thousands)
-    $targets = array_map(function($target) {
+    $targets = array_map(function ($target) {
         return (float)$target;
     }, $dataset->labels());
 
@@ -26,7 +26,7 @@ try {
         'min_rooms' => min($rooms),
         'max_rooms' => max($rooms),
         'avg_rooms' => array_sum($rooms) / count($rooms),
-        'sample_count' => count($rooms)
+        'sample_count' => count($rooms),
     ];
 
     // Display dataset statistics
@@ -70,7 +70,7 @@ try {
         [8.0],  // Large house
         [$stats['min_rooms'] + ($stats['max_rooms'] - $stats['min_rooms']) / 2],  // Middle
         [$stats['min_rooms']], // Smallest in dataset
-        [$stats['max_rooms']]  // Largest in dataset
+        [$stats['max_rooms']],  // Largest in dataset
     ];
 
     // Transform test samples
@@ -95,6 +95,6 @@ try {
     }
 
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo 'Error: ' . $e->getMessage() . "\n";
     exit(1);
 }

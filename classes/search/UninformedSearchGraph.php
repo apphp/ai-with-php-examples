@@ -34,7 +34,7 @@ class UninformedSearchGraph {
 
     public function addEdge(string $vertex1, string $vertex2, float $weight = 1.0): void {
         if (!isset($this->adjacencyList[$vertex1]) || !isset($this->adjacencyList[$vertex2])) {
-            throw new InvalidArgumentException("Both vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both vertices must exist in the graph.');
         }
 
         $this->adjacencyList[$vertex2][] = $vertex1;
@@ -48,7 +48,7 @@ class UninformedSearchGraph {
 
     public function bfs(string $startVertex): array {
         if (!isset($this->adjacencyList[$startVertex])) {
-            throw new InvalidArgumentException("Start vertex does not exist in the graph.");
+            throw new InvalidArgumentException('Start vertex does not exist in the graph.');
         }
 
         $visited = [];
@@ -66,7 +66,7 @@ class UninformedSearchGraph {
             $path[] = [
                 'vertex' => $currentVertex,
                 'level' => $this->levels[$currentVertex],
-                'visits' => $visited[$currentVertex] ?? 0
+                'visits' => $visited[$currentVertex] ?? 0,
             ];
 
             // Get all adjacent vertices of the dequeued vertex
@@ -83,21 +83,21 @@ class UninformedSearchGraph {
 
     public function dfs(string $startVertex, string $target = null): array {
         if (!isset($this->adjacencyList[$startVertex])) {
-            throw new InvalidArgumentException("Start vertex does not exist in the graph.");
+            throw new InvalidArgumentException('Start vertex does not exist in the graph.');
         }
 
         $visited = [];
         $path = [];
 
         // Helper function for recursive DFS
-        $dfsRecursive = function(string $vertex) use (&$dfsRecursive, &$visited, &$path, $target): bool {
+        $dfsRecursive = function (string $vertex) use (&$dfsRecursive, &$visited, &$path, $target): bool {
             // Mark current vertex as visited
             $visited[$vertex] = true;
 
             // Add vertex to path
             $path[] = [
                 'vertex' => $vertex,
-                'level' => $this->levels[$vertex]
+                'level' => $this->levels[$vertex],
             ];
 
             // If we found the target, stop the search
@@ -124,7 +124,7 @@ class UninformedSearchGraph {
 
     public function dls(string $startVertex, int $maxDepth, string $target = null, bool $pathOnly = false): array {
         if (!isset($this->adjacencyList[$startVertex])) {
-            throw new InvalidArgumentException("Start vertex does not exist in the graph.");
+            throw new InvalidArgumentException('Start vertex does not exist in the graph.');
         }
 
         $visited = [];
@@ -132,7 +132,7 @@ class UninformedSearchGraph {
         $found = false;
 
         // Helper function for recursive DLS
-        $dlsRecursive = function(string $vertex, int $depth) use (&$dlsRecursive, &$visited, &$path, &$found, $maxDepth, $target): void {
+        $dlsRecursive = function (string $vertex, int $depth) use (&$dlsRecursive, &$visited, &$path, &$found, $maxDepth, $target): void {
             // Mark current vertex as visited
             $visited[$vertex] = true;
 
@@ -140,7 +140,7 @@ class UninformedSearchGraph {
             $path[] = [
                 'vertex' => $vertex,
                 'level' => $this->levels[$vertex],
-                'depth' => $depth
+                'depth' => $depth,
             ];
 
             // If we found the target, mark as found
@@ -179,13 +179,13 @@ class UninformedSearchGraph {
         return [
             'path' => $path,
             'found' => $found,
-            'maxDepth' => $maxDepth
+            'maxDepth' => $maxDepth,
         ];
     }
 
     public function iddfs(string $startVertex, string $target = null, int $maxIterations = 100, bool $pathOnly = false): array {
         if (!isset($this->adjacencyList[$startVertex])) {
-            throw new InvalidArgumentException("Start vertex does not exist in the graph.");
+            throw new InvalidArgumentException('Start vertex does not exist in the graph.');
         }
 
         $allPaths = [];
@@ -197,7 +197,7 @@ class UninformedSearchGraph {
             $allPaths[] = [
                 'depth_limit' => $depth,
                 'path' => $result['path'],
-                'found' => $result['found']
+                'found' => $result['found'],
             ];
 
             // If target is found, return all paths explored
@@ -209,7 +209,7 @@ class UninformedSearchGraph {
                 return [
                     'success' => true,
                     'final_depth' => $depth,
-                    'paths' => $allPaths
+                    'paths' => $allPaths,
                 ];
             }
 
@@ -220,13 +220,13 @@ class UninformedSearchGraph {
         return [
             'success' => false,
             'final_depth' => $depth - 1,
-            'paths' => $allPaths
+            'paths' => $allPaths,
         ];
     }
 
     public function ucs(string $startVertex, string $targetVertex = null, bool $pathOnly = false): array {
         if (!isset($this->adjacencyList[$startVertex])) {
-            throw new InvalidArgumentException("Start vertex does not exist in the graph");
+            throw new InvalidArgumentException('Start vertex does not exist in the graph');
         }
 
         $pq = new SplPriorityQueue();
@@ -253,7 +253,7 @@ class UninformedSearchGraph {
             $explored[] = [
                 'vertex' => $currentVertex,
                 'level' => $this->levels[$currentVertex],
-                'cost' => $currentCost
+                'cost' => $currentCost,
             ];
 
             if ($currentVertex === $targetVertex) {
@@ -279,12 +279,12 @@ class UninformedSearchGraph {
             $optimalPath[] = [
                 'vertex' => $current,
                 'level' => $this->levels[$current],
-                'cost' => $costs[$current]
+                'cost' => $costs[$current],
             ];
             $current = $previous[$current];
         }
 
-        if ($pathOnly){
+        if ($pathOnly) {
             return array_reverse($optimalPath);
         }
 
@@ -292,13 +292,13 @@ class UninformedSearchGraph {
             'success' => isset($visited[$targetVertex]),
             'explored' => $explored,  // All nodes explored during search
             'optimalPath' => array_reverse($optimalPath),  // The actual optimal path
-            'cost' => $costs[$targetVertex] ?? INF
+            'cost' => $costs[$targetVertex] ?? INF,
         ];
     }
 
     public function bds(string $startVertex, string $targetVertex, bool $pathOnly = false): array {
         if (!isset($this->adjacencyList[$startVertex]) || !isset($this->adjacencyList[$targetVertex])) {
-            throw new InvalidArgumentException("Both start and target vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and target vertices must exist in the graph.');
         }
 
         // Initialize forward and backward search queues
@@ -375,13 +375,13 @@ class UninformedSearchGraph {
             'success' => false,
             'path' => [],
             'forwardExplored' => $forwardPath,
-            'backwardExplored' => $backwardPath
+            'backwardExplored' => $backwardPath,
         ];
     }
 
     public function rws(string $startVertex, string $targetVertex = null, int $maxSteps = 1000, bool $pathOnly = false): array {
         if (!isset($this->adjacencyList[$startVertex])) {
-            throw new InvalidArgumentException("Start vertex does not exist in the graph.");
+            throw new InvalidArgumentException('Start vertex does not exist in the graph.');
         }
 
         $path = [];
@@ -394,7 +394,7 @@ class UninformedSearchGraph {
         $path[] = [
             'vertex' => $currentVertex,
             'level' => $this->levels[$currentVertex],
-            'step' => $steps
+            'step' => $steps,
         ];
 
         while ($steps < $maxSteps) {
@@ -424,7 +424,7 @@ class UninformedSearchGraph {
                 'vertex' => $nextVertex,
                 'level' => $this->levels[$nextVertex],
                 'step' => $steps,
-                'visits' => $visited[$nextVertex] ?? 0
+                'visits' => $visited[$nextVertex] ?? 0,
             ];
 
             $currentVertex = $nextVertex;
@@ -439,7 +439,7 @@ class UninformedSearchGraph {
             'path' => $path,
             'steps' => $steps,
             'maxSteps' => $maxSteps,
-            'visited' => $visited
+            'visited' => $visited,
         ];
     }
 
@@ -461,7 +461,7 @@ class UninformedSearchGraph {
         $pathTracking[] = [
             'vertex' => $currentVertex,
             'level' => $this->levels[$currentVertex],
-            'direction' => $direction
+            'direction' => $direction,
         ];
 
         // Check neighbors
@@ -497,7 +497,7 @@ class UninformedSearchGraph {
         while ($current !== null) {
             $forwardPath[] = [
                 'vertex' => $current,
-                'level' => $this->levels[$current]
+                'level' => $this->levels[$current],
             ];
             $current = $forwardParent[$current] ?? null;
         }
@@ -509,7 +509,7 @@ class UninformedSearchGraph {
         while ($current !== null) {
             $backwardPath[] = [
                 'vertex' => $current,
-                'level' => $this->levels[$current]
+                'level' => $this->levels[$current],
             ];
             $current = $backwardParent[$current] ?? null;
         }
@@ -522,7 +522,7 @@ class UninformedSearchGraph {
             'path' => $path,
             'forwardExplored' => $forwardExplored,
             'backwardExplored' => $backwardExplored,
-            'intersectionVertex' => $intersectionVertex
+            'intersectionVertex' => $intersectionVertex,
         ];
     }
 
@@ -535,7 +535,8 @@ class UninformedSearchGraph {
 
         echo "\nNodes explored from start (forward direction):\n";
         foreach ($result['forwardExplored'] as $node) {
-            echo sprintf("Node: %s (Level %d, Direction: %s)\n",
+            echo sprintf(
+                "Node: %s (Level %d, Direction: %s)\n",
                 $node['vertex'],
                 $node['level'],
                 $node['direction']
@@ -544,7 +545,8 @@ class UninformedSearchGraph {
 
         echo "\nNodes explored from target (backward direction):\n";
         foreach ($result['backwardExplored'] as $node) {
-            echo sprintf("Node: %s (Level %d, Direction: %s)\n",
+            echo sprintf(
+                "Node: %s (Level %d, Direction: %s)\n",
                 $node['vertex'],
                 $node['level'],
                 $node['direction']
@@ -553,7 +555,8 @@ class UninformedSearchGraph {
 
         echo "\nFinal path found (intersection at {$result['intersectionVertex']}):\n";
         foreach ($result['path'] as $node) {
-            echo sprintf("Node: %s (Level %d)\n",
+            echo sprintf(
+                "Node: %s (Level %d)\n",
                 $node['vertex'],
                 $node['level']
             );
@@ -578,7 +581,8 @@ class UninformedSearchGraph {
 
         echo "\nNodes explored during UCS (in order of exploration):\n";
         foreach ($result['explored'] as $node) {
-            echo sprintf("Node: %s (Level %d, Cost %.2f)\n",
+            echo sprintf(
+                "Node: %s (Level %d, Cost %.2f)\n",
                 $node['vertex'],
                 $node['level'],
                 $node['cost']
@@ -587,7 +591,8 @@ class UninformedSearchGraph {
 
         echo "\nOptimal path found:\n";
         foreach ($result['optimalPath'] as $node) {
-            echo sprintf("Node: %s (Level %d, Cost %.2f)\n",
+            echo sprintf(
+                "Node: %s (Level %d, Cost %.2f)\n",
                 $node['vertex'],
                 $node['level'],
                 $node['cost']
@@ -598,18 +603,21 @@ class UninformedSearchGraph {
 
     // Add a helper method to print random search results
     public function printRwsPath(array $result): void {
-        echo sprintf("\nRandom Search %s\n",
-            $result['success'] ? "found target!" : "did not find target."
+        echo sprintf(
+            "\nRandom Search %s\n",
+            $result['success'] ? 'found target!' : 'did not find target.'
         );
 
-        echo sprintf("Total steps taken: %d/%d\n",
+        echo sprintf(
+            "Total steps taken: %d/%d\n",
             $result['steps'],
             $result['maxSteps']
         );
 
         echo "\nPath taken:\n";
         foreach ($result['path'] as $node) {
-            echo sprintf("Step %d: Node %s (Level %d, Visits: %d)\n",
+            echo sprintf(
+                "Step %d: Node %s (Level %d, Visits: %d)\n",
                 $node['step'],
                 $node['vertex'],
                 $node['level'],
@@ -636,7 +644,7 @@ class UninformedSearchGraph {
             $vertex = $node['vertex'] ?? $node;
             return $this->vertexLabels[$vertex] ?? $vertex;
         }, $searchResult);
-        echo " -> " . implode("\n -> ", $pathSequenceNames) . "\n";
+        echo ' -> ' . implode("\n -> ", $pathSequenceNames) . "\n";
 
         echo "\nPath analysis:\n";
         $lastIndex = 0;
@@ -649,7 +657,8 @@ class UninformedSearchGraph {
         foreach ($pathSequence as $index => $vertex) {
             if ($index > 0) {
                 $prevVertex = $pathSequence[$index - 1];
-                echo sprintf("Step %d: %s (level %d) -> %s (level %d)\n",
+                echo sprintf(
+                    "Step %d: %s (level %d) -> %s (level %d)\n",
                     $index,
                     $prevVertex,
                     $this->levels[$prevVertex],
@@ -661,7 +670,8 @@ class UninformedSearchGraph {
             $lastVertex = $vertex;
         }
 
-        echo sprintf("Step %d: %s (level %d)\n",
+        echo sprintf(
+            "Step %d: %s (level %d)\n",
             $lastIndex,
             $lastVertex,
             $this->levels[$vertex],
@@ -673,7 +683,8 @@ class UninformedSearchGraph {
     // Helper method to print the adjacency list (for debugging)
     public function printGraph(): void {
         foreach ($this->adjacencyList as $vertex => $neighbors) {
-            echo sprintf("%s (Level %d) -> %s\n",
+            echo sprintf(
+                "%s (Level %d) -> %s\n",
                 $vertex,
                 $this->levels[$vertex],
                 implode(', ', $neighbors)

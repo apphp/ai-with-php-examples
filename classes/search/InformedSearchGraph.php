@@ -70,7 +70,7 @@ class InformedSearchGraph {
             $path[] = [
                 'vertex' => $currentVertex,
                 'level' => $this->levels[$currentVertex],
-                'heuristic' => $this->heuristics[$currentVertex]
+                'heuristic' => $this->heuristics[$currentVertex],
             ];
 
             // Get all neighbors of current vertex
@@ -111,7 +111,7 @@ class InformedSearchGraph {
         $path[] = [
             'vertex' => $goal,
             'level' => $this->levels[$goal],
-            'heuristic' => $this->heuristics[$goal]
+            'heuristic' => $this->heuristics[$goal],
         ];
 
         return $path;
@@ -119,7 +119,7 @@ class InformedSearchGraph {
 
     public function aStarTreeSearch(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         // Priority queue implemented as array with state information
@@ -131,9 +131,9 @@ class InformedSearchGraph {
                 [
                     'vertex' => $start,
                     'level' => $this->levels[$start],
-                    'heuristic' => $this->heuristics[$start]
-                ]
-            ]
+                    'heuristic' => $this->heuristics[$start],
+                ],
+            ],
         ]];
 
         while (!empty($openSet)) {
@@ -172,7 +172,7 @@ class InformedSearchGraph {
                 $newPath[] = [
                     'vertex' => $neighbor,
                     'level' => $this->levels[$neighbor],
-                    'heuristic' => $this->heuristics[$neighbor]
+                    'heuristic' => $this->heuristics[$neighbor],
                 ];
 
                 // Add new state to openSet
@@ -180,7 +180,7 @@ class InformedSearchGraph {
                     'vertex' => $neighbor,
                     'gScore' => $tentativeGScore,
                     'fScore' => $fScore,
-                    'path' => $newPath
+                    'path' => $newPath,
                 ];
             }
         }
@@ -190,7 +190,7 @@ class InformedSearchGraph {
 
     public function aStarGroupSearch(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         $openSet = [$start];
@@ -243,7 +243,7 @@ class InformedSearchGraph {
 
     public function beamSearch(string $start, string $goal, int $beamWidth = 2): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         // Initialize beam with start vertex
@@ -253,9 +253,9 @@ class InformedSearchGraph {
                 [
                     'vertex' => $start,
                     'level' => $this->levels[$start],
-                    'heuristic' => $this->heuristics[$start]
-                ]
-            ]
+                    'heuristic' => $this->heuristics[$start],
+                ],
+            ],
         ]];
 
         $visited = [$start => true];
@@ -283,13 +283,13 @@ class InformedSearchGraph {
                     $newPath[] = [
                         'vertex' => $neighbor,
                         'level' => $this->levels[$neighbor],
-                        'heuristic' => $this->heuristics[$neighbor]
+                        'heuristic' => $this->heuristics[$neighbor],
                     ];
 
                     $candidates[] = [
                         'vertex' => $neighbor,
                         'path' => $newPath,
-                        'heuristic' => $this->heuristics[$neighbor]
+                        'heuristic' => $this->heuristics[$neighbor],
                     ];
 
                     $visited[$neighbor] = true;
@@ -301,7 +301,7 @@ class InformedSearchGraph {
             }
 
             // Sort candidates by heuristic value (ascending)
-            usort($candidates, function($a, $b) {
+            usort($candidates, function ($a, $b) {
                 return $a['heuristic'] <=> $b['heuristic'];
             });
 
@@ -314,7 +314,7 @@ class InformedSearchGraph {
 
     public function idaStarSearch(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         // Initialize the bound as the heuristic value of the start node
@@ -325,8 +325,8 @@ class InformedSearchGraph {
             [
                 'vertex' => $start,
                 'level' => $this->levels[$start],
-                'heuristic' => $this->heuristics[$start]
-            ]
+                'heuristic' => $this->heuristics[$start],
+            ],
         ];
 
         while (true) {
@@ -382,7 +382,7 @@ class InformedSearchGraph {
             $path[] = [
                 'vertex' => $neighbor,
                 'level' => $this->levels[$neighbor],
-                'heuristic' => $this->heuristics[$neighbor]
+                'heuristic' => $this->heuristics[$neighbor],
             ];
 
             // Recursively search from neighbor
@@ -417,14 +417,14 @@ class InformedSearchGraph {
      */
     public function simpleHillClimbing(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         $currentVertex = $start;
         $path = [[
             'vertex' => $start,
             'level' => $this->levels[$start],
-            'heuristic' => $this->heuristics[$start]
+            'heuristic' => $this->heuristics[$start],
         ]];
 
         $visited = [$start => true];
@@ -450,7 +450,7 @@ class InformedSearchGraph {
                     $path[] = [
                         'vertex' => $neighbor,
                         'level' => $this->levels[$neighbor],
-                        'heuristic' => $this->heuristics[$neighbor]
+                        'heuristic' => $this->heuristics[$neighbor],
                     ];
                     $betterFound = true;
                     break;
@@ -471,14 +471,14 @@ class InformedSearchGraph {
      */
     public function steepestAscentHillClimbing(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         $currentVertex = $start;
         $path = [[
             'vertex' => $start,
             'level' => $this->levels[$start],
-            'heuristic' => $this->heuristics[$start]
+            'heuristic' => $this->heuristics[$start],
         ]];
 
         $visited = [$start => true];
@@ -515,7 +515,7 @@ class InformedSearchGraph {
             $path[] = [
                 'vertex' => $currentVertex,
                 'level' => $this->levels[$currentVertex],
-                'heuristic' => $this->heuristics[$currentVertex]
+                'heuristic' => $this->heuristics[$currentVertex],
             ];
         }
 
@@ -529,14 +529,14 @@ class InformedSearchGraph {
      */
     public function stochasticHillClimbing(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         $currentVertex = $start;
         $path = [[
             'vertex' => $start,
             'level' => $this->levels[$start],
-            'heuristic' => $this->heuristics[$start]
+            'heuristic' => $this->heuristics[$start],
         ]];
 
         $visited = [$start => true];
@@ -563,7 +563,7 @@ class InformedSearchGraph {
                 if ($improvement > 0) {
                     $candidates[] = [
                         'vertex' => $neighbor,
-                        'improvement' => $improvement
+                        'improvement' => $improvement,
                     ];
                     $totalImprovement += $improvement;
                 }
@@ -595,7 +595,7 @@ class InformedSearchGraph {
             $path[] = [
                 'vertex' => $currentVertex,
                 'level' => $this->levels[$currentVertex],
-                'heuristic' => $this->heuristics[$currentVertex]
+                'heuristic' => $this->heuristics[$currentVertex],
             ];
 
             $attempts++;
@@ -616,7 +616,7 @@ class InformedSearchGraph {
      */
     public function debugBeamSearch(string $start, string $goal, int $beamWidth = 2): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         echo "\n=== Beam Search Debug (Beam Width: {$beamWidth}) ===\n";
@@ -629,9 +629,9 @@ class InformedSearchGraph {
                 [
                     'vertex' => $start,
                     'level' => $this->levels[$start],
-                    'heuristic' => $this->heuristics[$start]
-                ]
-            ]
+                    'heuristic' => $this->heuristics[$start],
+                ],
+            ],
         ]];
 
         $visited = [$start => true];
@@ -642,7 +642,8 @@ class InformedSearchGraph {
             echo "\n=== Iteration {$iteration} ===\n";
             echo "Current beam states:\n";
             foreach ($beam as $index => $state) {
-                echo sprintf("  %d. %s (h=%.2f)\n",
+                echo sprintf(
+                    "  %d. %s (h=%.2f)\n",
                     $index + 1,
                     $state['vertex'],
                     $this->heuristics[$state['vertex']]
@@ -659,7 +660,7 @@ class InformedSearchGraph {
                 // Check if we've reached the goal
                 if ($currentVertex === $goal) {
                     echo "\nGoal state reached!\n";
-                    echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($state['path'], 'vertex'))) . "\n\n";
+                    echo "Final path: \n" . implode(' -> ', $this->getSequenceNames(array_column($state['path'], 'vertex'))) . "\n\n";
                     return $state['path'];
                 }
 
@@ -675,16 +676,17 @@ class InformedSearchGraph {
                     $newPath[] = [
                         'vertex' => $neighbor,
                         'level' => $this->levels[$neighbor],
-                        'heuristic' => $this->heuristics[$neighbor]
+                        'heuristic' => $this->heuristics[$neighbor],
                     ];
 
                     $candidates[] = [
                         'vertex' => $neighbor,
                         'path' => $newPath,
-                        'heuristic' => $this->heuristics[$neighbor]
+                        'heuristic' => $this->heuristics[$neighbor],
                     ];
 
-                    echo sprintf("  %s: Added as candidate (h=%.2f)\n",
+                    echo sprintf(
+                        "  %s: Added as candidate (h=%.2f)\n",
                         $neighbor,
                         $this->heuristics[$neighbor]
                     );
@@ -699,17 +701,18 @@ class InformedSearchGraph {
             }
 
             // Sort candidates by heuristic value (ascending)
-            usort($candidates, function($a, $b) {
+            usort($candidates, function ($a, $b) {
                 return $a['heuristic'] <=> $b['heuristic'];
             });
 
             echo "\nCandidate ranking:\n";
             foreach ($candidates as $index => $candidate) {
-                echo sprintf("  %d. %s (h=%.2f)%s\n",
+                echo sprintf(
+                    "  %d. %s (h=%.2f)%s\n",
                     $index + 1,
                     $candidate['vertex'],
                     $candidate['heuristic'],
-                    $index < $beamWidth ? " ← Selected for beam" : ""
+                    $index < $beamWidth ? ' ← Selected for beam' : ''
                 );
             }
 
@@ -728,7 +731,7 @@ class InformedSearchGraph {
      */
     public function debugAStarTreeSearch(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         echo "\n=== A* Tree Search Debug ===\n";
@@ -743,9 +746,9 @@ class InformedSearchGraph {
                 [
                     'vertex' => $start,
                     'level' => $this->levels[$start],
-                    'heuristic' => $this->heuristics[$start]
-                ]
-            ]
+                    'heuristic' => $this->heuristics[$start],
+                ],
+            ],
         ]];
 
         $iteration = 0;
@@ -761,7 +764,8 @@ class InformedSearchGraph {
 
             echo "Current open set states:\n";
             foreach ($openSet as $index => $state) {
-                echo sprintf("  %d. %s (g=%.2f, f=%.2f)\n",
+                echo sprintf(
+                    "  %d. %s (g=%.2f, f=%.2f)\n",
                     $index + 1,
                     $state['vertex'],
                     $state['gScore'],
@@ -777,12 +781,12 @@ class InformedSearchGraph {
             $currentVertex = $current['vertex'];
 
             echo "\nSelected node {$currentVertex} with lowest f-score: {$currentFScore}\n";
-            echo "Current path: " . implode(" -> ", array_column($current['path'], 'vertex')) . "\n";
+            echo 'Current path: ' . implode(' -> ', array_column($current['path'], 'vertex')) . "\n";
 
             // Check if we've reached the goal
             if ($currentVertex === $goal) {
                 echo "\nGoal reached!\n";
-                echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($current['path'], 'vertex'))) . "\n";
+                echo "Final path: \n" . implode(' -> ', $this->getSequenceNames(array_column($current['path'], 'vertex'))) . "\n";
                 echo "Total cost: {$current['gScore']}\n\n";
                 return $current['path'];
             }
@@ -799,7 +803,8 @@ class InformedSearchGraph {
                 // Calculate f score (g score + heuristic)
                 $fScore = $tentativeGScore + $this->heuristics[$neighbor];
 
-                echo sprintf("  %s: g=%.2f, h=%.2f, f=%.2f\n",
+                echo sprintf(
+                    "  %s: g=%.2f, h=%.2f, f=%.2f\n",
                     $neighbor,
                     $tentativeGScore,
                     $this->heuristics[$neighbor],
@@ -811,7 +816,7 @@ class InformedSearchGraph {
                 $newPath[] = [
                     'vertex' => $neighbor,
                     'level' => $this->levels[$neighbor],
-                    'heuristic' => $this->heuristics[$neighbor]
+                    'heuristic' => $this->heuristics[$neighbor],
                 ];
 
                 // Add new state to openSet
@@ -819,7 +824,7 @@ class InformedSearchGraph {
                     'vertex' => $neighbor,
                     'gScore' => $tentativeGScore,
                     'fScore' => $fScore,
-                    'path' => $newPath
+                    'path' => $newPath,
                 ];
 
                 echo "  → Added to open set\n";
@@ -836,7 +841,7 @@ class InformedSearchGraph {
      */
     public function debugAStarGroupSearch(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         echo "\n=== A* Group Search Debug ===\n";
@@ -863,7 +868,8 @@ class InformedSearchGraph {
 
             echo "Current open set:\n";
             foreach ($openSet as $vertex) {
-                echo sprintf("  %s (g=%.2f, f=%.2f)\n",
+                echo sprintf(
+                    "  %s (g=%.2f, f=%.2f)\n",
                     $vertex,
                     $gScore[$vertex],
                     $fScore[$vertex]
@@ -887,7 +893,7 @@ class InformedSearchGraph {
                 }
 
                 echo "\nGoal reached!\n";
-                echo "Final path: \n" . implode(" -> ", $this->getSequenceNames($path)) . "\n";
+                echo "Final path: \n" . implode(' -> ', $this->getSequenceNames($path)) . "\n";
                 echo "Total cost: {$totalCost}\n\n";
                 return $path;
             }
@@ -901,7 +907,8 @@ class InformedSearchGraph {
                 $tentativeGScore = $gScore[$current] + $this->getEdgeCost($current, $neighbor);
                 $neighborFScore = $tentativeGScore + $this->heuristics[$neighbor];
 
-                echo sprintf("  %s: g=%.2f, h=%.2f, f=%.2f",
+                echo sprintf(
+                    '  %s: g=%.2f, h=%.2f, f=%.2f',
                     $neighbor,
                     $tentativeGScore,
                     $this->heuristics[$neighbor],
@@ -934,7 +941,7 @@ class InformedSearchGraph {
      */
     public function debugIdaStarSearch(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         echo "\n=== IDA* Search Debug ===\n";
@@ -955,8 +962,8 @@ class InformedSearchGraph {
             [
                 'vertex' => $start,
                 'level' => $this->levels[$start],
-                'heuristic' => $this->heuristics[$start]
-            ]
+                'heuristic' => $this->heuristics[$start],
+            ],
         ];
 
         while (true) {
@@ -969,7 +976,7 @@ class InformedSearchGraph {
 
             if (is_array($result)) {
                 echo "\nGoal reached!\n";
-                echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($result, 'vertex'))) . "\n\n";
+                echo "Final path: \n" . implode(' -> ', $this->getSequenceNames(array_column($result, 'vertex'))) . "\n\n";
                 return $result;
             }
 
@@ -993,10 +1000,10 @@ class InformedSearchGraph {
         $current = $path[count($path) - 1]['vertex'];
         $f = $g + $this->heuristics[$current];
 
-        $indent = str_repeat("  ", $depth);
+        $indent = str_repeat('  ', $depth);
         echo "{$indent}Examining vertex: {$current}\n";
         echo "{$indent}g-value: {$g}, h-value: {$this->heuristics[$current]}, f-value: {$f}\n";
-        echo "{$indent}Current path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
+        echo "{$indent}Current path: " . implode(' -> ', array_column($path, 'vertex')) . "\n";
 
         // If f exceeds bound, return f as the new minimum bound
         if ($f > $bound) {
@@ -1037,7 +1044,7 @@ class InformedSearchGraph {
             $path[] = [
                 'vertex' => $neighbor,
                 'level' => $this->levels[$neighbor],
-                'heuristic' => $this->heuristics[$neighbor]
+                'heuristic' => $this->heuristics[$neighbor],
             ];
 
             // Recursively search from neighbor
@@ -1079,7 +1086,7 @@ class InformedSearchGraph {
      */
     public function debugSimpleHillClimbing(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         echo "\n=== Simple Hill Climbing Debug ===\n";
@@ -1089,7 +1096,7 @@ class InformedSearchGraph {
         $path = [[
             'vertex' => $start,
             'level' => $this->levels[$start],
-            'heuristic' => $this->heuristics[$start]
+            'heuristic' => $this->heuristics[$start],
         ]];
         $visited = [$start => true];
         $totalCost = 0;
@@ -1101,7 +1108,7 @@ class InformedSearchGraph {
 
         while ($currentVertex !== $goal) {
             echo "\n----------------------------\n";
-            echo "Current path: " . implode(" -> ", array_column($path, 'vertex'));
+            echo 'Current path: ' . implode(' -> ', array_column($path, 'vertex'));
             echo "\nAt vertex: {$currentVertex} (h={$this->heuristics[$currentVertex]})\n";
 
             $neighbors = $this->adjacencyList[$currentVertex];
@@ -1134,7 +1141,7 @@ class InformedSearchGraph {
                     $path[] = [
                         'vertex' => $neighbor,
                         'level' => $this->levels[$neighbor],
-                        'heuristic' => $neighborHeuristic
+                        'heuristic' => $neighborHeuristic,
                     ];
                     $betterFound = true;
                     break;
@@ -1145,14 +1152,14 @@ class InformedSearchGraph {
 
             if (!$betterFound) {
                 echo "\nLocal maximum reached - no improving neighbors found\n";
-                echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($path, 'vertex'))) . "\n";
+                echo "Final path: \n" . implode(' -> ', $this->getSequenceNames(array_column($path, 'vertex'))) . "\n";
                 echo "Total cost: {$totalCost}\n\n";
                 return null;
             }
         }
 
         echo "\nGoal reached!\n";
-        echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($path, 'vertex'))) . "\n";
+        echo "Final path: \n" . implode(' -> ', $this->getSequenceNames(array_column($path, 'vertex'))) . "\n";
         echo "Total cost: {$totalCost}\n\n";
         return $path;
     }
@@ -1162,7 +1169,7 @@ class InformedSearchGraph {
      */
     public function debugSteepestAscentHillClimbing(string $start, string $goal): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
-            throw new InvalidArgumentException("Both start and goal vertices must exist in the graph.");
+            throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }
 
         echo "\n=== Steepest Ascent Hill Climbing Debug ===\n";
@@ -1172,7 +1179,7 @@ class InformedSearchGraph {
         $path = [[
             'vertex' => $start,
             'level' => $this->levels[$start],
-            'heuristic' => $this->heuristics[$start]
+            'heuristic' => $this->heuristics[$start],
         ]];
         $visited = [$start => true];
         $totalCost = 0;
@@ -1184,7 +1191,7 @@ class InformedSearchGraph {
 
         while ($currentVertex !== $goal) {
             echo "\n----------------------------\n";
-            echo "Current path: " . implode(" -> ", array_column($path, 'vertex'));
+            echo 'Current path: ' . implode(' -> ', array_column($path, 'vertex'));
             echo "\nAt vertex: {$currentVertex} (h={$this->heuristics[$currentVertex]})\n";
 
             $neighbors = $this->adjacencyList[$currentVertex];
@@ -1224,7 +1231,7 @@ class InformedSearchGraph {
 
             if ($bestNeighbor === null) {
                 echo "\nLocal maximum reached - no improving neighbors found\n";
-                echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($path, 'vertex'))) . "\n";
+                echo "Final path: \n" . implode(' -> ', $this->getSequenceNames(array_column($path, 'vertex'))) . "\n";
                 echo "Total cost: {$totalCost}\n\n";
                 return null;
             }
@@ -1239,12 +1246,12 @@ class InformedSearchGraph {
             $path[] = [
                 'vertex' => $currentVertex,
                 'level' => $this->levels[$currentVertex],
-                'heuristic' => $this->heuristics[$currentVertex]
+                'heuristic' => $this->heuristics[$currentVertex],
             ];
         }
 
         echo "\nGoal reached!\n";
-        echo "Final path: \n" . implode(" -> ", $this->getSequenceNames(array_column($path, 'vertex'))) . "\n";
+        echo "Final path: \n" . implode(' -> ', $this->getSequenceNames(array_column($path, 'vertex'))) . "\n";
         echo "Total cost: {$totalCost}\n\n";
         return $path;
     }
@@ -1318,7 +1325,7 @@ class InformedSearchGraph {
                         $probability = ($improvement / $totalImprovement) * 100;
                         echo sprintf("\n  %s: %.2f%%", $neighbor, $probability);
                         if ($neighbor === $nextVertex) {
-                            echo " ← Selected";
+                            echo ' ← Selected';
                         }
                     }
                 }
@@ -1335,7 +1342,7 @@ class InformedSearchGraph {
             echo "\n----------------------------";
         }
 
-        echo sprintf("\n\nFinal path: \n%s", implode(" -> ", $this->getSequenceNames(array_column($searchResult, 'vertex'))));
+        echo sprintf("\n\nFinal path: \n%s", implode(' -> ', $this->getSequenceNames(array_column($searchResult, 'vertex'))));
         echo sprintf("\nTotal path cost: %.2f\n\n", $totalCost);
 
         return $searchResult;
@@ -1373,10 +1380,10 @@ class InformedSearchGraph {
             $path[] = [
                 'vertex' => $currentVertex,
                 'level' => $this->levels[$currentVertex],
-                'heuristic' => $this->heuristics[$currentVertex]
+                'heuristic' => $this->heuristics[$currentVertex],
             ];
 
-            echo "Current path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
+            echo 'Current path: ' . implode(' -> ', array_column($path, 'vertex')) . "\n";
             echo "At vertex: {$currentVertex} (h={$this->heuristics[$currentVertex]})\n";
 
             // Get all neighbors of current vertex
@@ -1437,11 +1444,11 @@ class InformedSearchGraph {
         $path[] = [
             'vertex' => $goal,
             'level' => $this->levels[$goal],
-            'heuristic' => $this->heuristics[$goal]
+            'heuristic' => $this->heuristics[$goal],
         ];
 
         echo "\nGoal reached!\n";
-        echo "Final path: " . implode(" -> ", array_column($path, 'vertex')) . "\n";
+        echo 'Final path: ' . implode(' -> ', array_column($path, 'vertex')) . "\n";
         echo "Total cost: {$totalCost}\n";
 
         return $path;
@@ -1460,7 +1467,7 @@ class InformedSearchGraph {
             $vertex = $node['vertex'] ?? $node;
             return $this->vertexLabels[$vertex] ?? $vertex;
         }, $searchResult);
-        echo " -> " . implode("\n -> ", $pathSequenceNames) . "\n";
+        echo ' -> ' . implode("\n -> ", $pathSequenceNames) . "\n";
 
         echo "\nPath analysis:\n";
         $lastIndex = 0;
@@ -1475,7 +1482,8 @@ class InformedSearchGraph {
                 $prevVertex = $pathSequence[$index - 1];
                 $cost = $this->getEdgeCost($prevVertex, $vertex);
                 $totalCost += $cost;
-                echo sprintf("Step %d: %s (level %d, h=%.1f) -> %s (level %d, h=%.1f): cost: %.1f\n",
+                echo sprintf(
+                    "Step %d: %s (level %d, h=%.1f) -> %s (level %d, h=%.1f): cost: %.1f\n",
                     $index,
                     $prevVertex,
                     $this->levels[$prevVertex],
@@ -1491,7 +1499,8 @@ class InformedSearchGraph {
             $lastVertex = $vertex;
         }
 
-        echo sprintf("Step %d: %s (level %d, h=%.1f)\n",
+        echo sprintf(
+            "Step %d: %s (level %d, h=%.1f)\n",
             $lastIndex,
             $lastVertex,
             $this->levels[$vertex],
@@ -1519,7 +1528,8 @@ class InformedSearchGraph {
                 if ($previousVertex !== null) {
                     $edgeCost = $this->getEdgeCost($previousVertex, $currentVertex);
                     $totalCost += $edgeCost;
-                    echo sprintf("Edge cost from %s to %s: %.1f\n",
+                    echo sprintf(
+                        "Edge cost from %s to %s: %.1f\n",
                         $previousVertex,
                         $currentVertex,
                         $edgeCost
@@ -1527,7 +1537,8 @@ class InformedSearchGraph {
                 }
             }
 
-            echo sprintf("Node: %s (Level %d, h=%.1f)\n",
+            echo sprintf(
+                "Node: %s (Level %d, h=%.1f)\n",
                 $currentVertex,
                 $this->levels[$currentVertex],
                 $this->heuristics[$currentVertex]
@@ -1543,11 +1554,12 @@ class InformedSearchGraph {
 
     public function printGraph(): void {
         foreach ($this->adjacencyList as $vertex => $neighbors) {
-            $costs = array_map(function($neighbor) use ($vertex) {
-                return sprintf("%s(%.1f)", $neighbor, $this->edgeCosts[$vertex][$neighbor]);
+            $costs = array_map(function ($neighbor) use ($vertex) {
+                return sprintf('%s(%.1f)', $neighbor, $this->edgeCosts[$vertex][$neighbor]);
             }, $neighbors);
 
-            echo sprintf("%s (Level %d, h=%.1f) -> %s\n",
+            echo sprintf(
+                "%s (Level %d, h=%.1f) -> %s\n",
                 $this->vertexLabels[$vertex] ?? $vertex,
                 $this->levels[$vertex],
                 $this->heuristics[$vertex],

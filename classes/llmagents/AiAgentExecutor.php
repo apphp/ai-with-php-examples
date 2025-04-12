@@ -35,7 +35,7 @@ class AiAgentExecutor {
         // Initial conversation with the site check request
         $messages = [
             ['role' => 'system', 'content' => $this->getSystemPrompt()],
-            ['role' => 'user', 'content' => $question]
+            ['role' => 'user', 'content' => $question],
         ];
 
         $maxTokens = $this->getConfigValue('max_tokens', 3000);
@@ -53,7 +53,7 @@ class AiAgentExecutor {
                 'functions' => $functions,
                 'function_call' => 'auto',
                 'temperature' => 0.7,
-                'max_tokens' => $maxTokens
+                'max_tokens' => $maxTokens,
             ];
 
             if ($this->debug) {
@@ -87,7 +87,7 @@ class AiAgentExecutor {
                 return [
                     'conversation_history' => $conversationHistory,
                     'final_analysis' => !empty($finalResponse) ? $finalResponse->choices[0]->message->content : '',
-                    'tools_executed' => array_keys($toolsExecuted)
+                    'tools_executed' => array_keys($toolsExecuted),
                 ];
             }
 
@@ -109,28 +109,28 @@ class AiAgentExecutor {
                     'content' => null,
                     'function_call' => [
                         'name' => $functionName,
-                        'arguments' => $message->functionCall->arguments
-                    ]
+                        'arguments' => $message->functionCall->arguments,
+                    ],
                 ];
 
                 $messages[] = [
                     'role' => 'function',
                     'name' => $functionName,
-                    'content' => $result
+                    'content' => $result,
                 ];
 
                 // If all tools haven't been executed, prompt for continuing the analysis
                 if (count($toolsExecuted) < count($this->tools)) {
                     $messages[] = [
                         'role' => 'user',
-                        'content' => 'Please continue analyzing the site using the remaining available tools.'
+                        'content' => 'Please continue analyzing the site using the remaining available tools.',
                     ];
                 }
             } catch (\Exception $e) {
                 $messages[] = [
                     'role' => 'function',
                     'name' => $functionName,
-                    'content' => json_encode(['error' => $e->getMessage()])
+                    'content' => json_encode(['error' => $e->getMessage()]),
                 ];
             }
         }
@@ -140,10 +140,10 @@ class AiAgentExecutor {
             $finalResponse = $this->client->chat()->create([
                 'model' => $this->model,
                 'messages' => array_merge($messages, [
-                    ['role' => 'user', 'content' => 'Please provide a final analysis based on all the information gathered from all tools.']
+                    ['role' => 'user', 'content' => 'Please provide a final analysis based on all the information gathered from all tools.'],
                 ]),
                 'temperature' => 0.7,
-                'max_tokens' => $maxTokens
+                'max_tokens' => $maxTokens,
             ]);
         }
 
@@ -160,7 +160,7 @@ class AiAgentExecutor {
         return [
             'conversation_history' => $conversationHistory,
             'final_analysis' => !empty($finalResponse) ? $finalResponse->choices[0]->message->content : '',
-            'tools_executed' => array_keys($toolsExecuted)
+            'tools_executed' => array_keys($toolsExecuted),
         ];
     }
 
@@ -211,7 +211,7 @@ class AiAgentExecutor {
 
                 $properties[$paramName] = [
                     'type' => $this->mapPhpTypeToJsonType($paramType->getName()),
-                    'description' => $this->getInputParamDescription($param)
+                    'description' => $this->getInputParamDescription($param),
                 ];
 
                 if (!$param->isOptional()) {
@@ -228,8 +228,8 @@ class AiAgentExecutor {
                 'parameters' => [
                     'type' => 'object',
                     'properties' => $properties,
-                    'required' => array_unique($required)
-                ]
+                    'required' => array_unique($required),
+                ],
             ];
         }
 
@@ -310,5 +310,3 @@ class AiAgentExecutor {
         return $default;
     }
 }
-
-

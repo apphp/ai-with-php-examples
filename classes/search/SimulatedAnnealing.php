@@ -54,8 +54,15 @@ class SimulatedAnnealing {
             }
 
             // Log this iteration
-            $this->logIteration($iteration, $currentSolution, $currentEnergy,
-                $this->temperature, $newSolution, $newEnergy, $accepted);
+            $this->logIteration(
+                $iteration,
+                $currentSolution,
+                $currentEnergy,
+                $this->temperature,
+                $newSolution,
+                $newEnergy,
+                $accepted
+            );
 
             $this->temperature *= $this->coolingRate;
         }
@@ -74,8 +81,15 @@ class SimulatedAnnealing {
      * @param float|null $triedEnergy Energy of tried solution
      * @param bool $accepted Whether the tried solution was accepted
      */
-    private function logIteration($iteration, $currentSolution, $currentEnergy,
-                                  $temperature, $triedSolution, $triedEnergy, $accepted) {
+    private function logIteration(
+        $iteration,
+        $currentSolution,
+        $currentEnergy,
+        $temperature,
+        $triedSolution,
+        $triedEnergy,
+        $accepted
+    ) {
         $this->iterationLog[] = [
             'iteration' => $iteration,
             'solution' => $currentSolution,
@@ -83,7 +97,7 @@ class SimulatedAnnealing {
             'temperature' => $temperature,
             'tried_solution' => $triedSolution,
             'tried_energy' => $triedEnergy,
-            'accepted' => $accepted
+            'accepted' => $accepted,
         ];
     }
 
@@ -104,14 +118,14 @@ class SimulatedAnnealing {
      */
     public function printIterationLog($detailed = false) {
         $output = "Simulated Annealing Iterations Log:\n\n";
-        $output .= str_pad("#", 3) . str_pad("Solution", 12) . str_pad("Energy", 12) .
-            str_pad("Temp", 12);
+        $output .= str_pad('#', 3) . str_pad('Solution', 12) . str_pad('Energy', 12) .
+            str_pad('Temp', 12);
 
         if ($detailed) {
-            $output .= str_pad("Tried", 11) . str_pad("Tried Energy", 15) . "Accepted";
+            $output .= str_pad('Tried', 11) . str_pad('Tried Energy', 15) . 'Accepted';
         }
 
-        $output .= "\n" . str_repeat("-", $detailed ? 75 : 50) . "\n";
+        $output .= "\n" . str_repeat('-', $detailed ? 75 : 50) . "\n";
 
         foreach ($this->iterationLog as $log) {
             $output .= str_pad($log['iteration']. '. ', 3) .
@@ -122,7 +136,7 @@ class SimulatedAnnealing {
             if ($detailed && $log['iteration'] > 0) {
                 $output .= str_pad(number_format($log['tried_solution'], 3), 11) .
                     str_pad(number_format($log['tried_energy'], 3), 15) .
-                    ($log['accepted'] ? "Yes" : "No");
+                    ($log['accepted'] ? 'Yes' : 'No');
             }
 
             $output .= "\n";

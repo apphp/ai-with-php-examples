@@ -72,7 +72,6 @@ final class SalesAnalysisAgent extends AgentAggregate {
                 key: 'forecast_request',
                 content: 'Based on my historical sales data, what should I expect for the upcoming holiday season?',
             ),
-
             new SolutionMetadata(
                 type: MetadataType::Configuration,
                 key: 'max_tokens',
@@ -111,13 +110,13 @@ final class SalesAnalysisAgent extends AgentAggregate {
         if (!isset($properties['reportPath'])) {
             $properties['reportPath'] = [
                 'type' => 'string',
-                'description' => 'The path to report file'
+                'description' => 'The path to report file',
             ];
             $required[] = 'url';
         }
     }
 
-    public function getRequiredArgument():string {
+    public function getRequiredArgument(): string {
         return 'reportPath';
     }
 }

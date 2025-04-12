@@ -7,7 +7,8 @@ class KBAgent {
 
     public function __construct(
         private KnowledgeBase $kb = new KnowledgeBase()
-    ) {}
+    ) {
+    }
 
     public function makePerceptSentence(array $percept, int $t): string {
         return "At time {$t}, perceived: " . json_encode($percept);
@@ -23,18 +24,18 @@ class KBAgent {
 
     private function printStep(int $stepNumber, string $title, string $content, $eol = "\n"): void {
         echo <<<OUTPUT
-        Step {$stepNumber}: {$title}
-        --------------------
-        {$content}
-        {$eol}
-        OUTPUT;
+            Step {$stepNumber}: {$title}
+            --------------------
+            {$content}
+            {$eol}
+            OUTPUT;
     }
 
     private function printInitialState(int $timeStep, array $percept): void {
         $content = <<<CONTENT
-        Time step: {$timeStep}
-        Percept received: {$this->jsonEncode($percept)}
-        CONTENT;
+            Time step: {$timeStep}
+            Percept received: {$this->jsonEncode($percept)}
+            CONTENT;
 
         $this->printStep(1, 'Initial State', $content);
     }
@@ -49,9 +50,9 @@ class KBAgent {
 
     private function printFinalState(int $nextTimeStep, string $actionSentence): void {
         $content = <<<CONTENT
-        Time step incremented to: {$nextTimeStep}
-        Action recorded in KB: {$actionSentence}
-        CONTENT;
+            Time step incremented to: {$nextTimeStep}
+            Action recorded in KB: {$actionSentence}
+            CONTENT;
 
         $this->printStep(4, 'Final Knowledge Base State', $content, eol: '');
     }
@@ -94,7 +95,7 @@ class KBAgent {
     private function defaultAction(array $percept): array {
         return [
             'type' => 'default_action',
-            'percept' => $percept
+            'percept' => $percept,
         ];
     }
 }

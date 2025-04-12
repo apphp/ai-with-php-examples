@@ -23,4 +23,3 @@ class Proposition {
         $this->value = $value;
     }
 }
-

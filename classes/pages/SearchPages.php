@@ -173,13 +173,15 @@ class SearchPages {
 
         if (!is_dir($dir) || !($handle = opendir($dir))) {
             $this->isError = true;
-            $this->errorMessage = "Cannot open directory: " . basename($dir);
+            $this->errorMessage = 'Cannot open directory: ' . basename($dir);
             return;
         }
 
         while (false !== ($file = readdir($handle))) {
 
-            if ($file == '.' || $file == '..' || preg_match('/-js\.php$/', $file)) continue;
+            if ($file == '.' || $file == '..' || preg_match('/-js\.php$/', $file)) {
+                continue;
+            }
 
             $path = $dir . '/' . $file;
 
@@ -280,7 +282,7 @@ class SearchPages {
             return $this;
         }
 
-        if (strlen($keyword) > 100){
+        if (strlen($keyword) > 100) {
             $this->keyword = '';
             $this->isFound = false;
             $this->isError = true;
@@ -378,7 +380,7 @@ class SearchPages {
         } elseif ($this->isError) {
             $result .= '<br><i class="text-danger">' . $this->errorMessage . '</i>';
         } elseif ($this->keyword) {
-            $result .= '<br>No results found for: <i>' . htmlspecialchars(str_ireplace(['&#39;', '&#34;'],["'", '"'], $this->keyword), ENT_QUOTES, 'UTF-8') . '</i>';
+            $result .= '<br>No results found for: <i>' . htmlspecialchars(str_ireplace(['&#39;', '&#34;'], ["'", '"'], $this->keyword), ENT_QUOTES, 'UTF-8') . '</i>';
         }
 
         return $result;

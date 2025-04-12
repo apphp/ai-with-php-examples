@@ -25,8 +25,8 @@ final class GetDnsInfoTool extends PhpTool {
         // This is a placeholder implementation
         $dnsRecords = \dns_get_record(str_ireplace(['https://', 'http://'], '', $input->domain), DNS_A + DNS_NS);
 
-        $ipAddresses = \array_column(array_filter($dnsRecords, fn($record) => $record['type'] === 'A'), 'ip');
-        $nameServers = \array_column(array_filter($dnsRecords, fn($record) => $record['type'] === 'NS'), 'target');
+        $ipAddresses = \array_column(array_filter($dnsRecords, fn ($record) => $record['type'] === 'A'), 'ip');
+        $nameServers = \array_column(array_filter($dnsRecords, fn ($record) => $record['type'] === 'NS'), 'target');
 
         return \json_encode([
             'ip_addresses' => $ipAddresses,

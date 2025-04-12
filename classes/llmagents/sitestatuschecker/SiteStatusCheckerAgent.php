@@ -14,13 +14,11 @@ use LLM\Agents\Solution\Model;
 use LLM\Agents\Solution\SolutionMetadata;
 use LLM\Agents\Solution\ToolLink;
 
-final class SiteStatusCheckerAgent extends AgentAggregate
-{
+final class SiteStatusCheckerAgent extends AgentAggregate {
     public const DEFAULT_MODEL = 'gpt-4o-mini';
     public const NAME = 'site_status_checker';
 
-    public static function create(string $model = self::DEFAULT_MODEL): self
-    {
+    public static function create(string $model = self::DEFAULT_MODEL): self {
         $agent = new Agent(
             key: self::NAME,
             name: 'Site Status Checker',
@@ -69,7 +67,6 @@ final class SiteStatusCheckerAgent extends AgentAggregate
                 key: 'google',
                 content: 'Check if google.com is online.',
             ),
-
             new SolutionMetadata(
                 type: MetadataType::Prompt,
                 key: 'offline_site',
@@ -110,7 +107,7 @@ final class SiteStatusCheckerAgent extends AgentAggregate
             'headers' => 'Additional HTTP headers to send with the request',
             'followRedirects' => 'Whether to follow HTTP redirects',
             'maxRedirects' => 'Maximum number of redirects to follow',
-            'verifySSL' => 'Whether to verify SSL certificates'
+            'verifySSL' => 'Whether to verify SSL certificates',
         ];
 
         return $descriptions;
@@ -127,13 +124,13 @@ final class SiteStatusCheckerAgent extends AgentAggregate
         if (!isset($properties['url'])) {
             $properties['url'] = [
                 'type' => 'string',
-                'description' => 'The URL of the website to check'
+                'description' => 'The URL of the website to check',
             ];
             $required[] = 'url';
         }
     }
 
-    public function getRequiredArgument():string {
+    public function getRequiredArgument(): string {
         return 'url';
     }
 }

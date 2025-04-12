@@ -65,7 +65,7 @@ class SearchVisualizer {
             $level = $node['level'] ?? $node;
 
             // Store node level
-            if(!empty($this->nodeLevels)){
+            if (!empty($this->nodeLevels)) {
                 $this->nodeLevels[$currentNode] = $level;
             }
 
@@ -95,7 +95,7 @@ class SearchVisualizer {
             $steps[] = [
                 'visit' => $currentNode,
                 'info' => $info,
-                'edge' => $prevNode !== null ? "$prevNode-$currentNode" : null
+                'edge' => $prevNode !== null ? "$prevNode-$currentNode" : null,
             ];
 
             $prevNode = $currentNode;
@@ -109,7 +109,7 @@ class SearchVisualizer {
             'originalGraph' => $originalGraph,
             'steps' => json_encode($steps),
             'startNode' => $path[0]['vertex'] ?? $path[0],
-            'endNode' => end($path)['vertex'] ?? end($path)
+            'endNode' => end($path)['vertex'] ?? end($path),
         ];
     }
 
@@ -125,7 +125,7 @@ class SearchVisualizer {
         }
 
         // Function to check if an edge represents backward traversal
-        $isBackwardEdge = function($from, $to) use ($visitedNodesSequence) {
+        $isBackwardEdge = function ($from, $to) use ($visitedNodesSequence) {
             // Get the first occurrence of both nodes
             $fromIndex = array_search($from, $visitedNodesSequence);
             $toIndex = array_search($to, $visitedNodesSequence);
@@ -156,12 +156,12 @@ class SearchVisualizer {
         }
 
         // Add style definitions
-        $graphLines[] = "    classDef default fill:#fff,stroke:#333,stroke-width:2px";
-        $graphLines[] = "    linkStyle default stroke:#333,stroke-width:2px";
+        $graphLines[] = '    classDef default fill:#fff,stroke:#333,stroke-width:2px';
+        $graphLines[] = '    linkStyle default stroke:#333,stroke-width:2px';
 
         // Style backward edges with dotted lines
         if (!empty($backwardEdgeIndices)) {
-            $graphLines[] = "    linkStyle " . implode(',', $backwardEdgeIndices) . " stroke:#666,stroke-width:1px,stroke-dasharray: 5";
+            $graphLines[] = '    linkStyle ' . implode(',', $backwardEdgeIndices) . ' stroke:#666,stroke-width:1px,stroke-dasharray: 5';
         }
 
         return implode("\n", $graphLines);

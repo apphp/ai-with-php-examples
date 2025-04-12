@@ -33,7 +33,7 @@ class Matrix {
 
     public function add(Matrix $other): Matrix {
         if ($this->rows !== $other->rows || $this->cols !== $other->cols) {
-            throw new Exception("Matrices must have the same dimensions for addition.");
+            throw new Exception('Matrices must have the same dimensions for addition.');
         }
 
         $result = [];
@@ -48,7 +48,7 @@ class Matrix {
 
     public function subtract(Matrix $other): Matrix {
         if ($this->rows !== $other->rows || $this->cols !== $other->cols) {
-            throw new Exception("Matrices must have the same dimensions for subtraction.");
+            throw new Exception('Matrices must have the same dimensions for subtraction.');
         }
 
         $result = [];
@@ -74,7 +74,7 @@ class Matrix {
 
     public function multiply(Matrix $other): Matrix {
         if ($this->cols !== $other->rows) {
-            throw new Exception("Number of columns in the first matrix must equal the number of rows in the second matrix.");
+            throw new Exception('Number of columns in the first matrix must equal the number of rows in the second matrix.');
         }
 
         $result = [];
@@ -103,7 +103,7 @@ class Matrix {
 
     public function determinant(): float {
         if ($this->rows !== $this->cols) {
-            throw new Exception("Determinant can only be calculated for square matrices.");
+            throw new Exception('Determinant can only be calculated for square matrices.');
         }
 
         if ($this->rows === 1) {
@@ -126,10 +126,14 @@ class Matrix {
         $result = [];
         $r = 0;
         for ($i = 0; $i < $this->rows; $i++) {
-            if ($i == $row) continue;
+            if ($i == $row) {
+                continue;
+            }
             $c = 0;
             for ($j = 0; $j < $this->cols; $j++) {
-                if ($j == $col) continue;
+                if ($j == $col) {
+                    continue;
+                }
                 $result[$r][$c] = $this->matrix[$i][$j];
                 $c++;
             }
@@ -142,7 +146,7 @@ class Matrix {
     public function inverse(): Matrix {
         $det = $this->determinant();
         if ($det == 0) {
-            throw new Exception("Matrix is not invertible.");
+            throw new Exception('Matrix is not invertible.');
         }
 
         $adjoint = $this->adjoint();
@@ -213,9 +217,9 @@ class Matrix {
     }
 
     public function toString(): string {
-        $result = "";
+        $result = '';
         for ($i = 0; $i < $this->rows; $i++) {
-            $result .= "[" . implode(", ", $this->matrix[$i]) . "]\n";
+            $result .= '[' . implode(', ', $this->matrix[$i]) . "]\n";
         }
         return $result;
     }

@@ -16,7 +16,7 @@ class AtomicFormula {
         if (count($terms) !== $predicate->getArity()) {
             throw new \InvalidArgumentException(
                 "Predicate {$predicate->getName()} requires {$predicate->getArity()} terms, " .
-                count($terms) . " provided."
+                count($terms) . ' provided.'
             );
         }
 
@@ -83,7 +83,7 @@ class AtomicFormula {
     }
 
     public function __toString(): string {
-        $terms = array_map(function($term) {
+        $terms = array_map(function ($term) {
             return $term->getName();
         }, $this->terms);
 

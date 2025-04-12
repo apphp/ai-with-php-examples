@@ -3,13 +3,12 @@
 namespace app\classes;
 
 class Graph {
-
     /**
      * Draw quadratic function graph
      * @param array $points
      * @return string
      */
-    public static function drawQuadraticFunction(array $points){
+    public static function drawQuadraticFunction(array $points) {
         $output = '<canvas id="myChart"></canvas>
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
@@ -32,8 +31,8 @@ class Graph {
                     foreach ($points as $index => $point) {
                         // Default values if not provided
                         $x = $point['x'] ?? 0;
-                        $y = isset($point['y']) ? $point['y'] : ($x * $x); // Calculate y = x² if not provided
-                        $label = $point['label'] ?? "Point " . ($index + 1);
+                        $y = $point['y'] ?? ($x * $x); // Calculate y = x² if not provided
+                        $label = $point['label'] ?? 'Point ' . ($index + 1);
                         $color = $point['color'] ?? self::getDefaultColor($index);
 
                         $output .= '

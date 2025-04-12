@@ -3,7 +3,6 @@
 namespace app\classes;
 
 class Chart {
-
     public static function drawLinearSeparation(
         array  $samples,
         array  $labels,
@@ -24,30 +23,30 @@ class Chart {
                 const ctx = document.getElementById('myLinearSeparationChart');" . PHP_EOL;
 
         // Passed data
-        $return .= "const passData = [";
+        $return .= 'const passData = [';
         for ($i = 0; $i < $totalSamples; $i++) {
             if ($labels[$i] === $classOneValue) {
                 $return .= '{ x: ' . $samples[$i][0] . ', y: ' . $samples[$i][1] . ' },';
             }
         }
-        $return .= "];" . PHP_EOL;
+        $return .= '];' . PHP_EOL;
 
         // Failed data
-        $return .= "const failData = [";
+        $return .= 'const failData = [';
         for ($i = 0; $i < $totalSamples; $i++) {
             if ($labels[$i] === $classTwoValue) {
                 $return .= '{ x: ' . $samples[$i][0] . ', y: ' . $samples[$i][1] . ' },';
             }
         }
-        $return .= "];" . PHP_EOL;
+        $return .= '];' . PHP_EOL;
 
         // Prediction data
         if ($predictionSamples) {
-            $return .= "const predictData = [";
+            $return .= 'const predictData = [';
             foreach ($predictionSamples as $sample) {
                 $return .= '{ x: ' . $sample[0] . ', y: ' . $sample[1] . ' },';
             }
-            $return .= "];" . PHP_EOL;
+            $return .= '];' . PHP_EOL;
         }
 
         $return .= '
@@ -222,13 +221,14 @@ class Chart {
                 continue;
             }
             $highlight = ($samples[$i][0] == $predictionX) ? ', highlight: true' : '';
-            $return .= sprintf('{ x: %.0f, y: %.0f ' . $highlight . "},\n",
+            $return .= sprintf(
+                '{ x: %.0f, y: %.0f ' . $highlight . "},\n",
                 $samples[$i][0],  // Square footage from samples
                 $labels[$i]       // Price from labels
             );
         }
 
-        $return .= "
+        $return .= '
                 ];
 
                 // Calculate linear regression
@@ -264,7 +264,7 @@ class Chart {
                 }
 
                 var regression = calculateRegression(data);
-                var regressionLine = ".($regressionLine ? 'generateRegressionLine(data, regression)' : 'null').";
+                var regressionLine = '.($regressionLine ? 'generateRegressionLine(data, regression)' : 'null').";
 
                 var chart = new Chart(ctx, {
                     type: 'scatter',
@@ -418,7 +418,7 @@ class Chart {
             $maxSize = max(array_column($samples, 2));
             $ind = 0;
             foreach ($samples as $sample) {
-                $return .= "{";
+                $return .= '{';
                 $return .= 'x: [';
                 $return .= $sample[0] . ',';
                 $return .= '],' . "\n";
@@ -430,27 +430,33 @@ class Chart {
                 $return .= '],' . "\n";
                 $return .= "mode: 'markers',\n";
                 // Red color with high opacity
-                $return .= "marker: {size: " . (int)(6 * $sample[2] / $maxSize) . ",color: 'rgba(99,190,255)'},\n";
+                $return .= 'marker: {size: ' . (int)(6 * $sample[2] / $maxSize) . ",color: 'rgba(99,190,255)'},\n";
                 $return .= "type: 'scatter3d',";
                 $return .= "name: '" . htmlspecialchars($mainTraceLabel) . ' ' . $ind . "'";
-                $return .= "},";
+                $return .= '},';
             }
         } else {
-            $return .= "{";
+            $return .= '{';
 
             // Render x axis
             $return .= 'x: [';
-            foreach ($samples as $sample) $return .= $sample[$features[0]] . ',';
+            foreach ($samples as $sample) {
+                $return .= $sample[$features[0]] . ',';
+            }
             $return .= '],' . "\n";
 
             // Render y axis
             $return .= 'y: [';
-            foreach ($samples as $sample) $return .= (isset($features[1]) ? $sample[$features[1]] : '0') . ',';
+            foreach ($samples as $sample) {
+                $return .= (isset($features[1]) ? $sample[$features[1]] : '0') . ',';
+            }
             $return .= '],' . "\n";
 
             // Render z axis
             $return .= 'z: [';
-            foreach ($labels as $label) $return .= $label . ',';
+            foreach ($labels as $label) {
+                $return .= $label . ',';
+            }
             $return .= '],' . "\n";
 
             $return .= "
@@ -462,33 +468,39 @@ class Chart {
                     type: 'scatter3d', // 3D scatter plot type
                     name: '" . htmlspecialchars($mainTraceLabel) . "'";
 
-            $return .= "},";
+            $return .= '},';
         }
 
         // ----------------------------------------
         // ADD ADDITIONAL POINTS IN RED
         // ----------------------------------------
         if (!empty($predictionSamples)) {
-            $return .= "{";
+            $return .= '{';
             $return .= 'x: [';
-            foreach ($predictionSamples as $point) $return .= $point[$features[0]] . ',';
+            foreach ($predictionSamples as $point) {
+                $return .= $point[$features[0]] . ',';
+            }
             $return .= '],' . "\n";
             $return .= 'y: [';
-            foreach ($predictionSamples as $point) $return .= (isset($features[1]) ? $point[$features[1]] : '0') . ',';
+            foreach ($predictionSamples as $point) {
+                $return .= (isset($features[1]) ? $point[$features[1]] : '0') . ',';
+            }
             $return .= '],' . "\n";
             $return .= 'z: [';
-            foreach ($predictionResults as $point) $return .= $point . ',';
+            foreach ($predictionResults as $point) {
+                $return .= $point . ',';
+            }
             $return .= '],' . "\n";
             $return .= "mode: 'markers',\n";
             // Red color with high opacity
             if ($useThirdArgument) {
-                $return .= "marker: {size: " . (int)(6 * $sample[2] / $maxSize) . ", color: 'rgba(0,0,0,0.8)'},\n";
+                $return .= 'marker: {size: ' . (int)(6 * $sample[2] / $maxSize) . ", color: 'rgba(0,0,0,0.8)'},\n";
             } else {
                 $return .= "marker: {size: 7, color: 'rgba(255,0,0,0.8)'},\n";
             }
             $return .= "type: 'scatter3d',";
             $return .= "name: '" . htmlspecialchars($customTraceLabel) . "'";
-            $return .= "},";
+            $return .= '},';
         }
 
         $return .= "];
@@ -551,14 +563,14 @@ class Chart {
                 // Data points
                 const rawData = [";
         for ($i = 0; $i < count($samples); $i++) {
-            $return .= "{x: " . ($samples[$i][0] ?? 0) . ", y: " . ($labels[$i] ?? 0) . "},";
+            $return .= '{x: ' . ($samples[$i][0] ?? 0) . ', y: ' . ($labels[$i] ?? 0) . '},';
         }
         $return .= '];
 
                 // Test data points
                 const testData = [';
         for ($i = 0; $i < count($testSamples); $i++) {
-            $return .= "{x: " . ($testSamples[$i][0] ?? 0) . ", y: " . ($testLabels[$i] ?? 0) . "},";
+            $return .= '{x: ' . ($testSamples[$i][0] ?? 0) . ', y: ' . ($testLabels[$i] ?? 0) . '},';
         }
         $return .= '];
 

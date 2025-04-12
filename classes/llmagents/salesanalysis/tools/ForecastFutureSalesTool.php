@@ -9,12 +9,10 @@ use LLM\Agents\Tool\PhpTool;
 /**
  * @extends PhpTool<ForecastFutureSalesInput>
  */
-final class ForecastFutureSalesTool extends PhpTool
-{
+final class ForecastFutureSalesTool extends PhpTool {
     public const NAME = 'forecast_future_sales';
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct(
             name: self::NAME,
             inputSchema: ForecastFutureSalesInput::class,
@@ -22,8 +20,7 @@ final class ForecastFutureSalesTool extends PhpTool
         );
     }
 
-    public function execute(object $input): string
-    {
+    public function execute(object $input): string {
         // Validate input data path
         if (!\file_exists(APP_PATH . $input->reportPath)) {
             return \json_encode([
@@ -83,8 +80,7 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Load and parse sales data from the specified file
      */
-    private function loadSalesData(string $reportPath): array
-    {
+    private function loadSalesData(string $reportPath): array {
         $extension = \pathinfo($reportPath, PATHINFO_EXTENSION);
 
         if ($extension === 'csv') {
@@ -102,12 +98,11 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Parse CSV file into an associative array
      */
-    private function parseCSV(string $filePath): array
-    {
+    private function parseCSV(string $filePath): array {
         $data = [];
-        if (($handle = \fopen($filePath, "r")) !== false) {
-            $headers = \fgetcsv($handle, 1000, ",");
-            while (($row = \fgetcsv($handle, 1000, ",")) !== false) {
+        if (($handle = \fopen($filePath, 'r')) !== false) {
+            $headers = \fgetcsv($handle, 1000, ',');
+            while (($row = \fgetcsv($handle, 1000, ',')) !== false) {
                 if (\count($headers) === \count($row)) {
                     $data[] = \array_combine($headers, $row);
                 }
@@ -120,13 +115,14 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Organize sales data into time series by specified time unit
      */
-    private function organizeTimeSeriesData(array $data, string $timeUnit): array
-    {
+    private function organizeTimeSeriesData(array $data, string $timeUnit): array {
         $timeSeriesData = [];
 
         foreach ($data as $item) {
             $date = $item['date'] ?? '';
-            if (!$date) continue;
+            if (!$date) {
+                continue;
+            }
 
             $amount = (float)($item['amount'] ?? 0);
             $timestamp = \strtotime($date);
@@ -195,8 +191,7 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Forecast using simple average method
      */
-    private function forecastSimpleAverage(array $timeSeriesData, int $forecastPeriods): array
-    {
+    private function forecastSimpleAverage(array $timeSeriesData, int $forecastPeriods): array {
         $values = \array_values($timeSeriesData);
         $periods = \array_keys($timeSeriesData);
         $count = \count($values);
@@ -230,8 +225,7 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Forecast using moving average method
      */
-    private function forecastMovingAverage(array $timeSeriesData, int $forecastPeriods): array
-    {
+    private function forecastMovingAverage(array $timeSeriesData, int $forecastPeriods): array {
         $values = \array_values($timeSeriesData);
         $periods = \array_keys($timeSeriesData);
         $count = \count($values);
@@ -492,7 +486,7 @@ final class ForecastFutureSalesTool extends PhpTool
             $forecastValue = $trend['intercept'] + $trend['slope'] * $xValue;
 
             // Calculate prediction interval factor
-            $predictionFactor = \sqrt(1 + 1/$count + \pow($xValue - $meanX, 2) / $denominator);
+            $predictionFactor = \sqrt(1 + 1 / $count + \pow($xValue - $meanX, 2) / $denominator);
             $interval = $zScore * $stdError * $predictionFactor;
 
             $forecasts[] = [
@@ -607,7 +601,7 @@ final class ForecastFutureSalesTool extends PhpTool
                 'lower_bound' => \max(0, $prediction - $interval),
                 'upper_bound' => $prediction + $interval,
                 'method' => 'arima',
-                'parameters' => "p=$p,d=$d,q=$q" . ($seasonality !== null ? ",s=$seasonality" : ""),
+                'parameters' => "p=$p,d=$d,q=$q" . ($seasonality !== null ? ",s=$seasonality" : ''),
             ];
         }
 
@@ -616,7 +610,7 @@ final class ForecastFutureSalesTool extends PhpTool
             'model_accuracy' => [
                 'mape' => $this->calculateMAPE(\array_slice($values, 1), \array_slice($fitted, 0, $count - 1)),
                 'rmse' => $this->calculateRMSE(\array_slice($values, 1), \array_slice($fitted, 0, $count - 1)),
-                'parameters' => "p=$p,d=$d,q=$q" . ($seasonality !== null ? ",s=$seasonality" : ""),
+                'parameters' => "p=$p,d=$d,q=$q" . ($seasonality !== null ? ",s=$seasonality" : ''),
             ],
             'historical_data' => $this->formatHistoricalData($timeSeriesData),
         ];
@@ -625,8 +619,7 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Fit autoregressive model of specified order
      */
-    private function fitAutoregressive(array $data, int $order): array
-    {
+    private function fitAutoregressive(array $data, int $order): array {
         $count = \count($data);
         if ($count <= $order) {
             return \array_fill(0, $order, 0);
@@ -680,8 +673,7 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Calculate seasonal indices
      */
-    private function calculateSeasonalIndices(array $values, int $seasonality): array
-    {
+    private function calculateSeasonalIndices(array $values, int $seasonality): array {
         $count = \count($values);
         $seasons = \ceil($count / $seasonality);
 
@@ -724,8 +716,7 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Fit linear trend to data
      */
-    private function fitLinearTrend(array $data): array
-    {
+    private function fitLinearTrend(array $data): array {
         $count = \count($data);
         if ($count <= 1) {
             return [
@@ -785,8 +776,7 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Calculate Mean Absolute Percentage Error
      */
-    private function calculateMAPE(array $actual, array $forecast): float
-    {
+    private function calculateMAPE(array $actual, array $forecast): float {
         $count = \count($actual);
         if ($count === 0) {
             return 0;
@@ -808,8 +798,7 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Calculate Root Mean Square Error
      */
-    private function calculateRMSE(array $actual, array $forecast): float
-    {
+    private function calculateRMSE(array $actual, array $forecast): float {
         $count = \count($actual);
         if ($count === 0) {
             return 0;
@@ -827,8 +816,7 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Calculate Standard Deviation
      */
-    private function calculateStandardDeviation(array $values): float
-    {
+    private function calculateStandardDeviation(array $values): float {
         $count = \count($values);
         if ($count <= 1) {
             return 0;
@@ -847,8 +835,7 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Get Z-score for the given confidence level
      */
-    private function getZScoreForConfidence(float $confidence): float
-    {
+    private function getZScoreForConfidence(float $confidence): float {
         // Common Z-scores for typical confidence levels
         if ($confidence >= 0.99) {
             return 2.576; // 99% confidence
@@ -866,8 +853,7 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Get the next period based on the pattern of the last period
      */
-    private function getNextPeriod(string $lastPeriod, int $increment): string
-    {
+    private function getNextPeriod(string $lastPeriod, int $increment): string {
         // Detect period format
         if (\preg_match('/^(\d{4})-(\d{2})$/', $lastPeriod, $matches)) {
             // Monthly format: YYYY-MM
@@ -928,8 +914,7 @@ final class ForecastFutureSalesTool extends PhpTool
     /**
      * Format historical data for output
      */
-    private function formatHistoricalData(array $timeSeriesData): array
-    {
+    private function formatHistoricalData(array $timeSeriesData): array {
         $result = [];
         foreach ($timeSeriesData as $period => $value) {
             $result[] = [
@@ -940,4 +925,3 @@ final class ForecastFutureSalesTool extends PhpTool
         return $result;
     }
 }
-

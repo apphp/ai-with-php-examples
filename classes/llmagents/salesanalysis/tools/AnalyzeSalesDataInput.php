@@ -7,8 +7,7 @@ namespace app\classes\llmagents\salesanalysis\tools;
 /**
  * Input schema for the AnalyzeSalesDataTool
  */
-final class AnalyzeSalesDataInput
-{
+final class AnalyzeSalesDataInput {
     public function __construct(
         /**
          * Path to the sales data file (CSV or JSON)
@@ -43,25 +42,25 @@ final class AnalyzeSalesDataInput
             'product',
             'customer',
             'comparative',
-            'comprehensive'
+            'comprehensive',
         ];
 
         if (!in_array($this->analysisType, $validTypes)) {
             throw new \InvalidArgumentException(
-                "Invalid analysis type. Valid types are: " . implode(', ', $validTypes)
+                'Invalid analysis type. Valid types are: ' . implode(', ', $validTypes)
             );
         }
 
         // Validate date formats if provided
         if ($this->startDate !== null && \DateTime::createFromFormat('Y-m-d', $this->startDate) === false) {
             throw new \InvalidArgumentException(
-                "Start date must be in YYYY-MM-DD format."
+                'Start date must be in YYYY-MM-DD format.'
             );
         }
 
         if ($this->endDate !== null && \DateTime::createFromFormat('Y-m-d', $this->endDate) === false) {
             throw new \InvalidArgumentException(
-                "End date must be in YYYY-MM-DD format."
+                'End date must be in YYYY-MM-DD format.'
             );
         }
 
@@ -72,7 +71,7 @@ final class AnalyzeSalesDataInput
 
             if ($start > $end) {
                 throw new \InvalidArgumentException(
-                    "Start date cannot be after end date."
+                    'Start date cannot be after end date.'
                 );
             }
         }
@@ -80,7 +79,7 @@ final class AnalyzeSalesDataInput
         // Validate that the data path is not empty
         if (empty($this->reportPath)) {
             throw new \InvalidArgumentException(
-                "Data path cannot be empty."
+                'Data path cannot be empty.'
             );
         }
     }

@@ -21,7 +21,7 @@ $finder = PhpCsFixer\Finder::create()
         // in src/ directory
         __DIR__ . '/src/',
         __DIR__ . '/tests/',
-        //__DIR__ . '/classes/',
+        __DIR__ . '/classes/',
         //__DIR__ . '/public/',
     ])
     ->append([
@@ -48,79 +48,79 @@ $config
             'array_syntax' => ['syntax' => 'short'],
 
             // Indentation between array elements
-            'array_indentation' => true,
+            //'array_indentation' => true,
 
             // Use short syntax: $foo ??= 1;
-            'assign_null_coalescing_to_coalesce_equal' => true,
+            //'assign_null_coalescing_to_coalesce_equal' => true,
 
             // Space between comparison symbols, arithmetical, logical, bitwise and string operations
-            'binary_operator_spaces' => true,
+            //'binary_operator_spaces' => true,
 
             // Curly braces position
             'braces_position' => ['classes_opening_brace' => 'same_line', 'functions_opening_brace' => 'same_line', 'control_structures_opening_brace' => 'same_line'],
 
             // Putting blank lines between use statement groups.
-            'blank_line_between_import_groups' => true,
+            //'blank_line_between_import_groups' => true,
 
             // Whitespace around the keywords of a class, trait, enum or interfaces definition should be one space.
-            'class_definition' => true,
+            //'class_definition' => true,
 
             // Disable literal octal must be in 0o notation (mostly for chmod functions)
-            'octal_notation' => false,
+            //'octal_notation' => false,
 
             // Concatenation space
-            'concat_space' => ['spacing' => 'one'],
+            //'concat_space' => ['spacing' => 'one'],
 
             // Constant styling for true, false and null constants
-            'constant_case' => true,
+            //'constant_case' => true,
 
             // There should be no empty lines after class opening brace.
-            'no_blank_lines_after_class_opening' => true,
+            //'no_blank_lines_after_class_opening' => true,
 
             // Unused use statements must be removed.
-            'no_unused_imports' => true,
+            //'no_unused_imports' => true,
 
             // Space after commas
-            'no_trailing_comma_in_singleline' => [
-                'elements' => ['arguments', 'array_destructuring', 'array', 'group_import'],
-            ],
+            //'no_trailing_comma_in_singleline' => [
+            //    'elements' => ['arguments', 'array_destructuring', 'array', 'group_import'],
+            //],
 
             // There must not be more than one statement per line.
-            'no_multiple_statements_per_line' => true,
+            //'no_multiple_statements_per_line' => true,
 
             // Ordering use statements.
-            'ordered_imports' => ['imports_order' => ['class', 'function', 'const']],
+            //'ordered_imports' => ['imports_order' => ['class', 'function', 'const']],
 
             // PHPUnit classes MUST be used in namespaced version
-            'php_unit_namespaced' => true,
+            //'php_unit_namespaced' => true,
 
             // Changes the visibility of the setUp() and tearDown() functions of PHPUnit to protected, to match the PHPUnit TestCase.
-            'php_unit_set_up_tear_down_visibility' => true,
+            //'php_unit_set_up_tear_down_visibility' => true,
 
             // Calls to PHPUnit\Framework\TestCase static methods must all be of the same type, either $this->, self:: or static::.
-            'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
+            //'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
 
             // Each statement must be indented.
             'statement_indentation' => false,
 
             // Ensures a single space after language constructs.
-            'single_space_around_construct' => false,
+            //'single_space_around_construct' => false,
 
             // Don't convert double quotes to single
             'single_quote' => true,
 
             // Multi-line arrays, arguments list, parameters list and match expressions must have a trailing comma
-            'trailing_comma_in_multiline' => true,
+            //'trailing_comma_in_multiline' => true,
 
             // Unary operators should be placed adjacent to their operands.
-            'unary_operator_spaces' => true,
+            //'unary_operator_spaces' => true,
 
             // Visibility MUST be declared on all properties and methods;
             // abstract and final MUST be declared before the visibility; static MUST be declared after the visibility.
-            'visibility_required' => true,
+            //'visibility_required' => true,
 
             // In array declaration, there MUST be a whitespace after each comma.
-            'whitespace_after_comma_in_array' => true,
+            //'whitespace_after_comma_in_array' => true,
         ]
     )
     ->setLineEnding(PHP_EOL)

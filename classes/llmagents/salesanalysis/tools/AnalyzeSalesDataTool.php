@@ -9,12 +9,10 @@ use LLM\Agents\Tool\PhpTool;
 /**
  * @extends PhpTool<AnalyzeSalesDataInput>
  */
-final class AnalyzeSalesDataTool extends PhpTool
-{
+final class AnalyzeSalesDataTool extends PhpTool {
     public const NAME = 'analyze_sales_data';
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct(
             name: self::NAME,
             inputSchema: AnalyzeSalesDataInput::class,
@@ -22,8 +20,7 @@ final class AnalyzeSalesDataTool extends PhpTool
         );
     }
 
-    public function execute(object $input): string
-    {
+    public function execute(object $input): string {
         // Validate input data path
         if (!\file_exists(APP_PATH . $input->reportPath)) {
             return \json_encode([
@@ -73,8 +70,7 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Load and parse sales data from the specified file
      */
-    private function loadSalesData(string $reportPath): array
-    {
+    private function loadSalesData(string $reportPath): array {
         $extension = \pathinfo($reportPath, PATHINFO_EXTENSION);
 
         if ($extension === 'csv') {
@@ -92,12 +88,11 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Parse CSV file into an associative array
      */
-    private function parseCSV(string $filePath): array
-    {
+    private function parseCSV(string $filePath): array {
         $data = [];
-        if (($handle = \fopen($filePath, "r")) !== false) {
-            $headers = \fgetcsv($handle, 1000, ",");
-            while (($row = \fgetcsv($handle, 1000, ",")) !== false) {
+        if (($handle = \fopen($filePath, 'r')) !== false) {
+            $headers = \fgetcsv($handle, 1000, ',');
+            while (($row = \fgetcsv($handle, 1000, ',')) !== false) {
                 if (\count($headers) === \count($row)) {
                     $data[] = \array_combine($headers, $row);
                 }
@@ -110,8 +105,7 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Filter sales data by the specified time period
      */
-    private function filterDataByTimePeriod(array $salesData, string $startDate, string $endDate): array
-    {
+    private function filterDataByTimePeriod(array $salesData, string $startDate, string $endDate): array {
         $start = \strtotime($startDate);
         $end = \strtotime($endDate);
 
@@ -124,8 +118,7 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Perform analysis based on the analysis type
      */
-    private function performAnalysis(array $data, string $analysisType): array
-    {
+    private function performAnalysis(array $data, string $analysisType): array {
         switch ($analysisType) {
             case 'trend':
                 return $this->analyzeTrends($data);
@@ -147,8 +140,7 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Perform basic analysis of sales data
      */
-    private function performBasicAnalysis(array $data): array
-    {
+    private function performBasicAnalysis(array $data): array {
         $totalSales = 0;
         $totalUnits = 0;
         $totalOrders = \count($data);
@@ -232,8 +224,7 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Analyze sales trends over time
      */
-    private function analyzeTrends(array $data): array
-    {
+    private function analyzeTrends(array $data): array {
         $timeSeriesData = [];
         $cumulativeData = [];
         $growthData = [];
@@ -242,7 +233,9 @@ final class AnalyzeSalesDataTool extends PhpTool
         // Organize data by time periods
         foreach ($data as $item) {
             $date = $item['date'] ?? '';
-            if (!$date) continue;
+            if (!$date) {
+                continue;
+            }
 
             $amount = (float)($item['amount'] ?? 0);
             $month = \date('Y-m', \strtotime($date));
@@ -305,8 +298,7 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Calculate trend indicators from time series data
      */
-    private function calculateTrendIndicators(array $timeSeriesData): array
-    {
+    private function calculateTrendIndicators(array $timeSeriesData): array {
         $values = \array_values($timeSeriesData);
         $periods = \array_keys($timeSeriesData);
         $count = \count($values);
@@ -402,8 +394,7 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Analyze seasonality in sales data
      */
-    private function analyzeSeasonality(array $data): array
-    {
+    private function analyzeSeasonality(array $data): array {
         $monthlySales = [];
         $quarterlyData = [];
         $weekdayData = [];
@@ -411,7 +402,9 @@ final class AnalyzeSalesDataTool extends PhpTool
 
         foreach ($data as $item) {
             $date = $item['date'] ?? '';
-            if (!$date) continue;
+            if (!$date) {
+                continue;
+            }
 
             $timestamp = \strtotime($date);
             $amount = (float)($item['amount'] ?? 0);
@@ -498,8 +491,7 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Identify seasonal patterns in monthly data
      */
-    private function identifySeasonalPatterns(array $monthlyAvg): array
-    {
+    private function identifySeasonalPatterns(array $monthlyAvg): array {
         \ksort($monthlyAvg);
 
         $monthNames = [
@@ -572,15 +564,16 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Analyze product performance
      */
-    private function analyzeProductPerformance(array $data): array
-    {
+    private function analyzeProductPerformance(array $data): array {
         $products = [];
         $categories = [];
         $totalSales = 0;
 
         foreach ($data as $item) {
             $productId = $item['product_id'] ?? '';
-            if (empty($productId)) continue;
+            if (empty($productId)) {
+                continue;
+            }
 
             $amount = (float)($item['amount'] ?? 0);
             $units = (int)($item['quantity'] ?? 1);
@@ -671,8 +664,7 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Perform Pareto analysis (80/20 rule) on product sales
      */
-    private function performParetoAnalysis(array $products): array
-    {
+    private function performParetoAnalysis(array $products): array {
         $totalSales = 0;
         foreach ($products as $product) {
             $totalSales += $product['total_sales'];
@@ -707,15 +699,14 @@ final class AnalyzeSalesDataTool extends PhpTool
             'products_percentage' => \round($productPercentage, 2),
             'insight' => $paretoApplies ?
                 "The Pareto principle (80/20 rule) applies to your product sales. Just {$productsFor80Percent} products ({$productPercentage}% of your catalog) generate 80% of your revenue." :
-                "Your sales are more evenly distributed across your product catalog than the typical 80/20 rule would suggest.",
+                'Your sales are more evenly distributed across your product catalog than the typical 80/20 rule would suggest.',
         ];
     }
 
     /**
      * Analyze customer behavior
      */
-    private function analyzeCustomerBehavior(array $data): array
-    {
+    private function analyzeCustomerBehavior(array $data): array {
         $customers = [];
         $segments = [
             'new' => ['count' => 0, 'revenue' => 0],
@@ -729,10 +720,14 @@ final class AnalyzeSalesDataTool extends PhpTool
         // First pass - get first and last purchase dates
         foreach ($data as $item) {
             $customerId = $item['customer_id'] ?? '';
-            if (empty($customerId)) continue;
+            if (empty($customerId)) {
+                continue;
+            }
 
             $date = $item['date'] ?? '';
-            if (empty($date)) continue;
+            if (empty($date)) {
+                continue;
+            }
 
             $timestamp = \strtotime($date);
 
@@ -748,7 +743,9 @@ final class AnalyzeSalesDataTool extends PhpTool
         // Second pass - analyze customer data
         foreach ($data as $item) {
             $customerId = $item['customer_id'] ?? '';
-            if (empty($customerId)) continue;
+            if (empty($customerId)) {
+                continue;
+            }
 
             $amount = (float)($item['amount'] ?? 0);
             $date = $item['date'] ?? '';
@@ -861,8 +858,7 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Calculate RFM (Recency, Frequency, Monetary) segmentation for customers
      */
-    private function calculateRFMSegmentation(array $customers, int $now): array
-    {
+    private function calculateRFMSegmentation(array $customers, int $now): array {
         if (empty($customers)) {
             return [
                 'segments' => [],
@@ -984,15 +980,16 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Perform comparative analysis (e.g., year-over-year, category comparison)
      */
-    private function performComparativeAnalysis(array $data): array
-    {
+    private function performComparativeAnalysis(array $data): array {
         $yearlyData = [];
         $productComparison = [];
         $categoryComparison = [];
 
         foreach ($data as $item) {
             $date = $item['date'] ?? '';
-            if (empty($date)) continue;
+            if (empty($date)) {
+                continue;
+            }
 
             $amount = (float)($item['amount'] ?? 0);
             $year = \date('Y', \strtotime($date));
@@ -1199,8 +1196,7 @@ final class AnalyzeSalesDataTool extends PhpTool
     /**
      * Perform comprehensive analysis combining all analysis types
      */
-    private function performComprehensiveAnalysis(array $data): array
-    {
+    private function performComprehensiveAnalysis(array $data): array {
         // Perform all analysis types
         $basicAnalysis = $this->performBasicAnalysis($data);
         $trendsAnalysis = $this->analyzeTrends($data);
@@ -1215,14 +1211,14 @@ final class AnalyzeSalesDataTool extends PhpTool
         // Basic insights
         $insights[] = [
             'category' => 'summary',
-            'insight' => "Total sales amount: " . \round($basicAnalysis['summary']['total_sales'], 2) .
-                " across " . $basicAnalysis['summary']['total_orders'] . " orders.",
+            'insight' => 'Total sales amount: ' . \round($basicAnalysis['summary']['total_sales'], 2) .
+                ' across ' . $basicAnalysis['summary']['total_orders'] . ' orders.',
             'importance' => 'high',
         ];
 
         $insights[] = [
             'category' => 'summary',
-            'insight' => "Average order value: " . \round($basicAnalysis['summary']['average_order_value'], 2),
+            'insight' => 'Average order value: ' . \round($basicAnalysis['summary']['average_order_value'], 2),
             'importance' => 'medium',
         ];
 
@@ -1276,7 +1272,7 @@ final class AnalyzeSalesDataTool extends PhpTool
             $insights[] = [
                 'category' => 'product',
                 'insight' => "Top performing product: {$topProduct['product_name']} with " .
-                    \round($topProduct['total_sales'], 2) . " in sales.",
+                    \round($topProduct['total_sales'], 2) . ' in sales.',
                 'importance' => 'high',
             ];
         }
@@ -1312,7 +1308,7 @@ final class AnalyzeSalesDataTool extends PhpTool
             $insights[] = [
                 'category' => 'customer',
                 'insight' => "Top customer: {$topCustomer['customer_name']} with " .
-                    \round($topCustomer['total_spend'], 2) . " in total purchases.",
+                    \round($topCustomer['total_spend'], 2) . ' in total purchases.',
                 'importance' => 'medium',
             ];
         }
@@ -1324,7 +1320,7 @@ final class AnalyzeSalesDataTool extends PhpTool
             $insights[] = [
                 'category' => 'comparative',
                 'insight' => "Year-over-year growth ({$latestYoY['previous_year']} to {$latestYoY['year']}): " .
-                    \round($latestYoY['growth_percentage'], 2) . "%",
+                    \round($latestYoY['growth_percentage'], 2) . '%',
                 'importance' => 'high',
             ];
         }

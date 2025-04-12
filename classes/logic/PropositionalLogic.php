@@ -86,12 +86,12 @@ class PropositionalLogic {
         echo "\n";
 
         // Print separator
-        echo str_repeat("-", count($columns) * 10) . "\n";
+        echo str_repeat('-', count($columns) * 10) . "\n";
 
         // Print rows
         foreach ($truthTable as $row) {
             foreach ($row as $value) {
-                echo str_pad($value ? "true" : "false", 10);
+                echo str_pad($value ? 'true' : 'false', 10);
             }
             echo "\n";
         }

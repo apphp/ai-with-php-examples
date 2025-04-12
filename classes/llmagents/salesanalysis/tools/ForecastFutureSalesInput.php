@@ -7,8 +7,7 @@ namespace app\classes\llmagents\salesanalysis\tools;
 /**
  * Input schema for the forecast tool
  */
-final class ForecastFutureSalesInput
-{
+final class ForecastFutureSalesInput {
     public function __construct(
         public readonly string $reportPath,
         public readonly string $forecastMethod = 'exponential_smoothing',
@@ -16,5 +15,6 @@ final class ForecastFutureSalesInput
         public readonly string $timeUnit = 'month',
         public readonly float $confidence = 0.95,
         public readonly ?int $seasonality = null
-    ) {}
+    ) {
+    }
 }

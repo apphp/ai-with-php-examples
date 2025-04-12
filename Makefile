@@ -42,6 +42,7 @@ info:
 	@echo "${GREEN}info-general${NC} \t\t - list of general commands"
 	@echo "${GREEN}info-composer${NC} \t\t - list of commands for Composer"
 	@echo "${GREEN}info-tests${NC} \t\t - list of commands for tests"
+	@echo "${GREEN}info-linters${NC} \t\t - list of commands for linters"
 
 
 ## -------------------------------------------------
@@ -142,5 +143,41 @@ app-tests:
 app-tests-coverage:
 	$(docker) exec app /bin/bash -c "composer tests:coverage"
 
-app-test::
+app-test:
 	$(docker) exec app /bin/bash -c "composer test $(name)"
+
+
+## -------------------------------------------------
+## LINTERS & FIXERS
+## -------------------------------------------------
+info-linters:
+	@echo ""
+	@echo "${GRAY}# -------------------------------------------------"
+	@echo "# LINTERS"
+	@echo "# -------------------------------------------------${NC}"
+	@echo "${GREEN} phplint${NC} \t\t - run PHP linter"
+	@echo "${GREEN} phplint-log${NC} \t\t - run PHP linter with log"
+	@echo "${GREEN} phpcs-check${NC} \t\t - run PHP CS fixer in check mode"
+	@echo "${GREEN} phpcs-check-diff${NC} \t - run PHP CS fixer in check mode with difference"
+	@echo "${GREEN} phpcs-fix${NC} \t\t - run PHP CS fixer in fix mode"
+
+phplint: app-phplint
+phplint-log: app-phplint-log
+phpcs: app-phpcs-check
+phpcs-diff: app-phpcs-check-diff
+phpcs-fix: app-phpcs-fix
+
+app-phplint:
+	$(call increment_counter)
+	@echo "${DARKCYAN}${COUNTER}. Run PHPLint${NC}"
+	$(docker) exec app /bin/bash -c "composer php-lint"
+	@echo ""
+	$(call operation_done)
+app-phplint-log:
+	$(docker) exec app /bin/bash -c "composer php-lint-with-log"
+app-phpcs-check:
+	$(docker) exec app /bin/bash -c "composer php-cs-check"
+app-phpcs-check-diff:
+	$(docker) exec app /bin/bash -c "composer php-cs-check-diff"
+app-phpcs-fix:
+	$(docker) exec app /bin/bash -c "composer php-cs-fix"

@@ -29,11 +29,11 @@ $uninformedSearch = [
 $groupedAlgorithms = [
     'group1' => [
         'label' => 'Informed Search',
-        'options' => $informedSearch
+        'options' => $informedSearch,
     ],
     'group2' => [
         'label' => 'Uninformed Search',
-        'options' => $uninformedSearch
+        'options' => $uninformedSearch,
     ],
 ];
 

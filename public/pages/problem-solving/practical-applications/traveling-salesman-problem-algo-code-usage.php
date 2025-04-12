@@ -3,7 +3,6 @@
 use app\classes\search\InformedSearchGraph;
 use app\classes\search\UninformedSearchGraph;
 
-
 // Function to run and analyze all search algorithms
 function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $start, string $goal, string $searchAlgorithm = 'a-tree-search', string $algorithmDebug = '') {
     // Init algorithms
@@ -12,58 +11,58 @@ function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $sta
     switch ($searchAlgorithm) {
         // Uninformed Search
         case 'depth-first-search':
-            $searches['Depth First'] = fn() => $graph->dfs($start, $goal);
+            $searches['Depth First'] = fn () => $graph->dfs($start, $goal);
             break;
         case 'breadth-first-search':
-            $searches['Breadth First'] = fn() => $graph->bfs($start, $goal);
+            $searches['Breadth First'] = fn () => $graph->bfs($start, $goal);
             break;
         case 'uniform-cost-search':
-            $searches['Uniform Cost Search'] = fn() => $graph->ucs($start, $goal, pathOnly: true);
+            $searches['Uniform Cost Search'] = fn () => $graph->ucs($start, $goal, pathOnly: true);
             break;
         case 'iterative-deepening-depth-first':
-            $searches['Iterative Deepening Depth-First Search'] = fn() => $graph->iddfs($start, $goal, pathOnly: true);
+            $searches['Iterative Deepening Depth-First Search'] = fn () => $graph->iddfs($start, $goal, pathOnly: true);
             break;
         case 'bidirectional-first':
-            $searches['Bidirectional Search'] = fn() => $graph->bds($start, $goal, pathOnly: true);
+            $searches['Bidirectional Search'] = fn () => $graph->bds($start, $goal, pathOnly: true);
             break;
         case 'depth-limited-search-2':
-            $searches['Depth-Limited Search (depth = 2)'] = fn() => $graph->dls($start, 2, $goal, pathOnly: true);
+            $searches['Depth-Limited Search (depth = 2)'] = fn () => $graph->dls($start, 2, $goal, pathOnly: true);
             break;
         case 'depth-limited-search-3':
-            $searches['Depth-Limited Search (depth = 3)'] = fn() => $graph->dls($start, 3, $goal, pathOnly: true);
+            $searches['Depth-Limited Search (depth = 3)'] = fn () => $graph->dls($start, 3, $goal, pathOnly: true);
             break;
         case 'random-walk-search':
-            $searches['Random Walk Search'] = fn() => $graph->rws($start, $goal, pathOnly: true);
+            $searches['Random Walk Search'] = fn () => $graph->rws($start, $goal, pathOnly: true);
             break;
 
         // Informed Search
         case 'greedy-search':
-            $searches['Greedy Search'] = fn() => $graph->greedySearch($start, $goal, 10);
+            $searches['Greedy Search'] = fn () => $graph->greedySearch($start, $goal, 10);
             break;
         case 'a-group-search':
-            $searches['A* Group Search'] = fn() => $graph->aStarGroupSearch($start, $goal);
+            $searches['A* Group Search'] = fn () => $graph->aStarGroupSearch($start, $goal);
             break;
         case 'beam-search-3':
-            $searches['Beam Search (width = 3)'] = fn() => $graph->beamSearch($start, $goal, 3);
+            $searches['Beam Search (width = 3)'] = fn () => $graph->beamSearch($start, $goal, 3);
             break;
         case 'beam-search-4':
-            $searches['Beam Search (width = 4)'] = fn() => $graph->beamSearch($start, $goal, 4);
+            $searches['Beam Search (width = 4)'] = fn () => $graph->beamSearch($start, $goal, 4);
             break;
         case 'ida-search':
-            $searches['IDA* Search'] = fn() => $graph->idaStarSearch($start, $goal);
+            $searches['IDA* Search'] = fn () => $graph->idaStarSearch($start, $goal);
             break;
         case 'simple-hill-climbing':
-            $searches['Simple Hill Climbing'] = fn() => $graph->simpleHillClimbing($start, $goal);
+            $searches['Simple Hill Climbing'] = fn () => $graph->simpleHillClimbing($start, $goal);
             break;
         case 'steepest-ascent-hill-climbing':
-            $searches['Steepest Ascent Hill Climbing'] = fn() => $graph->steepestAscentHillClimbing($start, $goal);
+            $searches['Steepest Ascent Hill Climbing'] = fn () => $graph->steepestAscentHillClimbing($start, $goal);
             break;
         case 'stochastic-hill-climbing':
-            $searches['Stochastic Hill Climbing'] = fn() => $graph->stochasticHillClimbing($start, $goal);
+            $searches['Stochastic Hill Climbing'] = fn () => $graph->stochasticHillClimbing($start, $goal);
             break;
         case 'a-tree-search':
         default:
-            $searches['A* Tree Search'] = fn() => $graph->aStarTreeSearch($start, $goal);
+            $searches['A* Tree Search'] = fn () => $graph->aStarTreeSearch($start, $goal);
             break;
     }
 
@@ -107,7 +106,7 @@ function runSearch(InformedSearchGraph|UninformedSearchGraph $graph, string $sta
                 echo "No path found!\n";
             }
         } catch (Exception $e) {
-            echo "Error during search: " . $e->getMessage() . "\n";
+            echo 'Error during search: ' . $e->getMessage() . "\n";
         }
     }
 
@@ -191,6 +190,3 @@ $graph->addEdge('NY', 'LA', 3935.7);
 $graph->addEdge('PHL', 'NY', 129.6);
 
 $searchResult = runSearch($graph, $startCity, $goalCity, $searchAlgorithm, $algorithmDebug);
-
-
-

@@ -68,7 +68,7 @@
     <!-- Include Babel for JSX transformation v7.23.5 -->
     <script src="<?=APP_URL?>assets/dist/js/babel/babel.min.js"></script>
 
-    <?php if(defined('GOOGLE_CID') && GOOGLE_CID): ?>
+    <?php if (defined('GOOGLE_CID') && GOOGLE_CID): ?>
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=<?=GOOGLE_CID?>"></script>
         <script>

@@ -42,7 +42,7 @@ $beam ??= 1;
 
 foreach ($beamWidths as $width) {
     // Show only specified width
-    if ($width != $beam){
+    if ($width != $beam) {
         continue;
     }
 
@@ -57,4 +57,3 @@ foreach ($beamWidths as $width) {
         $graph->searchAnalysis($searchResult);
     }
 }
-

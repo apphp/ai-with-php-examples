@@ -1,4 +1,5 @@
 <?php
+
 // Polynomial Regression Data Generator using Rubix ML
 require 'vendor/autoload.php';
 
@@ -7,7 +8,6 @@ use Rubix\ML\Regressors\MLPRegressor;
 use Rubix\ML\NeuralNet\Layers\Dense;
 use Rubix\ML\NeuralNet\Layers\Activation;
 use Rubix\ML\NeuralNet\ActivationFunctions\ReLU;
-use Rubix\ML\NeuralNet\ActivationFunctions\Linear;
 use Rubix\ML\NeuralNet\Optimizers\Adam;
 use Rubix\ML\CrossValidation\Metrics\RMSE;
 use Rubix\ML\Transformers\PolynomialExpander;
@@ -22,7 +22,7 @@ function generatePolynomialData($numSamples = 100, $noise = 0.5, $degree = 3) {
         0.1,  // a (cubic term)
         -0.5, // b (quadratic term)
         2.0,  // c (linear term)
-        1.0   // d (constant term)
+        1.0,   // d (constant term)
     ];
 
     // Generate data with a polynomial relationship
@@ -45,7 +45,7 @@ function generatePolynomialData($numSamples = 100, $noise = 0.5, $degree = 3) {
     return [
         $samples,
         $labels,
-        $coefficients
+        $coefficients,
     ];
 }
 
@@ -90,7 +90,7 @@ for ($i = 0; $i < count($samples); $i++) {
     $jsonData[] = [
         'x' => $samples[$i][0],
         'actual' => $labels[$i],
-        'predicted' => $predictions[$i]
+        'predicted' => $predictions[$i],
     ];
 }
 
@@ -114,10 +114,10 @@ $output = [
         'a' => $coefficients[0],
         'b' => $coefficients[1],
         'c' => $coefficients[2],
-        'd' => $coefficients[3]
+        'd' => $coefficients[3],
     ],
     'degree' => $degree,
-    'equation' => "{$coefficients[0]}x³ + {$coefficients[1]}x² + {$coefficients[2]}x + {$coefficients[3]}"
+    'equation' => "{$coefficients[0]}x³ + {$coefficients[1]}x² + {$coefficients[2]}x + {$coefficients[3]}",
 ];
 
 // Output the JSON

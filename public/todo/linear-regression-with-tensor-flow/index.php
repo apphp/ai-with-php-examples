@@ -1,4 +1,5 @@
 <?php
+
 // Linear Regression Data Generator using Rubix ML
 require 'vendor/autoload.php';
 
@@ -7,7 +8,6 @@ use Rubix\ML\Regressors\MLPRegressor;
 use Rubix\ML\NeuralNet\Layers\Dense;
 use Rubix\ML\NeuralNet\Layers\Activation;
 use Rubix\ML\NeuralNet\ActivationFunctions\ReLU;
-use Rubix\ML\NeuralNet\ActivationFunctions\Linear;
 use Rubix\ML\NeuralNet\Optimizers\Adam;
 use Rubix\ML\Kernels\Distance\Euclidean;
 use Rubix\ML\CrossValidation\Metrics\RMSE;
@@ -56,7 +56,7 @@ for ($i = 0; $i < count($samples); $i++) {
     $jsonData[] = [
         'x' => $samples[$i][0],
         'actual' => $labels[$i],
-        'predicted' => $predictions[$i]
+        'predicted' => $predictions[$i],
     ];
 }
 
@@ -85,7 +85,7 @@ echo "Linear Regression Equation: y = {$slope}x + {$intercept}\n";
 // Add the regression line points
 $lineData = [
     ['x' => 0, 'y' => $intercept],
-    ['x' => 10, 'y' => $slope * 10 + $intercept]
+    ['x' => 10, 'y' => $slope * 10 + $intercept],
 ];
 
 // Create the final JSON output
@@ -94,8 +94,8 @@ $output = [
     'line' => $lineData,
     'equation' => [
         'slope' => $slope,
-        'intercept' => $intercept
-    ]
+        'intercept' => $intercept,
+    ],
 ];
 
 // Output the JSON

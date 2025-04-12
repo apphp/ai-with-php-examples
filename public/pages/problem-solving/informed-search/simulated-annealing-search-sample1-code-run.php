@@ -11,12 +11,12 @@ verify_fields($resultDebug, array_values($resultDebugOptions), '');
 
 $coolingRateOptions = ['Cooling' => range(0.99, 0.09, -0.01)];
 $coolingRate = $_GET['coolingRate'] ?? '';
-$roundedArray = array_map(fn($v) => round($v, 2), $coolingRateOptions['Cooling']);
+$roundedArray = array_map(fn ($v) => round($v, 2), $coolingRateOptions['Cooling']);
 verify_fields($coolingRate, $roundedArray, 0.99);
 
 $stopTemperatureOptions = ['Stop T&deg;' => range(99, 0.09, -0.1)];
 $stopTemperature = $_GET['stopTemperature'] ?? '';
-$roundedArray = array_map(fn($v) => round($v, 1), $stopTemperatureOptions['Stop T&deg;']);
+$roundedArray = array_map(fn ($v) => round($v, 1), $stopTemperatureOptions['Stop T&deg;']);
 $stopTemperatureOptions = ['Stop T&deg;' => $roundedArray];
 verify_fields($stopTemperature, $roundedArray, 0.1);
 
@@ -67,7 +67,7 @@ $memoryEnd = memory_get_usage();
             <?php
                 echo Graph::drawQuadraticFunction([
                     ['x' => $initialSolution, 'label' => 'Initial Solution'],
-                    ['x' => $optimalSolution, 'label' => 'Optimal Solution']
+                    ['x' => $optimalSolution, 'label' => 'Optimal Solution'],
                 ]);
             ?>
         </div>
@@ -102,7 +102,7 @@ $memoryEnd = memory_get_usage();
             </div>
             <code class="code-result" id="expandable-div">
                 <!-- Expand button -->
-                <?php if($resultDebug && $debugResult !== '--'): ?>
+                <?php if ($resultDebug && $debugResult !== '--'): ?>
                     <div class="bd-fullscreen cursor-pointer">
                         <i id="expandable-div-icon" class="fas fa-expand fa-inverse" title="Open in Full Screen"></i>
                     </div>

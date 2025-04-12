@@ -46,7 +46,8 @@ foreach ($depths as $maxDepth) {
 
     echo "Path explored:\n";
     foreach ($searchResult['path'] as $node) {
-        echo sprintf("  Node: %s (Level %d, Search Depth %d)\n",
+        echo sprintf(
+            "  Node: %s (Level %d, Search Depth %d)\n",
             $node['vertex'],
             $node['level'],
             $node['depth']

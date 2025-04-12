@@ -13,4 +13,4 @@ $optimalSolution = $sa->optimize($initialSolution, 5);
 
 $debugResult = $resultDebug ? $sa->printIterationLog(detailed: true) : '--';
 
-echo "Optimal Solution: " . $optimalSolution . "\n";
+echo 'Optimal Solution: ' . $optimalSolution . "\n";

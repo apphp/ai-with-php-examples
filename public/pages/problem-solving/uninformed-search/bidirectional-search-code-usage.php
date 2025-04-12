@@ -13,7 +13,7 @@ $vertices = [
     'H' => 3,  // Intersection node - Level 3
     'I' => 2, // Level 2 from the other direction
     'J' => 1, 'K' => 1,  // Level 1 from the other direction
-    'L' => 2, 'M' => 2, 'N' => 2, 'O' => 2  // Level 2 from the other direction
+    'L' => 2, 'M' => 2, 'N' => 2, 'O' => 2,  // Level 2 from the other direction
 ];
 
 // Add vertices with their levels
@@ -80,7 +80,7 @@ if ($searchResult['success'] && $searchResult['intersectionVertex'] === 'H') {
     foreach ($searchResult['path'] as $node) {
         echo "→ {$node['vertex']} (Level {$node['level']})";
         if ($node['vertex'] === 'H') {
-            echo " [INTERSECTION]";
+            echo ' [INTERSECTION]';
         }
         echo "\n";
     }
@@ -92,7 +92,7 @@ echo "-----------------\n";
 if ($searchResult['success']) {
     echo "✓ Path successfully found\n";
     echo "✓ Intersection occurred at node H\n";
-    echo "✓ Total nodes in path: " . count($searchResult['path']) . "\n";
+    echo '✓ Total nodes in path: ' . count($searchResult['path']) . "\n";
 } else {
     echo "✗ No valid path found\n";
 }

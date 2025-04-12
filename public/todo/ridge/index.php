@@ -50,7 +50,7 @@ $predictions = $estimator->predict($testing);
 $metric = new RMSE();
 $score = $metric->score($predictions, $testing->labels());
 
-echo "Model RMSE: " . number_format($score, 4) . PHP_EOL;
+echo 'Model RMSE: ' . number_format($score, 4) . PHP_EOL;
 
 // Generate new data points for visualization
 $gridSize = 20;
@@ -65,7 +65,7 @@ for ($x1 = -1; $x1 <= 1; $x1 += 2 / $gridSize) {
 
             $visualizationData[] = [
                 'features' => [$x1, $x2, $x3],
-                'target' => $predicted
+                'target' => $predicted,
             ];
         }
     }
@@ -85,13 +85,13 @@ $outputData = [
     'testingData' => array_map(function ($sample, $label) {
         return ['features' => $sample, 'target' => $label];
     }, $testing->samples(), $testing->labels()),
-    'visualizationData' => $visualizationData
+    'visualizationData' => $visualizationData,
 ];
 
 // Save data to JSON file
 file_put_contents('ridge_regression_data.json', json_encode($outputData));
 
 echo "Data saved to ridge_regression_data.json\n";
-echo "Weights: " . json_encode($weights) . "\n";
-echo "Bias: " . json_encode($bias) . "\n";
+echo 'Weights: ' . json_encode($weights) . "\n";
+echo 'Bias: ' . json_encode($bias) . "\n";
 echo "Done!\n";

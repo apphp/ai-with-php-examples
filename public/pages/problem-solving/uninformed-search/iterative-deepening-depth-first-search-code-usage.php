@@ -38,19 +38,20 @@ $searchResult = $graph->iddfs('S', 'F');
 
 // Output the DFS traversal
 echo "\nSearch Results:\n";
-echo "Target found: " . ($searchResult['success'] ? "Yes" : "No") . "\n";
-echo "Final depth: " . $searchResult['final_depth'] . "\n\n";
+echo 'Target found: ' . ($searchResult['success'] ? 'Yes' : 'No') . "\n";
+echo 'Final depth: ' . $searchResult['final_depth'] . "\n\n";
 
 // Print paths explored at each depth
 foreach ($searchResult['paths'] as $depthResult) {
-    echo "Depth " . $depthResult['depth_limit'] . ":\n";
+    echo 'Depth ' . $depthResult['depth_limit'] . ":\n";
     foreach ($depthResult['path'] as $node) {
-        echo sprintf("  Node: %s (Level %d)\n",
+        echo sprintf(
+            "  Node: %s (Level %d)\n",
             $node['vertex'],
             $node['level']
         );
     }
-    echo "  Found: " . ($depthResult['found'] ? "Yes" : "No") . "\n\n";
+    echo '  Found: ' . ($depthResult['found'] ? 'Yes' : 'No') . "\n\n";
 }
 
 // Example output for comparison with BFS

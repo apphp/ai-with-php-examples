@@ -46,7 +46,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?//= create_dataset_and_test_data_links(__DIR__ . '/data/houses3.csv', array_flatten($testSamples)); ?>
+    <?php //= create_dataset_and_test_data_links(__DIR__ . '/data/houses3.csv', array_flatten($testSamples));?>
 </div>
 
 <div class="container-fluid px-2">

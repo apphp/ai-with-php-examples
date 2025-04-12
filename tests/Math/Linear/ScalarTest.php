@@ -3,8 +3,8 @@
 namespace Apphp\MLKit\Tests\Math\Linear;
 
 use Apphp\MLKit\Math\Linear\Scalar;
+use DivisionByZeroError;
 use PHPUnit\Framework\TestCase;
-use Random\RandomException;
 
 /**
  * @covers \Apphp\MLKit\Math\Linear\Scalar
@@ -78,7 +78,7 @@ class ScalarTest extends TestCase
     }
 
     /**
-     * Test division with various number combinations
+     * Test division with valid arguments
      *
      * @covers \Apphp\MLKit\Math\Linear\Scalar::divide
      * @return void
@@ -97,13 +97,23 @@ class ScalarTest extends TestCase
         // Mixed integer and float
         self::assertEquals(6.0, Scalar::divide(3, 0.5));
         self::assertEquals(-6.0, Scalar::divide(-3, 0.5));
-
-        // Division by zero
-        self::assertEquals('undefined', Scalar::divide(6, 0));
     }
 
     /**
-     * Test modulus operation with various number combinations
+     * Test division by zero
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::divide
+     * @return void
+     */
+    public function testDivisionByZero(): void
+    {
+        $this->expectException(DivisionByZeroError::class);
+        $this->expectExceptionMessage('Division by zero is not allowed');
+        Scalar::divide(6, 0);
+    }
+
+    /**
+     * Test modulus with valid arguments
      *
      * @covers \Apphp\MLKit\Math\Linear\Scalar::modulus
      * @return void
@@ -111,17 +121,30 @@ class ScalarTest extends TestCase
     public function testModulus(): void
     {
         // Integer arguments
-        self::assertEquals(1.0, Scalar::modulus(5, 2));
-        self::assertEquals(0.0, Scalar::modulus(4, 2));
-        self::assertEquals(-1.0, Scalar::modulus(-5, 2));
+        self::assertEquals(1.0, Scalar::modulus(7, 3));
+        self::assertEquals(0.0, Scalar::modulus(6, 3));
+        self::assertEquals(0.0, Scalar::modulus(0, 5));
 
         // Float arguments
-        self::assertEquals(0.1, Scalar::modulus(2.1, 1.0));
-        self::assertEquals(-0.1, Scalar::modulus(-2.1, 1.0));
+        self::assertEquals(0.5, Scalar::modulus(3.5, 1.5));
+        self::assertEquals(0.0, Scalar::modulus(4.5, 1.5));
 
         // Mixed integer and float
         self::assertEquals(0.5, Scalar::modulus(3, 2.5));
         self::assertEquals(-0.5, Scalar::modulus(-3, 2.5));
+    }
+
+    /**
+     * Test modulus by zero
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::modulus
+     * @return void
+     */
+    public function testModulusByZero(): void
+    {
+        $this->expectException(DivisionByZeroError::class);
+        $this->expectExceptionMessage('Division by zero is not allowed');
+        Scalar::modulus(6, 0);
     }
 
     /**
@@ -284,36 +307,58 @@ class ScalarTest extends TestCase
     }
 
     /**
-     * Test logarithm function
+     * Test logarithm with valid arguments
      *
      * @covers \Apphp\MLKit\Math\Linear\Scalar::logarithm
-     * @covers \Apphp\MLKit\Math\Linear\Scalar::getOptimalPrecision
      * @return void
      */
     public function testLogarithm(): void
     {
-        // Positive test cases
+        // Positive numbers
         self::assertEquals(0.0, Scalar::logarithm(1));
-        self::assertEquals(round(log(2), 8), Scalar::logarithm(2));
-        self::assertEquals(round(log(0.5), 8), Scalar::logarithm(0.5));
+        self::assertEquals(0.69314718, Scalar::logarithm(2));
+        self::assertEquals(-0.69314718, Scalar::logarithm(0.5));
 
-        // Negative test cases
-        self::assertEquals('undefined', Scalar::logarithm(0));
-        self::assertEquals('undefined', Scalar::logarithm(-1));
+        // Test with specific precision
+        self::assertEquals(0.693, Scalar::logarithm(2, 3));
     }
 
     /**
-     * Test square root function
+     * Test logarithm with zero argument
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::logarithm
+     * @return void
+     */
+    public function testLogarithmWithZero(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Logarithm argument must be positive. Got: 0');
+        Scalar::logarithm(0);
+    }
+
+    /**
+     * Test logarithm with negative argument
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::logarithm
+     * @return void
+     */
+    public function testLogarithmWithNegativeNumber(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Logarithm argument must be positive. Got: -1');
+        Scalar::logarithm(-1);
+    }
+
+    /**
+     * Test square root with valid arguments
      *
      * @covers \Apphp\MLKit\Math\Linear\Scalar::squareRoot
-     * @covers \Apphp\MLKit\Math\Linear\Scalar::getOptimalPrecision
      * @return void
      */
     public function testSquareRoot(): void
     {
         // Integer arguments
         self::assertEquals(2.0, Scalar::squareRoot(4));
-        self::assertEquals(2.0, Scalar::squareRoot(-4)); // Should take absolute value
         self::assertEquals(0.0, Scalar::squareRoot(0));
 
         // Float arguments
@@ -322,6 +367,19 @@ class ScalarTest extends TestCase
 
         // With specific precision
         self::assertEquals(1.414, Scalar::squareRoot(2, 3));
+    }
+
+    /**
+     * Test square root with negative argument
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::squareRoot
+     * @return void
+     */
+    public function testSquareRootWithNegativeNumber(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Square root argument must be non-negative. Got: -4');
+        Scalar::squareRoot(-4);
     }
 
     /**
@@ -411,7 +469,7 @@ class ScalarTest extends TestCase
      * @covers \Apphp\MLKit\Math\Linear\Scalar::mtRandomInt
      * @covers \Apphp\MLKit\Math\Linear\Scalar::lcgValue
      * @return void
-     * @throws RandomException
+     * @throws \Exception
      */
     public function testRandomNumberGeneration(): void
     {
@@ -580,5 +638,54 @@ class ScalarTest extends TestCase
         // Test undefined cases
         self::assertEquals('undefined', Scalar::tangent(3 * M_PI_2));
         self::assertEquals('undefined', Scalar::tangent(5 * M_PI_2));
+    }
+
+    /**
+     * Test error handling for invalid precision
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::setPrecision
+     */
+    public function testInvalidPrecision(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Precision must be non-negative. Got: -1');
+        Scalar::setPrecision(-1);
+    }
+
+    /**
+     * Test error handling for invalid logarithm argument
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::logarithm
+     */
+    public function testInvalidLogarithmArgument(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Logarithm argument must be positive. Got: -1');
+        Scalar::logarithm(-1);
+    }
+
+    /**
+     * Test error handling for invalid square root argument
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::squareRoot
+     */
+    public function testInvalidSquareRootArgument(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Square root argument must be non-negative. Got: -4');
+        Scalar::squareRoot(-4);
+    }
+
+    /**
+     * Test error handling for invalid shift argument
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::leftShift
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::rightShift
+     */
+    public function testInvalidShiftArgument(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Shift amount must be non-negative. Got: -1');
+        Scalar::leftShift(1, -1);
     }
 }

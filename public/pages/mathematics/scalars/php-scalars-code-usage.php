@@ -32,7 +32,12 @@ echo "Floor of $x: " . Scalar::floor($x) . "\n";
 echo "Round of $x: " . Scalar::round($x) . "\n";
 echo "Exponential of 2: " . Scalar::exponential(2) . "\n";
 echo "Natural logarithm of 2.718: " . Scalar::logarithm(2.718) . "\n";
-echo "Square root of |$x|: " . Scalar::squareRoot($x) . "\n";
+echo "Square root of |$x|: ";
+try {
+    echo Scalar::squareRoot($x) . "\n";
+} catch (Exception $e) {
+    echo $e->getMessage() . "\n";
+}
 
 // Trigonometric Operations
 echo "\nTrigonometric Operations:\n---------\n";

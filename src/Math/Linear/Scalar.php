@@ -2,6 +2,8 @@
 
 namespace Apphp\MLKit\Math\Linear;
 
+use DivisionByZeroError;
+use InvalidArgumentException;
 use Random\RandomException;
 
 /**
@@ -27,8 +29,12 @@ class Scalar {
      *
      * @param int $precision Number of decimal places
      * @return void
+     * @throws InvalidArgumentException
      */
     public static function setPrecision(int $precision): void {
+        if ($precision < 0) {
+            throw new InvalidArgumentException("Precision must be non-negative. Got: {$precision}");
+        }
         self::$precision = $precision;
     }
 
@@ -47,9 +53,13 @@ class Scalar {
      * @param string $operation Type of operation ('basic_arithmetic', 'trigonometric', 'exponential', 'vector')
      * @param int|null $precision Optional precision override
      * @return int Optimal precision for the operation
+     * @throws InvalidArgumentException
      */
     private static function getOptimalPrecision(string $operation, ?int $precision = null): int {
         if ($precision !== null) {
+            if ($precision < 0) {
+                throw new InvalidArgumentException("Precision must be non-negative. Got: {$precision}");
+            }
             return $precision;
         }
 
@@ -58,7 +68,7 @@ class Scalar {
             'basic_arithmetic' => 5,    // Basic arithmetic often needs less precision
             'exponential' => 8,         // Exponential operations may need more precision
             'vector' => 6,              // Vector operations balance precision and performance
-            default => self::$precision
+            default => throw new InvalidArgumentException("Invalid operation type: {$operation}")
         };
     }
 
@@ -108,10 +118,11 @@ class Scalar {
      * @param float|int $b Divisor
      * @param int|null $precision Number of decimal places to round to
      * @return float|string Result of division or 'undefined' if divisor is zero
+     * @throws DivisionByZeroError
      */
     public static function divide(float|int $a, float|int $b, ?int $precision = null): float|string {
-        if ($b == 0) {
-            return 'undefined';
+        if ($b === 0) {
+            throw new DivisionByZeroError("Division by zero is not allowed");
         }
         $precision = self::getOptimalPrecision('basic_arithmetic', $precision);
         return round($a / $b, $precision);
@@ -124,8 +135,12 @@ class Scalar {
      * @param float|int $b Divisor
      * @param int|null $precision Number of decimal places to round to
      * @return float Remainder of the division
+     * @throws DivisionByZeroError
      */
     public static function modulus(float|int $a, float|int $b, ?int $precision = null): float {
+        if ($b === 0) {
+            throw new DivisionByZeroError('Division by zero is not allowed');
+        }
         $precision = self::getOptimalPrecision('basic_arithmetic', $precision);
         return round(fmod($a, $b), $precision);
     }
@@ -227,10 +242,11 @@ class Scalar {
      * @param float|int $x Input number (must be positive)
      * @param int|null $precision Number of decimal places to round to
      * @return float|string Natural logarithm or 'undefined' if x <= 0
+     * @throws InvalidArgumentException
      */
     public static function logarithm(float|int $x, ?int $precision = null): float|string {
         if ($x <= 0) {
-            return 'undefined';
+            throw new InvalidArgumentException("Logarithm argument must be positive. Got: {$x}");
         }
         $precision = self::getOptimalPrecision('exponential', $precision);
         return round(log($x), $precision);
@@ -242,8 +258,12 @@ class Scalar {
      * @param float|int $x Input number
      * @param int|null $precision Number of decimal places to round to
      * @return float Square root of |x|
+     * @throws InvalidArgumentException
      */
     public static function squareRoot(float|int $x, ?int $precision = null): float {
+        if ($x < 0) {
+            throw new InvalidArgumentException("Square root argument must be non-negative. Got: {$x}");
+        }
         $precision = self::getOptimalPrecision('exponential', $precision);
         return round(sqrt(abs($x)), $precision);
     }
@@ -437,8 +457,12 @@ class Scalar {
      * @param int $a Number to shift
      * @param int $positions Number of positions to shift
      * @return int Result after left shift
+     * @throws InvalidArgumentException
      */
     public static function leftShift(int $a, int $positions = 1): int {
+        if ($positions < 0) {
+            throw new InvalidArgumentException("Shift amount must be non-negative. Got: {$positions}");
+        }
         return $a << $positions;
     }
 
@@ -448,8 +472,12 @@ class Scalar {
      * @param int $a Number to shift
      * @param int $positions Number of positions to shift
      * @return int Result after right shift
+     * @throws InvalidArgumentException
      */
     public static function rightShift(int $a, int $positions = 1): int {
+        if ($positions < 0) {
+            throw new InvalidArgumentException("Shift amount must be non-negative. Got: {$positions}");
+        }
         return $a >> $positions;
     }
 }

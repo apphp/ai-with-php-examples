@@ -34,34 +34,34 @@ $memoryEnd = memory_get_usage();
         echo '<div class="d-flex">Valid Digit 5 (five)</div>';
         echo '<div class="d-flex" style="border: 1px solid #ccc">';
         foreach ($digit5Variants as $index => $test) {
-            echo "<div>";
+            echo '<div>';
             displayDigit($test);
-            echo "</div>";
+            echo '</div>';
         }
-        echo "</div>";
-        echo "</div>";
+        echo '</div>';
+        echo '</div>';
 
     echo '<div class="col me-4">';
         echo '<div class="d-flex">Not Valid Digit 5 (five)</div>';
         echo '<div class="d-flex" style="border: 1px solid #ccc">';
         foreach ($nonDigit5Variants as $index => $test) {
-            echo "<div>";
+            echo '<div>';
             displayDigit($test);
-            echo "</div>";
+            echo '</div>';
         }
-    echo "</div>";
-    echo "</div>";
+    echo '</div>';
+    echo '</div>';
 
     echo '<div class="col me-4">';
     echo '<div class="d-flex">Testing Digits</div>';
     echo '<div class="d-flex" style="border: 1px solid #ccc">';
         foreach ($testCases as $index => $test) {
-            echo "<div>";
+            echo '<div>';
             displayDigit($test);
-            echo "</div>";
+            echo '</div>';
         }
-    echo "</div>";
-    echo "</div>";
+    echo '</div>';
+    echo '</div>';
 //        $testData = [
 //            'hours study,previous score',
 //            '6,82  // New student: 6 hours study, 82% previous score',

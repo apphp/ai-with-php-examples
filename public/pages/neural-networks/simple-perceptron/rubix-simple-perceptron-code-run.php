@@ -33,7 +33,7 @@ $memoryEnd = memory_get_usage();
         $testData = [
             'hours study,previous score',
             '6,82  // New student: 6 hours study, 82% previous score',
-            '1,50  // New student: 1 hour study, 50% previous score'
+            '1,50  // New student: 1 hour study, 50% previous score',
         ];
         echo create_dataset_and_test_data_links(__DIR__ . '/data/exams.csv', $testData);
     ?>

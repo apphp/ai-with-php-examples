@@ -21,10 +21,12 @@ $dataset = Labeled::fromIterator(new CSV(dirname(__FILE__) . '/data/exams.csv', 
 $dataset->apply(new NumericStringConverter());
 
 // Initialize neural network with no hidden layers (simple perceptron)
-$estimator = new MultilayerPerceptron([
+$estimator = new MultilayerPerceptron(
+    [
     new Dense(1), // Output layer with single neuron
     new Activation(new ReLU()), // ReLU activation function
-], 10000, // Maximum number of epochs
+],
+    10000, // Maximum number of epochs
     new Adam(0.01), // Learning rate of 0.01
 );
 
@@ -45,5 +47,5 @@ $predictions = $estimator->predict($testDataset);
 
 // Output predictions
 foreach ($predictions as $index => $prediction) {
-    echo "Student " . ($index + 1) . " prediction: " . $prediction . PHP_EOL;
+    echo 'Student ' . ($index + 1) . ' prediction: ' . $prediction . PHP_EOL;
 }

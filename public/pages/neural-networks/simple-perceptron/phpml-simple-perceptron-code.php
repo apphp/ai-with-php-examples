@@ -9,7 +9,7 @@ $dataset = new CsvDataset(dirname(__FILE__) . '/data/exams.csv', 2, true);
 
 $rawSamples = $dataset->getSamples();
 // Convert all values in samples to floats
-$samples = array_map(function($sample) {
+$samples = array_map(function ($sample) {
     return array_map('floatval', $sample);
 }, $rawSamples);
 
@@ -33,6 +33,5 @@ $predictions = $classifier->predict($testSamples);
 
 // Output predictions
 foreach ($predictions as $index => $prediction) {
-    echo "Student " . ($index + 1) . " prediction: " . $prediction . PHP_EOL;
+    echo 'Student ' . ($index + 1) . ' prediction: ' . $prediction . PHP_EOL;
 }
-

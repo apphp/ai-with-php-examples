@@ -7,14 +7,14 @@ use app\classes\logic\PropositionalLogic;
 $logic = new PropositionalLogic();
 
 // Define propositions
-$p = new Proposition("P", false);
-$q = new Proposition("Q", false);
-$r = new Proposition("R", false);
+$p = new Proposition('P', false);
+$q = new Proposition('Q', false);
+$r = new Proposition('R', false);
 
 //echo "====== PROPOSITIONAL LOGIC EXAMPLES ======\n\n";
 
 // Example 1: Material Implication: (P → Q) ↔ (¬P ∨ Q)
-$formula1 = function() use ($logic, $p, $q) {
+$formula1 = function () use ($logic, $p, $q) {
     $leftSide = $logic->IMPLIES($p->getValue(), $q->getValue());
     $rightSide = $logic->OR($logic->NOT($p->getValue()), $q->getValue());
     return $logic->IFF($leftSide, $rightSide);
@@ -29,7 +29,7 @@ echo "This demonstrates that P implies Q is logically equivalent to not-P or Q\n
 $logic->printTruthTable($truthTable1);
 
 // Example 2: De Morgan's Law: ¬(P ∧ Q) ↔ (¬P ∨ ¬Q)
-$formula2 = function() use ($logic, $p, $q) {
+$formula2 = function () use ($logic, $p, $q) {
     $leftSide = $logic->NOT($logic->AND($p->getValue(), $q->getValue()));
     $rightSide = $logic->OR($logic->NOT($p->getValue()), $logic->NOT($q->getValue()));
     return $logic->IFF($leftSide, $rightSide);
@@ -44,7 +44,7 @@ echo "This demonstrates that the negation of a conjunction equals the disjunctio
 $logic->printTruthTable($truthTable2);
 
 // Example 3: Syllogism: ((P → Q) ∧ (Q → R)) → (P → R)
-$formula3 = function() use ($logic, $p, $q, $r) {
+$formula3 = function () use ($logic, $p, $q, $r) {
     $pImpliesQ = $logic->IMPLIES($p->getValue(), $q->getValue());
     $qImpliesR = $logic->IMPLIES($q->getValue(), $r->getValue());
     $pImpliesR = $logic->IMPLIES($p->getValue(), $r->getValue());
@@ -69,8 +69,8 @@ $q->setValue(false);
 $implication = $logic->IMPLIES($p->getValue(), $q->getValue());
 
 echo "Scenario 1:\n";
-echo "P = " . ($p->getValue() ? "true" : "false") . "\n";
-echo "P→Q = " . ($implication ? "true" : "false") . "\n";
+echo 'P = ' . ($p->getValue() ? 'true' : 'false') . "\n";
+echo 'P→Q = ' . ($implication ? 'true' : 'false') . "\n";
 echo "When P is true and P→Q is false, then the premise is invalid.\n";
 
 // Set up a valid Modus Ponens scenario
@@ -79,9 +79,9 @@ $q->setValue(true);
 $implication = $logic->IMPLIES($p->getValue(), $q->getValue());
 
 echo "\nScenario 2:\n";
-echo "P = " . ($p->getValue() ? "true" : "false") . "\n";
-echo "P→Q = " . ($implication ? "true" : "false") . "\n";
-echo "Q = " . ($q->getValue() ? "true" : "false") . "\n";
+echo 'P = ' . ($p->getValue() ? 'true' : 'false') . "\n";
+echo 'P→Q = ' . ($implication ? 'true' : 'false') . "\n";
+echo 'Q = ' . ($q->getValue() ? 'true' : 'false') . "\n";
 echo "When P is true and P→Q is true, Q must be true. Valid Modus Ponens!\n";
 
 // Example 5: Modus Tollens: ¬Q, P→Q ⊢ ¬P
@@ -95,13 +95,13 @@ $implication = $logic->IMPLIES($p->getValue(), $q->getValue());
 $notQ = $logic->NOT($q->getValue());
 $notP = $logic->NOT($p->getValue());
 
-echo "P = " . ($p->getValue() ? "true" : "false") . "\n";
-echo "Q = " . ($q->getValue() ? "true" : "false") . "\n";
-echo "¬Q = " . ($notQ ? "true" : "false") . "\n";
-echo "P→Q = " . ($implication ? "true" : "false") . "\n";
-echo "¬P = " . ($notP ? "true" : "false") . "\n";
+echo 'P = ' . ($p->getValue() ? 'true' : 'false') . "\n";
+echo 'Q = ' . ($q->getValue() ? 'true' : 'false') . "\n";
+echo '¬Q = ' . ($notQ ? 'true' : 'false') . "\n";
+echo 'P→Q = ' . ($implication ? 'true' : 'false') . "\n";
+echo '¬P = ' . ($notP ? 'true' : 'false') . "\n";
 echo "When ¬Q is true and P→Q is false, Modus Tollens states ¬P should be true.\n";
-echo "In this case, ¬P is " . ($notP ? "true" : "false") . ", which doesn't validate Modus Tollens because the premise P→Q is false.\n";
+echo 'In this case, ¬P is ' . ($notP ? 'true' : 'false') . ", which doesn't validate Modus Tollens because the premise P→Q is false.\n";
 
 // Setup for valid Modus Tollens
 $p->setValue(false);
@@ -111,9 +111,9 @@ $notQ = $logic->NOT($q->getValue());
 $notP = $logic->NOT($p->getValue());
 
 echo "\nScenario 2:\n";
-echo "P = " . ($p->getValue() ? "true" : "false") . "\n";
-echo "Q = " . ($q->getValue() ? "true" : "false") . "\n";
-echo "¬Q = " . ($notQ ? "true" : "false") . "\n";
-echo "P→Q = " . ($implication ? "true" : "false") . "\n";
-echo "¬P = " . ($notP ? "true" : "false") . "\n";
+echo 'P = ' . ($p->getValue() ? 'true' : 'false') . "\n";
+echo 'Q = ' . ($q->getValue() ? 'true' : 'false') . "\n";
+echo '¬Q = ' . ($notQ ? 'true' : 'false') . "\n";
+echo 'P→Q = ' . ($implication ? 'true' : 'false') . "\n";
+echo '¬P = ' . ($notP ? 'true' : 'false') . "\n";
 echo "When ¬Q is true and P→Q is true, ¬P must be true. Valid Modus Tollens!\n";

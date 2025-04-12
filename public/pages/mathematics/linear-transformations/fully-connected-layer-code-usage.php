@@ -8,4 +8,4 @@ $bias = [1, -2];                    // Bias vector b
 $linearTransform = new LinearTransformation($weightMatrix);
 $resultVector = $linearTransform->linearTransform($weightMatrix, $bias, $inputVector);
 
-echo "Output after Fully Connected Layer: [<span id='output-vector'>" . implode(", ", $resultVector) . "</span>]";
+echo "Output after Fully Connected Layer: [<span id='output-vector'>" . implode(', ', $resultVector) . '</span>]';

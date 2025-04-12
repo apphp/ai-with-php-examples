@@ -13,7 +13,7 @@ function imputeMissingValues($dataset) {
     // Calculate the mean for each column
     foreach (range(0, 2) as $colIndex) {
         $colValues = array_column($samples, $colIndex);
-        $filteredValues = array_filter($colValues, fn($val) => $val !== null && $val !== '' ? (int)$val : false );
+        $filteredValues = array_filter($colValues, fn ($val) => $val !== null && $val !== '' ? (int)$val : false);
         $colMeans[$colIndex] = $filteredValues ? array_sum($filteredValues) / count($filteredValues) : 0;
     }
 
@@ -37,4 +37,3 @@ echo "---------------\n";
 foreach ($samples as $i => $sample) {
     echo implode(',', $sample) . "\n";
 }
-

@@ -18,7 +18,7 @@
             '[100, 500, 25],',
             '[150, 300, 15],',
             '[200, 400, 20],',
-            '[50, 200, 10]'
+            '[50, 200, 10]',
         ];
         echo create_dataset_and_test_data_links($dataset, fullWidth: true);
     ?>

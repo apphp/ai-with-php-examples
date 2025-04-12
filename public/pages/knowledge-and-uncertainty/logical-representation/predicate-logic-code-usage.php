@@ -52,7 +52,7 @@ echo "Formula: (∀x: Human(x) → Mortal(x)) ∧ Human(Socrates) → Mortal(Soc
 echo "This is the classic 'All humans are mortal, Socrates is human, therefore Socrates is mortal' argument\n\n";
 
 // Premise 1: All humans are mortal (∀x: Human(x) → Mortal(x))
-$allHumansAreMortal = $logic->forAll($domain, 'x', function($assignment) use ($logic, $domain, $humanX, $mortalX) {
+$allHumansAreMortal = $logic->forAll($domain, 'x', function ($assignment) use ($logic, $domain, $humanX, $mortalX) {
     $isHuman = $humanX->evaluate($domain, $assignment);
     $isMortal = $mortalX->evaluate($domain, $assignment);
     return $logic->IMPLIES($isHuman, $isMortal);
@@ -68,17 +68,17 @@ $socratesIsMortal = $mortalSocrates->evaluate($domain);
 echo "Step-by-step evaluation:\n";
 echo "Premise 1: ∀x: Human(x) → Mortal(x)\n";
 echo "Formal interpretation: For all objects x in the domain, if x is human, then x is mortal.\n";
-echo "Result: " . ($allHumansAreMortal ? "True" : "False") . "\n\n";
+echo 'Result: ' . ($allHumansAreMortal ? 'True' : 'False') . "\n\n";
 
 echo "Premise 2: Human(Socrates)\n";
 echo "Formal interpretation: The object 'Socrates' satisfies the Human predicate.\n";
-echo "Result: " . ($socratesIsHuman ? "True" : "False") . "\n\n";
+echo 'Result: ' . ($socratesIsHuman ? 'True' : 'False') . "\n\n";
 
 echo "Conclusion: Mortal(Socrates)\n";
 echo "Formal interpretation: The object 'Socrates' satisfies the Mortal predicate.\n";
-echo "Result: " . ($socratesIsMortal ? "True" : "False") . "\n\n";
+echo 'Result: ' . ($socratesIsMortal ? 'True' : 'False') . "\n\n";
 
-echo "The syllogism is " . (($allHumansAreMortal && $socratesIsHuman && $socratesIsMortal) ? "valid" : "invalid") . ".\n\n";
+echo 'The syllogism is ' . (($allHumansAreMortal && $socratesIsHuman && $socratesIsMortal) ? 'valid' : 'invalid') . ".\n\n";
 
 // Example 2: Existential Quantifier
 echo "\nExample 2: Existential Quantifier\n";
@@ -88,7 +88,7 @@ echo "Features: Existence assertion\n";
 echo "Formula: ∃x: Human(x) ∧ Mortal(x)\n";
 echo "This checks if there exists at least one human who is mortal\n\n";
 
-$existsHumanAndMortal = $logic->exists($domain, 'x', function($assignment) use ($logic, $domain, $humanX, $mortalX) {
+$existsHumanAndMortal = $logic->exists($domain, 'x', function ($assignment) use ($logic, $domain, $humanX, $mortalX) {
     $isHuman = $humanX->evaluate($domain, $assignment);
     $isMortal = $mortalX->evaluate($domain, $assignment);
     return $logic->AND($isHuman, $isMortal);
@@ -96,7 +96,7 @@ $existsHumanAndMortal = $logic->exists($domain, 'x', function($assignment) use (
 
 echo "Evaluation of ∃x: Human(x) ∧ Mortal(x):\n";
 echo "Formal interpretation: There exists at least one object x in the domain such that x is human AND x is mortal.\n";
-echo "Result: " . ($existsHumanAndMortal ? "True" : "False") . "\n";
+echo 'Result: ' . ($existsHumanAndMortal ? 'True' : 'False') . "\n";
 
 // Get examples of objects that satisfy the formula
 $satisfyingObjects = [];
@@ -110,7 +110,7 @@ foreach ($domain->getAllObjects() as $objectName => $properties) {
 }
 
 if (!empty($satisfyingObjects)) {
-    echo "Objects that satisfy this formula: " . implode(', ', $satisfyingObjects) . "\n\n";
+    echo 'Objects that satisfy this formula: ' . implode(', ', $satisfyingObjects) . "\n\n";
 } else {
     echo "No objects satisfy this formula.\n\n";
 }
@@ -127,7 +127,7 @@ echo "This checks if all dogs are mammals\n\n";
 $domain->addObject('Fido', ['type' => 'dog', 'mortal' => true, 'mammal' => true]);
 
 // All dogs are mammals
-$allDogsAreMammals = $logic->forAll($domain, 'x', function($assignment) use ($logic, $domain, $dogX, $mammalX) {
+$allDogsAreMammals = $logic->forAll($domain, 'x', function ($assignment) use ($logic, $domain, $dogX, $mammalX) {
     $isDog = $dogX->evaluate($domain, $assignment);
     $isMammal = $mammalX->evaluate($domain, $assignment);
     return $logic->IMPLIES($isDog, $isMammal);
@@ -135,7 +135,7 @@ $allDogsAreMammals = $logic->forAll($domain, 'x', function($assignment) use ($lo
 
 echo "Evaluation of ∀x: Dog(x) → Mammal(x):\n";
 echo "Formal interpretation: For all objects x in the domain, if x is a dog, then x is a mammal.\n";
-echo "Result: " . ($allDogsAreMammals ? "True" : "False") . "\n\n";
+echo 'Result: ' . ($allDogsAreMammals ? 'True' : 'False') . "\n\n";
 
 // Example 4: Nested Quantifiers
 echo "\nExample 4: Nested Quantifiers\n";
@@ -157,13 +157,13 @@ $greaterThanPredicate = new Predicate('GreaterThan', 2);
 $equalsPredicate = new Predicate('Equals', 2);
 
 // For all x, there exists a y such that y > x
-$forAllExistsGreaterThan = $logic->forAll($numberDomain, 'x', function($xAssignment) use ($logic, $numberDomain, $greaterThanPredicate) {
-    return $logic->exists($numberDomain, 'y', function($yAssignment) use ($logic, $numberDomain, $greaterThanPredicate, $xAssignment) {
+$forAllExistsGreaterThan = $logic->forAll($numberDomain, 'x', function ($xAssignment) use ($logic, $numberDomain, $greaterThanPredicate) {
+    return $logic->exists($numberDomain, 'y', function ($yAssignment) use ($logic, $numberDomain, $greaterThanPredicate, $xAssignment) {
         $xValue = $xAssignment['x'];
         $yValue = $yAssignment['y'];
         $greaterThanFormula = new AtomicFormula($greaterThanPredicate, [
             new Term($yValue, false),
-            new Term($xValue, false)
+            new Term($xValue, false),
         ]);
         return $greaterThanFormula->evaluate($numberDomain);
     });
@@ -171,7 +171,7 @@ $forAllExistsGreaterThan = $logic->forAll($numberDomain, 'x', function($xAssignm
 
 echo "Evaluation of ∀x: ∃y: GreaterThan(y, x):\n";
 echo "Formal interpretation: For all numbers x in the domain, there exists at least one number y such that y is greater than x.\n";
-echo "Result: " . ($forAllExistsGreaterThan ? "True" : "False") . "\n";
+echo 'Result: ' . ($forAllExistsGreaterThan ? 'True' : 'False') . "\n";
 echo "Explanation: This formula is false because when x = 5, there is no y in our domain that satisfies GreaterThan(y, 5).\n";
 echo "For x = 1, 2, 3, and 4, we can find values of y that are greater, but not for x = 5.\n";
 echo "Since the universal quantifier requires ALL values to satisfy the condition, the overall result is False.\n\n";
@@ -184,19 +184,19 @@ echo "Features: Constants in predicate expressions\n";
 echo "Formula: ∃a: GreaterThan(a, 3)\n";
 echo "This checks if there exists a number greater than 3\n\n";
 
-$greaterThan3 = $logic->exists($numberDomain, 'a', function($assignment) use ($logic, $numberDomain, $greaterThanPredicate) {
+$greaterThan3 = $logic->exists($numberDomain, 'a', function ($assignment) use ($logic, $numberDomain, $greaterThanPredicate) {
     $aValue = $assignment['a'];
     $three = '3';
     $greaterThanFormula = new AtomicFormula($greaterThanPredicate, [
         new Term($aValue, false),
-        new Term($three, false)
+        new Term($three, false),
     ]);
     return $greaterThanFormula->evaluate($numberDomain);
 });
 
 echo "Evaluation of ∃a: GreaterThan(a, 3):\n";
 echo "Formal interpretation: There exists at least one number a in the domain such that a is greater than 3.\n";
-echo "Result: " . ($greaterThan3 ? "True" : "False") . "\n";
+echo 'Result: ' . ($greaterThan3 ? 'True' : 'False') . "\n";
 
 // Get examples of objects that satisfy the formula
 $satisfyingNumbers = [];
@@ -204,7 +204,7 @@ foreach ($numberDomain->getAllObjects() as $objectName => $properties) {
     $assignment = ['a' => $objectName];
     $greaterThanFormula = new AtomicFormula($greaterThanPredicate, [
         new Term($objectName, false),
-        new Term('3', false)
+        new Term('3', false),
     ]);
     if ($greaterThanFormula->evaluate($numberDomain)) {
         $satisfyingNumbers[] = $objectName;
@@ -212,7 +212,7 @@ foreach ($numberDomain->getAllObjects() as $objectName => $properties) {
 }
 
 if (!empty($satisfyingNumbers)) {
-    echo "Numbers that satisfy this formula: " . implode(', ', $satisfyingNumbers) . "\n";
+    echo 'Numbers that satisfy this formula: ' . implode(', ', $satisfyingNumbers) . "\n";
 } else {
     echo "No numbers satisfy this formula.\n";
 }

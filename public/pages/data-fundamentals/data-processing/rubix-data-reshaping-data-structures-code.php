@@ -12,7 +12,7 @@ $dataset = Unlabeled::fromIterator(new CSV(dirname(__FILE__) . '/data/time_serie
 function reshapeIntoRollingWindows(array $data, int $windowSize): array {
     // If input is a flat array, convert each element to an array
     $isFlat = !is_array(reset($data));
-    $formattedData = $isFlat ? array_map(fn($value) => [$value], $data) : $data;
+    $formattedData = $isFlat ? array_map(fn ($value) => [$value], $data) : $data;
 
     $windows = [];
     for ($i = 0; $i <= count($formattedData) - $windowSize; $i++) {

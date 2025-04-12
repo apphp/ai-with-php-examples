@@ -8,7 +8,7 @@ use Tensor\Matrix;
 try {
     $samples = [
         [4, 1],
-        [2, 3]
+        [2, 3],
     ];
 
     // Create Matrix directly from samples
@@ -23,12 +23,12 @@ try {
     $eigenvectors = $eig->eigenvectors()->asArray();
 
     // Scale first eigenvector to get [1, 1]
-    $eigenvectors[0] = array_map(function($x) {
+    $eigenvectors[0] = array_map(function ($x) {
         return $x * sqrt(2);
     }, $eigenvectors[0]);
 
     // Scale second eigenvector to get [2, -1]
-    $eigenvectors[1] = array_map(function($x) {
+    $eigenvectors[1] = array_map(function ($x) {
         return $x * sqrt(5);
     }, $eigenvectors[1]);
 
@@ -40,5 +40,5 @@ try {
     echo '[' . implode(', ', $rows) . ']';
 
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage() . PHP_EOL;
+    echo 'Error: ' . $e->getMessage() . PHP_EOL;
 }

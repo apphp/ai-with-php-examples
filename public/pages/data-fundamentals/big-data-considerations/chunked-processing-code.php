@@ -16,7 +16,7 @@ class ChunkedProcessor {
         try {
             // Validate and set memory limit
             if (!ini_set('memory_limit', $this->maxMemoryUsage)) {
-                throw new Exception("Failed to set memory limit.");
+                throw new Exception('Failed to set memory limit.');
             }
 
             if (!file_exists($filename)) {
@@ -32,7 +32,7 @@ class ChunkedProcessor {
                 'processed_rows' => 0,
                 'failed_rows' => 0,
                 'start_time' => microtime(true),
-                'memory_peak' => 0
+                'memory_peak' => 0,
             ];
 
             // Process file in chunks
@@ -70,7 +70,7 @@ class ChunkedProcessor {
                     }
                 } catch (Exception $e) {
                     $stats['failed_rows'] += count($chunk);
-                    $this->logHandler->error("Chunk processing failed: " . $e->getMessage());
+                    $this->logHandler->error('Chunk processing failed: ' . $e->getMessage());
                     continue;
                 }
             }
@@ -78,7 +78,7 @@ class ChunkedProcessor {
             fclose($handle);
             return $this->generateReport($stats);
         } catch (Exception $e) {
-            throw new Exception("Dataset processing failed: " . $e->getMessage());
+            throw new Exception('Dataset processing failed: ' . $e->getMessage());
         }
     }
 
@@ -88,7 +88,7 @@ class ChunkedProcessor {
         $rowsPerSecond = $stats['processed_rows'] / $timeElapsed;
 
         $this->logHandler->info(sprintf(
-            "Processed %d rows | Memory: %.2f MB | Speed: %.2f rows/sec",
+            'Processed %d rows | Memory: %.2f MB | Speed: %.2f rows/sec',
             $stats['processed_rows'],
             $memoryUsage,
             $rowsPerSecond
@@ -100,7 +100,7 @@ class ChunkedProcessor {
             'total_processed' => $stats['processed_rows'],
             'total_failed' => $stats['failed_rows'],
             'memory_peak_mb' => $stats['memory_peak'] / 1024 / 1024,
-            'time_taken_sec' => microtime(true) - $stats['start_time']
+            'time_taken_sec' => microtime(true) - $stats['start_time'],
         ];
     }
 }
@@ -117,4 +117,3 @@ class LogHandler {
         echo "\nWARNING: $message";
     }
 }
-

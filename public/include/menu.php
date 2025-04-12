@@ -50,7 +50,7 @@ $menu = [
                     'propositional-logic-code', 'propositional-logic-code-run',
                     'predicate-logic-code', 'predicate-logic-code-run',
                 ]],
-            ]
+            ],
         ],
         [
             'title' => 'AI Agents',
@@ -61,8 +61,8 @@ $menu = [
                     'site-status-checker-agent', 'site-status-checker-agent-run',
                     'sales-analysis-agent', 'sales-analysis-agent-run',
                 ]],
-            ]
-        ]
+            ],
+        ],
     ],
     '<i class="fas fa-robot me-1"></i> Machine Learning' => [
         [
@@ -93,7 +93,7 @@ $menu = [
                 ['section' => 'mathematics', 'subSection' => 'eigenvalues-and-eigenvectors', 'page' => 'index', 'title' => 'Eigenvalues and Eigenvectors', 'permissions' => [
                     'index',
                     'rubix-eigenvalues-and-eigenvectors',
-                    'rubix-eigenvalues-and-eigenvectors-code-run'
+                    'rubix-eigenvalues-and-eigenvectors-code-run',
                 ]],
             ],
         ],
@@ -130,7 +130,7 @@ $menu = [
                 ['section' => 'ml-algorithms', 'subSection' => 'polynomial-regression', 'page' => 'index', 'title' => 'Polynomial Regression', 'permissions' => [
                     'index',
                     'rubix-polynomial-regression', 'rubix-polynomial-regression-code-run',
-                    'phpml-polynomial-regression', 'phpml-polynomial-regression-code-run'
+                    'phpml-polynomial-regression', 'phpml-polynomial-regression-code-run',
                 ]],
             ],
         ],

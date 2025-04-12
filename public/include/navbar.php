@@ -2,7 +2,7 @@
 
 $section = !empty($section) ? htmlspecialchars($section) : '';
 $subSection = !empty($subSection) ? htmlspecialchars($subSection) : '';
-$page = $page ?? 'index';
+$page ??= 'index';
 
 $menu = include('menu.php');
 

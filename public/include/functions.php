@@ -56,11 +56,11 @@ function array_to_matrix(array $matrix): string {
 }
 
 function array_to_vector(array $vector): string {
-    return "[" . implode(', ', $vector) . "]";
+    return '[' . implode(', ', $vector) . ']';
 }
 
 function array_reduce_samples(array $samples, int $index): array {
-    return array_map(function($subArray) use ($index) {
+    return array_map(function ($subArray) use ($index) {
         return isset($subArray[$index]) ? [$subArray[$index]] : [];
     }, $samples);
 }
@@ -98,21 +98,31 @@ function create_show_code_button(string $title, string $section, string $subsect
 }
 
 function create_run_code_button(
-    string $title, string $section1, string $subsection1, string $page1, string $buttonText1 = 'Run Code',
-    string $section2 = '', string $subsection2 = '', string $page2 = '', string $buttonText2 = 'Run Code',
-    string $section3 = '', string $subsection3 = '', string $page3 = '', string $buttonText3 = 'Run Code'
+    string $title,
+    string $section1,
+    string $subsection1,
+    string $page1,
+    string $buttonText1 = 'Run Code',
+    string $section2 = '',
+    string $subsection2 = '',
+    string $page2 = '',
+    string $buttonText2 = 'Run Code',
+    string $section3 = '',
+    string $subsection3 = '',
+    string $page3 = '',
+    string $buttonText3 = 'Run Code'
 ): string {
     $output = '<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         <h2 class="h4">' . $title . '</h2>
         <div class="btn-toolbar mb-2 mb-md-0">';
 
-        if($section3 && $subsection3 && $page3){
+        if ($section3 && $subsection3 && $page3) {
             $output .= '<div class="btn-group me-3">
                     <a href="' . create_href($section3, $subsection3, $page3) . '" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; '.$buttonText3.'</a>
                 </div>';
         }
 
-        if($section2 && $subsection2 && $page2){
+        if ($section2 && $subsection2 && $page2) {
             $output .= '<div class="btn-group me-3">
                 <a href="' . create_href($section2, $subsection2, $page2) . '" class="btn btn-sm btn-outline-primary">&#9654;&nbsp; '.$buttonText2.'</a>
             </div>';
@@ -145,7 +155,7 @@ function create_example_of_use_links(string $datasetFile = '', string $title = '
             </button>&nbsp;
         </div>';
 
-        if($language === 'js') {
+        if ($language === 'js') {
             $output .= '<div class="code-wrapper p-0"><pre><code id="code" class="language-javascript">' . htmlentities(file_get_contents($datasetFile)) . '</code></pre class=""></div>';
         } else {
             $output .= '<div class="code-wrapper"><code id="code">' . highlight_file($datasetFile, true) . '</code></div>';
@@ -262,7 +272,7 @@ function create_form_fields(string $section, string $subsection, string $page): 
     return $output;
 }
 
-function create_form_features(array $features = [], array $data = [], string $fieldName = 'features', string $type = 'checkbox', int|float $step=1, bool $precisionCompare = false, string $class='', string $style = '', string $event='', int $initId = 0) {
+function create_form_features(array $features = [], array $data = [], string $fieldName = 'features', string $type = 'checkbox', int|float $step = 1, bool $precisionCompare = false, string $class = '', string $style = '', string $event = '', int $initId = 0) {
     $output = '';
     $ind = $initId;
     $type = in_array($type, ['select', 'radio', 'checkbox', 'number']) ? $type : 'checkbox';
@@ -270,7 +280,7 @@ function create_form_features(array $features = [], array $data = [], string $fi
     if ($type === 'select') {
         $output = '<select class="form-select float-start ' . $class . '" id="select_' . $fieldName . '" name="' . $fieldName . '" ' . $event . '>';
         foreach ($features as $name => $feature) {
-            if (str_starts_with($name, 'group')){
+            if (str_starts_with($name, 'group')) {
                 $label = $feature['label'] ?? '';
                 $options = $feature['options'] ?? [];
                 $output .= '<optgroup label="[ '.$label.' ]">';

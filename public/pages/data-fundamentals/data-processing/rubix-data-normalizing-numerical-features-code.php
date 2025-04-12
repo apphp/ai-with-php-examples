@@ -15,7 +15,7 @@ $labels = [];
 foreach ($extractor as $row) {
     $samples[] = [
         (int)$row[0],
-        (int)$row[1]
+        (int)$row[1],
     ];
     $labels[] = $row[2];
 }

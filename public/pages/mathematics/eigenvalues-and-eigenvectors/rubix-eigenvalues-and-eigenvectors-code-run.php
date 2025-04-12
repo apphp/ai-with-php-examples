@@ -34,7 +34,7 @@ $memoryEnd = memory_get_usage();
 </div>
 
 <div>
-    <?php //= create_dataset_and_test_data_links(__DIR__ . '/data/colors_and_size.csv', fullWidth: true); ?>
+    <?php //= create_dataset_and_test_data_links(__DIR__ . '/data/colors_and_size.csv', fullWidth: true);?>
 </div>
 
 <div class="container-fluid px-2">

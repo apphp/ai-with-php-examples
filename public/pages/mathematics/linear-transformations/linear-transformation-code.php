@@ -14,7 +14,7 @@ class LinearTransformation {
      */
     public function __construct(array $matrix) {
         if (!$this->isValidMatrix($matrix)) {
-            throw new InvalidArgumentException("Invalid matrix: all rows must have same length");
+            throw new InvalidArgumentException('Invalid matrix: all rows must have same length');
         }
         $this->matrix = $matrix;
         $this->rows = count($matrix);
@@ -56,7 +56,7 @@ class LinearTransformation {
         // First validate that bias vector length matches number of rows
         if (count($bias) !== $this->rows) {
             throw new InvalidArgumentException(
-                "Bias dimension must match matrix rows"
+                'Bias dimension must match matrix rows'
             );
         }
 
@@ -78,7 +78,7 @@ class LinearTransformation {
      * @return array Vector with ReLU activation applied
      */
     public function relu(array $vector): array {
-        return array_map(function($v) {
+        return array_map(function ($v) {
             return max(0, $v);
         }, $vector);
     }
@@ -118,7 +118,9 @@ class LinearTransformation {
      * @return bool True if valid, false otherwise
      */
     private function isValidMatrix(array $matrix): bool {
-        if (empty($matrix) || !is_array($matrix[0])) return false;
+        if (empty($matrix) || !is_array($matrix[0])) {
+            return false;
+        }
 
         $columnCount = count($matrix[0]);
         foreach ($matrix as $row) {

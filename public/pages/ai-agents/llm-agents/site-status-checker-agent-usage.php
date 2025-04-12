@@ -5,7 +5,6 @@ declare(strict_types=1);
 use app\classes\llmagents\AiAgentExecutor;
 use app\classes\llmagents\sitestatuschecker\SiteStatusCheckerAgent;
 
-
 // Usage example:
 try {
     // Initialize the checker

@@ -52,7 +52,7 @@ $memoryEnd = memory_get_usage();
         <div class="col-md-12 col-lg-7 px-1 pe-lg-5">
             <?= create_result_block($memoryEnd, $memoryStart, $microtimeEnd, $microtimeStart, showResult: false); ?>
             <code class="<?= $resultFormat === 'md' ? 'code-result' : 'html-result'?>">
-                <?php if($resultFormat === 'md'): ?>
+                <?php if ($resultFormat === 'md'): ?>
                     <pre class="pre-wrap"><?= $result; ?></pre>
                 <?php else: ?>
                     <div class="<?= $resultFormat === 'md' ? '' : 'bg-lightgray p-2'?>">
@@ -90,7 +90,7 @@ $memoryEnd = memory_get_usage();
             </div>
             <code class="code-result" id="expandable-div">
                 <!-- Expand button -->
-                <?php if($debugResult !== '--'): ?>
+                <?php if ($debugResult !== '--'): ?>
                     <div class="bd-fullscreen cursor-pointer">
                         <i id="expandable-div-icon" class="fas fa-expand fa-inverse" title="Open in Full Screen"></i>
                     </div>

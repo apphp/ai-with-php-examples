@@ -12,26 +12,26 @@ echo "=== MATRIX CREATION AND BASIC OPERATIONS\n--------------------------------
 $matrixA = MatrixFactory::create([
     [4, 3, 2],
     [1, 5, 7],
-    [8, 6, 9]
+    [8, 6, 9],
 ]);
 
 $matrixB = MatrixFactory::create([
     [1, 2, 3],
     [4, 5, 6],
-    [7, 8, 9]
+    [7, 8, 9],
 ]);
 
 $vector = new Vector([1, 2, 3]);
 
 // Display basic matrix information
 echo "Matrix A:\n" . $matrixA . "\n";
-echo "Number of rows: " . $matrixA->getM() . "\n";
-echo "Number of columns: " . $matrixA->getN() . "\n\n";
+echo 'Number of rows: ' . $matrixA->getM() . "\n";
+echo 'Number of columns: ' . $matrixA->getN() . "\n\n";
 
 // Get individual elements and sub-components
-echo "Element at position (1,2): " . $matrixA->get(1, 2) . "\n";
-echo "Row 1: " . implode(", ", $matrixA->getRow(1)) . "\n";
-echo "Column 2: " . implode(", ", $matrixA->getColumn(2)) . "\n\n";
+echo 'Element at position (1,2): ' . $matrixA->get(1, 2) . "\n";
+echo 'Row 1: ' . implode(', ', $matrixA->getRow(1)) . "\n";
+echo 'Column 2: ' . implode(', ', $matrixA->getColumn(2)) . "\n\n";
 
 // Matrix arithmetic operations
 echo "=== MATRIX ARITHMETIC\n--------------------------------------\n\n";
@@ -71,15 +71,15 @@ echo "Augment A below B:\n" . $matrixA->augmentBelow($matrixB) . "\n\n";
 
 // Section 4: Matrix Properties and Values
 echo "=== MATRIX PROPERTIES AND VALUES\n--------------------------------------\n\n";
-echo "Trace of A: " . $matrixA->trace() . "\n";
-echo "Determinant of A: " . $matrixA->det() . "\n";
-echo "Rank of A: " . $matrixA->rank() . "\n\n";
+echo 'Trace of A: ' . $matrixA->trace() . "\n";
+echo 'Determinant of A: ' . $matrixA->det() . "\n";
+echo 'Rank of A: ' . $matrixA->rank() . "\n\n";
 
 // Check matrix properties
-echo "Is A square? " . ($matrixA->isSquare() ? "Yes" : "No") . "\n";
-echo "Is A symmetric? " . ($matrixA->isSymmetric() ? "Yes" : "No") . "\n";
-echo "Is A invertible? " . ($matrixA->isInvertible() ? "Yes" : "No") . "\n";
-echo "Is A diagonal? " . ($matrixA->isDiagonal() ? "Yes" : "No") . "\n\n";
+echo 'Is A square? ' . ($matrixA->isSquare() ? 'Yes' : 'No') . "\n";
+echo 'Is A symmetric? ' . ($matrixA->isSymmetric() ? 'Yes' : 'No') . "\n";
+echo 'Is A invertible? ' . ($matrixA->isInvertible() ? 'Yes' : 'No') . "\n";
+echo 'Is A diagonal? ' . ($matrixA->isDiagonal() ? 'Yes' : 'No') . "\n\n";
 
 // Section 5: Matrix Operations
 echo "=== MATRIX OPERATIONS\n--------------------------------------\n\n";
@@ -88,7 +88,7 @@ echo "Transpose of A:\n" . $matrixA->transpose() . "\n\n";
 try {
     echo "Inverse of A:\n" . $matrixA->inverse() . "\n\n";
 } catch (MatrixException $e) {
-    echo "Matrix is not invertible: " . $e->getMessage() . "\n\n";
+    echo 'Matrix is not invertible: ' . $e->getMessage() . "\n\n";
 }
 
 echo "Cofactor matrix of A:\n" . $matrixA->cofactorMatrix() . "\n\n";
@@ -96,9 +96,9 @@ echo "Adjugate of A:\n" . $matrixA->adjugate() . "\n\n";
 
 // Section 6: Matrix Norms
 echo "=== MATRIX NORMS\n--------------------------------------\n\n";
-echo "One norm of A: " . $matrixA->oneNorm() . "\n";
-echo "Infinity norm of A: " . $matrixA->infinityNorm() . "\n";
-echo "Frobenius norm of A: " . $matrixA->frobeniusNorm() . "\n\n";
+echo 'One norm of A: ' . $matrixA->oneNorm() . "\n";
+echo 'Infinity norm of A: ' . $matrixA->infinityNorm() . "\n";
+echo 'Frobenius norm of A: ' . $matrixA->frobeniusNorm() . "\n\n";
 
 // Section 7: Matrix Reductions
 echo "=== MATRIX REDUCTIONS\n--------------------------------------\n\n";
@@ -122,13 +122,13 @@ try {
         }
     } else {
         // Fallback: try to access as array for compatibility
-        echo "L matrix:\n" . (isset($lu['L']) ? $lu['L'] : "Not available") . "\n";
-        echo "U matrix:\n" . (isset($lu['U']) ? $lu['U'] : "Not available") . "\n";
-        echo "P matrix:\n" . (isset($lu['P']) ? $lu['P'] : "Not available") . "\n";
+        echo "L matrix:\n" . ($lu['L'] ?? 'Not available') . "\n";
+        echo "U matrix:\n" . ($lu['U'] ?? 'Not available') . "\n";
+        echo "P matrix:\n" . ($lu['P'] ?? 'Not available') . "\n";
     }
     echo "\n";
 } catch (Exception $e) {
-    echo "LU Decomposition failed: " . $e->getMessage() . "\n\n";
+    echo 'LU Decomposition failed: ' . $e->getMessage() . "\n\n";
 }
 
 // QR Decomposition - similar pattern
@@ -141,12 +141,12 @@ try {
         echo "Q matrix:\n" . $qr->Q . "\n\n";
         echo "R matrix:\n" . $qr->R . "\n\n";
     } else {
-        echo "Q matrix:\n" . (isset($qr['Q']) ? $qr['Q'] : "Not available") . "\n\n";
-        echo "R matrix:\n" . (isset($qr['R']) ? $qr['R'] : "Not available") . "\n\n";
+        echo "Q matrix:\n" . ($qr['Q'] ?? 'Not available') . "\n\n";
+        echo "R matrix:\n" . ($qr['R'] ?? 'Not available') . "\n\n";
     }
     echo "\n";
 } catch (Exception $e) {
-    echo "QR Decomposition failed: " . $e->getMessage() . "\n\n";
+    echo 'QR Decomposition failed: ' . $e->getMessage() . "\n\n";
 }
 
 // Eigenvalues and Eigenvectors
@@ -156,7 +156,7 @@ echo "=== EIGENVALUES AND EIGENVECTORS\n--------------------------------------\n
 $symmetricMatrix = MatrixFactory::create([
     [4, 1, 1],
     [1, 3, 1],
-    [1, 1, 5]
+    [1, 1, 5],
 ]);
 
 echo "Symmetric Matrix:\n" . $symmetricMatrix . "\n\n";
@@ -171,14 +171,14 @@ try {
     foreach ($eigenvectors as $index => $eigenvector) {
         // Handle Vector objects properly
         if ($eigenvector instanceof Vector) {
-            echo "Eigenvector " . ($index + 1) . ": [" . implode(", ", $eigenvector->getVector()) . "]\n";
+            echo 'Eigenvector ' . ($index + 1) . ': [' . implode(', ', $eigenvector->getVector()) . "]\n";
         } else {
-            echo "Eigenvector " . ($index + 1) . ": " . print_r($eigenvector, true) . "\n";
+            echo 'Eigenvector ' . ($index + 1) . ': ' . print_r($eigenvector, true) . "\n";
         }
     }
     echo "\n";
 } catch (Exception $e) {
-    echo "Eigenvalue calculation failed: " . $e->getMessage() . "\n\n";
+    echo 'Eigenvalue calculation failed: ' . $e->getMessage() . "\n\n";
 }
 
 // Section 9: Solving Linear Systems
@@ -188,22 +188,22 @@ echo "=== SOLVING LINEAR SYSTEMS\n--------------------------------------\n\n";
 $A = MatrixFactory::create([
     [3, 2, -1],
     [2, -2, 4],
-    [-1, 0.5, -1]
+    [-1, 0.5, -1],
 ]);
 
 $b = new Vector([1, -2, 0]);
 
 echo "System Ax = b:\n";
 echo "A:\n" . $A . "\n\n";
-echo "b: [" . implode(", ", $b->getVector()) . "]\n";
+echo 'b: [' . implode(', ', $b->getVector()) . "]\n";
 
 try {
     $x = $A->solve($b);
     // Handle Vector result
     if ($x instanceof Vector) {
-        echo "Solution x: [" . implode(", ", $x->getVector()) . "]\n\n";
+        echo 'Solution x: [' . implode(', ', $x->getVector()) . "]\n\n";
     } else {
-        echo "Solution x: " . print_r($x, true) . "\n\n";
+        echo 'Solution x: ' . print_r($x, true) . "\n\n";
     }
 } catch (Exception $e) {
     echo "Couldn't solve the system: " . $e->getMessage() . "\n\n";
@@ -225,7 +225,7 @@ try {
     $vandermonde = MatrixFactory::vandermonde([1, 2, 3], 3);
     echo "Vandermonde Matrix:\n" . $vandermonde . "\n\n";
 } catch (Exception $e) {
-    echo "Vandermonde Matrix creation failed: " . $e->getMessage() . "\n\n";
+    echo 'Vandermonde Matrix creation failed: ' . $e->getMessage() . "\n\n";
 }
 
 // Hilbert matrix
@@ -233,14 +233,14 @@ try {
     $hilbert = MatrixFactory::hilbert(3);
     echo "3x3 Hilbert Matrix:\n" . $hilbert . "\n\n";
 } catch (Exception $e) {
-    echo "Hilbert Matrix creation failed: " . $e->getMessage() . "\n\n";
+    echo 'Hilbert Matrix creation failed: ' . $e->getMessage() . "\n\n";
 }
 
 // Section 11: Matrix Mapping Functions
 echo "=== MATRIX FUNCTION MAPPING\n--------------------------------------\n\n";
 
 // Map a function over the elements
-$squareFunc = function($x) {
+$squareFunc = function ($x) {
     return $x * $x;
 };
 
@@ -250,7 +250,7 @@ echo "Absolute value of elements in A:\n" . $matrixA->map('abs') . "\n\n";
 
 // Map operations on rows
 $rowSums = $matrixA->mapRows('array_sum');
-echo "Sum of each row in A: ";
+echo 'Sum of each row in A: ';
 print_r($rowSums);
 echo "\n";
 
@@ -258,18 +258,18 @@ echo "\n";
 echo "=== MATRIX VECTOR OPERATIONS\n--------------------------------------\n\n";
 
 echo "Matrix A:\n" . $matrixA . "\n\n";
-echo "Vector v: [" . implode(", ", $vector->getVector()) . "]\n\n";
+echo 'Vector v: [' . implode(', ', $vector->getVector()) . "]\n\n";
 
 try {
     $result = $matrixA->vectorMultiply($vector);
     // Handle Vector result properly
     if ($result instanceof Vector) {
-        echo "A * v: [" . implode(", ", $result->getVector()) . "]\n";
+        echo 'A * v: [' . implode(', ', $result->getVector()) . "]\n";
     } else {
-        echo "A * v: " . print_r($result, true) . "\n";
+        echo 'A * v: ' . print_r($result, true) . "\n";
     }
 } catch (Exception $e) {
-    echo "Matrix-vector multiplication failed: " . $e->getMessage() . "\n";
+    echo 'Matrix-vector multiplication failed: ' . $e->getMessage() . "\n";
 }
 
 // Row and column statistics
@@ -277,45 +277,45 @@ try {
 try {
     $rowSums = $matrixA->rowSums();
     if (is_array($rowSums)) {
-        echo "Row sums: " . implode(", ", $rowSums) . "\n";
-    } else if ($rowSums instanceof Vector) {
-        echo "Row sums: [" . implode(", ", $rowSums->getVector()) . "]\n";
+        echo 'Row sums: ' . implode(', ', $rowSums) . "\n";
+    } elseif ($rowSums instanceof Vector) {
+        echo 'Row sums: [' . implode(', ', $rowSums->getVector()) . "]\n";
     }
 } catch (Exception $e) {
-    echo "Row sums calculation failed: " . $e->getMessage() . "\n";
+    echo 'Row sums calculation failed: ' . $e->getMessage() . "\n";
 }
 
 try {
     $colSums = $matrixA->columnSums();
     if (is_array($colSums)) {
-        echo "Column sums: " . implode(", ", $colSums) . "\n";
-    } else if ($colSums instanceof Vector) {
-        echo "Column sums: [" . implode(", ", $colSums->getVector()) . "]\n";
+        echo 'Column sums: ' . implode(', ', $colSums) . "\n";
+    } elseif ($colSums instanceof Vector) {
+        echo 'Column sums: [' . implode(', ', $colSums->getVector()) . "]\n";
     }
 } catch (Exception $e) {
-    echo "Column sums calculation failed: " . $e->getMessage() . "\n";
+    echo 'Column sums calculation failed: ' . $e->getMessage() . "\n";
 }
 
 try {
     $rowMeans = $matrixA->rowMeans();
     if (is_array($rowMeans)) {
-        echo "Row means: " . implode(", ", $rowMeans) . "\n";
-    } else if ($rowMeans instanceof Vector) {
-        echo "Row means: [" . implode(", ", $rowMeans->getVector()) . "]\n";
+        echo 'Row means: ' . implode(', ', $rowMeans) . "\n";
+    } elseif ($rowMeans instanceof Vector) {
+        echo 'Row means: [' . implode(', ', $rowMeans->getVector()) . "]\n";
     }
 } catch (Exception $e) {
-    echo "Row means calculation failed: " . $e->getMessage() . "\n";
+    echo 'Row means calculation failed: ' . $e->getMessage() . "\n";
 }
 
 try {
     $colMeans = $matrixA->columnMeans();
     if (is_array($colMeans)) {
-        echo "Column means: " . implode(", ", $colMeans) . "\n\n";
-    } else if ($colMeans instanceof Vector) {
-        echo "Column means: [" . implode(", ", $colMeans->getVector()) . "]\n\n";
+        echo 'Column means: ' . implode(', ', $colMeans) . "\n\n";
+    } elseif ($colMeans instanceof Vector) {
+        echo 'Column means: [' . implode(', ', $colMeans->getVector()) . "]\n\n";
     }
 } catch (Exception $e) {
-    echo "Column means calculation failed: " . $e->getMessage() . "\n\n";
+    echo 'Column means calculation failed: ' . $e->getMessage() . "\n\n";
 }
 
 // Section 13: Matrix Submatrices and Elements
@@ -325,12 +325,12 @@ echo "=== MATRIX SUBMATRICES AND ELEMENTS\n-------------------------------------
 try {
     $diagonalElements = $matrixA->getDiagonalElements();
     if (is_array($diagonalElements)) {
-        echo "Diagonal elements of A: " . implode(", ", $diagonalElements) . "\n\n";
-    } else if ($diagonalElements instanceof Vector) {
-        echo "Diagonal elements of A: [" . implode(", ", $diagonalElements->getVector()) . "]\n\n";
+        echo 'Diagonal elements of A: ' . implode(', ', $diagonalElements) . "\n\n";
+    } elseif ($diagonalElements instanceof Vector) {
+        echo 'Diagonal elements of A: [' . implode(', ', $diagonalElements->getVector()) . "]\n\n";
     }
 } catch (Exception $e) {
-    echo "Failed to get diagonal elements: " . $e->getMessage() . "\n";
+    echo 'Failed to get diagonal elements: ' . $e->getMessage() . "\n";
 }
 
 // Submatrix
@@ -338,7 +338,7 @@ try {
     $submatrix = $matrixA->submatrix(0, 0, 1, 1);
     echo "Submatrix of A (0,0 to 1,1):\n" . $submatrix . "\n\n";
 } catch (Exception $e) {
-    echo "Submatrix extraction failed: " . $e->getMessage() . "\n\n";
+    echo 'Submatrix extraction failed: ' . $e->getMessage() . "\n\n";
 }
 
 // Minor matrix
@@ -346,15 +346,15 @@ try {
     $minorMatrix = $matrixA->minorMatrix(0, 0);
     echo "Minor matrix of A (exclude row 0, col 0):\n" . $minorMatrix . "\n\n";
 } catch (Exception $e) {
-    echo "Minor matrix extraction failed: " . $e->getMessage() . "\n\n";
+    echo 'Minor matrix extraction failed: ' . $e->getMessage() . "\n\n";
 }
 
 // Minor value
 try {
     $minorValue = $matrixA->minor(0, 0);
-    echo "Minor value of A at (0,0): " . $minorValue . "\n\n";
+    echo 'Minor value of A at (0,0): ' . $minorValue . "\n\n";
 } catch (Exception $e) {
-    echo "Minor value calculation failed: " . $e->getMessage() . "\n\n";
+    echo 'Minor value calculation failed: ' . $e->getMessage() . "\n\n";
 }
 
 // Section 14: Matrix as Column Vectors
@@ -366,11 +366,11 @@ try {
     foreach ($vectors as $index => $columnVector) {
         // Handle Vector objects properly
         if ($columnVector instanceof Vector) {
-            echo "Column " . $index . ": [" . implode(", ", $columnVector->getVector()) . "]\n";
+            echo 'Column ' . $index . ': [' . implode(', ', $columnVector->getVector()) . "]\n";
         } else {
-            echo "Column " . $index . ": " . print_r($columnVector, true) . "\n";
+            echo 'Column ' . $index . ': ' . print_r($columnVector, true) . "\n";
         }
     }
 } catch (Exception $e) {
-    echo "Failed to get columns as vectors: " . $e->getMessage() . "\n";
+    echo 'Failed to get columns as vectors: ' . $e->getMessage() . "\n";
 }

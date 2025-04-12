@@ -1,4 +1,5 @@
 <?php
+
 // .htaccess alternative - place this in index.php
 declare(strict_types=1);
 

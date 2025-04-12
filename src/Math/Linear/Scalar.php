@@ -122,7 +122,7 @@ class Scalar {
      */
     public static function divide(float|int $a, float|int $b, ?int $precision = null): float|string {
         if ($b === 0) {
-            throw new DivisionByZeroError("Division by zero is not allowed");
+            throw new DivisionByZeroError('Division by zero is not allowed');
         }
         $precision = self::getOptimalPrecision('basic_arithmetic', $precision);
         return round($a / $b, $precision);
@@ -168,7 +168,7 @@ class Scalar {
      */
     public static function multiplyVector(float|int $scalar, array $vector, ?int $precision = null): array {
         $precision = self::getOptimalPrecision('vector', $precision);
-        return array_map(fn($x) => round($x * $scalar, $precision), $vector);
+        return array_map(fn ($x) => round($x * $scalar, $precision), $vector);
     }
 
     /**
@@ -181,7 +181,7 @@ class Scalar {
      */
     public static function addToVector(float|int $scalar, array $vector, ?int $precision = null): array {
         $precision = self::getOptimalPrecision('vector', $precision);
-        return array_map(fn($x) => round($x + $scalar, $precision), $vector);
+        return array_map(fn ($x) => round($x + $scalar, $precision), $vector);
     }
 
     /**

@@ -160,12 +160,16 @@ info-linters:
 	@echo "${GREEN} phpcs-check${NC} \t\t - run PHP CS fixer in check mode"
 	@echo "${GREEN} phpcs-check-diff${NC} \t - run PHP CS fixer in check mode with difference"
 	@echo "${GREEN} phpcs-fix${NC} \t\t - run PHP CS fixer in fix mode"
+	@echo "${GREEN} check${NC} \t\t - run all linters and check"
+	@echo "${GREEN} check-fix${NC} \t\t - run all checks in fix mode"
 
 phplint: app-phplint
 phplint-log: app-phplint-log
 phpcs: app-phpcs-check
 phpcs-diff: app-phpcs-check-diff
 phpcs-fix: app-phpcs-fix
+check: phplint phpcs
+check-fix: phpcs-fix phpcs-fix
 
 app-phplint:
 	$(call increment_counter)

@@ -1352,7 +1352,7 @@ class InformedSearchGraph {
      * Debug output for Greedy Search showing decision process
      * and neighbor evaluations at each step
      */
-    public function debugGreedySearch(string $start, string $goal, $maxSteps = 100): ?array {
+    public function debugGreedySearch(string $start, string $goal, int $maxSteps = 100): ?array {
         if (!isset($this->adjacencyList[$start]) || !isset($this->adjacencyList[$goal])) {
             throw new InvalidArgumentException('Both start and goal vertices must exist in the graph.');
         }

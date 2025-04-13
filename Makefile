@@ -160,6 +160,11 @@ info-linters:
 	@echo "${GREEN} phpcs-check${NC} \t\t - run PHP CS fixer in check mode"
 	@echo "${GREEN} phpcs-check-diff${NC} \t - run PHP CS fixer in check mode with difference"
 	@echo "${GREEN} phpcs-fix${NC} \t\t - run PHP CS fixer in fix mode"
+	@echo "${GREEN} psalm${NC} \t\t\t - run Psalm static code analyzer"
+	@echo "${GREEN} psalm-click${NC} \t\t\t - run Psalm-clickable static code analyzer"
+	@echo "${GREEN} psalm-help${NC} \t\t - run Psalm help info static code analyzer"
+	@echo "${GREEN} psalm-report${NC} \t\t - run Psalm help info static code analyzer with creating report"
+	@echo "${GREEN} psalm-fix${NC} \t\t - run Psalm static code analyze in fix mode"
 	@echo "${GREEN} check${NC} \t\t - run all linters and check"
 	@echo "${GREEN} check-fix${NC} \t\t - run all checks in fix mode"
 
@@ -168,20 +173,35 @@ phplint-log: app-phplint-log
 phpcs: app-phpcs-check
 phpcs-diff: app-phpcs-check-diff
 phpcs-fix: app-phpcs-fix
-check: phplint phpcs
-check-fix: phpcs-fix phpcs-fix
+psalm: app-psalm
+psalm-click: app-psalm-clickable
+psalm-help: app-psalm-help
+psalm-report: app-psalm-report
+psalm-fix: app-psalm-fix
+check: phplint psalm phpcs
+check-fix: phpcs-fix psalm-fix phpcs-fix
 
 app-phplint:
-	$(call increment_counter)
-	@echo "${DARKCYAN}${COUNTER}. Run PHPLint${NC}"
+	@echo "Run PHPLint${NC}"
 	$(docker) exec app /bin/bash -c "composer php-lint"
-	@echo ""
-	$(call operation_done)
 app-phplint-log:
 	$(docker) exec app /bin/bash -c "composer php-lint-with-log"
 app-phpcs-check:
+	@echo "Run PHP CS Check${NC}"
 	$(docker) exec app /bin/bash -c "composer php-cs-check"
 app-phpcs-check-diff:
 	$(docker) exec app /bin/bash -c "composer php-cs-check-diff"
 app-phpcs-fix:
 	$(docker) exec app /bin/bash -c "composer php-cs-fix"
+app-psalm:
+	@echo "Run Psalm${NC}"
+	$(docker) exec app /bin/bash -c "composer php-psalm"
+app-psalm-clickable:
+	@echo "Run Psalm Clickable"
+	$(docker) exec app /bin/bash -c "composer php-psalm-clickable"
+app-psalm-help:
+	$(docker) exec app /bin/bash -c "composer php-psalm-help"
+app-psalm-report:
+	$(docker) exec app /bin/bash -c "composer php-psalm-with-report"
+app-psalm-fix:
+	$(docker) exec app /bin/bash -c "composer php-psalm-fix"

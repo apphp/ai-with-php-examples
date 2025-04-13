@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install zip pdo_mysql bcmath xml mbstring curl gd
+RUN docker-php-ext-install zip pdo_mysql bcmath xml mbstring curl gd pcntl
 
 # ------------------------------
 # Install dependencies for Tensor

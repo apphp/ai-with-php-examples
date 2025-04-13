@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<psalm
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    cacheDirectory="./tmp/phppsalm"
+    findUnusedBaselineEntry="true"
+    findUnusedCode="false"
+>
+    <projectFiles>
+        <!-- ALLOWED -->
+        <directory name="src" />
+        <directory name="tests" />
+
+        <ignoreFiles>
+            <!-- IGNORE FOLDERS (don't check) -->
+            <directory name="docker" />
+            <directory name="classes" />
+
+            <!-- IGNORE SOME MIGRATIONS (don't check) -->
+            <!-- <file name="folder/file.php" />-->
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <LessSpecificReturnType errorLevel="error" />
+        <MissingClosureParamType errorLevel="error" />
+        <MissingClosureReturnType errorLevel="error" />
+        <MissingConstructor errorLevel="error" />
+        <MissingDependency errorLevel="error" />
+        <MissingPropertyType errorLevel="error" />
+        <MixedPropertyFetch errorLevel="error" />
+        <MixedAssignment errorLevel="error" />
+        <RedundantConditionGivenDocblockType errorLevel="error" />
+        <PropertyNotSetInConstructor errorLevel="error" />
+        <UndefinedClass errorLevel="error" />
+        <UndefinedTrait errorLevel="error" />
+        <UnresolvableInclude errorLevel="error" />
+        <UndefinedPropertyFetch errorLevel="error" />
+        <UndefinedPropertyAssignment errorLevel="error" />
+        <UndefinedMethod errorLevel="error" />
+        <MixedArrayAccess errorLevel="error" />
+        <MixedMethodCall errorLevel="error" />
+        <MixedArgument errorLevel="error" />
+        <MethodSignatureMismatch errorLevel="error" />
+        <MixedInferredReturnType errorLevel="error" />
+        <MixedOperand errorLevel="error" />
+        <PossiblyInvalidArgument errorLevel="error" />
+        <MixedPropertyAssignment errorLevel="error" />
+        <DocblockTypeContradiction errorLevel="error" />
+        <MixedArrayOffset errorLevel="error" />
+        <MixedArrayAssignment errorLevel="error" />
+        <MixedArgumentTypeCoercion errorLevel="error" />
+        <LessSpecificImplementedReturnType errorLevel="error" />
+        <MoreSpecificImplementedParamType errorLevel="error" />
+        <InvalidStringClass errorLevel="error" />
+        <MixedReturnTypeCoercion errorLevel="error" />
+        <MixedArrayTypeCoercion errorLevel="error" />
+        <RedundantCast errorLevel="error" />
+        <RedundantPropertyInitializationCheck errorLevel="error" />
+        <InvalidClassConstantType errorLevel="error" />
+        <ImplicitToStringCast errorLevel="error" />
+        <RiskyTruthyFalsyComparison errorLevel="error" />
+
+        <AbstractInstantiation errorLevel="error" />
+        <AssignmentToVoid errorLevel="error" />
+        <CircularReference errorLevel="error" />
+        <ContinueOutsideLoop errorLevel="error" />
+        <ConflictingReferenceConstraint errorLevel="error" />
+        <DeprecatedClass errorLevel="error" />
+        <DeprecatedConstant errorLevel="error" />
+        <DeprecatedInterface errorLevel="error" />
+        <DeprecatedMethod errorLevel="error" />
+        <DeprecatedProperty errorLevel="error" />
+        <DeprecatedTrait errorLevel="error" />
+        <DuplicateArrayKey errorLevel="error" />
+        <DuplicateParam errorLevel="error" />
+        <DuplicateClass errorLevel="error" />
+        <EmptyArrayAccess errorLevel="error" />
+        <FalseOperand errorLevel="error" />
+        <FalsableReturnStatement errorLevel="error" />
+        <ForbiddenCode errorLevel="error" />
+        <ImplementedReturnTypeMismatch errorLevel="error" />
+        <InaccessibleClassConstant errorLevel="error" />
+        <InaccessibleMethod errorLevel="error" />
+        <InaccessibleProperty errorLevel="error" />
+        <InterfaceInstantiation errorLevel="error" />
+        <InvalidArgument errorLevel="error" />
+        <InvalidArrayAccess errorLevel="error" />
+        <InvalidArrayAssignment errorLevel="error" />
+        <InvalidArrayOffset errorLevel="error" />
+        <InvalidCast errorLevel="error" />
+        <InvalidCatch errorLevel="error" />
+        <InvalidClass errorLevel="error" />
+        <InvalidClone errorLevel="error" />
+        <InvalidParamDefault errorLevel="error" />
+        <InvalidDocblock errorLevel="error" />
+        <InvalidFalsableReturnType errorLevel="error" />
+        <InvalidFunctionCall errorLevel="error" />
+        <InvalidGlobal errorLevel="error" />
+        <InvalidIterator errorLevel="error" />
+        <InvalidMethodCall errorLevel="error" />
+        <InvalidNullableReturnType errorLevel="error" />
+        <InvalidOperand errorLevel="error" />
+        <InvalidPassByReference errorLevel="error" />
+        <InvalidPropertyAssignment errorLevel="error" />
+        <InvalidPropertyAssignmentValue errorLevel="error" />
+        <InvalidPropertyFetch errorLevel="error" />
+        <InvalidReturnStatement errorLevel="error" />
+        <InvalidReturnType errorLevel="error" />
+        <InvalidScalarArgument errorLevel="error" />
+        <InvalidScope errorLevel="error" />
+        <InvalidStaticInvocation errorLevel="error" />
+        <InvalidThrow errorLevel="error" />
+        <InvalidToString errorLevel="error" />
+        <LessSpecificReturnStatement errorLevel="error" />
+        <LoopInvalidation errorLevel="error" />
+        <MethodSignatureMustOmitReturnType errorLevel="error" />
+        <MismatchingDocblockParamType errorLevel="error" />
+        <MismatchingDocblockReturnType errorLevel="error" />
+        <MissingFile errorLevel="error" />
+        <MissingParamType errorLevel="error" />
+        <MissingReturnType errorLevel="error" />
+        <MissingDocblockType errorLevel="error" />
+        <MissingThrowsDocblock errorLevel="error" />
+        <MixedReturnStatement errorLevel="error" />
+        <MixedStringOffsetAssignment errorLevel="error" />
+        <MoreSpecificReturnType errorLevel="error" />
+        <NoInterfaceProperties errorLevel="error" />
+        <NonStaticSelfCall errorLevel="error" />
+        <NullableReturnStatement errorLevel="error" />
+        <NullArgument errorLevel="error" />
+        <NullArrayAccess errorLevel="error" />
+        <NullArrayOffset errorLevel="error" />
+        <NullFunctionCall errorLevel="error" />
+        <NullIterator errorLevel="error" />
+        <NullOperand errorLevel="error" />
+        <NullPropertyAssignment errorLevel="error" />
+        <NullPropertyFetch errorLevel="error" />
+        <NullReference errorLevel="error" />
+        <OverriddenMethodAccess errorLevel="error" />
+        <OverriddenPropertyAccess errorLevel="error" />
+        <ParadoxicalCondition errorLevel="error" />
+        <ParentNotFound errorLevel="error" />
+        <PossiblyFalseArgument errorLevel="error" />
+        <PossiblyFalseIterator errorLevel="error" />
+        <PossiblyFalseOperand errorLevel="error" />
+        <PossiblyFalsePropertyAssignmentValue errorLevel="error" />
+        <PossiblyFalseReference errorLevel="error" />
+        <PossiblyInvalidArrayAccess errorLevel="error" />
+        <PossiblyInvalidArrayAssignment errorLevel="error" />
+        <PossiblyInvalidArrayOffset errorLevel="error" />
+        <PossiblyInvalidFunctionCall errorLevel="error" />
+        <PossiblyInvalidIterator errorLevel="error" />
+        <PossiblyInvalidMethodCall errorLevel="error" />
+        <PossiblyInvalidOperand errorLevel="error" />
+        <PossiblyInvalidPropertyAssignment errorLevel="error" />
+        <PossiblyInvalidPropertyAssignmentValue errorLevel="error" />
+        <PossiblyInvalidPropertyFetch errorLevel="error" />
+        <PossiblyNullArgument errorLevel="error" />
+        <PossiblyNullArrayAccess errorLevel="error" />
+        <PossiblyNullArrayAssignment errorLevel="error" />
+        <PossiblyNullArrayOffset errorLevel="error" />
+        <PossiblyNullFunctionCall errorLevel="error" />
+        <PossiblyNullIterator errorLevel="error" />
+        <PossiblyNullOperand errorLevel="error" />
+        <PossiblyNullPropertyAssignment errorLevel="error" />
+        <PossiblyNullPropertyAssignmentValue errorLevel="error" />
+        <PossiblyNullPropertyFetch errorLevel="error" />
+        <PossiblyNullReference errorLevel="error" />
+        <PossiblyUndefinedMethod errorLevel="error" />
+        <PossiblyUndefinedGlobalVariable errorLevel="error" />
+        <PossiblyUndefinedVariable errorLevel="error" />
+        <PossiblyUnusedMethod errorLevel="error" />
+        <PossiblyUnusedParam errorLevel="error" />
+        <PossiblyUnusedProperty errorLevel="error" />
+        <RawObjectIteration errorLevel="error" />
+        <ReferenceConstraintViolation errorLevel="error" />
+        <ReservedWord errorLevel="error" />
+        <TooFewArguments errorLevel="error" />
+        <TooManyArguments errorLevel="error" />
+        <TypeDoesNotContainNull errorLevel="error" />
+        <TypeDoesNotContainType errorLevel="error" />
+        <UndefinedConstant errorLevel="error" />
+        <UndefinedFunction errorLevel="error" />
+        <UndefinedThisPropertyAssignment errorLevel="error" />
+        <UndefinedThisPropertyFetch errorLevel="error" />
+        <UndefinedGlobalVariable errorLevel="error" />
+        <UndefinedVariable errorLevel="error" />
+        <UnimplementedAbstractMethod errorLevel="error" />
+        <UnimplementedInterfaceMethod errorLevel="error" />
+        <UnrecognizedExpression errorLevel="error" />
+        <UnrecognizedStatement errorLevel="error" />
+        <UnevaluatedCode errorLevel="error" />
+        <UnusedVariable errorLevel="error" />
+        <UnusedParam errorLevel="error" />
+        <UnusedProperty errorLevel="error" />
+        <UnusedClass errorLevel="error" />
+        <UnusedMethod errorLevel="error" />
+
+
+        <!-- Example extended definition -->
+        <!--        <PropertyNotSetInConstructor>-->
+        <!--            <errorLevel type="suppress">-->
+        <!--                <directory name="tests" />-->
+        <!--            </errorLevel>-->
+        <!--        </PropertyNotSetInConstructor>-->
+
+    </issueHandlers>
+
+    <globals>
+        <var name="_GET" type="array&lt;string, string|array&gt;" />
+        <var name="_POST" type="array&lt;string, string|array&gt;" />
+        <var name="_COOKIE" type="array&lt;string, string&gt;" />
+        <var name="_SERVER" type="array&lt;string, string&gt;" />
+    </globals>
+
+    <plugins>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin" />
+    </plugins>
+</psalm>

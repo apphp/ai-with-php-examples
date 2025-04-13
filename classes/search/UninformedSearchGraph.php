@@ -443,6 +443,16 @@ class UninformedSearchGraph {
         ];
     }
 
+    /**
+     * @param SplQueue $queue
+     * @param array $currentVisited
+     * @param array $oppositeVisited
+     * @param array $parentMap
+     * @param array $pathTracking
+     * @param string $direction
+     * @return string|null
+     * @psalm-suppress MixedReturnStatement
+     */
     private function processBdsQueue(
         SplQueue $queue,
         array &$currentVisited,
@@ -638,6 +648,7 @@ class UninformedSearchGraph {
         }
 
         $totalCost = 0;
+        $vertex = '';
 
         echo "Path sequence:\n";
         $pathSequenceNames = array_map(function ($node) {
@@ -677,7 +688,7 @@ class UninformedSearchGraph {
             $this->levels[$vertex],
         );
 
-        echo sprintf("\n");
+        echo "\n";
     }
 
     // Helper method to print the adjacency list (for debugging)

@@ -396,8 +396,7 @@ class ScalarTest extends TestCase {
      * @covers \Apphp\MLKit\Math\Linear\Scalar::getPrecision
      * @covers \Apphp\MLKit\Math\Linear\Scalar::getOperationPrecision
      */
-    public function testPrecisionControl(): void
-    {
+    public function testPrecisionControl(): void {
         // Test default state
         self::assertNull(Scalar::getPrecision());
         self::assertEquals(5, Scalar::getOperationPrecision('basic_arithmetic'));
@@ -659,8 +658,7 @@ class ScalarTest extends TestCase {
      * @covers \Apphp\MLKit\Math\Linear\Scalar::setPrecision
      * @covers \Apphp\MLKit\Math\Linear\Scalar::divide
      */
-    public function testGlobalPrecisionControl(): void
-    {
+    public function testGlobalPrecisionControl(): void {
         Scalar::setPrecision(3);
         self::assertEquals(0.333, Scalar::divide(1, 3));
         self::assertEquals(0.667, Scalar::divide(2, 3));
@@ -680,8 +678,7 @@ class ScalarTest extends TestCase {
      * @covers \Apphp\MLKit\Math\Linear\Scalar::divide
      * @covers \Apphp\MLKit\Math\Linear\Scalar::logarithm
      */
-    public function testOperationSpecificPrecision(): void
-    {
+    public function testOperationSpecificPrecision(): void {
         // Set different precisions for different operations
         Scalar::setOperationPrecision('basic_arithmetic', 3);
         Scalar::setOperationPrecision('exponential', 5);
@@ -701,8 +698,7 @@ class ScalarTest extends TestCase {
      *
      * @covers \Apphp\MLKit\Math\Linear\Scalar::divide
      */
-    public function testPrecisionPriority(): void
-    {
+    public function testPrecisionPriority(): void {
         // Set different levels of precision
         Scalar::setPrecision(4);
         Scalar::setOperationPrecision('basic_arithmetic', 3);
@@ -723,8 +719,7 @@ class ScalarTest extends TestCase {
      * @covers \Apphp\MLKit\Math\Linear\Scalar::setPrecision
      * @covers \Apphp\MLKit\Math\Linear\Scalar::setOperationPrecision
      */
-    public function testInvalidPrecisionSettings(): void
-    {
+    public function testInvalidPrecisionSettings(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Precision must be non-negative. Got: -1');
         Scalar::setPrecision(-1);
@@ -735,8 +730,7 @@ class ScalarTest extends TestCase {
      *
      * @covers \Apphp\MLKit\Math\Linear\Scalar::setOperationPrecision
      */
-    public function testInvalidOperationType(): void
-    {
+    public function testInvalidOperationType(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid operation type: invalid_operation');
         Scalar::setOperationPrecision('invalid_operation', 5);

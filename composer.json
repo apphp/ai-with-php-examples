@@ -36,7 +36,9 @@
         ],
         "linters": [
             "friendsofphp/php-cs-fixer",
-            "overtrue/phplint"
+            "overtrue/phplint",
+            "psalm/plugin-phpunit",
+            "vimeo/psalm"
         ]
     },
     "require": {
@@ -53,7 +55,9 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.64.0",
         "overtrue/phplint": "^6.1.0",
-        "phpunit/phpunit": "^10.5"
+        "phpunit/phpunit": "^10.5",
+        "psalm/plugin-phpunit": "~0.19.0",
+        "vimeo/psalm": "~5.26.1"
     },
     "autoload": {
         "psr-4": {
@@ -72,6 +76,11 @@
         "php-lint": "phplint",
         "php-lint-with-log": "phplint > tmp/.phplint.result.log",
         "php-cs-fix": "php-cs-fixer --config=.php-cs --allow-risky=yes --verbose --show-progress=dots fix",
+        "php-psalm": "psalm --config=psalm.xml --show-info=true --threads=6",
+        "php-psalm-clickable": "./psalm-clickable.sh",
+        "php-psalm-help": "psalm --help",
+        "php-psalm-with-report": "psalm --config=psalm.xml --report=tmp/psalm-report.xml --show-info=true --threads=4",
+        "php-psalm-fix": "psalm --config=psalm.xml --threads=4",
         "tests": "phpunit --colors=always --configuration phpunit.xml --testsuite all",
         "tests:coverage": "XDEBUG_MODE=coverage phpunit --colors=always --configuration phpunit.xml --testsuite all --coverage-html tmp/coverage",
         "test": "phpunit --colors=always --configuration phpunit.xml --testsuite all --filter"

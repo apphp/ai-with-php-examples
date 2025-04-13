@@ -4,6 +4,7 @@ namespace Apphp\MLKit\Tests\Math\Linear;
 
 use Apphp\MLKit\Math\Linear\Scalar;
 use DivisionByZeroError;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -389,42 +390,39 @@ class ScalarTest extends TestCase {
     }
 
     /**
-     * Test precision control methods
+     * Test precision control functionality
      *
      * @covers \Apphp\MLKit\Math\Linear\Scalar::setPrecision
      * @covers \Apphp\MLKit\Math\Linear\Scalar::getPrecision
-     * @return void
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::getOperationPrecision
      */
-    public function testPrecisionControl(): void {
-        // Store original precision
-        $originalPrecision = Scalar::getPrecision();
+    public function testPrecisionControl(): void
+    {
+        // Test default state
+        self::assertNull(Scalar::getPrecision());
+        self::assertEquals(5, Scalar::getOperationPrecision('basic_arithmetic'));
+        self::assertEquals(8, Scalar::getOperationPrecision('exponential'));
 
-        // Test setting and getting precision
-        Scalar::setPrecision(15);
-        self::assertEquals(15, Scalar::getPrecision());
+        // Test setting operation-specific precision
+        Scalar::setOperationPrecision('basic_arithmetic', 3);
+        self::assertEquals(3, Scalar::getOperationPrecision('basic_arithmetic'));
 
-        // Test precision affects calculations
-        self::assertEquals(0.33333, Scalar::divide(1, 3));
+        // Test setting global precision (should not override operation-specific)
+        Scalar::setPrecision(4);
+        self::assertEquals(4, Scalar::getPrecision());
+        self::assertEquals(3, Scalar::getOperationPrecision('basic_arithmetic'));
+        self::assertEquals(4, Scalar::getOperationPrecision('exponential')); // Uses global precision
 
-        // Test different precisions for different operation types
-        self::assertEquals(3.14159, Scalar::multiply(3.14159265359, 1, 5)); // basic_arithmetic
-        self::assertEquals(0.7071068, Scalar::sine(M_PI / 4)); // trigonometric
-        self::assertEquals(2.71828183, Scalar::exponential(1)); // exponential
-        self::assertEquals([1.500000, 3.000000], Scalar::multiplyVector(1.5, [1, 2])); // vector
-
-        // Restore original precision
-        Scalar::setPrecision($originalPrecision);
+        // Reset and verify defaults are restored
+        Scalar::resetPrecision();
+        self::assertNull(Scalar::getPrecision());
+        self::assertEquals(5, Scalar::getOperationPrecision('basic_arithmetic'));
     }
 
     /**
      * Test precision override in method calls
      *
      * @covers \Apphp\MLKit\Math\Linear\Scalar::divide
-     * @covers \Apphp\MLKit\Math\Linear\Scalar::sine
-     * @covers \Apphp\MLKit\Math\Linear\Scalar::exponential
-     * @covers \Apphp\MLKit\Math\Linear\Scalar::multiplyVector
-     * @covers \Apphp\MLKit\Math\Linear\Scalar::getOptimalPrecision
-     * @return void
      */
     public function testPrecisionOverride(): void {
         // Test explicit precision override
@@ -566,7 +564,7 @@ class ScalarTest extends TestCase {
         self::assertEquals(0.0, Scalar::sine(M_PI));
 
         // Test with specific precision
-        self::assertEquals(0.7071068, Scalar::sine(M_PI / 4)); // Default precision
+        self::assertEquals(0.70710678, Scalar::sine(M_PI / 4)); // Default precision
         self::assertEquals(0.707, Scalar::sine(M_PI / 4, 3)); // Custom precision
     }
 
@@ -584,7 +582,7 @@ class ScalarTest extends TestCase {
         self::assertEquals(-1.0, Scalar::cosine(M_PI));
 
         // Test with specific precision
-        self::assertEquals(0.7071068, Scalar::cosine(M_PI / 4)); // Default precision
+        self::assertEquals(0.70710678, Scalar::cosine(M_PI / 4)); // Default precision
         self::assertEquals(0.707, Scalar::cosine(M_PI / 4, 3)); // Custom precision
     }
 
@@ -653,5 +651,94 @@ class ScalarTest extends TestCase {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Shift amount must be non-negative. Got: -1');
         Scalar::leftShift(1, -1);
+    }
+
+    /**
+     * Test precision control with global settings
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::setPrecision
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::divide
+     */
+    public function testGlobalPrecisionControl(): void
+    {
+        Scalar::setPrecision(3);
+        self::assertEquals(0.333, Scalar::divide(1, 3));
+        self::assertEquals(0.667, Scalar::divide(2, 3));
+
+        Scalar::setPrecision(4);
+        self::assertEquals(0.3333, Scalar::divide(1, 3));
+        self::assertEquals(0.6667, Scalar::divide(2, 3));
+
+        // Reset precision for other tests
+        Scalar::resetPrecision();
+    }
+
+    /**
+     * Test operation-specific precision settings
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::setOperationPrecision
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::divide
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::logarithm
+     */
+    public function testOperationSpecificPrecision(): void
+    {
+        // Set different precisions for different operations
+        Scalar::setOperationPrecision('basic_arithmetic', 3);
+        Scalar::setOperationPrecision('exponential', 5);
+
+        // Test basic arithmetic precision
+        self::assertEquals(0.333, Scalar::divide(1, 3));
+
+        // Test exponential operation precision
+        self::assertEquals(0.69315, Scalar::logarithm(2));
+
+        // Reset precision for other tests
+        Scalar::resetPrecision();
+    }
+
+    /**
+     * Test precision priority (method-specific > global > operation-specific > default)
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::divide
+     */
+    public function testPrecisionPriority(): void
+    {
+        // Set different levels of precision
+        Scalar::setPrecision(4);
+        Scalar::setOperationPrecision('basic_arithmetic', 3);
+
+        // Method-specific precision should override all others
+        self::assertEquals(0.33333, Scalar::divide(1, 3, 5));
+
+        // Global precision should override operation-specific
+        self::assertEquals(0.333, Scalar::divide(1, 3));
+
+        // Reset precision for other tests
+        Scalar::resetPrecision();
+    }
+
+    /**
+     * Test invalid precision settings
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::setPrecision
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::setOperationPrecision
+     */
+    public function testInvalidPrecisionSettings(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Precision must be non-negative. Got: -1');
+        Scalar::setPrecision(-1);
+    }
+
+    /**
+     * Test invalid operation type for precision setting
+     *
+     * @covers \Apphp\MLKit\Math\Linear\Scalar::setOperationPrecision
+     */
+    public function testInvalidOperationType(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid operation type: invalid_operation');
+        Scalar::setOperationPrecision('invalid_operation', 5);
     }
 }

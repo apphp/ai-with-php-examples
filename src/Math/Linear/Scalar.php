@@ -18,14 +18,30 @@ use Random\RandomException;
  */
 class Scalar {
     /**
-     * Default precision for rounding operations
-     *
-     * @var int
+     * Default precision settings for different operation types
+     * @var array<string, int>
      */
-    private static int $precision = 10;
+    private static array $defaultPrecisions = [
+        'basic_arithmetic' => 5,    // Basic arithmetic operations
+        'exponential' => 8,         // Exponential and logarithmic operations
+        'trigonometric' => 8,       // Trigonometric functions
+        'vector' => 6,              // Vector operations
+    ];
 
     /**
-     * Set global precision for all operations
+     * Custom precision settings that override defaults
+     * @var array<string, int>
+     */
+    private static array $customPrecisions = [];
+
+    /**
+     * Global precision setting that overrides all others when set
+     * @var int|null
+     */
+    private static ?int $globalPrecision = null;
+
+    /**
+     * Sets the global precision for all operations
      *
      * @param int $precision Number of decimal places
      * @return void
@@ -35,20 +51,59 @@ class Scalar {
         if ($precision < 0) {
             throw new InvalidArgumentException("Precision must be non-negative. Got: {$precision}");
         }
-        self::$precision = $precision;
+        self::$globalPrecision = $precision;
     }
 
     /**
-     * Get current global precision
+     * Sets precision for a specific operation type
      *
-     * @return int Current precision setting
+     * @param string $operation Operation type ('basic_arithmetic', 'trigonometric', 'exponential', 'vector')
+     * @param int $precision Number of decimal places
+     * @return void
+     * @throws InvalidArgumentException
      */
-    public static function getPrecision(): int {
-        return self::$precision;
+    public static function setOperationPrecision(string $operation, int $precision): void {
+        if ($precision < 0) {
+            throw new InvalidArgumentException("Precision must be non-negative. Got: {$precision}");
+        }
+        if (!isset(self::$defaultPrecisions[$operation])) {
+            throw new InvalidArgumentException("Invalid operation type: {$operation}");
+        }
+        self::$customPrecisions[$operation] = $precision;
     }
 
     /**
-     * Get optimal precision based on operation type
+     * Resets all precision settings to defaults
+     *
+     * @return void
+     */
+    public static function resetPrecision(): void {
+        self::$globalPrecision = null;
+        self::$customPrecisions = [];
+    }
+
+    /**
+     * Gets the current global precision setting
+     *
+     * @return int|null Current global precision or null if not set
+     */
+    public static function getPrecision(): ?int {
+        return self::$globalPrecision;
+    }
+
+    /**
+     * Gets the current precision for a specific operation type
+     *
+     * @param string $operation Operation type
+     * @return int Current precision for the operation
+     * @throws InvalidArgumentException
+     */
+    public static function getOperationPrecision(string $operation): int {
+        return self::getOptimalPrecision($operation);
+    }
+
+    /**
+     * Gets the optimal precision for a given operation
      *
      * @param string $operation Type of operation ('basic_arithmetic', 'trigonometric', 'exponential', 'vector')
      * @param int|null $precision Optional precision override
@@ -56,6 +111,7 @@ class Scalar {
      * @throws InvalidArgumentException
      */
     private static function getOptimalPrecision(string $operation, ?int $precision = null): int {
+        // Method-specific precision has highest priority
         if ($precision !== null) {
             if ($precision < 0) {
                 throw new InvalidArgumentException("Precision must be non-negative. Got: {$precision}");
@@ -63,13 +119,22 @@ class Scalar {
             return $precision;
         }
 
-        return match($operation) {
-            'trigonometric' => 7,       // Trigonometric operations typically need less precision
-            'basic_arithmetic' => 5,    // Basic arithmetic often needs less precision
-            'exponential' => 8,         // Exponential operations may need more precision
-            'vector' => 6,              // Vector operations balance precision and performance
-            default => throw new InvalidArgumentException("Invalid operation type: {$operation}")
-        };
+        // Custom operation-specific precision has second priority
+        if (isset(self::$customPrecisions[$operation])) {
+            return self::$customPrecisions[$operation];
+        }
+
+        // Global precision overrides defaults if set
+        if (self::$globalPrecision !== null) {
+            return self::$globalPrecision;
+        }
+
+        // Default precision for operation type
+        if (isset(self::$defaultPrecisions[$operation])) {
+            return self::$defaultPrecisions[$operation];
+        }
+
+        throw new InvalidArgumentException("Invalid operation type: {$operation}");
     }
 
     /**

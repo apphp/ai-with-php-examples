@@ -4,8 +4,6 @@ use app\classes\logic\AtomicFormula;
 use app\classes\logic\Domain;
 use app\classes\logic\Predicate;
 use app\classes\logic\PredicateLogic;
-use app\classes\logic\Proposition;
-use app\classes\logic\PropositionalLogic;
 use app\classes\logic\Term;
 
 //echo "\n\n====== FIRST-ORDER PREDICATE LOGIC EXAMPLES ======\n\n";

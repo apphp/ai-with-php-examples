@@ -1,9 +1,9 @@
 <?php
 
-use app\classes\logic\Proposition;
-use app\classes\logic\PropositionalLogic;
+use Apphp\MLKit\Knowledge\Logic\Propositional\Proposition;
+use Apphp\MLKit\Knowledge\Logic\Propositional\PropositionalLogic;
 
-// Example usage with full expressions
+// Initialize the propositional logic system
 $logic = new PropositionalLogic();
 
 // Define propositions
@@ -11,109 +11,194 @@ $p = new Proposition('P', false);
 $q = new Proposition('Q', false);
 $r = new Proposition('R', false);
 
-//echo "====== PROPOSITIONAL LOGIC EXAMPLES ======\n\n";
 
-// Example 1: Material Implication: (P → Q) ↔ (¬P ∨ Q)
-$formula1 = function () use ($logic, $p, $q) {
-    $leftSide = $logic->IMPLIES($p->getValue(), $q->getValue());
-    $rightSide = $logic->OR($logic->NOT($p->getValue()), $q->getValue());
-    return $logic->IFF($leftSide, $rightSide);
-};
+// Example 1: Basic Logical Operations
+echo "\n---------------------------------------";
+echo "\n| Example 1: Basic Logical Operations\n";
+echo "---------------------------------------\n";
+echo "Demonstrating basic logical operations (AND, OR, NOT)\n";
 
-// Generate and print the truth table
-$truthTable1 = $logic->generateTruthTable([$p, $q], $formula1);
-echo "Example 1: Material Implication\n";
-echo "-------------------------------\n";
-echo "Formula: (P → Q) ↔ (¬P ∨ Q)\n";
+// Truth table for AND operation
+echo "\nAND Operation (P ∧ Q):\n";
+$truthTableAND = $logic->generateTruthTable([$p, $q], function() use ($logic, $p, $q) {
+    return $logic->evaluateCompound(
+        [$p, $q],
+        [['operator' => 'AND', 'operands' => [0, 1]]]
+    );
+});
+$logic->printTruthTable($truthTableAND);
+
+// Truth table for OR operation
+echo "\nOR Operation (P ∨ Q):\n";
+$truthTableOR = $logic->generateTruthTable([$p, $q], function() use ($logic, $p, $q) {
+    return $logic->evaluateCompound(
+        [$p, $q],
+        [['operator' => 'OR', 'operands' => [0, 1]]]
+    );
+});
+$logic->printTruthTable($truthTableOR);
+
+// Truth table for NOT operation
+echo "\nNOT Operation (¬P):\n";
+$truthTableNOT = $logic->generateTruthTable([$p], function() use ($logic, $p) {
+    return $logic->evaluateCompound(
+        [$p],
+        [['operator' => 'NOT', 'operands' => [0]]]
+    );
+});
+$logic->printTruthTable($truthTableNOT);
+
+// Example 2: Basic Derived Operations
+echo "\n---------------------------------------";
+echo "\n| Example 2: Basic Derived Operations\n";
+echo "---------------------------------------\n";
+echo "Demonstrating IMPLIES, IFF, XOR operations\n";
+
+// Truth table for IMPLIES operation
+echo "\nIMPLIES Operation (P → Q):\n";
+$truthTableIMPLIES = $logic->generateTruthTable([$p, $q], function() use ($logic, $p, $q) {
+    return $logic->evaluateCompound(
+        [$p, $q],
+        [['operator' => 'IMPLIES', 'operands' => [0, 1]]]
+    );
+});
+$logic->printTruthTable($truthTableIMPLIES);
+
+// Truth table for IFF operation
+echo "\nIFF Operation (P ↔ Q):\n";
+$truthTableIFF = $logic->generateTruthTable([$p, $q], function() use ($logic, $p, $q) {
+    return $logic->evaluateCompound(
+        [$p, $q],
+        [['operator' => 'IFF', 'operands' => [0, 1]]]
+    );
+});
+$logic->printTruthTable($truthTableIFF);
+
+// Truth table for XOR operation
+echo "\nXOR Operation (P ⊕ Q):\n";
+$truthTableXOR = $logic->generateTruthTable([$p, $q], function() use ($logic, $p, $q) {
+    return $logic->evaluateCompound(
+        [$p, $q],
+        [['operator' => 'XOR', 'operands' => [0, 1]]]
+    );
+});
+$logic->printTruthTable($truthTableXOR);
+
+// Example 3: Alternative Operations
+echo "\n---------------------------------------";
+echo "\n| Example 3: Alternative Operations\n";
+echo "---------------------------------------\n";
+echo "Demonstrating NAND and NOR operations\n";
+
+// Truth table for NAND operation
+echo "\nNAND Operation (P ↑ Q):\n";
+$truthTableNAND = $logic->generateTruthTable([$p, $q], function() use ($logic, $p, $q) {
+    return $logic->evaluateCompound(
+        [$p, $q],
+        [['operator' => 'NAND', 'operands' => [0, 1]]]
+    );
+});
+$logic->printTruthTable($truthTableNAND);
+
+// Truth table for NOR operation
+echo "\nNOR Operation (P ↓ Q):\n";
+$truthTableNOR = $logic->generateTruthTable([$p, $q], function() use ($logic, $p, $q) {
+    return $logic->evaluateCompound(
+        [$p, $q],
+        [['operator' => 'NOR', 'operands' => [0, 1]]]
+    );
+});
+$logic->printTruthTable($truthTableNOR);
+
+// Example 4: Common Logical Equivalences
+echo "\n---------------------------------------";
+echo "\n| Example 4: Common Logical Equivalences\n";
+echo "---------------------------------------\n";
+echo "Demonstrating important logical equivalences\n";
+
+// Double Negation Law: ¬¬P ↔ P
+echo "\nDouble Negation Law (¬¬P ↔ P):\n";
+$truthTableDoubleNeg = $logic->generateTruthTable([$p], function() use ($logic, $p) {
+    return $logic->evaluateCompound(
+        [$p],
+        [
+            ['operator' => 'NOT', 'operands' => [0]],
+            ['operator' => 'NOT', 'operands' => [1]],
+            ['operator' => 'IFF', 'operands' => [2, 0]]
+        ]
+    );
+});
+$logic->printTruthTable($truthTableDoubleNeg);
+
+// Contrapositive Law: (P → Q) ↔ (¬Q → ¬P)
+echo "\nContrapositive Law ((P → Q) ↔ (¬Q → ¬P)):\n";
+$truthTableContrapositive = $logic->generateTruthTable([$p, $q], function() use ($logic, $p, $q) {
+    return $logic->evaluateCompound(
+        [$p, $q],
+        [
+            ['operator' => 'IMPLIES', 'operands' => [0, 1]],  // P → Q
+            ['operator' => 'NOT', 'operands' => [1]],         // ¬Q
+            ['operator' => 'NOT', 'operands' => [0]],         // ¬P
+            ['operator' => 'IMPLIES', 'operands' => [2, 3]],  // ¬Q → ¬P
+            ['operator' => 'IFF', 'operands' => [1, 4]]       // (P → Q) ↔ (¬Q → ¬P)
+        ]
+    );
+});
+$logic->printTruthTable($truthTableContrapositive);
+
+// Example 5: Material Implication using evaluateCompound
+// (P → Q) ¬P ∨ Q)
+echo "\n---------------------------------------";
+echo "\n| Example 5: Material Implication\n";
+echo "---------------------------------------\n";
+echo "Formula: (P → Q) ¬P ∨ Q)\n";
 echo "This demonstrates that P implies Q is logically equivalent to not-P or Q\n";
-$logic->printTruthTable($truthTable1);
 
-// Example 2: De Morgan's Law: ¬(P ∧ Q) ↔ (¬P ∨ ¬Q)
-$formula2 = function () use ($logic, $p, $q) {
-    $leftSide = $logic->NOT($logic->AND($p->getValue(), $q->getValue()));
-    $rightSide = $logic->OR($logic->NOT($p->getValue()), $logic->NOT($q->getValue()));
-    return $logic->IFF($leftSide, $rightSide);
-};
+$truthTable5 = $logic->generateTruthTable([$p, $q], function() use ($logic, $p, $q) {
+    return $logic->evaluateCompound(
+        [$p, $q],
+        [
+            ['operator' => 'IMPLIES', 'operands' => [0, 1]],  // P → Q
+            ['operator' => 'NOT', 'operands' => [0]],         // ¬P
+            ['operator' => 'OR', 'operands' => [2, 1]],       // ¬P ∨ Q
+            ['operator' => 'IFF', 'operands' => [1, 3]]       // (P → Q) ¬P ∨ Q)
+        ]
+    );
+});
+$logic->printTruthTable($truthTable5);
 
-// Generate and print the truth table
-$truthTable2 = $logic->generateTruthTable([$p, $q], $formula2);
-echo "\n\nExample 2: De Morgan's Law\n";
-echo "-------------------------------\n";
-echo "Formula: ¬(P ∧ Q) ↔ (¬P ∨ ¬Q)\n";
-echo "This demonstrates that the negation of a conjunction equals the disjunction of negations\n";
-$logic->printTruthTable($truthTable2);
+// Example 6: Advanced Logic Operations
+echo "\n---------------------------------------";
+echo "\n| Example 6: Advanced Logic Operations\n";
+echo "---------------------------------------\n";
+echo "Formula: (P NAND Q) XOR (Q NOR R)\n";
+echo "This demonstrates the use of NAND, NOR, and XOR operators\n";
 
-// Example 3: Syllogism: ((P → Q) ∧ (Q → R)) → (P → R)
-$formula3 = function () use ($logic, $p, $q, $r) {
-    $pImpliesQ = $logic->IMPLIES($p->getValue(), $q->getValue());
-    $qImpliesR = $logic->IMPLIES($q->getValue(), $r->getValue());
-    $pImpliesR = $logic->IMPLIES($p->getValue(), $r->getValue());
-    return $logic->IMPLIES($logic->AND($pImpliesQ, $qImpliesR), $pImpliesR);
-};
+$truthTable6 = $logic->generateTruthTable([$p, $q, $r], function() use ($logic, $p, $q, $r) {
+    return $logic->evaluateCompound(
+        [$p, $q, $r],
+        [
+            ['operator' => 'NAND', 'operands' => [0, 1]],  // P NAND Q
+            ['operator' => 'NOR', 'operands' => [1, 2]],   // Q NOR R
+            ['operator' => 'XOR', 'operands' => [3, 4]]    // (P NAND Q) XOR (Q NOR R)
+        ]
+    );
+});
+$logic->printTruthTable($truthTable6);
 
-// Generate and print the truth table
-$truthTable3 = $logic->generateTruthTable([$p, $q, $r], $formula3);
-echo "\n\nExample 3: Syllogism\n";
-echo "-------------------------------\n";
-echo "Formula: ((P → Q) ∧ (Q → R)) → (P → R)\n";
-echo "This demonstrates the chain rule of implications\n";
-$logic->printTruthTable($truthTable3);
+// Example 7: Working with Proposition Objects
+echo "\n---------------------------------------";
+echo "\n| Example 7: Working with Proposition Objects\n";
+echo "---------------------------------------\n";
+echo "Demonstrating Proposition object features\n\n";
 
-// Example 4: Modus Ponens: P, P→Q ⊢ Q
-echo "\n\nExample 4: Modus Ponens\n";
-echo "-------------------------------\n";
-echo "Rule: P, P→Q ⊢ Q (From P and P implies Q, we can deduce Q)\n";
+$p = new Proposition('P', true);
+echo "Original: " . $p . "\n";
 
-$p->setValue(true);
-$q->setValue(false);
-$implication = $logic->IMPLIES($p->getValue(), $q->getValue());
+$notP = $p->negate();
+echo "Negation: " . $notP . "\n";
 
-echo "Scenario 1:\n";
-echo 'P = ' . ($p->getValue() ? 'true' : 'false') . "\n";
-echo 'P→Q = ' . ($implication ? 'true' : 'false') . "\n";
-echo "When P is true and P→Q is false, then the premise is invalid.\n";
-
-// Set up a valid Modus Ponens scenario
-$p->setValue(true);
-$q->setValue(true);
-$implication = $logic->IMPLIES($p->getValue(), $q->getValue());
-
-echo "\nScenario 2:\n";
-echo 'P = ' . ($p->getValue() ? 'true' : 'false') . "\n";
-echo 'P→Q = ' . ($implication ? 'true' : 'false') . "\n";
-echo 'Q = ' . ($q->getValue() ? 'true' : 'false') . "\n";
-echo "When P is true and P→Q is true, Q must be true. Valid Modus Ponens!\n";
-
-// Example 5: Modus Tollens: ¬Q, P→Q ⊢ ¬P
-echo "\n\nExample 5: Modus Tollens\n";
-echo "-------------------------------\n";
-echo "Rule: ¬Q, P→Q ⊢ ¬P (From not-Q and P implies Q, we can deduce not-P)\n";
-
-$p->setValue(true);
-$q->setValue(false);
-$implication = $logic->IMPLIES($p->getValue(), $q->getValue());
-$notQ = $logic->NOT($q->getValue());
-$notP = $logic->NOT($p->getValue());
-
-echo 'P = ' . ($p->getValue() ? 'true' : 'false') . "\n";
-echo 'Q = ' . ($q->getValue() ? 'true' : 'false') . "\n";
-echo '¬Q = ' . ($notQ ? 'true' : 'false') . "\n";
-echo 'P→Q = ' . ($implication ? 'true' : 'false') . "\n";
-echo '¬P = ' . ($notP ? 'true' : 'false') . "\n";
-echo "When ¬Q is true and P→Q is false, Modus Tollens states ¬P should be true.\n";
-echo 'In this case, ¬P is ' . ($notP ? 'true' : 'false') . ", which doesn't validate Modus Tollens because the premise P→Q is false.\n";
-
-// Setup for valid Modus Tollens
-$p->setValue(false);
-$q->setValue(false);
-$implication = $logic->IMPLIES($p->getValue(), $q->getValue());
-$notQ = $logic->NOT($q->getValue());
-$notP = $logic->NOT($p->getValue());
-
-echo "\nScenario 2:\n";
-echo 'P = ' . ($p->getValue() ? 'true' : 'false') . "\n";
-echo 'Q = ' . ($q->getValue() ? 'true' : 'false') . "\n";
-echo '¬Q = ' . ($notQ ? 'true' : 'false') . "\n";
-echo 'P→Q = ' . ($implication ? 'true' : 'false') . "\n";
-echo '¬P = ' . ($notP ? 'true' : 'false') . "\n";
-echo "When ¬Q is true and P→Q is true, ¬P must be true. Valid Modus Tollens!\n";
+$copy = $p->copy();
+$copy->setValue(false);
+echo "Original after copy modification: " . $p . "\n";
+echo "Modified copy: " . $copy . "\n";

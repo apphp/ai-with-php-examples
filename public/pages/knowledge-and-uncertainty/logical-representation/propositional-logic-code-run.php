@@ -29,7 +29,7 @@ $memoryEnd = memory_get_usage();
 
 <div>
     <p>
-        Propositional logic, also known as Boolean logic, is a fundamental concept in AI that deals with statements that are either true or false. It
+        Propositional logic, also known as Boolean logic (basic logical operations like: AND, OR, NOT, etc.), is a fundamental concept in AI that deals with statements that are either true or false. It
         provides a systematic way to represent knowledge and reason about facts using logical operators. AI systems utilize propositional logic in
         various applications, such as expert systems, automated reasoning, and problem-solving.
     </p>

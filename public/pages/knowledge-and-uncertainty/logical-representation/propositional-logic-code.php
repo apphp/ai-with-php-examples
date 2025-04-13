@@ -6,7 +6,7 @@
 
 <div>
     <p>
-        Propositional logic, also known as Boolean logic, is a fundamental concept in AI that deals with statements that are either true or false. It
+        Propositional logic, also known as Boolean logic (basic logical operations like: AND, OR, NOT, etc.), is a fundamental concept in AI that deals with statements that are either true or false. It
         provides a systematic way to represent knowledge and reason about facts using logical operators. AI systems utilize propositional logic in
         various applications, such as expert systems, automated reasoning, and problem-solving.
     </p>
@@ -27,10 +27,10 @@
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active pt-3" id="Proposition" role="tabpanel" aria-labelledby="Proposition-tab">
-            <?= create_example_of_use_links(APP_PATH . 'classes/logic/Proposition.php', title: 'Example of class <code>Proposition</code>', opened: true); ?>
+            <?= create_example_of_use_links(APP_PATH . 'src/Knowledge/Logic/Propositional/Proposition.php', title: 'Example of class <code>Proposition</code>', opened: true); ?>
         </div>
         <div class="tab-pane fade pt-3" id="PropositionalLogic" role="tabpanel" aria-labelledby="PropositionalLogic-tab">
-            <?= create_example_of_use_links(APP_PATH . 'classes/logic/PropositionalLogic.php', title: 'Example of class <code>PropositionalLogic</code>', opened: true); ?>
+            <?= create_example_of_use_links(APP_PATH . 'src/Knowledge/Logic/Propositional/PropositionalLogic.php', title: 'Example of class <code>PropositionalLogic</code>', opened: true); ?>
         </div>
     </div>
 </div>

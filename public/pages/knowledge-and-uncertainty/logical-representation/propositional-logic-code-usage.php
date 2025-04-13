@@ -14,8 +14,8 @@ $r = new Proposition('R', false);
 
 // Example 1: Basic Logical Operations
 echo "\n---------------------------------------";
-echo "\n| Example 1: Basic Logical Operations\n";
-echo "---------------------------------------\n";
+echo "\n| Example 1: Basic Logical Operations";
+echo "\n---------------------------------------\n";
 echo "Demonstrating basic logical operations (AND, OR, NOT)\n";
 
 // Truth table for AND operation
@@ -50,8 +50,8 @@ $logic->printTruthTable($truthTableNOT);
 
 // Example 2: Basic Derived Operations
 echo "\n---------------------------------------";
-echo "\n| Example 2: Basic Derived Operations\n";
-echo "---------------------------------------\n";
+echo "\n| Example 2: Basic Derived Operations";
+echo "\n---------------------------------------\n";
 echo "Demonstrating IMPLIES, IFF, XOR operations\n";
 
 // Truth table for IMPLIES operation
@@ -86,8 +86,8 @@ $logic->printTruthTable($truthTableXOR);
 
 // Example 3: Alternative Operations
 echo "\n---------------------------------------";
-echo "\n| Example 3: Alternative Operations\n";
-echo "---------------------------------------\n";
+echo "\n| Example 3: Alternative Operations";
+echo "\n---------------------------------------\n";
 echo "Demonstrating NAND and NOR operations\n";
 
 // Truth table for NAND operation
@@ -112,8 +112,8 @@ $logic->printTruthTable($truthTableNOR);
 
 // Example 4: Common Logical Equivalences
 echo "\n---------------------------------------";
-echo "\n| Example 4: Common Logical Equivalences\n";
-echo "---------------------------------------\n";
+echo "\n| Example 4: Common Logical Equivalences";
+echo "\n---------------------------------------\n";
 echo "Demonstrating important logical equivalences\n";
 
 // Double Negation Law: ¬¬P ↔ P
@@ -149,8 +149,8 @@ $logic->printTruthTable($truthTableContrapositive);
 // Example 5: Material Implication using evaluateCompound
 // (P → Q) ¬P ∨ Q)
 echo "\n---------------------------------------";
-echo "\n| Example 5: Material Implication\n";
-echo "---------------------------------------\n";
+echo "\n| Example 5: Material Implication";
+echo "\n---------------------------------------\n";
 echo "Formula: (P → Q) ¬P ∨ Q)\n";
 echo "This demonstrates that P implies Q is logically equivalent to not-P or Q\n";
 
@@ -169,8 +169,8 @@ $logic->printTruthTable($truthTable5);
 
 // Example 6: Advanced Logic Operations
 echo "\n---------------------------------------";
-echo "\n| Example 6: Advanced Logic Operations\n";
-echo "---------------------------------------\n";
+echo "\n| Example 6: Advanced Logic Operations";
+echo "\n---------------------------------------\n";
 echo "Formula: (P NAND Q) XOR (Q NOR R)\n";
 echo "This demonstrates the use of NAND, NOR, and XOR operators\n";
 
@@ -188,8 +188,8 @@ $logic->printTruthTable($truthTable6);
 
 // Example 7: Working with Proposition Objects
 echo "\n---------------------------------------";
-echo "\n| Example 7: Working with Proposition Objects\n";
-echo "---------------------------------------\n";
+echo "\n| Example 7: Working with Proposition Objects";
+echo "\n---------------------------------------\n";
 echo "Demonstrating Proposition object features\n\n";
 
 $p = new Proposition('P', true);

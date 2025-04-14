@@ -11,7 +11,7 @@ function memory_usage(float $endMemory, float $startMemory): string {
 }
 
 function ucshortwords(string $text) {
-    return str_ireplace(['Llm', 'Ai ', ' Ai', ' For ', ' And '], ['LLM', 'AI ', ' AI', ' for ', ' and '], $text);
+    return str_ireplace(['Llm', 'Ai ', ' Ai', ' Ml', ' For ', ' And '], ['LLM', 'AI ', ' AI', ' ML', ' for ', ' and '], $text);
 }
 
 function dd($data = [], bool $exit = false): void {

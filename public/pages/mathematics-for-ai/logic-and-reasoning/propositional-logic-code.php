@@ -2,7 +2,7 @@
     <h1 class="h2">Logical Representation in AI</h1>
 </div>
 
-<?= create_run_code_button('Propositional Logic Representation with PHP', 'knowledge-and-uncertainty', 'logical-representation', 'propositional-logic-code-run'); ?>
+<?= create_run_code_button('Propositional Logic Representation with PHP', 'mathematics-for-ai', 'logic-and-reasoning', 'propositional-logic-code-run'); ?>
 
 <div>
     <p>

@@ -22,7 +22,7 @@ $memoryEnd = memory_get_usage();
     <h2 class="h4">Propositional Logic Representation with PHP</h2>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group">
-            <a href="<?= create_href('knowledge-and-uncertainty', 'logical-representation', 'propositional-logic-code') ?>" class="btn btn-sm btn-outline-primary">Show Code</a>
+            <a href="<?= create_href('mathematics-for-ai', 'logic-and-reasoning', 'propositional-logic-code') ?>" class="btn btn-sm btn-outline-primary">Show Code</a>
         </div>
     </div>
 </div>

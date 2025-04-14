@@ -9,7 +9,6 @@
 
     <ui class="list">
         <li><a href="<?= create_href('knowledge-and-uncertainty', 'knowledge-based-agents', 'index') ?>">Knowledge-Based Agents</a></li>
-        <li><a href="<?= create_href('knowledge-and-uncertainty', 'logical-representation', 'index') ?>">Logical Representation</a></li>
     </ui>
 </div>
 

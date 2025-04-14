@@ -2,7 +2,7 @@
     <h1 class="h2">Logical Representation in AI</h1>
 </div>
 
-<?= create_run_code_button('Predicate Logic Representation with PHP', 'knowledge-and-uncertainty', 'logical-representation', 'predicate-logic-code-run'); ?>
+<?= create_run_code_button('Predicate Logic Representation with PHP', 'mathematics-for-ai', 'logic-and-reasoning', 'predicate-logic-code-run'); ?>
 
 <div>
     <p>

@@ -12,6 +12,7 @@
         logical reasoning is used to simulate human cognitive processes, allowing machines to make inferences, plan actions, and solve problems.
     </p>
 
+    <h3 class="h5">Fomal Logic</h3>
     <ui class="list">
         <li><a href="<?= create_href('mathematics-for-ai', 'logic-and-reasoning', 'propositional-logic-code') ?>">Propositional Logic</a></li>
         <li><a href="<?= create_href('mathematics-for-ai', 'logic-and-reasoning', 'predicate-logic-code') ?>">Predicate Logic</a></li>

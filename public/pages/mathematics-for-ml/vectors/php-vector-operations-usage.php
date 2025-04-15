@@ -1,6 +1,6 @@
 <?php
 
-use app\classes\mathematics\Vector;
+use Apphp\MLKit\Math\Linear\Vector;
 
 // Define vectors
 $v1 = new Vector([2, 3]);
@@ -30,4 +30,46 @@ echo "Dot Product: $v4 · $v5 = $dotProduct\n";
 $v6 = new Vector([1, 0, 0]);
 $v7 = new Vector([0, 1, 0]);
 $crossProduct = $v6->crossProduct($v7);
-echo "Cross Product: $v6 × $v7 = $crossProduct";
+echo "Cross Product: $v6 × $v7 = $crossProduct\n";
+
+// Magnitude (length) of a vector
+$magnitude = $v5->magnitude();
+echo "Magnitude of $v5 = $magnitude\n";
+
+// Normalize a vector (create unit vector)
+$normalized = $v5->normalize();
+echo "Normalized $v5 = $normalized\n";
+echo "Magnitude of normalized vector = " . $normalized->magnitude() . "\n";
+
+// Get vector dimension
+$dimension = $v5->getDimension();
+echo "Dimension of $v5 = $dimension\n";
+
+// Get vector components
+$components = $v5->getComponents();
+echo "Components of $v5 = [" . implode(", ", $components) . "]\n";
+
+// Get specific component (0-based index)
+$component = $v5->getComponent(1); // Get second component
+echo "Second component of $v5 = $component\n";
+
+// Calculate angle between vectors (in radians)
+$angle = $v4->angleBetween($v5);
+echo "Angle between $v4 and $v5 = " . number_format($angle, 4) . " radians\n";
+echo "Angle in degrees = " . number_format(rad2deg($angle), 2) . "°\n";
+
+// Check if vectors are parallel
+$v8 = new Vector([2, 4]);
+$v9 = new Vector([1, 2]); // Parallel to v8 (same direction)
+$isParallel = $v8->isParallelTo($v9);
+echo "Are $v8 and $v9 parallel? " . ($isParallel ? "Yes" : "No") . "\n";
+
+// Create a zero vector
+$zeroVector = Vector::zero(3);
+echo "3D zero vector = $zeroVector\n";
+
+// Vector projection
+$v10 = new Vector([3, 2]);
+$v11 = new Vector([4, 0]);
+$projection = $v10->projectOnto($v11);
+echo "Projection of $v10 onto $v11 = $projection\n";

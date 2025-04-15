@@ -14,5 +14,5 @@
 </div>
 
 <div>
-    <?= create_example_of_use_links(APP_PATH . 'classes/mathematics/Vector.php', title: 'Example of class <code>Vector</code>', opened: true); ?>
+    <?= create_example_of_use_links(APP_PATH . 'src/Math/Linear/Vector.php', title: 'Example of class <code>Vector</code>', opened: true); ?>
 </div>

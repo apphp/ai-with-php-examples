@@ -128,6 +128,7 @@ class PropositionalLogicTest extends TestCase {
 
     /**
      * Test truth table generation with invalid proposition type
+     * @psalm-suppress InvalidArgument
      */
     public function testGenerateTruthTableWithInvalidPropositionType(): void {
         self::expectException(InvalidArgumentException::class);
@@ -158,6 +159,7 @@ class PropositionalLogicTest extends TestCase {
 
     /**
      * Test compound evaluation with missing operator
+     * @psalm-suppress InvalidArgument
      */
     public function testEvaluateCompoundWithMissingOperator(): void {
         $p = new Proposition('P', true);

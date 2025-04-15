@@ -119,6 +119,8 @@ class PropositionalLogic {
      * @param callable $formula Function that evaluates the logical formula
      * @return array<array<string, bool>> Truth table with all possible combinations
      * @throws InvalidArgumentException If propositions array is empty
+     * @psalm-suppress MixedReturnTypeCoercion
+     * @psalm-suppress MixedAssignment
      */
     public function generateTruthTable(array $propositions, callable $formula): array {
         if (empty($propositions)) {
@@ -171,6 +173,7 @@ class PropositionalLogic {
         $columns = array_keys($truthTable[0]);
 
         // Calculate column width based on the longest column name
+        /** @psalm-suppress ArgumentTypeCoercion */
         $columnWidth = max(array_map('strlen', $columns)) + 2;
         $columnWidth = max($columnWidth, 8); // Minimum width of 8 characters
 

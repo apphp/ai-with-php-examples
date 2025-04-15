@@ -11,7 +11,7 @@ BASE_PATH="file://$OS_APP_DIRECTORY"
 # Convert the paths to the specified base path in file:/// URL format
 #CLICKABLE_OUTPUT=$(echo "$PSALM_OUTPUT" | sed -E "s#(?<!app\\\\)(modules|helpers|components|jobs)#$BASE_PATH\1#g")
 # Don't handle routes, starting from app\...
-CLICKABLE_OUTPUT=$(echo "$PSALM_OUTPUT" | perl -pe "s#(?<!app\\\\)(src|classes)#${BASE_PATH}\1#g")
+CLICKABLE_OUTPUT=$(echo "$PSALM_OUTPUT" | perl -pe "s#(?<!app\\\\)(src|classes|tests)#${BASE_PATH}\1#g")
 
 # Output the result
 echo "$CLICKABLE_OUTPUT"

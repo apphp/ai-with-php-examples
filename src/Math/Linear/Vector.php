@@ -29,6 +29,8 @@ class Vector {
      * @param Vector $other The vector to add
      * @return Vector A new vector representing the sum
      * @throws Exception If vectors have different dimensions
+     * @psalm-suppress MixedOperand
+     * @psalm-suppress MissingClosureReturnType
      */
     public function add(Vector $other): Vector {
         if (count($this->components) !== count($other->components)) {
@@ -48,6 +50,8 @@ class Vector {
      * @param Vector $other The vector to subtract
      * @return Vector A new vector representing the difference
      * @throws Exception If vectors have different dimensions
+     * @psalm-suppress MixedOperand
+     * @psalm-suppress MissingClosureReturnType
      */
     public function subtract(Vector $other): Vector {
         if (count($this->components) !== count($other->components)) {
@@ -66,6 +70,8 @@ class Vector {
      *
      * @param float|int $scalar The scalar value to multiply by
      * @return Vector A new vector representing the scalar multiplication
+     * @psalm-suppress MissingClosureReturnType
+     * @psalm-suppress MixedOperand
      */
     public function scalarMultiply($scalar): Vector {
         $result = array_map(function ($a) use ($scalar) {
@@ -81,6 +87,8 @@ class Vector {
      * @param Vector $other The vector to calculate dot product with
      * @return float The resulting dot product
      * @throws Exception If vectors have different dimensions
+     * @psalm-suppress MissingClosureReturnType
+     * @psalm-suppress MixedOperand
      */
     public function dotProduct(Vector $other): float {
         if (count($this->components) !== count($other->components)) {
@@ -104,6 +112,7 @@ class Vector {
             throw new Exception('Cross product is only defined for 3D vectors.');
         }
 
+        /** @psalm-suppress MixedOperand */
         $result = [
             $this->components[1] * $other->components[2] - $this->components[2] * $other->components[1],
             $this->components[2] * $other->components[0] - $this->components[0] * $other->components[2],
@@ -119,6 +128,7 @@ class Vector {
      * @return string The vector in format [x, y, z]
      */
     public function __toString(): string {
+        /** @psalm-suppress MixedArgumentTypeCoercion */
         return '[' . implode(', ', $this->components) . ']';
     }
 
@@ -169,8 +179,10 @@ class Vector {
      * @param int $index The index of the component (0-based)
      * @return float|int The component value
      * @throws Exception If the index is out of bounds
+     * @psalm-suppress MixedInferredReturnType
+     * @psalm-suppress MixedReturnStatement
      */
-    public function getComponent(int $index) {
+    public function getComponent(int $index): float|int {
         if ($index < 0 || $index >= count($this->components)) {
             throw new Exception('Index out of bounds.');
         }
@@ -198,6 +210,8 @@ class Vector {
      *
      * @param Vector $other The other vector to check
      * @return bool True if vectors are parallel, false otherwise
+     * @psalm-suppress MixedArgument
+     * @psalm-suppress MixedOperand
      */
     public function isParallelTo(Vector $other): bool {
         if ($this->getDimension() !== $other->getDimension()) {
@@ -216,6 +230,7 @@ class Vector {
 
         for ($i = 0; $i < $this->getDimension(); $i++) {
             if ($thisComponents[$i] != 0 && $otherComponents[$i] != 0) {
+                /** @psalm-suppress MixedAssignment */
                 $ratio = $thisComponents[$i] / $otherComponents[$i];
                 break;
             }

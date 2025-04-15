@@ -11,7 +11,6 @@ use InvalidArgumentException;
  * and utilities for generating and displaying truth tables for logical formulas.
  */
 class PropositionalLogic {
-
     /**
      * @var array|string[]
      */

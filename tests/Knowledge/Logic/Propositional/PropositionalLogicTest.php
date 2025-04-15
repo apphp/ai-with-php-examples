@@ -105,7 +105,7 @@ class PropositionalLogicTest extends TestCase {
         // Test P AND Q
         $truthTable = $this->logic->generateTruthTable(
             [$p, $q],
-            fn() => $this->logic->AND($p->getValue(), $q->getValue())
+            fn () => $this->logic->AND($p->getValue(), $q->getValue())
         );
 
         self::assertCount(4, $truthTable);
@@ -123,7 +123,7 @@ class PropositionalLogicTest extends TestCase {
     public function testGenerateTruthTableWithEmptyPropositions(): void {
         self::expectException(InvalidArgumentException::class);
         self::expectExceptionMessage('At least one proposition is required');
-        $this->logic->generateTruthTable([], fn() => true);
+        $this->logic->generateTruthTable([], fn () => true);
     }
 
     /**
@@ -132,7 +132,7 @@ class PropositionalLogicTest extends TestCase {
     public function testGenerateTruthTableWithInvalidPropositionType(): void {
         self::expectException(InvalidArgumentException::class);
         self::expectExceptionMessage('All elements must be instances of Proposition');
-        $this->logic->generateTruthTable([new \stdClass()], fn() => true);
+        $this->logic->generateTruthTable([new \stdClass()], fn () => true);
     }
 
     /**

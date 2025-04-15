@@ -67,7 +67,7 @@ $menu = [
                     'propositional-logic-code', 'propositional-logic-code-run',
                     'predicate-logic-code', 'predicate-logic-code-run',
                 ]],
-            ]
+            ],
         ],
     ],
     '<i class="fas fa-robot me-1"></i> Machine Learning' => [

@@ -77,15 +77,16 @@ You may find live demo for these examples on official website:
     - Practical Applications
       - Traveling Salesman Problem
       - Simulated Annealing Process
+  - AI Agents
+      - LLM Agents
+        - Site Status Checker Agent
+        - Sales Analyst Agent
   - Knowledge & Uncertainty in AI
     - Knowledge-Based Agents
-    - Logical Representation
+  - Mathematics for AI
+      - Logic and Reasoning
         - Propositional
         - Predicate Logic
-  - AI Agents
-    - LLM Agents
-      - Site Status Checker Agent
-      - Sales Analyst Agent
 - Machine Learning
   - Mathematics for ML
     - Scalar

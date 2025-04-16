@@ -22,10 +22,10 @@
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active pt-3" id="KnowledgeBase" role="tabpanel" aria-labelledby="KnowledgeBase-tab">
-            <?= create_example_of_use_links(APP_PATH . 'classes/knowledgebase/KnowledgeBase.php', title: 'Example of class <code>KnowledgeBase</code>', opened: true); ?>
+            <?= create_example_of_use_links(APP_PATH . 'classes/knowledgebase/KnowledgeBase.php', title: 'Example of class <code>KnowledgeBase</code>', opened: true, copyButtonId: 'copyButton-1'); ?>
         </div>
         <div class="tab-pane fade pt-3" id="KBAgent" role="tabpanel" aria-labelledby="KBAgent-tab">
-            <?= create_example_of_use_links(APP_PATH . 'classes/knowledgebase/KBAgent.php', title: 'Example of class <code>KBAgent</code>', opened: true); ?>
+            <?= create_example_of_use_links(APP_PATH . 'classes/knowledgebase/KBAgent.php', title: 'Example of class <code>KBAgent</code>', opened: true, copyButtonId: 'copyButton-2'); ?>
         </div>
     </div>
 </div>

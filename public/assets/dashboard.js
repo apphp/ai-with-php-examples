@@ -8,13 +8,13 @@ function loadTooltips() {
 loadTooltips();
 
 
-function copyToClipboard() {
+function copyToClipboard(copyButtonId = 'copyButton') {
     // Find the <pre> tag content
-    const codeContent = document.getElementById("code").innerText;
+    const codeContent = document.getElementById(copyButtonId + '-code').innerText;
 
     // Create a temporary textarea element to hold the content
     const tempTextArea = document.createElement("textarea");
-    tempTextArea.value = codeContent;
+    tempTextArea.value = codeContent.replaceAll(" ", " ");
 
     // Append the textarea to the document, copy its content, and remove it
     document.body.appendChild(tempTextArea);
@@ -23,7 +23,7 @@ function copyToClipboard() {
     document.body.removeChild(tempTextArea);
 
     // Change the button text to "Copied!" temporarily
-    const copyButton = document.getElementById("copyButton");
+    const copyButton = document.getElementById(copyButtonId);
     const originalText = copyButton.innerText;
     copyButton.innerText = "Copied!";
 

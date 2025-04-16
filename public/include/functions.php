@@ -143,22 +143,23 @@ function create_run_code_button(
  * @param string $title
  * @param bool $opened
  * @param string $language      php|js
+ * @param string $copyButtonId
  * @return string
  */
-function create_example_of_use_links(string $datasetFile = '', string $title = 'Example of use', bool $opened = false, string $language = 'php'): string {
+function create_example_of_use_links(string $datasetFile = '', string $title = 'Example of use', bool $opened = false, string $language = 'php', string $copyButtonId = 'copyButton'): string {
 
     if ($opened) {
         $output = ($title ? '<p>' . $title . ':</p>' : '') . '
         <div class="bd-clipboard">
-            <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">
+            <button id="'  .$copyButtonId . '" type="button" class="btn-clipboard" onclick="copyToClipboard(\''  .$copyButtonId . '\')">
             Copy
             </button>&nbsp;
         </div>';
 
         if ($language === 'js') {
-            $output .= '<div class="code-wrapper p-0"><pre><code id="code" class="language-javascript">' . htmlentities(file_get_contents($datasetFile)) . '</code></pre class=""></div>';
+            $output .= '<div id="'  .$copyButtonId . '-code" class="code-wrapper p-0"><pre><code id="code" class="language-javascript">' . htmlentities(file_get_contents($datasetFile)) . '</code></pre></div>';
         } else {
-            $output .= '<div class="code-wrapper"><code id="code">' . highlight_file($datasetFile, true) . '</code></div>';
+            $output .= '<div id="'  .$copyButtonId . '-code" class="code-wrapper"><code id="code"><span>' . highlight_file($datasetFile, true) . '</code></div>';
         }
     } else {
         $output = '
@@ -167,9 +168,9 @@ function create_example_of_use_links(string $datasetFile = '', string $title = '
         </p>
         <div class="collapse pb-4" id="collapseExampleOfUse">
             <div class="bd-clipboard">
-                <button id="copyButton" type="button" class="btn-clipboard" onclick="copyToClipboard()">Copy</button>&nbsp;
+                <button id="'  .$copyButtonId . '" type="button" class="btn-clipboard" onclick="copyToClipboard(\''  .$copyButtonId . '\')">Copy</button>&nbsp;
             </div>
-            <div class="code-wrapper">
+            <div id="'  .$copyButtonId . '-code" class="code-wrapper">
                 <code id="code">' . highlight_file($datasetFile, true) . '</code>
             </div>
         </div>';

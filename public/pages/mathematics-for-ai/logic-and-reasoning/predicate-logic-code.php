@@ -43,19 +43,19 @@
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active pt-3" id="Term" role="tabpanel" aria-labelledby="Term-tab">
-            <?= create_example_of_use_links(APP_PATH . 'classes/logic/Term.php', title: 'Example of class <code>Term</code>', opened: true); ?>
+            <?= create_example_of_use_links(APP_PATH . 'classes/logic/Term.php', title: 'Example of class <code>Term</code>', opened: true, copyButtonId: 'copyButton-1'); ?>
         </div>
         <div class="tab-pane fade pt-3" id="Domain" role="tabpanel" aria-labelledby="Domain-tab">
-            <?= create_example_of_use_links(APP_PATH . 'classes/logic/Domain.php', title: 'Example of class <code>Domain</code>', opened: true); ?>
+            <?= create_example_of_use_links(APP_PATH . 'classes/logic/Domain.php', title: 'Example of class <code>Domain</code>', opened: true, copyButtonId: 'copyButton-2'); ?>
         </div>
         <div class="tab-pane fade pt-3" id="Predicate" role="tabpanel" aria-labelledby="Predicate-tab">
-            <?= create_example_of_use_links(APP_PATH . 'classes/logic/Predicate.php', title: 'Example of class <code>Domain</code>', opened: true); ?>
+            <?= create_example_of_use_links(APP_PATH . 'classes/logic/Predicate.php', title: 'Example of class <code>Domain</code>', opened: true, copyButtonId: 'copyButton-3'); ?>
         </div>
         <div class="tab-pane fade pt-3" id="AtomicFormula" role="tabpanel" aria-labelledby="AtomicFormula-tab">
-            <?= create_example_of_use_links(APP_PATH . 'classes/logic/AtomicFormula.php', title: 'Example of class <code>AtomicFormula</code>', opened: true); ?>
+            <?= create_example_of_use_links(APP_PATH . 'classes/logic/AtomicFormula.php', title: 'Example of class <code>AtomicFormula</code>', opened: true, copyButtonId: 'copyButton-4'); ?>
         </div>
         <div class="tab-pane fade pt-3" id="PredicateLogic" role="tabpanel" aria-labelledby="PredicateLogic-tab">
-            <?= create_example_of_use_links(APP_PATH . 'classes/logic/PredicateLogic.php', title: 'Example of class <code>PredicateLogic</code>', opened: true); ?>
+            <?= create_example_of_use_links(APP_PATH . 'classes/logic/PredicateLogic.php', title: 'Example of class <code>PredicateLogic</code>', opened: true, copyButtonId: 'copyButton-5'); ?>
         </div>
     </div>
 </div>

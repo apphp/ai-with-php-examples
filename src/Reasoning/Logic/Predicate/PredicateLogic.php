@@ -13,6 +13,7 @@ class PredicateLogic {
     public function forAll(Domain $domain, string $varName, callable $formula): bool {
         $objects = $domain->getAllObjects();
 
+        /** @psalm-suppress MixedAssignment */
         foreach ($objects as $objectName => $properties) {
             $assignment = [$varName => $objectName];
             if (!$formula($assignment)) {
@@ -30,6 +31,7 @@ class PredicateLogic {
     public function exists(Domain $domain, string $varName, callable $formula): bool {
         $objects = $domain->getAllObjects();
 
+        /** @psalm-suppress MixedAssignment */
         foreach ($objects as $objectName => $properties) {
             $assignment = [$varName => $objectName];
             if ($formula($assignment)) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\classes\logic;
+namespace Apphp\MLKit\Reasoning\Logic\Predicate;
 
 /**
  * Logical connectives and quantifiers

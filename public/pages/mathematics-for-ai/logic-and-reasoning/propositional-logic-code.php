@@ -27,10 +27,10 @@
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active pt-3" id="Proposition" role="tabpanel" aria-labelledby="Proposition-tab">
-            <?= create_example_of_use_links(APP_PATH . 'src/Knowledge/Logic/Propositional/Proposition.php', title: 'Example of class <code>Proposition</code>', opened: true, copyButtonId: 'copyButton-1'); ?>
+            <?= create_example_of_use_links(APP_PATH . 'src/Reasoning/Logic/Propositional/Proposition.php', title: 'Example of class <code>Proposition</code>', opened: true, copyButtonId: 'copyButton-1'); ?>
         </div>
         <div class="tab-pane fade pt-3" id="PropositionalLogic" role="tabpanel" aria-labelledby="PropositionalLogic-tab">
-            <?= create_example_of_use_links(APP_PATH . 'src/Knowledge/Logic/Propositional/PropositionalLogic.php', title: 'Example of class <code>PropositionalLogic</code>', opened: true, copyButtonId: 'copyButton-2'); ?>
+            <?= create_example_of_use_links(APP_PATH . 'src/Reasoning/Logic/Propositional/PropositionalLogic.php', title: 'Example of class <code>PropositionalLogic</code>', opened: true, copyButtonId: 'copyButton-2'); ?>
         </div>
     </div>
 </div>

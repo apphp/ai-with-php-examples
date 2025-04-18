@@ -1,12 +1,10 @@
 <?php
 
-use app\classes\logic\AtomicFormula;
-use app\classes\logic\Domain;
-use app\classes\logic\Predicate;
-use app\classes\logic\PredicateLogic;
-use app\classes\logic\Term;
-
-//echo "\n\n====== FIRST-ORDER PREDICATE LOGIC EXAMPLES ======\n\n";
+use Apphp\MLKit\Reasoning\Logic\Predicate\AtomicFormula;
+use Apphp\MLKit\Reasoning\Logic\Predicate\Domain;
+use Apphp\MLKit\Reasoning\Logic\Predicate\Predicate;
+use Apphp\MLKit\Reasoning\Logic\Predicate\PredicateLogic;
+use Apphp\MLKit\Reasoning\Logic\Predicate\Term;
 
 // Define the domain (universe of discourse)
 $domain = new Domain();

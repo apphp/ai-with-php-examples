@@ -1,6 +1,6 @@
 <?php
 
-namespace Apphp\MLKit\Knowledge\Logic\Propositional;
+namespace Apphp\MLKit\Reasoning\Logic\Propositional;
 
 use InvalidArgumentException;
 

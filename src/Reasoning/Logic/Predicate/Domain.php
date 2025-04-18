@@ -1,6 +1,6 @@
 <?php
 
-namespace app\classes\logic;
+namespace Apphp\MLKit\Reasoning\Logic\Predicate;
 
 /**
  * Represents a domain of discourse - the universe of objects

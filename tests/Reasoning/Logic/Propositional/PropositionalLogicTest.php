@@ -1,9 +1,9 @@
 <?php
 
-namespace Apphp\MLKit\Tests\Knowledge\Logic\Propositional;
+namespace Apphp\MLKit\Tests\Reasoning\Logic\Propositional;
 
-use Apphp\MLKit\Knowledge\Logic\Propositional\Proposition;
-use Apphp\MLKit\Knowledge\Logic\Propositional\PropositionalLogic;
+use Apphp\MLKit\Reasoning\Logic\Propositional\Proposition;
+use Apphp\MLKit\Reasoning\Logic\Propositional\PropositionalLogic;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 

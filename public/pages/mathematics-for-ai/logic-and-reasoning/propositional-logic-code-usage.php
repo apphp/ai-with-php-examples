@@ -1,7 +1,7 @@
 <?php
 
-use Apphp\MLKit\Knowledge\Logic\Propositional\Proposition;
-use Apphp\MLKit\Knowledge\Logic\Propositional\PropositionalLogic;
+use Apphp\MLKit\Reasoning\Logic\Propositional\Proposition;
+use Apphp\MLKit\Reasoning\Logic\Propositional\PropositionalLogic;
 
 // Initialize the propositional logic system
 $logic = new PropositionalLogic();

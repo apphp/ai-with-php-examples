@@ -6,9 +6,6 @@ on:
 
 jobs:
     lucy-ci:
-#        defaults:
-#            run:
-#                working-directory: ./protected
 
         runs-on: ubuntu-22.04
 
@@ -42,15 +39,6 @@ jobs:
 
             - name: " -- Install WhoIs"
               run: sudo apt-get install whois
-
-            - name: " -- Install xvfb, libfontconfig and wkhtmltopdf"
-              run: sudo apt-get install xvfb libfontconfig wkhtmltopdf
-
-            - name: " -- Create required directories"
-              run: |
-                  sudo mkdir -p /opt/my-dir/files/aaaaaaaaaaaaa
-                  sudo chown -R $(whoami):$(whoami) /opt/my-dir
-                  sudo chown -R $(whoami):$(whoami) /tmp
 
 
             # --------------------------------------------------------------------

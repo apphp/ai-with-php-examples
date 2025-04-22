@@ -86,13 +86,13 @@ jobs:
               id: php-linter
               uses: actions/cache@v3
               with:
-                  path: ./protected/runtime/.phplint.result.cache
+                  path: ./tmp/.phplint.result.cache
                   key: ${{ runner.os }}-phplint-${{ env.DATE }}
                   restore-keys: |
                       ${{ runner.os }}-phplint-
 
             - name: " -- Run PHPLint"
-              run: COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/my-dir-web/my-dir-web/protected/composer.phar php-lint
+              run: COMPOSER_PROCESS_TIMEOUT=3000 composer php-lint
 
 
 #            # --------------------------------------------------------------------

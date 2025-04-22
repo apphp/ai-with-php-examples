@@ -45,10 +45,6 @@ jobs:
 
             - name: " -- Install xvfb, libfontconfig and wkhtmltopdf"
               run: sudo apt-get install xvfb libfontconfig wkhtmltopdf
-            - name: " -- Install libemail"
-              run: |
-                  sudo apt-get install libemail-outlook-message-perl
-                  which msgconvert
 
             - name: " -- Create required directories"
               run: |
@@ -73,11 +69,11 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-composer-vendors-
 
-            - name: " -- Install composer dependencies"
-              run: COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/my-dir-web/my-dir-web/protected/composer.phar install
-
-            - name: " -- Regenarate class mapping"
-              run: COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/my-dir-web/my-dir-web/protected/composer.phar dump-autoload --optimize --classmap-authoritative
+#            - name: " -- Install composer dependencies"
+#              run: COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/my-dir-web/my-dir-web/protected/composer.phar install
+#
+#            - name: " -- Regenarate class mapping"
+#              run: COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/my-dir-web/my-dir-web/protected/composer.phar dump-autoload --optimize --classmap-authoritative
 
 
             # --------------------------------------------------------------------

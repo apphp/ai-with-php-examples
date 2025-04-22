@@ -40,7 +40,7 @@ $memoryEnd = memory_get_usage();
             </button>
             &nbsp;
         </div>
-        <div class="code-wrapper">
+        <div id="copyButton-code" class="code-wrapper">
             <code id="code">
             <?= highlight_file(dirname(__FILE__) . '/mathphp-matrix-operations-usage.php', true); ?>
             </code>

@@ -10,8 +10,7 @@ loadTooltips();
 
 function copyToClipboard(copyButtonId = 'copyButton') {
     // Find the <pre> tag content
-    const codecontentId = copyButtonId + (copyButtonId !== 'copyButton' ? '-code' : '');
-    const codeContent = document.getElementById(codecontentId).innerText;
+    const codeContent = document.getElementById(copyButtonId + '-code').innerText;
 
     // Create a temporary textarea element to hold the content
     const tempTextArea = document.createElement("textarea");

@@ -33,10 +33,7 @@ class Vector {
      * @psalm-suppress MissingClosureReturnType
      */
     public function add(Vector $other): Vector {
-        if (count($this->components) !== count($other->components)) {
-            throw new Exception('Vectors must have the same dimension for addition.');
-        }
-
+        $this->assertSameDimension($other, 'addition');
         $result = array_map(function ($a, $b) {
             return $a + $b;
         }, $this->components, $other->components);
@@ -54,10 +51,7 @@ class Vector {
      * @psalm-suppress MissingClosureReturnType
      */
     public function subtract(Vector $other): Vector {
-        if (count($this->components) !== count($other->components)) {
-            throw new Exception('Vectors must have the same dimension for subtraction.');
-        }
-
+        $this->assertSameDimension($other, 'subtraction');
         $result = array_map(function ($a, $b) {
             return $a - $b;
         }, $this->components, $other->components);
@@ -91,10 +85,7 @@ class Vector {
      * @psalm-suppress MixedOperand
      */
     public function dotProduct(Vector $other): float {
-        if (count($this->components) !== count($other->components)) {
-            throw new Exception('Vectors must have the same dimension for dot product.');
-        }
-
+        $this->assertSameDimension($other, 'dot product');
         return array_sum(array_map(function ($a, $b) {
             return $a * $b;
         }, $this->components, $other->components));
@@ -197,6 +188,7 @@ class Vector {
      * @throws Exception If either vector has zero magnitude or dimensions don't match
      */
     public function angleBetween(Vector $other): float {
+        $this->assertSameDimension($other, 'angle calculation');
         $mag1 = $this->magnitude();
         $mag2 = $other->magnitude();
         if ($mag1 == 0 || $mag2 == 0) {
@@ -294,15 +286,13 @@ class Vector {
      * @throws Exception If vectors have different dimensions
      */
     public function hadamardProduct(Vector $other): Vector {
-        if ($this->getDimension() !== $other->getDimension()) {
-            throw new Exception('Vectors must have the same dimension for Hadamard product.');
-        }
+        $this->assertSameDimension($other, 'Hadamard product');
         $result = array_map(
-            /**
-             * @param float|int $a
-             * @param float|int $b
-             * @return float
-             */
+        /**
+         * @param float|int $a
+         * @param float|int $b
+         * @return float
+         */
             function ($a, $b): float {
                 return (float)$a * (float)$b;
             },
@@ -320,9 +310,7 @@ class Vector {
      * @throws Exception If vectors have different dimensions
      */
     public function euclideanDistance(Vector $other): float {
-        if ($this->getDimension() !== $other->getDimension()) {
-            throw new Exception('Vectors must have the same dimension for distance calculation.');
-        }
+        $this->assertSameDimension($other, 'distance calculation');
         $sum = 0;
         /** @psalm-suppress MixedAssignment */
         foreach ($this->components as $i => $value) {
@@ -340,9 +328,7 @@ class Vector {
      * @throws Exception If vectors have different dimensions
      */
     public function manhattanDistance(Vector $other): float {
-        if ($this->getDimension() !== $other->getDimension()) {
-            throw new Exception('Vectors must have the same dimension for distance calculation.');
-        }
+        $this->assertSameDimension($other, 'distance calculation');
         $sum = 0;
         foreach ($this->components as $i => $value) {
             $sum += abs((float)$value - (float)$other->components[$i]);
@@ -370,9 +356,21 @@ class Vector {
      * @throws Exception If vectors have different dimensions
      */
     public function isOrthogonalTo(Vector $other, float $epsilon = 1e-9): bool {
-        if ($this->getDimension() !== $other->getDimension()) {
-            throw new Exception('Vectors must have the same dimension to check orthogonality.');
-        }
+        $this->assertSameDimension($other, 'orthogonality check');
         return abs($this->dotProduct($other)) < $epsilon;
+    }
+
+    /**
+     * Ensures that this vector and the other vector have the same dimension.
+     *
+     * @param Vector $other The other vector
+     * @param string $context The context for the exception message
+     * @return void
+     * @throws Exception If dimensions do not match
+     */
+    private function assertSameDimension(Vector $other, string $context = 'operation'): void {
+        if ($this->getDimension() !== $other->getDimension()) {
+            throw new Exception("Vectors must have the same dimension for $context.");
+        }
     }
 }

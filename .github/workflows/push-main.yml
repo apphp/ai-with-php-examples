@@ -59,6 +59,21 @@ jobs:
             - name: "[ Prepare Composer ]"
               run: echo "OK"
 
+            - name: "Install Composer"
+              run: |
+                EXPECTED_SIGNATURE="$(curl -s https://composer.github.io/installer.sig)"
+                php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+                ACTUAL_SIGNATURE="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+                if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]; then
+                  >&2 echo 'ERROR: Invalid installer signature';
+                  rm composer-setup.php
+                  exit 1
+                fi
+                php composer-setup.php --quiet
+                rm composer-setup.php
+                mv composer.phar /usr/local/bin/composer
+                composer --version
+
             # cache vendor for later use
             - name: " -- Cache Composer packages"
               id: composer-cache
@@ -69,11 +84,11 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-composer-vendors-
 
-#            - name: " -- Install composer dependencies"
-#              run: COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/my-dir-web/my-dir-web/protected/composer.phar install
-#
-#            - name: " -- Regenarate class mapping"
-#              run: COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/my-dir-web/my-dir-web/protected/composer.phar dump-autoload --optimize --classmap-authoritative
+            - name: " -- Install composer dependencies"
+              run: COMPOSER_PROCESS_TIMEOUT=3000 composer install
+
+            - name: " -- Regenarate class mapping"
+              run: COMPOSER_PROCESS_TIMEOUT=3000 composer dump-autoload --optimize --classmap-authoritative
 
 
             # --------------------------------------------------------------------

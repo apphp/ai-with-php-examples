@@ -285,4 +285,94 @@ class Vector {
         $scalar = $this->dotProduct($other) / $otherMagnitudeSquared;
         return $other->scalarMultiply($scalar);
     }
+
+    /**
+     * Computes the Hadamard (element-wise) product with another vector.
+     *
+     * @param Vector $other The other vector
+     * @return Vector The Hadamard product vector
+     * @throws Exception If vectors have different dimensions
+     */
+    public function hadamardProduct(Vector $other): Vector {
+        if ($this->getDimension() !== $other->getDimension()) {
+            throw new Exception('Vectors must have the same dimension for Hadamard product.');
+        }
+        $result = array_map(
+            /**
+             * @param float|int $a
+             * @param float|int $b
+             * @return float
+             */
+            function ($a, $b): float {
+                return (float)$a * (float)$b;
+            },
+            $this->components,
+            $other->components
+        );
+        return new Vector($result);
+    }
+
+    /**
+     * Calculates the Euclidean distance to another vector.
+     *
+     * @param Vector $other The other vector
+     * @return float The Euclidean distance
+     * @throws Exception If vectors have different dimensions
+     */
+    public function euclideanDistance(Vector $other): float {
+        if ($this->getDimension() !== $other->getDimension()) {
+            throw new Exception('Vectors must have the same dimension for distance calculation.');
+        }
+        $sum = 0;
+        /** @psalm-suppress MixedAssignment */
+        foreach ($this->components as $i => $value) {
+            $diff = (float)$value - (float)$other->components[$i];
+            $sum += $diff * $diff;
+        }
+        return sqrt($sum);
+    }
+
+    /**
+     * Calculates the Manhattan (L1) distance to another vector.
+     *
+     * @param Vector $other The other vector
+     * @return float The Manhattan distance
+     * @throws Exception If vectors have different dimensions
+     */
+    public function manhattanDistance(Vector $other): float {
+        if ($this->getDimension() !== $other->getDimension()) {
+            throw new Exception('Vectors must have the same dimension for distance calculation.');
+        }
+        $sum = 0;
+        foreach ($this->components as $i => $value) {
+            $sum += abs((float)$value - (float)$other->components[$i]);
+        }
+        return $sum;
+    }
+
+    /**
+     * Calculates the angle between this vector and another vector in degrees.
+     *
+     * @param Vector $other The other vector
+     * @return float The angle in degrees
+     * @throws Exception If either vector has zero magnitude or dimensions don't match
+     */
+    public function angleBetweenDegrees(Vector $other): float {
+        return rad2deg($this->angleBetween($other));
+    }
+
+    /**
+     * Checks if this vector is orthogonal (perpendicular) to another vector.
+     *
+     * @param Vector $other The other vector
+     * @param float $epsilon Tolerance for floating point comparison
+     * @return bool True if orthogonal, false otherwise
+     * @throws Exception If vectors have different dimensions
+     */
+    public function isOrthogonalTo(Vector $other, float $epsilon = 1e-9): bool {
+        if ($this->getDimension() !== $other->getDimension()) {
+            throw new Exception('Vectors must have the same dimension to check orthogonality.');
+        }
+        return abs($this->dotProduct($other)) < $epsilon;
+    }
 }

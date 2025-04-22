@@ -6,7 +6,10 @@ namespace Apphp\MLKit\Reasoning\Logic\Predicate;
  * Represents a domain of discourse - the universe of objects
  */
 class Domain {
-    private $objects = [];
+    /**
+     * @var array
+     */
+    private array $objects = [];
 
     /**
      * @param string $name

@@ -73,3 +73,25 @@ $v10 = new Vector([3, 2]);
 $v11 = new Vector([4, 0]);
 $projection = $v10->projectOnto($v11);
 echo "Projection of $v10 onto $v11 = $projection\n";
+
+// Hadamard Product (element-wise multiplication)
+$hadamard = $v4->hadamardProduct($v5);
+echo "Hadamard Product: $v4 ∘ $v5 = $hadamard\n";
+
+// Euclidean Distance
+$euclidean = $v4->euclideanDistance($v5);
+echo "Euclidean Distance between $v4 and $v5 = $euclidean\n";
+
+// Manhattan Distance
+$manhattan = $v4->manhattanDistance($v5);
+echo "Manhattan Distance between $v4 and $v5 = $manhattan\n";
+
+// Angle in Degrees
+$angleDeg = $v4->angleBetweenDegrees($v5);
+echo "Angle between $v4 and $v5 = " . number_format($angleDeg, 2) . "°\n";
+
+// Orthogonality check
+$v12 = new Vector([1, 0]);
+$v13 = new Vector([0, 5]);
+$isOrthogonal = $v12->isOrthogonalTo($v13);
+echo "Are $v12 and $v13 orthogonal? " . ($isOrthogonal ? "Yes" : "No") . "\n";

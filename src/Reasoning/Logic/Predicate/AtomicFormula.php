@@ -6,8 +6,8 @@ namespace Apphp\MLKit\Reasoning\Logic\Predicate;
  * Represents a predicate formula like P(x, y)
  */
 class AtomicFormula {
-    private $predicate;
-    private $terms = [];
+    private Predicate $predicate;
+    private array $terms = [];
 
     public function __construct(Predicate $predicate, array $terms) {
         $this->predicate = $predicate;
@@ -82,6 +82,13 @@ class AtomicFormula {
         }
     }
 
+    /**
+     * Render to string
+     * @return string
+     * @psalm-suppress MixedArgumentTypeCoercion
+     * @psalm-suppress MixedMethodCall
+     * @psalm-suppress MissingClosureReturnType
+     */
     public function __toString(): string {
         $terms = array_map(function ($term) {
             return $term->getName();

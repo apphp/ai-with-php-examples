@@ -1,0 +1,199 @@
+name: on-push-to-main
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+    lucy-ci:
+#        defaults:
+#            run:
+#                working-directory: ./protected
+
+        runs-on: ubuntu-22.04
+
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+
+            # --------------------------------------------------------------------
+            # PREPARE ENVIRONMENT
+            # --------------------------------------------------------------------
+            - name: "[ Prepare  Environment ]"
+              run: echo "OK"
+
+            - name: Get date environment variable
+              run: echo "DATE=$(date)" >> $GITHUB_ENV
+
+            - name: store branch number
+              run: |
+                  PREFIX="COMMIT_PREFIX="
+                  PREFIX+=${{ github.head_ref }}
+                  echo $PREFIX | grep -o -e "COMMIT_PREFIX=PHISH-[0-9]*" >> $GITHUB_ENV || echo $PREFIX | grep -o -e "COMMIT_PREFIX=AW-[0-9]*" >> $GITHUB_ENV || echo $PREFIX >> $GITHUB_ENV
+
+            - name: " -- apt-get update"
+              run: sudo apt-get update
+
+            - name: " -- Install PHP"
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+
+            - name: " -- Install WhoIs"
+              run: sudo apt-get install whois
+
+            - name: " -- Install xvfb, libfontconfig and wkhtmltopdf"
+              run: sudo apt-get install xvfb libfontconfig wkhtmltopdf
+            - name: " -- Install libemail"
+              run: |
+                  sudo apt-get install libemail-outlook-message-perl
+                  which msgconvert
+
+            - name: " -- Create required directories"
+              run: |
+                  sudo mkdir -p /opt/my-dir/files/aaaaaaaaaaaaa
+                  sudo chown -R $(whoami):$(whoami) /opt/my-dir
+                  sudo chown -R $(whoami):$(whoami) /tmp
+
+
+            # --------------------------------------------------------------------
+            # Install COMPOSER
+            # --------------------------------------------------------------------
+            - name: "[ Prepare Composer ]"
+              run: echo "OK"
+
+            # cache vendor for later use
+            - name: " -- Cache Composer packages"
+              id: composer-cache
+              uses: actions/cache@v3
+              with:
+                  path: ./vendor
+                  key: ${{ runner.os }}-composer-vendors-${{ hashFiles('**/composer.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-vendors-
+
+            - name: " -- Install composer dependencies"
+              run: COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/my-dir-web/my-dir-web/protected/composer.phar install
+
+            - name: " -- Regenarate class mapping"
+              run: COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/my-dir-web/my-dir-web/protected/composer.phar dump-autoload --optimize --classmap-authoritative
+
+
+            # --------------------------------------------------------------------
+            # PHPLINT VALIDATION
+            # --------------------------------------------------------------------
+            - name: "[ STEP 4 ] - PHPLint Validation"
+              run: echo "OK"
+
+            - name: " -- Cache PHPLint"
+              id: php-linter
+              uses: actions/cache@v3
+              with:
+                  path: ./protected/runtime/.phplint.result.cache
+                  key: ${{ runner.os }}-phplint-${{ env.DATE }}
+                  restore-keys: |
+                      ${{ runner.os }}-phplint-
+
+            - name: " -- Run PHPLint"
+              run: COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/my-dir-web/my-dir-web/protected/composer.phar php-lint
+
+
+#            # --------------------------------------------------------------------
+#            # PHP CS FIXER
+#            # --------------------------------------------------------------------
+#            - name: "[ STEP 5 ] - PHP CS Fixer"
+#              run: echo "OK"
+#
+#            - name: " -- Cache PHP CS Fixer"
+#              id: php-cs-linter
+#              uses: actions/cache@v3
+#              with:
+#                  path: ./protected/runtime/.php-cs-fixer.cache
+#                  key: ${{ runner.os }}-phpcslint-${{ env.DATE }}
+#                  restore-keys: |
+#                      ${{ runner.os }}-phpcslint-
+#
+#            - name: " -- Fix PHP CS Fixer (in fix mode)"
+#              run: COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/phishing-web/phishing-web/protected/composer.phar php-cs-fix
+#
+#
+#            # --------------------------------------------------------------------
+#            # STATIC CODE ANALYSIS
+#            # --------------------------------------------------------------------
+#            - name: "[ STEP 6 ] - Static Code Analysis"
+#              run: echo "OK"
+#
+#            - name: " -- Cache PHP STAN"
+#              id: php-stan
+#              uses: actions/cache@v3
+#              with:
+#                  path: ./protected/runtime/phpstan
+#                  key: ${{ runner.os }}-phpstan-${{ env.DATE }}
+#                  restore-keys: |
+#                      ${{ runner.os }}-phpstan-
+#
+#            - name: " -- Run STAN"
+#              run: COMPOSER_PROCESS_TIMEOUT=3000 php composer.phar php-stan
+#
+#            - name: " -- Cache PHP PSALM"
+#              id: php-psalm
+#              uses: actions/cache@v3
+#              with:
+#                  path: ./protected/runtime/phppsalm
+#                  key: ${{ runner.os }}-phppsalm-${{ env.DATE }}
+#                  restore-keys: |
+#                      ${{ runner.os }}-phppsalm-
+#
+#            - name: " -- Run PSALM"
+#              run: COMPOSER_PROCESS_TIMEOUT=3000 php composer.phar php-psalm
+#
+#
+#            # --------------------------------------------------------------------
+#            # BACKEND UNIT TESTS
+#            # --------------------------------------------------------------------
+#            - name: "[ STEP 7 ] - Backend Unit Tests"
+#              run: echo "OK"
+#
+#            - name: " -- Init DB for testing"
+#              run: |
+#                  psql -U $DB_USER -d $DATABASE -h localhost -w -c "SELECT 'CREATE DATABASE $DATABASE 'WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '$DATABASE');"
+#                  psql -U $DB_USER -d $DATABASE -h localhost -w -c "DROP TYPE IF EXISTS delivery_method CASCADE;"
+#                  psql -U $DB_USER -d $DATABASE -h localhost -w -c "DROP TYPE IF EXISTS gender_type CASCADE;"
+#                  psql -U $DB_USER -d $DATABASE -h localhost -w -c "ALTER DATABASE \"$DATABASE\" OWNER TO $DB_USER;"
+#                  psql -U $DB_USER -d $DATABASE -h localhost -w -c "CREATE EXTENSION IF NOT EXISTS pgcrypto;"
+#                  psql -U $DB_USER -d $DATABASE -h localhost -w -c "CREATE EXTENSION IF NOT EXISTS hstore;"
+#                  psql -U $DB_USER -d $DATABASE -h localhost -w < $SCHEMA
+#                  psql -U $DB_USER -d $DATABASE -h localhost -w -c "CREATE OR REPLACE FUNCTION lucy_decrypt(string TEXT, enc_key TEXT) RETURNS TEXT AS \$\$DECLARE  decrypted_text TEXT;  padding INTEGER;  octet_length INTEGER;BEGIN  decrypted_text = substring(decrypt(decode(NULLIF(string,''), 'base64'), enc_key::BYTEA, 'aes-cbc') FROM 17); octet_length = octet_length(decrypted_text::BYTEA); padding = get_byte(decrypted_text::BYTEA, octet_length - 1); RETURN convert_from(substring(decrypted_text::BYTEA FOR octet_length - padding), 'UTF8');END;\$\$ LANGUAGE plpgsql;"
+#
+#            - name: " -- Run DB migrations"
+#              run: php yiic migrate --interactive=0
+#
+#            - name: " -- Run Unit Tests"
+#              run: IS_GIT_ACTIONS=1 COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/phishing-web/phishing-web/protected/composer.phar tests-unit
+#
+#            - name: " -- Git status"
+#              run: git status
+#
+#
+#            # --------------------------------------------------------------------
+#            # COMMIT CHANGES
+#            # --------------------------------------------------------------------
+#
+#            #      - name: update .build file
+#            #        run: |
+#            #          echo "branch name - " $GITHUB_HEAD_REF " | " $(date) > .build
+#
+#            - name: "[ STEP 8 ] - Commit / Push Changes"
+#              run: echo "OK"
+#
+#            - name: " -- Auto commit action"
+#              uses: stefanzweifel/git-auto-commit-action@v4.15.4
+#              with:
+#                  commit_message: ${{ env.COMMIT_PREFIX }} Linter fixes (aimlphp-bot)
+#                  commit_user_name: aimlphp-bot
+#                  commit_user_email: aimlphp-bot@github.com
+#                  commit_author: aimlphp-bot <aimlphp-bot@github.com>
+#                  skip_checkout: true
+#                  skip_fetch: true
+#

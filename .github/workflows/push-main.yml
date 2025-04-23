@@ -98,25 +98,25 @@ jobs:
               run: COMPOSER_PROCESS_TIMEOUT=3000 composer php-lint
 
 
-#            # --------------------------------------------------------------------
-#            # PHP CS FIXER
-#            # --------------------------------------------------------------------
-#            - name: "[ STEP 2 ] - PHP CS Fixer"
-#              run: echo "OK"
-#
-#            - name: " -- Cache PHP CS Fixer"
-#              id: php-cs-linter
-#              uses: actions/cache@v3
-#              with:
-#                  path: ./protected/runtime/.php-cs-fixer.cache
-#                  key: ${{ runner.os }}-phpcslint-${{ env.DATE }}
-#                  restore-keys: |
-#                      ${{ runner.os }}-phpcslint-
-#
-#            - name: " -- Fix PHP CS Fixer (in fix mode)"
-#              run: COMPOSER_PROCESS_TIMEOUT=3000 php /home/runner/work/phishing-web/phishing-web/protected/composer.phar php-cs-fix
-#
-#
+            # --------------------------------------------------------------------
+            # PHP CS FIXER
+            # --------------------------------------------------------------------
+            - name: "[ STEP 2 ] - PHP CS Fixer"
+              run: echo "OK"
+
+            - name: " -- Cache PHP CS Fixer"
+              id: php-cs-linter
+              uses: actions/cache@v3
+              with:
+                  path: ./tmp/.php-cs-fixer.cache
+                  key: ${{ runner.os }}-phpcslint-${{ env.DATE }}
+                  restore-keys: |
+                      ${{ runner.os }}-phpcslint-
+
+            - name: " -- Fix PHP CS Fixer (in fix mode)"
+              run: COMPOSER_PROCESS_TIMEOUT=3000 composer php-cs-fix
+
+
 #            # --------------------------------------------------------------------
 #            # STATIC CODE ANALYSIS
 #            # --------------------------------------------------------------------

@@ -2,7 +2,6 @@
     include('include/global.php');
     require APP_PATH . 'vendor/autoload.php';
     include('include/request.php');
-    include('include/functions.php');
 
     $menu = include_once('include/menu.php');
 

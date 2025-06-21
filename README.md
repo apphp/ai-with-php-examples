@@ -1,6 +1,9 @@
 ## Examples for AI with PHP Learning Book
 <a href="https://apphp.gitbook.io/artificial-intelligence-with-php/" target="_blank" rel="noopener noreferrer">https://apphp.gitbook.io/artificial-intelligence-with-php/</a>
 
+## Interact With The Community
+- [Join Our Telegram Channel](https://t.me/aimlphp)
+
 
 ## **⚠️ Disclaimer**
 
@@ -42,7 +45,6 @@ You may find live demo for these examples on official website:
    - MathPHP [https://github.com/markrogoyski/math-php](https://github.com/markrogoyski/math-php)
    - OpenAI PHP Client [https://github.com/openai-php/client](https://github.com/openai-php/client)
    - LLM Agents PHP SDK [https://github.com/llm-agents-php/agents](https://github.com/llm-agents-php/agents)
-
 
 ## Libraries for UI
   - Chart.js [https://www.chartjs.org/](https://www.chartjs.org/)

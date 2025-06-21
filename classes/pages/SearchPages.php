@@ -358,7 +358,7 @@ class SearchPages {
                 $resultText = preg_replace('@(' . preg_quote($safeKeyword, '/') . ')@si', '<strong class="bg-yellow">$1</strong>', htmlspecialchars($resultText, ENT_QUOTES, 'UTF-8'));
 
                 $result .= '<li style="margin-bottom:20px">';
-                $result .= '<a href="' . htmlspecialchars($filedir, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($title, ENT_QUOTES, 'UTF-8') . '</a>';
+                $result .= '<a href="' . trim(APP_URL, '/') . htmlspecialchars($filedir, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($title, ENT_QUOTES, 'UTF-8') . '</a>';
 
                 // Prepare breadcrumbs
                 $filedirParts = explode('/', $filedir);

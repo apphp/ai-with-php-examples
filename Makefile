@@ -69,7 +69,7 @@ docker-commands-init:
 	make message-docker-init check-you-sure docker-down docker-pull docker-build-pull docker-up docker-ps composer-install
 docker-ps:
 	$(docker) ps
-	@echo ""
+	@echo "${GREEN}Website: http://localhost:8088${NC}"
 docker-up:
 	$(docker) up -d
 docker-down:

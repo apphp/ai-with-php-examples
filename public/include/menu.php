@@ -155,6 +155,15 @@ $menu = [
             ],
         ],
     ],
+    '<i class="fas fa-language me-1"></i> Natural Language Processing' => [
+        [
+            'title' => 'NLP Processing Methods',
+            'subMenu' => [
+                ['section' => 'nlp-processing-methods', 'subSection' => '', 'page' => 'index', 'title' => 'Index', 'permissions' => ['index']],
+                ['section' => 'nlp-processing-methods', 'subSection' => 'text-preprocessing', 'page' => 'index', 'title' => 'Text Preprocessing', 'permissions' => ['index', 'php-remove-duplicates', 'php-remove-duplicates-code-run']],
+            ],
+        ],
+    ],
 ];
 
 return $menu;
